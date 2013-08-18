@@ -1,1 +1,9 @@
-/home/chris/.ssh/config
+Host myPi
+    HostName 69.255.160.236
+    Port 22
+    User chris
+
+Host umbc
+    HostName gl.umbc.edu
+    Port 22
+    User chlaver1
