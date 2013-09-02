@@ -11,13 +11,32 @@
 runtime! archlinux.vim
 
 " If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
-" Or better yet, read /usr/share/vim/vim73/vimrc_example.vim or the vim manual
+" Or better yet, read /usr/share/vim/vim74/vimrc_example.vim or the vim manual
 " and configure vim to your own liking!
 
+" Pathogen
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+" Critical remaps
+let mapleader=","
+inoremap jk <esc>
+
+" Other Mappings
+nnoremap <Leader>p :!python %<CR>
+nnoremap <Leader>r :!ruby %<CR>
+nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>nt :NERDTree<CR>
+
+" Smart navigation
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Tabbing
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -25,9 +44,9 @@ set autoindent
 set number
 color emacs
 
+" Backups
 set nobackup
 set noswapfile
 
-inoremap jk <esc>
-
+" Special
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
