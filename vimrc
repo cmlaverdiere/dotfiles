@@ -29,6 +29,7 @@ nnoremap <Leader>r :!ruby %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>nt :NERDTree<CR>
+nnoremap <Leader>o o<esc>S
 
 " Smart navigation
 map <C-j> <C-W>j
