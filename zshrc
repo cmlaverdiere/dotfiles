@@ -1,10 +1,7 @@
-# Path to your oh-my-zsh configuration.
+# Path to oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 ZSH_THEME="nanotech-arch-white"
 
 # General aliases
@@ -13,6 +10,7 @@ alias du="du -h"
 alias pac="\pacman"
 alias pacman="sudo pacman"
 alias pacupd="sudo pacman -Syu"
+alias temp="acpi -t"
 
 # File aliases
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
@@ -20,6 +18,7 @@ alias ideas="vim ~/Documents/Misc/ideas.txt"
 alias robots="vim ~/Devel/various/hk_dd3/robots.txt"
 alias stask="vim ~/Documents/Misc/school_tasks.txt"
 alias todo="vim ~/Documents/Misc/todo.txt"
+alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
 
 mkcd(){
@@ -44,6 +43,14 @@ function unmark {
 }
 function marks {
   ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
+}
+
+# Dotfiles copy
+export DOTPATH=$HOME/Devel/dotfiles
+function dot_copy {
+  cp ~/.zshrc $DOTPATH/zshrc
+  cp ~/.vim/vimrc $DOTPATH/vimrc
+  cp ~/.ssh/config $DOTPATH/ssh
 }
 
 # Set to this to use case-sensitive completion
@@ -72,12 +79,10 @@ function marks {
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
+# Plugins to load at startup
 plugins=(git history vi-mode zsh-syntax-highlighting history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+# Path export
 export PATH=$PATH:/usr/lib/qt4/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chris/.gem/ruby/2.0.0/bin
