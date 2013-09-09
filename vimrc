@@ -24,12 +24,15 @@ let mapleader=","
 inoremap jk <esc>
 
 " Other Mappings
-nnoremap <Leader>p :!python %<CR>
-nnoremap <Leader>r :!ruby %<CR>
 nnoremap <Leader>q :q!<CR>
-nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>cp :CtrlP<CR>
+nnoremap <Leader>oo o<esc>S
+nnoremap <Leader>py :!python %<CR>
+nnoremap <Leader>rb :!ruby %<CR>
+nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
-nnoremap <Leader>o o<esc>S
+nnoremap <Leader>pl :!perl %<CR>
+nnoremap <Leader>asc ggVG:Tab /;<CR>
 
 " Smart navigation
 map <C-j> <C-W>j

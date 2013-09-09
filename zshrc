@@ -13,6 +13,7 @@ alias pacupd="sudo pacman -Syu"
 alias temp="acpi -t"
 
 # File aliases
+alias blog="vim ~/Documents/Misc/blog.txt"
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
 alias ideas="vim ~/Documents/Misc/ideas.txt"
 alias robots="vim ~/Devel/various/hk_dd3/robots.txt"
