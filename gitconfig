@@ -1,0 +1,9 @@
+[user]
+	email = cmlaverdiere@gmail.com
+	name = Chris Laverdiere
+
+[alias]
+  aa = add -A
+  cm = commit -m
+  co = checkout
+  pm = push origin master

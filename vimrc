@@ -19,6 +19,10 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+" Case settings
+set ignorecase
+set smartcase
+
 " Critical remaps
 let mapleader=","
 inoremap jk <esc>
@@ -33,6 +37,9 @@ nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
+nnoremap <Leader>xxd :%!xxd<CR>
+nnoremap <Leader>xxr :%!xxd -r<CR>
 
 " Smart navigation
 map <C-j> <C-W>j

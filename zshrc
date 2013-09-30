@@ -16,7 +16,8 @@ alias temp="acpi -t"
 alias blog="vim ~/Documents/Misc/blog.txt"
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
 alias ideas="vim ~/Documents/Misc/ideas.txt"
-alias robots="vim ~/Devel/various/hk_dd3/robots.txt"
+alias robots="vim ~/Documents/Misc/robots.txt"
+alias shows="vim ~/Documents/Misc/shows.txt"
 alias stask="vim ~/Documents/Misc/school_tasks.txt"
 alias todo="vim ~/Documents/Misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
@@ -51,7 +52,7 @@ export DOTPATH=$HOME/Devel/dotfiles
 function dot_copy {
   cp ~/.zshrc $DOTPATH/zshrc
   cp ~/.vim/vimrc $DOTPATH/vimrc
-  cp ~/.ssh/config $DOTPATH/ssh
+  cp ~/.gitconfig $DOTPATH/gitconfig
 }
 
 # Set to this to use case-sensitive completion
