@@ -4,6 +4,9 @@ ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
 ZSH_THEME="nanotech-arch-white"
 
+# Default browser
+BROWSER="chromium"
+
 # General aliases
 alias df="df -h"
 alias du="du -h"
@@ -23,13 +26,20 @@ alias todo="vim ~/Documents/Misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
 
+# alias for mkdir and cd into it.
 mkcd(){
   mkdir $1
   cd $1
 }
 
+# Quick math operations using python interpreter
 math(){
   python -c "from math import *; print($*)"
+}
+
+# Quick google search
+google(){
+  $BROWSER "google.com/search?q=$*"
 }
 
 # Marks

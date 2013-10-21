@@ -1,6 +1,6 @@
 [user]
-	email = cmlaverdiere@gmail.com
-	name = Chris Laverdiere
+  email = cmlaverdiere@gmail.com
+  name = Chris Laverdiere
 
 [alias]
   aa = add -A

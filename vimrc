@@ -32,6 +32,7 @@ nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>oo o<esc>S
 nnoremap <Leader>py :!python %<CR>
+nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>rb :!ruby %<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
@@ -40,6 +41,7 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
+set pastetoggle=<Leader>pst
 
 " Smart navigation
 map <C-j> <C-W>j
