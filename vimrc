@@ -34,6 +34,7 @@ nnoremap <Leader>oo o<esc>S
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>rb :!ruby %<CR>
+nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>pl :!perl %<CR>
