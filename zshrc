@@ -1,27 +1,33 @@
-# Path to your oh-my-zsh configuration.
+# Path to oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="nanotech-mint"
+ZSH_THEME="nanotech-arch-white"
+
+# Default browser
+BROWSER="luakit"
 
 # General aliases
-alias sagi="sudo apt-get install"
-alias acs="apt-cache search"
 alias df="df -h"
 alias du="du -h"
 alias rh="runhaskell"
+alias pac="\pacman"
+alias pacman="sudo pacman"
+alias gimme="sudo pacman -S"
+alias pacupd="sudo pacman -Syu"
 alias temp="acpi -t"
 
 # File aliases
-alias blog="vim ~/Documents/Misc/blog.txt"
-alias dreamj="vim ~/Documents/Misc/dreams.txt"
-alias ideas="vim ~/Documents/Misc/ideas.txt"
-alias robots="vim ~/Documents/Misc/robots.txt"
-alias shows="vim ~/Documents/Misc/shows.txt"
-alias stask="vim ~/Documents/Misc/school_tasks.txt"
-alias todo="vim ~/Documents/Misc/todo.txt"
+alias blog="vim ~/documents/misc/blog.txt"
+alias dreamj="vim ~/documents/misc/dreams.txt"
+alias ideas="vim ~/documents/misc/ideas.txt"
+alias robots="vim ~/documents/misc/robots.txt"
+alias shows="vim ~/documents/misc/shows.txt"
+alias stask="vim ~/documents/misc/school_tasks.txt"
+alias todo="vim ~/documents/misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
+alias xmrc="vim ~/.xmonad/xmonad.hs"
 
 # alias for mkdir and cd into it.
 mkcd(){
@@ -29,33 +35,46 @@ mkcd(){
   cd $1
 }
 
+# Quick math operations using python interpreter
+math(){
+  python -c "from math import *; print($*)"
+}
+
+# Quick google search
+google(){
+  $BROWSER "google.com/search?q=$*"
+}
+
 # Marks
 export MARKPATH=$HOME/.marks
-function jump {
+function jump { 
   cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
 }
-function mark {
+function mark { 
   mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
 }
-function unmark {
-  rm -i $MARKPATH/$1
+function unmark { 
+  rm -i $MARKPATH/$1 
 }
 function marks {
   ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
 }
 
 # Dotfiles copy
-export DOTPATH=$HOME/Devel/dotfiles
+export DOTPATH=$HOME/devel/dotfiles
 function dot_copy {
   cp ~/.zshrc $DOTPATH/zshrc
   cp ~/.vim/vimrc $DOTPATH/vimrc
   cp ~/.gitconfig $DOTPATH/gitconfig
+  cp ~/.xmonad/xmonad.hs $DOTPATH/xmonad.hs
+  cp ~/.xinitrc $DOTPATH/xinitrc
+  cp ~/.Xdefaults $DOTPATH/Xdefaults
 }
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Uncomment this to disable bi-weekly auto-update checks
+# Comment this out to disable bi-weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
@@ -78,33 +97,10 @@ DISABLE_AUTO_UPDATE="true"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment following line if you want to  shown in the command execution time stamp 
-# in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
-# yyyy-mm-dd
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
+# Plugins to load at startup
 plugins=(git history vi-mode zsh-syntax-highlighting history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
+# Path export
+export PATH=$PATH:/usr/lib/qt4/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chris/.gem/ruby/2.0.0/bin

@@ -7,3 +7,5 @@
   cm = commit -m
   co = checkout
   pm = push origin master
+[core]
+	editor = vim

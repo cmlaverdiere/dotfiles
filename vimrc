@@ -30,10 +30,10 @@ nnoremap <Leader>rb :!ruby %<CR>
 nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
-nnoremap <Leader>pl :!perl %<CR>
+" nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
-nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
+" nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
 
@@ -49,7 +49,8 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 set number
-color emacs
+" color emacs
+colorscheme redblack
 
 " Backups
 set nobackup
@@ -58,6 +59,6 @@ set noswapfile
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
 
 " Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
+" if filereadable("/etc/vim/vimrc.local")
+  " source /etc/vim/vimrc.local
+" endif
