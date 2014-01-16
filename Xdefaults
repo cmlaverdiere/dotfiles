@@ -4,6 +4,11 @@
 *urxvt*cursorColor: #d0d0d0
 *urxvt*.scrollBar: false
 *urxvt*.font: 9x15bold
+*urxvt*.depth: 32
+*urxvt*.background: rgba:0000/0000/0000/aaaa
+*urxvt*.shading: 10
+*urxvt*.blurRadius: 10
+*urxvt*.urlLauncher: luakit
 
 ! Props to Thayer Williams for the colors.
 ! tangoesque scheme

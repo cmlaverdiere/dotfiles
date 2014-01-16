@@ -3,6 +3,7 @@
 
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Layout.Spacing
 import Data.Monoid
 import System.Exit
 
@@ -28,8 +29,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     [
 
+    -- Application keybindings --------------------------------------
+      ((modm, xK_y),  spawn "luakit")
+
+
+    -- Core keybindings ---------------------------------------------
+
     -- launch a terminal
-    ((modm,  xK_Return), spawn $ XMonad.terminal conf) 
+    , ((modm,  xK_Return), spawn $ XMonad.terminal conf) 
 
     -- launch dmenu
     , ((modm, xK_r ), spawn "dmenu_run")
@@ -119,7 +126,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 
 -- Layouts -----------------------------------------------------------
-myLayoutHook = tiled ||| Mirror tiled ||| Full
+myLayoutHook = spacing 15 $ tiled ||| Mirror tiled ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -142,6 +149,10 @@ myManageHook = composeAll
     ]
 
 
+-- Logs --------------------------------------------------------------
+myLogHook = dynamicLog
+
+
 -- Main method --------------------------------------------------------
 main = xmonad =<< xmobar defaults    -- I'll remove this line when I know what the fuck =<< means.
 
@@ -159,13 +170,13 @@ defaults = defaultConfig
     focusedBorderColor = myFocusedBorderColor,
 
     -- Key Bindings
-    keys            = myKeys,
-    mouseBindings   = myMouseBindings,
+    keys               = myKeys,
+    mouseBindings      = myMouseBindings,
 
     -- Hooks Layouts
-    layoutHook      = myLayoutHook,
-    manageHook      = myManageHook,
+    layoutHook         = myLayoutHook,
+    manageHook         = myManageHook,
     -- handleEventHook = myHandleEventHook,
-    -- logHook         = myLogHook,
+    logHook            = myLogHook,
     startupHook        = myStartupHook
   }

@@ -69,6 +69,7 @@ function dot_copy {
   cp ~/.xmonad/xmonad.hs $DOTPATH/xmonad.hs
   cp ~/.xinitrc $DOTPATH/xinitrc
   cp ~/.Xdefaults $DOTPATH/Xdefaults
+  cp ~/.xmobarrc $DOTPATH/xmobarrc
 }
 
 # Set to this to use case-sensitive completion
