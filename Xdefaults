@@ -8,7 +8,9 @@
 *urxvt*.background: rgba:0000/0000/0000/dddd
 *urxvt*.shading: 10
 *urxvt*.blurRadius: 10
-*urxvt*.urlLauncher: luakit
+*urxvt*.perl-ext-common: default,matcher
+*urxvt*.matcher.button: 3
+*urxvt*.url-launcher: luakit
 
 ! Props to Thayer Williams for the colors.
 ! tangoesque scheme

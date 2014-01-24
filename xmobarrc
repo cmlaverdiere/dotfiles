@@ -17,10 +17,11 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     , Run Swap [] 10
                     , Run Battery ["-L","25","-H","75","--high","grey","--normal","yellow", "--low", "red"] 10
                     , Run StdinReader
+                    , Run ThermalZone 0 ["-t","Temp: <temp>","-L","30","-H","60","-h","#ff0000","-l","#cccccc"] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% | %battery% | %uname% | <fc=#cccccc>%date%</fc>"
+       , template = "%StdinReader% }{ %cpu% | %thermal0% | %memory% | %battery% | %uname% | <fc=#cccccc>%date%</fc>"
        }
