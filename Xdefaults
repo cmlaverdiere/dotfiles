@@ -5,7 +5,7 @@
 *urxvt*.scrollBar: false
 *urxvt*.font: 9x15bold
 *urxvt*.depth: 32
-*urxvt*.background: rgba:0000/0000/0000/aaaa
+*urxvt*.background: rgba:0000/0000/0000/dddd
 *urxvt*.shading: 10
 *urxvt*.blurRadius: 10
 *urxvt*.urlLauncher: luakit
@@ -27,8 +27,10 @@
 *color3:      #eab93d
 *color11:     #ffc123
 ! Blue
-*color4:      #204a87
-*color12:     #3465a4
+! *color4:      #204a87
+! *color12:     #3465a4
+*color4:      #46a4ff
+*color12:     #46a4ff
 ! Mangenta
 *color5:      #ce5c00
 *color13:     #f57900
@@ -36,7 +38,7 @@
 *color6:      #89b6e2
 *color14:     #46a4ff
 ! White
-*color7:     #cccccc
+*color7:      #cccccc
 *color15:     #ffffff
 
 

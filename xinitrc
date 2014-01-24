@@ -2,7 +2,7 @@
 xbindkeys
 
 # Load wallpaper
-feh --bg-fill ~/pictures/walls/xmonad-wall-large.png
+feh --bg-fill ~/pictures/walls/desert.jpg
 
 # Enable compositing
 xcompmgr -c -C -f -r 10 -D 5 &
