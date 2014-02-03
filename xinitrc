@@ -16,6 +16,9 @@ udiskie --tray &
 # Set xmonad cursor to normal.
 xsetroot -cursor_name left_ptr
 
+# Start Conky
+# conky -d; sleep 1 && transset-df .5 -n Conky
+
 # Start various environments. (uncomment the one you want) #
 # exec awesome
 exec xmonad

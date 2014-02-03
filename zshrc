@@ -72,6 +72,15 @@ function dot_copy {
   cp ~/.xmobarrc $DOTPATH/xmobarrc
 }
 
+# Fix gem behavior
+export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+
+# Default editor
+export EDITOR='vim'
+
+# Autostart tmux
+ZSH_TMUX_AUTOSTART='true'
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -99,7 +108,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Plugins to load at startup
-plugins=(git history vi-mode zsh-syntax-highlighting history-substring-search)
+plugins=(git history vi-mode zsh-syntax-highlighting history-substring-search tmux)
 
 source $ZSH/oh-my-zsh.sh
 

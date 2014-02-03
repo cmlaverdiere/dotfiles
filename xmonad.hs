@@ -4,6 +4,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
+import XMonad.Layout.NoBorders
 import Data.Monoid
 import System.Exit
 
@@ -15,7 +16,7 @@ myTerminal           = "urxvt -uc -bc"  -- Blink and underline cursor.
 myBorderWidth        = 2
 myModMask            = mod4Mask
 myFocusFollowsMouse  = True
-myWorkspaces         = ["main", "web", "chat", "dev"]
+myWorkspaces         = ["main", "web", "chat", "dev", "misc", "extra"]
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#ff0000"
 
@@ -35,66 +36,26 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Core keybindings ---------------------------------------------
 
-    -- launch a terminal
-    , ((modm,  xK_Return), spawn $ XMonad.terminal conf) 
-
-    -- launch dmenu
-    , ((modm, xK_r ), spawn "dmenu_run")
-
-    -- close focused window
-    , ((modm .|. shiftMask, xK_c     ), kill)
-
-    -- Rotate through the available layout algorithms
-    , ((modm,               xK_space ), sendMessage NextLayout)
-
-    --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-
-    -- Resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
-
-    -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-
-    -- Move focus to the next window
-    , ((modm,               xK_j     ), windows W.focusDown)
-
-    -- Move focus to the previous window
-    , ((modm,               xK_k     ), windows W.focusUp  )
-
-    -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
-
-    -- Swap the focused window and the master window
-    , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
-
-    -- Swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
-
-    -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
-
-    -- Shrink the master area
-    , ((modm,               xK_h     ), sendMessage Shrink)
-
-    -- Expand the master area
-    , ((modm,               xK_l     ), sendMessage Expand)
-
-    -- Push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-
-    -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-
-    -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-
-    -- Quit xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-
-    -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
-
+    , ((modm,  xK_Return), spawn $ XMonad.terminal conf)                    -- launch a terminal
+    , ((modm, xK_r ), spawn "dmenu_run")                                    -- launch dmenu
+    , ((modm .|. shiftMask, xK_c     ), kill)                               -- close focused window
+    , ((modm,               xK_space ), sendMessage NextLayout)             -- Rotate through the available layout algorithms
+    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf) -- Reset the layouts on the current workspace to default
+    , ((modm,               xK_n     ), refresh)                            -- Resize viewed windows to the correct size
+    , ((modm,               xK_Tab   ), windows W.focusDown)                -- Move focus to the next window
+    , ((modm,               xK_j     ), windows W.focusDown)                -- Move focus to the next window
+    , ((modm,               xK_k     ), windows W.focusUp  )                -- Move focus to the previous window
+    , ((modm,               xK_m     ), windows W.focusMaster  )            -- Move focus to the master window
+    , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)               -- Swap the focused window and the master window
+    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )               -- Swap the focused window with the next window
+    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )               -- Swap the focused window with the previous window
+    , ((modm,               xK_h     ), sendMessage Shrink)                 -- Shrink the master area
+    , ((modm,               xK_l     ), sendMessage Expand)                 -- Expand the master area
+    , ((modm,               xK_t     ), withFocused $ windows . W.sink)     -- Push window back into tiling
+    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))         -- Increment the number of windows in the master area
+    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))      -- Deincrement the number of windows in the master area
+    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))          -- Quit xmonad
+    , ((modm              , xK_q     ), spawn "xmonad -- recompile; xmonad -- restart")  -- Restart xmonad
     ]
 
     ++
@@ -126,19 +87,12 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 
 -- Layouts -----------------------------------------------------------
-myLayoutHook = spacing 15 $ tiled ||| Mirror tiled ||| Full
+myLayoutHook = spacing 12 $ smartBorders $ tiled ||| Mirror tiled ||| Full
   where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
-
-     -- The default number of windows in the master pane
-     nmaster = 1
-
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
-
-     -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
+     tiled   = Tall nmaster delta ratio -- default tiling algorithm partitions the screen into two panes
+     nmaster = 1                        -- The default number of windows in the master pane
+     ratio   = 1/2                      -- Default proportion of screen occupied by master pane
+     delta   = 3/100                    -- Percent of screen to increment by when resizing panes
 
 
 -- Window rules ------------------------------------------------------
@@ -146,6 +100,9 @@ myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
+
+    , className =? "luakit"         --> doShift "web"
+    , className =? "irssi"          --> doShift "chat"
     ]
 
 
