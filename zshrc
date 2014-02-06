@@ -66,6 +66,7 @@ function dot_copy {
   cp ~/.zshrc $DOTPATH/zshrc
   cp ~/.vim/vimrc $DOTPATH/vimrc
   cp ~/.gitconfig $DOTPATH/gitconfig
+  cp ~/.tmux.conf $DOTPATH/tmux.conf
   cp ~/.xmonad/xmonad.hs $DOTPATH/xmonad.hs
   cp ~/.xinitrc $DOTPATH/xinitrc
   cp ~/.Xdefaults $DOTPATH/Xdefaults
