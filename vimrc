@@ -52,7 +52,7 @@ set autoindent
 set number
 
 " Color scheme
-colorscheme redblack
+colorscheme blueblack
 
 " Backups
 set nobackup

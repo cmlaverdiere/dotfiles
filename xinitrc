@@ -2,7 +2,7 @@
 xbindkeys
 
 # Load wallpaper
-feh --bg-fill ~/pictures/walls/desert.jpg
+feh --bg-fill ~/pictures/walls/homer_mother.jpg
 
 # Enable compositing
 xcompmgr -c -C -f -r 10 -D 5 &
