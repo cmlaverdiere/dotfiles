@@ -4,9 +4,10 @@
 
 [alias]
   aa = add -A
-  cm = commit -m
+  br = branch
+  cm = commit
   co = checkout
   pm = push origin master
 
 [core]
-  editor = vim
+	editor = vim
