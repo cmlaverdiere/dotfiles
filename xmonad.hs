@@ -102,6 +102,7 @@ myManageHook = composeAll
     , resource  =? "desktop_window" --> doIgnore
 
     , className =? "luakit"         --> doShift "web"
+    , className =? "Firefox"        --> doShift "web"
     , className =? "irssi"          --> doShift "chat"
     ]
 
