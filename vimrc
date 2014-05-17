@@ -21,6 +21,9 @@ set incsearch
 let mapleader=","
 inoremap jk <esc>
 
+" Character remaps
+inoremap /l λ
+
 " Other Mappings
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
@@ -30,6 +33,7 @@ nnoremap <Leader>oo o<esc>S
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>rb :!ruby %<CR>
+nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
@@ -39,7 +43,10 @@ nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
+nnoremap <Leader>gpp :!g++ % -o %< && ./%<<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
+nnoremap <Leader>rot ggVGg?
+nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
 set pastetoggle=<Leader>pt
@@ -54,7 +61,6 @@ map <C-l> <C-W>l
 set expandtab
 set tabstop=2
 set shiftwidth=2
-set smartindent
 set smarttab
 set number
 color emacs

@@ -54,6 +54,7 @@ function dot_copy {
   cp ~/.zshrc $DOTPATH/zshrc
   cp ~/.vim/vimrc $DOTPATH/vimrc
   cp ~/.gitconfig $DOTPATH/gitconfig
+  cp ~/.tmux.conf $DOTPATH/tmux.conf
 }
 
 ZSH_TMUX_AUTOSTART="true"

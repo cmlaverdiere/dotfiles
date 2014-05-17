@@ -7,6 +7,7 @@
   br = branch
   cm = commit
   co = checkout
+  gud = push
   pm = push origin master
 
 [core]
