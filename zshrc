@@ -2,15 +2,23 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="nanotech-mint"
+# Pick one.
+# ZSH_THEME="nanotech-mint"
+# ZSH_THEME="nanotech-arch-white"
+
+# Default browser
+BROWSER="chromium"
 
 # General aliases
 alias sagi="sudo apt-get install"
 alias acs="apt-cache search"
 alias df="df -h"
 alias du="du -h"
-alias go="gnome-open"
 alias rh="runhaskell"
+alias go="gnome-open"
+alias pac="\pacman"
+alias pacman="sudo pacman"
+alias pacupd="sudo pacman -Syu"
 alias temp="acpi -t"
 
 # File aliases
@@ -33,6 +41,15 @@ mkcd(){
   cd $1
 }
 
+# Quick math operations using python interpreter
+math(){
+  python -c "from math import *; print($*)"
+}
+
+# Quick google search
+google(){
+  $BROWSER "google.com/search?q=$*"
+}
 # Marks
 export MARKPATH=$HOME/.marks
 function jump {
@@ -59,59 +76,38 @@ function dot_copy {
 
 ZSH_TMUX_AUTOSTART="true"
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
 # Uncomment this to disable bi-weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
+export UPDATE_ZSH_DAYS=30
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment following line if you want to  shown in the command execution time stamp 
-# in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
-# yyyy-mm-dd
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git history vi-mode zsh-syntax-highlighting history-substring-search tmux)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# Path. Pick one.
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+# Mint:
+# export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
+# Arch:
+# export PATH=$PATH:/usr/lib/qt4/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chris/.gem/ruby/2.0.0/bin
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-

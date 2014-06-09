@@ -1,4 +1,6 @@
-runtime! debian.vim
+" Pick one.
+" runtime! debian.vim
+" runtime! archlinux.vim
 
 " Pathogen
 execute pathogen#infect('~/.vim/bundle/{}')
@@ -31,6 +33,7 @@ nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>nt :tabnew<CR>
 nnoremap <Leader>oo o<esc>S
 nnoremap <Leader>py :!python %<CR>
+nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>rb :!ruby %<CR>
 nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
@@ -63,15 +66,10 @@ set tabstop=2
 set shiftwidth=2
 set smarttab
 set number
-color emacs
+" set autoindent
 
 " Backups
 set nobackup
 set noswapfile
 
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif

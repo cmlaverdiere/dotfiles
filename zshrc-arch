@@ -1,3 +1,6 @@
+# Don't use this one. Use the regular zshrc. 
+# Keeping this around temporarilly.
+
 # Path to oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 

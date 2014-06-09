@@ -1,0 +1,14 @@
+kien/ctrlp
+vim-scripts/mru
+scrooloose/nerdtree
+myusuf3/numbers
+Lokaltog/powerline
+ervandew/supertab
+scrooloose/syntastic
+godlygeek/tabular
+tomtom/tComment
+tomtom/tlib_vim
+MarcWeber/vim-addon-mw-utils
+garbas/vim-snipmate
+honza/vim-snippets
+tpope/vim-surround
