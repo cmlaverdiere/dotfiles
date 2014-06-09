@@ -1,9 +1,34 @@
 " Pick one.
-" runtime! debian.vim
+runtime! debian.vim
 " runtime! archlinux.vim
 
-" Pathogen
-execute pathogen#infect('~/.vim/bundle/{}')
+" Vundle setup.
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'kien/ctrlp.vim'
+Plugin 'yegappan/mru'
+Plugin 'scrooloose/nerdtree'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'Lokaltog/powerline'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'ervandew/supertab'
+Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tomtom/tlib_vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tpope/vim-repeat'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-surround'
+Plugin 'triglav/vim-visual-increment'
+
+" Vundle teardown.
+call vundle#end()
 filetype plugin indent on
 
 if has("syntax")
