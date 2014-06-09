@@ -13,13 +13,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'yegappan/mru'
 Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
-Plugin 'Lokaltog/powerline'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
+Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tpope/vim-repeat'
 Plugin 'garbas/vim-snipmate'
@@ -67,6 +67,7 @@ nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
+nnoremap <Leader>pi :PluginInstall<CR>
 nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
@@ -91,6 +92,7 @@ set tabstop=2
 set shiftwidth=2
 set smarttab
 set number
+set laststatus=2
 " set autoindent
 
 " Backups
