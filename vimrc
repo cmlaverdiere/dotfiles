@@ -2,6 +2,11 @@
 runtime! debian.vim
 " runtime! archlinux.vim
 
+set shell=bash
+set t_Co=256
+
+colorscheme desert
+
 " Vundle setup.
 set nocompatible
 filetype off
@@ -10,6 +15,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'kien/ctrlp.vim'
+Plugin 'tmhedberg/matchit'
 Plugin 'yegappan/mru'
 Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
@@ -19,8 +25,11 @@ Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
+Plugin 'dag/vim2hs'
 Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tpope/vim-fugitive'
+Plugin 'lepture/vim-jinja'
 Plugin 'tpope/vim-repeat'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
@@ -30,6 +39,8 @@ Plugin 'triglav/vim-visual-increment'
 " Vundle teardown.
 call vundle#end()
 filetype plugin indent on
+
+let g:syntastic_cpp_check_header = 1
 
 if has("syntax")
   syntax on
@@ -69,6 +80,8 @@ nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>pi :PluginInstall<CR>
 nnoremap <Leader>pl :!perl %<CR>
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tr :%s/\s*$//g<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
