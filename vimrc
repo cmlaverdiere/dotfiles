@@ -1,10 +1,13 @@
-" Pick one.
+" Distro specific settings. Pick one.
 runtime! debian.vim
 " runtime! archlinux.vim
 
+" Tmux / color compatability settings.
 set shell=bash
 set t_Co=256
+set background=dark
 
+" Theme settings
 colorscheme desert
 
 " Vundle setup.
@@ -25,9 +28,9 @@ Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
-Plugin 'dag/vim2hs'
 Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'kana/vim-filetype-haskell'
 Plugin 'tpope/vim-fugitive'
 Plugin 'lepture/vim-jinja'
 Plugin 'tpope/vim-repeat'
@@ -46,8 +49,6 @@ if has("syntax")
   syntax on
 endif
 
-set background=dark
-
 " Case settings
 set ignorecase
 set smartcase
@@ -63,6 +64,7 @@ inoremap jk <esc>
 inoremap /l λ
 
 " Other Mappings
+nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
@@ -112,4 +114,8 @@ set laststatus=2
 set nobackup
 set noswapfile
 
+" Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
+
+" Auto generate tag files on write.
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --c++-kinds=+p --fields=+iaS &
