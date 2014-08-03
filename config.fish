@@ -46,6 +46,21 @@ function marks
   echo
 end
 
+# Mail
+function mailme
+  echo "$argv" | mail cmlaverdiere@gmail.com
+end
+  
+
+# Bangs
+function sudo
+    if test "$argv" = !!
+        eval command sudo $history[1]
+    else
+        command sudo $argv
+    end
+end
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Example format: set fish_plugins autojump bundler
