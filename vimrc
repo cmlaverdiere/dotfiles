@@ -39,6 +39,7 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-surround'
 Plugin 'triglav/vim-visual-increment'
+Plugin 'gmarik/Vundle.vim'
 
 " Vundle teardown.
 call vundle#end()
