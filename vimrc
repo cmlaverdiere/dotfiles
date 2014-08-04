@@ -95,6 +95,7 @@ nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
+inoremap <C-[> {<CR>}<esc>O
 set pastetoggle=<Leader>pt
 
 " Smart navigation
