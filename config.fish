@@ -24,8 +24,10 @@ alias robots="vim ~/Documents/Misc/robots.txt"
 alias shows="vim ~/Documents/Misc/shows.txt"
 alias stask="vim ~/Documents/Misc/school_tasks.txt"
 alias todo="vim ~/Documents/Misc/todo.txt"
+alias todo="vim ~/documents/misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
+alias xmrc="vim ~/.xmonad/xmonad.hs"
 
 # Marks
 set -x MARKPATH $HOME/.marks
