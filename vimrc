@@ -61,6 +61,7 @@ set incsearch
 " Critical remaps
 let mapleader=","
 inoremap jk <esc>
+inoremap <C-]> {<CR>}<esc>O
 
 " Character remaps
 inoremap /l λ
@@ -95,7 +96,6 @@ nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
-inoremap <C-]> {<CR>}<esc>O
 set pastetoggle=<Leader>pt
 
 " Smart navigation
@@ -122,3 +122,8 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4
 
 " Auto generate tag files on write.
 au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --c++-kinds=+p --fields=+iaS &
+
+" Convenient settings for prose.
+au BufRead,BufNewFile *.txt setlocal textwidth=80
+autocmd InsertEnter *.txt setlocal spell
+autocmd InsertLeave *.txt setlocal nospell
