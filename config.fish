@@ -19,15 +19,17 @@ alias temp="acpi -t"
 # File aliases
 alias blog="vim ~/Documents/Misc/blog.txt"
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
+alias fishrc="vim ~/.config/fish/config.fish"
 alias ideas="vim ~/Documents/Misc/ideas.txt"
 alias robots="vim ~/Documents/Misc/robots.txt"
 alias shows="vim ~/Documents/Misc/shows.txt"
 alias stask="vim ~/Documents/Misc/school_tasks.txt"
 alias todo="vim ~/Documents/Misc/todo.txt"
-alias todo="vim ~/documents/misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
-alias xmrc="vim ~/.xmonad/xmonad.hs"
+
+# Editor
+set -x EDITOR 'vim'
 
 # Marks
 set -x MARKPATH $HOME/.marks
@@ -62,6 +64,9 @@ function sudo
         command sudo $argv
     end
 end
+
+# Middle click on laptop.
+synclient TapButton3=3 TapButton2=2
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
