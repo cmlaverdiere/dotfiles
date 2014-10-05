@@ -64,36 +64,37 @@ inoremap jk <esc>
 inoremap <C-]> {<CR>}<esc>O
 
 " Character remaps
-inoremap /l λ
+" inoremap /l λ
 
 " Other Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
-nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
-nnoremap <Leader>nt :tabnew<CR>
-nnoremap <Leader>oo o<esc>S
-nnoremap <Leader>py :!python %<CR>
-nnoremap <Leader>p2 :!python2 %<CR>
-nnoremap <Leader>p3 :!python3 %<CR>
-nnoremap <Leader>rb :!ruby %<CR>
-nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
-nnoremap <Leader>rs :!Rscript %<CR>
-nnoremap <Leader>rh :!runhaskell %<CR>
-nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
-nnoremap <Leader>mr :MRU<CR>
-nnoremap <Leader>nt :NERDTree<CR>
-nnoremap <Leader>pi :PluginInstall<CR>
-nnoremap <Leader>pl :!perl %<CR>
-nnoremap <Leader>tn :tabnew<CR>
-nnoremap <Leader>tr :%s/\s*$//g<CR>
-nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>em :au BufWritePost * make<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ % -o %< && ./%<<CR>
+nnoremap <Leader>mr :MRU<CR>
+nnoremap <Leader>nt :NERDTree<CR>
+nnoremap <Leader>nt :tabnew<CR>
+nnoremap <Leader>oo o<esc>S
+nnoremap <Leader>p2 :!python2 %<CR>
+nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
+nnoremap <Leader>pi :PluginInstall<CR>
+nnoremap <Leader>pl :!perl %<CR>
+nnoremap <Leader>py :!python %<CR>
+nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>rb :!ruby %<CR>
+nnoremap <Leader>rh :!runhaskell %<CR>
+nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rot ggVGg?
+nnoremap <Leader>rs :!Rscript %<CR>
+nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tr :%s/\s*$//g<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
 set pastetoggle=<Leader>pt

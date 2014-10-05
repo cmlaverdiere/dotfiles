@@ -18,6 +18,7 @@ alias temp="acpi -t"
 
 # File aliases
 alias blog="vim ~/Documents/Misc/blog.txt"
+alias books="vim ~/Documents/Misc/books.txt"
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
 alias fishrc="vim ~/.config/fish/config.fish"
 alias ideas="vim ~/Documents/Misc/ideas.txt"
@@ -71,7 +72,7 @@ synclient TapButton3=3 TapButton2=2
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Example format: set fish_plugins autojump bundler
-set fish_plugins git tmux
+set fish_plugins git tmux vi-mode
 
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
