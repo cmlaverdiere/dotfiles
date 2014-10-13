@@ -77,7 +77,6 @@ nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ % -o %< && ./%<<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
-nnoremap <Leader>nt :tabnew<CR>
 nnoremap <Leader>oo o<esc>S
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
