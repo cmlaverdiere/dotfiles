@@ -8,7 +8,7 @@ set t_Co=256
 set background=dark
 
 " Theme settings
-colorscheme strange
+colorscheme genericdc
 
 " Vundle setup.
 set nocompatible
@@ -55,6 +55,9 @@ if has("syntax")
   syntax on
 endif
 
+" Terminal transparency support.
+hi Normal ctermbg=NONE
+
 " Case settings
 set ignorecase
 set smartcase
@@ -82,8 +85,8 @@ nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>em :au BufWritePost * make<CR>
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
-nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
-nnoremap <Leader>gpp :!g++ % -o %< && ./%<<CR>
+nnoremap <Leader>gcc :!gcc -g % -o %< && ./%<<CR>
+nnoremap <Leader>gpp :!g++ -g % -o %< && ./%<<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>oo o<esc>S

@@ -22,14 +22,14 @@ hi Type         ctermfg=240 ctermbg=NONE
 hi Function     ctermfg=240 ctermbg=NONE
 hi Repeat       ctermfg=244 ctermbg=NONE
 hi Operator     ctermfg=249 ctermbg=NONE
-hi Error        ctermfg=9   ctermbg=NONE
+hi Error        ctermfg=NONE   ctermbg=NONE
 hi TODO         ctermfg=202 ctermbg=NONE
 hi linenr       ctermfg=238 ctermbg=NONE
 hi CursorLineNR ctermfg=241 ctermbg=NONE
 
 hi Visual          ctermfg=251 ctermbg=237
 hi SpecialKey      ctermfg=236 ctermbg=NONE
-hi ExtraWhitespace             ctermbg=196
+hi ExtraWhitespace             ctermbg=NONE
 hi MatchParen      ctermfg=253 ctermbg=242
 hi Pmenu           ctermfg=251 ctermbg=237
 hi PmenuSel        ctermfg=235 ctermbg=111
