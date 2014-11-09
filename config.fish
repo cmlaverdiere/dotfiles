@@ -11,6 +11,7 @@ alias df="df -h"
 alias du="du -h"
 alias rh="runhaskell"
 alias go="gnome-open"
+alias py="python"
 alias pac="\pacman"
 alias pacman="sudo pacman"
 alias pacupd="sudo pacman -Syu"
@@ -78,6 +79,11 @@ set fish_plugins git tmux vi-mode
 #set fish_custom $HOME/dotfiles/oh-my-fish
 
 set fish_greeting ""
+
+# Set Path
+if status --is-login
+  set PATH $PATH /usr/local/include
+end
 
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish

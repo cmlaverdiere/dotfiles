@@ -8,7 +8,7 @@ set t_Co=256
 set background=dark
 
 " Theme settings
-colorscheme desert
+colorscheme strange
 
 " Vundle setup.
 set nocompatible
@@ -17,6 +17,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'godlygeek/csapprox'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'yegappan/mru'
@@ -31,9 +32,12 @@ Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
 Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'kana/vim-altr'
+Plugin 'tikhomirov/vim-glsl'
 Plugin 'kana/vim-filetype-haskell'
 Plugin 'tpope/vim-fugitive'
 Plugin 'lepture/vim-jinja'
+Plugin 'lervag/vim-latex'
 Plugin 'tpope/vim-repeat'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
@@ -61,7 +65,11 @@ set incsearch
 " Critical remaps
 let mapleader=","
 inoremap jk <esc>
+
+" Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
+nmap <silent> dsa ds}dF\
+nmap <Leader>sw <Plug>(altr-forward)
 
 " Character remaps
 " inoremap /l λ
@@ -72,6 +80,7 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>em :au BufWritePost * make<CR>
+nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>gcc :!gcc % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ % -o %< && ./%<<CR>
@@ -92,8 +101,11 @@ nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
+nnoremap <Leader>sr :SyntasticReset<CR>
+nnoremap <Leader>st :SyntasticToggleMode<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR>
+nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
 set pastetoggle=<Leader>pt
@@ -111,11 +123,14 @@ set shiftwidth=2
 set smarttab
 set number
 set laststatus=2
-" set autoindent
+set autoindent
 
 " Backups
 set nobackup
 set noswapfile
+
+" For jumping between syntastic errors.
+let g:syntastic_always_populate_loc_list = 1
 
 " Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
