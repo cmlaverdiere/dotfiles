@@ -10,9 +10,10 @@
 *urxvt*background: rgba:0000/0000/0000/eeee
 *urxvt*shading: 10
 *urxvt*blurRadius: 10
-*urxvt*perl-ext-common: default,matcher
+*urxvt*perl-ext-common: default,fullscreen,matcher
+*urxvt*keysym.F11: perl:fullscreen:switch
 *urxvt*matcher.button: 3
-*urxvt*url-launcher: luakit
+*urxvt*url-launcher: chromium-browser
 
 *background:  #111111
 *foreground:  #babdb6
@@ -34,22 +35,22 @@ Xft.rgba: rgb
 ! Color schemes ---------------------------------------------------------
 
 ! Blue Modified Scheme
-*color0:  #2E3436
-*color1:  #a40000
-*color2:  #4E9A06
-*color3:  #C4A000
-*color4:  #33ADFF
-*color5:  #75507B
-*color6:  #ce5c00
-*color7:  #babdb9
-*color8:  #555753
-*color9:  #EF2929
-*color10: #8AE234
-*color11: #FCE94F
-*color12: #33ADFF
-*color13: #AD7FA8
-*color14: #fcaf3e
-*color15: #EEEEEC
+! *color0:  #020202
+! *color1:  #a40000
+! *color2:  #4E9A06
+! *color3:  #C4A000
+! *color4:  #33ADFF
+! *color5:  #75507B
+! *color6:  #ce5c00
+! *color7:  #babdb9
+! *color8:  #555753
+! *color9:  #EF2929
+! *color10: #8AE234
+! *color11: #FCE94F
+! *color12: #33ADFF
+! *color13: #AD7FA8
+! *color14: #fcaf3e
+! *color15: #EEEEEC
 
 ! ! Tango Scheme
 ! *color0:  #2E3436
@@ -70,19 +71,19 @@ Xft.rgba: rgb
 ! *color15: #EEEEEC
 
 ! Washed-Out color scheme
-! *color0:     #424242
-! *color8:     #424242
-! *color1:     #805959
-! *color9:     #805959
-! *color2:     #94a168
-! *color10:    #94a168
-! *color3:     #805d40
-! *color11:    #805d40
-! *color4:     #536473
-! *color12:    #536473
-! *color5:     #7e6c80
-! *color13:    #7e6c80
-! *color6:     #526b6a
-! *color14:    #526b6a
-! *color7:     #ababab
-! *color15:    #ababab
+*color0:     #020202
+*color8:     #050505
+*color1:     #805959
+*color9:     #805959
+*color2:     #94a168
+*color10:    #94a168
+*color3:     #805d40
+*color11:    #805d40
+*color4:     #536473
+*color12:    #536473
+*color5:     #7e6c80
+*color13:    #7e6c80
+*color6:     #526b6a
+*color14:    #526b6a
+*color7:     #ababab
+*color15:    #ababab
