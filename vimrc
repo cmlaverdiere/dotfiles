@@ -9,6 +9,7 @@ set background=dark
 
 " Theme settings
 colorscheme genericdc
+let g:airline_theme = 'ubaryd'
 
 " Vundle setup.
 set nocompatible
@@ -33,6 +34,7 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'kana/vim-altr'
+Plugin 'bling/vim-bufferline'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'kana/vim-filetype-haskell'
 Plugin 'tpope/vim-fugitive'
@@ -80,6 +82,7 @@ nmap <Leader>sw <Plug>(altr-forward)
 " Other Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>em :au BufWritePost * make<CR>
@@ -134,6 +137,9 @@ set noswapfile
 
 " For jumping between syntastic errors.
 let g:syntastic_always_populate_loc_list = 1
+
+" Disable bufferline echo so airline can handle it.
+let g:bufferline_echo = 0
 
 " Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
