@@ -82,7 +82,6 @@ nmap <Leader>sw <Plug>(altr-forward)
 " Other Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
-nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>em :au BufWritePost * make<CR>
@@ -121,6 +120,11 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Buffer quick maps
+map gn :bn<cr>
+map gp :bp<cr>
+map gx :bd<cr>  
 
 " Tabbing
 set expandtab
