@@ -41,6 +41,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'lepture/vim-jinja'
 Plugin 'lervag/vim-latex'
 Plugin 'tpope/vim-repeat'
+Plugin 'jpalardy/vim-slime'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-surround'
@@ -82,6 +83,7 @@ nmap <Leader>sw <Plug>(altr-forward)
 " Other Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
+xnoremap <Leader>bc :!bc -l<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>em :au BufWritePost * make<CR>
@@ -92,6 +94,7 @@ nnoremap <Leader>gpp :!g++ -g % -o %< && ./%<<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>oo o<esc>S
+xnoremap <Leader>pe :!python <CR>
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
@@ -125,6 +128,7 @@ map <C-l> <C-W>l
 map gn :bn<cr>
 map gp :bp<cr>
 map gx :bd<cr>  
+set hidden
 
 " Tabbing
 set expandtab
@@ -138,12 +142,20 @@ set autoindent
 " Backups
 set nobackup
 set noswapfile
+set undofile
+
+" Disable folding in tex documents.
+autocmd Filetype tex setlocal nofoldenable
 
 " For jumping between syntastic errors.
 let g:syntastic_always_populate_loc_list = 1
 
 " Disable bufferline echo so airline can handle it.
 let g:bufferline_echo = 0
+
+" Slime settings
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
 " Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4

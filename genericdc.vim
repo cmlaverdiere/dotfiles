@@ -12,6 +12,7 @@ hi Special      ctermfg=253 ctermbg=NONE
 hi Comment      ctermfg=239 ctermbg=NONE
 hi Constant     ctermfg=249 ctermbg=NONE
 hi String       ctermfg=110 ctermbg=NONE
+hi Character    ctermfg=110 ctermbg=NONE
 hi Number       ctermfg=167 ctermbg=NONE
 hi htmlTagName  ctermfg=249 ctermbg=NONE
 hi Identifier   ctermfg=239 ctermbg=NONE
@@ -21,7 +22,7 @@ hi PreProc      ctermfg=254 ctermbg=NONE
 hi Type         ctermfg=240 ctermbg=NONE
 hi Function     ctermfg=240 ctermbg=NONE
 hi Repeat       ctermfg=244 ctermbg=NONE
-hi Operator     ctermfg=249 ctermbg=NONE
+hi Operator     ctermfg=243 ctermbg=NONE
 hi Error        ctermfg=NONE   ctermbg=NONE
 hi TODO         ctermfg=202 ctermbg=NONE
 hi linenr       ctermfg=238 ctermbg=NONE
@@ -36,7 +37,6 @@ hi PmenuSel        ctermfg=235 ctermbg=111
 
 match ExtraWhitespace /\s\+$/
 
-hi link character	      constant
 hi link number	        constant
 hi link boolean	        constant
 hi link Float		        Number
