@@ -10,7 +10,7 @@ let g:colors_name = "genericdc"
 hi Normal       ctermfg=252 ctermbg=NONE
 hi Special      ctermfg=253 ctermbg=NONE
 hi Comment      ctermfg=239 ctermbg=NONE
-hi Constant     ctermfg=249 ctermbg=NONE
+hi Constant     ctermfg=240 ctermbg=NONE
 hi String       ctermfg=110 ctermbg=NONE
 hi Character    ctermfg=110 ctermbg=NONE
 hi Number       ctermfg=167 ctermbg=NONE

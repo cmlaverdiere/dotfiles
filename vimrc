@@ -127,7 +127,7 @@ map <C-l> <C-W>l
 " Buffer quick maps
 map gn :bn<cr>
 map gp :bp<cr>
-map gx :bd<cr>  
+map gx :bd<cr>
 set hidden
 
 " Tabbing
@@ -156,6 +156,7 @@ let g:bufferline_echo = 0
 " Slime settings
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+let g:slime_python_ipython = 1
 
 " Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
