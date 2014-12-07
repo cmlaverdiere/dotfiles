@@ -4,12 +4,10 @@ runtime! debian.vim
 
 " Tmux / color compatability settings.
 set shell=bash
-set t_Co=256
 set background=dark
 
 " Theme settings
-colorscheme genericdc
-let g:airline_theme = 'ubaryd'
+" colorscheme genericdc
 
 " Vundle setup.
 set nocompatible
@@ -18,7 +16,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'godlygeek/csapprox'
+" Plugin 'godlygeek/csapprox'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'yegappan/mru'
@@ -35,6 +33,7 @@ Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'kana/vim-altr'
 Plugin 'bling/vim-bufferline'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'kana/vim-filetype-haskell'
 Plugin 'tpope/vim-fugitive'
@@ -108,6 +107,7 @@ nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
+nnoremap <Leader>sap vap:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>sr :SyntasticReset<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
@@ -143,6 +143,7 @@ set autoindent
 set nobackup
 set noswapfile
 set undofile
+set history=100000
 
 " Disable folding in tex documents.
 autocmd Filetype tex setlocal nofoldenable
@@ -157,6 +158,10 @@ let g:bufferline_echo = 0
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 let g:slime_python_ipython = 1
+
+" Solarized must be loaded later for some reason.
+colorscheme solarized
+let g:airline_theme = 'solarized'
 
 " Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4

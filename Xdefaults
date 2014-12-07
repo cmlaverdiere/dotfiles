@@ -1,13 +1,13 @@
 ! -----------------------------------------------------------------------
 ! urxvt settings
-*urxvt*foreground: #d0d0d0
-*urxvt*cursorColor: #d0d0d0
+! *urxvt*foreground: #d0d0d0
+! *urxvt*cursorColor: #d0d0d0
 *urxvt*scrollBar: false
 *urxvt*font: xft:Ubuntu Mono:size=12:style=regular
 *urxvt*boldFont: xft:Ubuntu Mono:size=12:style=bold
 *urxvt*letterSpace: -1
 *urxvt*depth: 32
-*urxvt*background: rgba:0000/0000/0000/eeee
+! *urxvt*background: rgba:0000/0000/0000/eeee
 *urxvt*shading: 10
 *urxvt*blurRadius: 10
 *urxvt*perl-ext-common: default,fullscreen,matcher
@@ -15,8 +15,8 @@
 *urxvt*matcher.button: 3
 *urxvt*url-launcher: chromium-browser
 
-*background:  #111111
-*foreground:  #babdb6
+! *background:  #111111
+! *foreground:  #babdb6
 
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
@@ -71,19 +71,43 @@ Xft.rgba: rgb
 ! *color15: #EEEEEC
 
 ! Washed-Out color scheme
-*color0:     #020202
-*color8:     #050505
-*color1:     #805959
-*color9:     #805959
-*color2:     #94a168
-*color10:    #94a168
-*color3:     #805d40
-*color11:    #805d40
-*color4:     #536473
-*color12:    #536473
-*color5:     #7e6c80
-*color13:    #7e6c80
-*color6:     #526b6a
-*color14:    #526b6a
-*color7:     #ababab
-*color15:    #ababab
+! *color0:     #020202
+! *color8:     #050505
+! *color1:     #805959
+! *color9:     #805959
+! *color2:     #94a168
+! *color10:    #94a168
+! *color3:     #805d40
+! *color11:    #805d40
+! *color4:     #536473
+! *color12:    #536473
+! *color5:     #7e6c80
+! *color13:    #7e6c80
+! *color6:     #526b6a
+! *color14:    #526b6a
+! *color7:     #ababab
+! *color15:    #ababab
+
+! Solarized
+*urxvt*background: #002b36
+*urxvt*foreground: #657b83
+*fadeColor: #002b36
+*cursorColor: #93a1a1
+*pointerColorBackground: #586e75
+*pointerColorForeground: #93a1a1
+*color0: #073642
+*color8: #002b36
+*color1: #dc322f
+*color9: #cb4b16
+*color2: #859900
+*color10: #586e75
+*color3: #b58900
+*color11: #657b83
+*color4: #268bd2
+*color12: #839496
+*color5: #d33682
+*color13: #6c71c4
+*color6: #2aa198
+*color14: #93a1a1
+*color7: #eee8d5
+*color15: #fdf6e3
