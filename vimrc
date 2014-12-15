@@ -58,7 +58,7 @@ if has("syntax")
 endif
 
 " Terminal transparency support.
-hi Normal ctermbg=NONE
+" hi Normal ctermbg=NONE
 
 " Case settings
 set ignorecase
@@ -85,11 +85,12 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 xnoremap <Leader>bc :!bc -l<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
-nnoremap <Leader>em :au BufWritePost * make<CR>
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>gcc :!gcc -g % -o %< && ./%<<CR>
+nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>gpp :!g++ -g % -o %< && ./%<<CR>
+nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>oo o<esc>S
@@ -113,6 +114,7 @@ nnoremap <Leader>sr :SyntasticReset<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR>
+nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
@@ -145,6 +147,9 @@ set noswapfile
 set undofile
 set history=100000
 
+" Disable mode for airline
+set noshowmode
+
 " Disable folding in tex documents.
 autocmd Filetype tex setlocal nofoldenable
 
@@ -169,7 +174,13 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4
 " Auto generate tag files on write.
 au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --c++-kinds=+p --fields=+iaS &
 
+" Markdown compatability
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Add to jumplist for multi j/k jumps.
+nnoremap <silent> k :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
+nnoremap <silent> j :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
+
 " Convenient settings for prose.
-au BufRead,BufNewFile *.txt setlocal textwidth=80
-autocmd InsertEnter *.txt setlocal spell
-autocmd InsertLeave *.txt setlocal nospell
+au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
+autocmd InsertEnter *.txt,*.md setlocal spell
