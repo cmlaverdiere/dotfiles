@@ -184,3 +184,4 @@ nnoremap <silent> j :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') 
 " Convenient settings for prose.
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 autocmd InsertEnter *.txt,*.md setlocal spell
+autocmd InsertLeave *.txt,*.md setlocal nospell
