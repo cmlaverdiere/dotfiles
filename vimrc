@@ -145,7 +145,6 @@ set autoindent
 set nobackup
 set noswapfile
 set undofile
-set history=100000
 
 " Disable mode for airline
 set noshowmode
@@ -181,7 +180,14 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 nnoremap <silent> k :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
 nnoremap <silent> j :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
+" Rainbow parens enabled by default.
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 " Convenient settings for prose.
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 autocmd InsertEnter *.txt,*.md setlocal spell
 autocmd InsertLeave *.txt,*.md setlocal nospell
+
