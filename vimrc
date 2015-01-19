@@ -17,6 +17,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Plugin 'godlygeek/csapprox'
+Plugin 'rking/ag.vim'
+Plugin 'jaxbot/browserlink.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'yegappan/mru'
@@ -145,6 +147,7 @@ set autoindent
 set nobackup
 set noswapfile
 set undofile
+set history=100000
 
 " Disable mode for airline
 set noshowmode
@@ -190,4 +193,3 @@ au Syntax * RainbowParenthesesLoadBraces
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 autocmd InsertEnter *.txt,*.md setlocal spell
 autocmd InsertLeave *.txt,*.md setlocal nospell
-
