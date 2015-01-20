@@ -67,6 +67,25 @@ function sudo
     end
 end
 
+# fzf
+set TMPDIR /tmp
+
+function fd
+  set tmpf $TMPDIR/fzff.result
+  set tmp $TMPDIR/fzf.result
+  find . -path '*/\.*' -prune -o -type d -print > $tmpf 2> /dev/null 
+  cat $tmpf | fzf +m > $tmp
+  if [ (cat $tmp | wc -l) -gt 0 ]
+    cd (cat $tmp)
+  end
+end
+
+function fe
+  if fzf > $TMPDIR/fzf.result
+    vim (cat $TMPDIR/fzf.result)
+  end
+end
+
 # Middle click on laptop.
 synclient TapButton3=3 TapButton2=2
 
