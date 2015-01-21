@@ -100,6 +100,7 @@ xnoremap <Leader>pe :!python <CR>
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
+nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
 nnoremap <Leader>pi :PluginInstall<CR>
 nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>py :!python %<CR>
@@ -110,7 +111,6 @@ nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
-nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
 nnoremap <Leader>sap vap:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>sr :SyntasticReset<CR>

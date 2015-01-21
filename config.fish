@@ -68,7 +68,7 @@ function sudo
 end
 
 # fzf
-set TMPDIR /tmp
+set -x TMPDIR /tmp
 
 function fd
   set tmpf $TMPDIR/fzff.result
@@ -92,7 +92,7 @@ synclient TapButton3=3 TapButton2=2
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Example format: set fish_plugins autojump bundler
-set fish_plugins git tmux vi-mode
+set fish_plugins git
 
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
