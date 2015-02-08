@@ -1,3 +1,6 @@
+" Chris Laverdiere's vimrc
+" Requires: ctags, vundle
+
 " Distro specific settings. Pick one.
 runtime! debian.vim
 " runtime! archlinux.vim
@@ -6,10 +9,8 @@ runtime! debian.vim
 set shell=bash
 set background=dark
 
-" Theme settings
-" colorscheme genericdc
-
-" Vundle setup.
+" Vundle setup
+" ------------
 set nocompatible
 filetype off
 
@@ -26,6 +27,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'beyondmarc/opengl.vim'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'mtth/scratch.vim'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
@@ -53,8 +55,6 @@ Plugin 'gmarik/Vundle.vim'
 call vundle#end()
 filetype plugin indent on
 
-let g:syntastic_cpp_check_header = 1
-
 if has("syntax")
   syntax on
 endif
@@ -81,7 +81,7 @@ nmap <Leader>sw <Plug>(altr-forward)
 " Character remaps
 " inoremap /l λ
 
-" Other Mappings
+" Leader Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 xnoremap <Leader>bc :!bc -l<CR>
@@ -123,19 +123,19 @@ nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
 set pastetoggle=<Leader>pt
 
-" Smart navigation
+" Quick window navigation
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Buffer quick maps
+" Buffer switching maps
 map gn :bn<cr>
 map gp :bp<cr>
 map gx :bd<cr>
 set hidden
 
-" Tabbing
+" Tabbing / Indentation
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -150,26 +150,8 @@ set noswapfile
 set undofile
 set history=100000
 
-" Disable mode for airline
-set noshowmode
-
 " Disable folding in tex documents.
 autocmd Filetype tex setlocal nofoldenable
-
-" For jumping between syntastic errors.
-let g:syntastic_always_populate_loc_list = 1
-
-" Disable bufferline echo so airline can handle it.
-let g:bufferline_echo = 0
-
-" Slime settings
-let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
-let g:slime_python_ipython = 1
-
-" Solarized must be loaded later for some reason.
-colorscheme solarized
-let g:airline_theme = 'solarized'
 
 " Python specific indentation.
 autocmd FileType python setlocal shiftwidth=4 tabstop=4
@@ -184,13 +166,41 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 nnoremap <silent> k :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
 nnoremap <silent> j :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
+" Convenient settings for prose.
+au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
+autocmd InsertEnter *.txt,*.md setlocal spell
+autocmd InsertLeave *.txt,*.md setlocal nospell
+
+" Plugin specific settings
+" ------------------------
+
 " Rainbow parens enabled by default.
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" Convenient settings for prose.
-au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
-autocmd InsertEnter *.txt,*.md setlocal spell
-autocmd InsertLeave *.txt,*.md setlocal nospell
+" Scratch settings
+let g:scratch_autohide = 1
+let g:scratch_insert_autohide = 0
+
+" Solarized must be loaded later for some reason.
+colorscheme solarized
+let g:airline_theme = 'solarized'
+
+" Slime settings
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+let g:slime_python_ipython = 1
+
+" Disable bufferline echo so airline can handle it.
+let g:bufferline_echo = 0
+
+" For jumping between syntastic errors.
+let g:syntastic_always_populate_loc_list = 1
+
+" I forget what this does.
+let g:syntastic_cpp_check_header = 1
+
+" Disable mode for airline
+set noshowmode
