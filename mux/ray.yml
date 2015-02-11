@@ -1,0 +1,8 @@
+# ~/.tmuxinator/ray.yml
+
+name: ray
+root: ~/Devel/graphics/raytrace
+
+windows:
+  - RTEditor: vim -S rt.vim
+  - RTMake: 

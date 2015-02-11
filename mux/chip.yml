@@ -1,0 +1,9 @@
+# ~/.tmuxinator/chip.yml
+
+name: chip
+root: ~/Devel/ruby/chip8
+
+windows:
+  - CHIPEditor: vim
+  - CHIPRun: 
+  - CHIPOpcodes: vim spec/opcodes.txt

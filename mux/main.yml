@@ -1,0 +1,8 @@
+# ~/.tmuxinator/main.yml
+
+name: main
+root: ~/
+
+windows:
+  - Tasks: stask
+  - IRC: irssi

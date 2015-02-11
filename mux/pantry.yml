@@ -1,0 +1,13 @@
+# ~/.tmuxinator/pantry.yml
+
+name: pantry
+root: ~/Devel/sites/pantry
+
+windows:
+  - server:
+      layout: main-vertical
+      panes:
+        - python runserver.py
+        - sqlite3 pantry/db/pantry.db
+        - ls -a
+  - dev: cd pantry; and vim *.py

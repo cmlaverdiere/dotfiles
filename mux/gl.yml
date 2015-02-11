@@ -1,0 +1,12 @@
+# ~/.tmuxinator/gl.yml
+
+name: gl
+root: ~/
+
+windows:
+  - glfw:
+    - cd ~/Devel/graphics/glfw
+  - ogl:
+    - cd ~/Devel/graphics/opengl
+  - book:
+    - cd ~/Class/gfx/oglpg-8th-edition

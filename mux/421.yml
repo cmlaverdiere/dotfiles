@@ -1,0 +1,7 @@
+# ~/.tmuxinator/421.yml
+
+name: 421
+root: ~/
+
+windows:
+  - main: VBoxManage startvm 421VM --type headless; ssh 421
