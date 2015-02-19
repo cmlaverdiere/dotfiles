@@ -7,6 +7,7 @@ set fish_theme robbyrussell
 # Aliases
 alias sagi="sudo apt-get install"
 alias acs="apt-cache search"
+alias aps="apt search"
 alias df="df -h"
 alias du="du -h"
 alias rh="runhaskell"
@@ -98,6 +99,9 @@ set fish_plugins git
 #set fish_custom $HOME/dotfiles/oh-my-fish
 
 set fish_greeting ""
+
+# Enable core dumps.
+ulimit -c unlimited
 
 # Set Path
 if status --is-login
