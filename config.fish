@@ -57,7 +57,7 @@ end
 function mailme
   echo "$argv" | mail cmlaverdiere@gmail.com
 end
-  
+
 
 # Bangs
 function sudo
@@ -74,7 +74,7 @@ set -x TMPDIR /tmp
 function fd
   set tmpf $TMPDIR/fzff.result
   set tmp $TMPDIR/fzf.result
-  find . -path '*/\.*' -prune -o -type d -print > $tmpf 2> /dev/null 
+  find . -path '*/\.*' -prune -o -type d -print > $tmpf 2> /dev/null
   cat $tmpf | fzf +m > $tmp
   if [ (cat $tmp | wc -l) -gt 0 ]
     cd (cat $tmp)
@@ -102,6 +102,10 @@ set fish_greeting ""
 
 # Enable core dumps.
 ulimit -c unlimited
+
+# Better python shell
+# which ipython >> /dev/null; and alias python="ipython"
+alias python="ipython"
 
 # Set Path
 if status --is-login

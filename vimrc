@@ -91,9 +91,11 @@ nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>gcc :!gcc -g % -o %< && ./%<<CR>
 nnoremap <Leader>glK ?gl<CR>llx~K
+nnoremap <Leader>cK viWK
 nnoremap <Leader>gpp :!g++ -g % -o %< && ./%<<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mr :MRU<CR>
+nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>oo o<esc>S
 xnoremap <Leader>pe :!python <CR>
@@ -116,7 +118,7 @@ nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>sr :SyntasticReset<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
 nnoremap <Leader>tn :tabnew<CR>
-nnoremap <Leader>tr :%s/\s*$//g<CR>
+nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
@@ -201,6 +203,10 @@ let g:syntastic_always_populate_loc_list = 1
 
 " I forget what this does.
 let g:syntastic_cpp_check_header = 1
+
+" Use c++11 for syntastic.
+let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall'
+let g:syntastic_c_compiler_options = '-std=c99 -Wall'
 
 " Disable mode for airline
 set noshowmode
