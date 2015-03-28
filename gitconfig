@@ -5,10 +5,12 @@
 [alias]
   aa = add -A
   br = branch
+  ce = config -e
   cm = commit
   co = checkout
   gud = push
   pm = push origin master
+  st = status
 
 [core]
   editor = vim

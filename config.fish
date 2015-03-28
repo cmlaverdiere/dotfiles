@@ -93,7 +93,7 @@ synclient TapButton3=3 TapButton2=2
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Example format: set fish_plugins autojump bundler
-set fish_plugins git
+set fish_plugins git autojump
 
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
@@ -110,6 +110,11 @@ alias python="ipython"
 # Set Path
 if status --is-login
   set PATH $PATH /usr/local/include
+end
+
+# Load autojump.
+if test -f /home/chris/.autojump/share/autojump/autojump.fish
+  . /home/chris/.autojump/share/autojump/autojump.fish
 end
 
 # Load oh-my-fish configuration.

@@ -87,12 +87,15 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 xnoremap <Leader>bc :!bc -l<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>cp :CtrlP<CR>
+nnoremap <Leader>el :15winc ><CR>
+nnoremap <Leader>ee :winc =<CR>
+nnoremap <Leader>er :15winc <<CR>
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
-nnoremap <Leader>gcc :!gcc -g % -o %< && ./%<<CR>
+nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>cK viWK
-nnoremap <Leader>gpp :!g++ -g % -o %< && ./%<<CR>
+nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>mt :make tests<CR>
@@ -113,7 +116,7 @@ nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
-nnoremap <Leader>sap vap:sort<CR>
+nnoremap <Leader>sap vapk:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>sr :SyntasticReset<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
