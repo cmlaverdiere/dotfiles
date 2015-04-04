@@ -75,6 +75,8 @@ inoremap jk <esc>
 
 " Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
+imap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
+nmap <c-f> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
 
@@ -156,16 +158,16 @@ set undofile
 set history=100000
 
 " Disable folding in tex documents.
-autocmd Filetype tex setlocal nofoldenable
+au Filetype tex setlocal nofoldenable
 
 " Python specific indentation.
-autocmd FileType python setlocal shiftwidth=4 tabstop=4
+au FileType python setlocal shiftwidth=4 tabstop=4
 
 " Auto generate tag files on write.
 au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --c++-kinds=+p --fields=+iaS &
 
 " Markdown compatability
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+au BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Add to jumplist for multi j/k jumps.
 nnoremap <silent> k :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
@@ -173,8 +175,9 @@ nnoremap <silent> j :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') 
 
 " Convenient settings for prose.
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
-autocmd InsertEnter *.txt,*.md setlocal spell
-autocmd InsertLeave *.txt,*.md setlocal nospell
+au BufRead *.txt,*.md setlocal spell
+" au InsertEnter *.txt,*.md setlocal spell
+" au InsertLeave *.txt,*.md setlocal nospell
 
 " Plugin specific settings
 " ------------------------
@@ -208,8 +211,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_cpp_check_header = 1
 
 " Use c++11 for syntastic.
-let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall'
-let g:syntastic_c_compiler_options = '-std=c99 -Wall'
+let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall -O2'
+let g:syntastic_c_compiler_options = '-std=c99 -Wall -O2'
 
 " Disable mode for airline
 set noshowmode
