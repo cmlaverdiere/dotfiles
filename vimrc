@@ -88,7 +88,6 @@ nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 xnoremap <Leader>bc :!bc -l<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>
-nnoremap <Leader>cp :CtrlP<CR>
 nnoremap <Leader>el :15winc ><CR>
 nnoremap <Leader>ee :winc =<CR>
 nnoremap <Leader>er :15winc <<CR>
@@ -124,6 +123,7 @@ nnoremap <Leader>sr :SyntasticReset<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
+nnoremap <Leader>ul :call <SID>MDUL()<CR>
 nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
@@ -156,6 +156,23 @@ set nobackup
 set noswapfile
 set undofile
 set history=100000
+
+" Remove trailing whitespace function.
+fun! <SID>RTW()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+
+" Convert markdown '#' headings to underlines.
+fun! <SID>MDUL()
+  g/^# /norm dwyypVr=
+  g/^## /norm dwyypVr-
+endfun
+
+" Remove trailing whitespace on each save.
+au BufWritePre * :call <SID>RTW()
 
 " Disable folding in tex documents.
 au Filetype tex setlocal nofoldenable

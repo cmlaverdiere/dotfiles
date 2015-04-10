@@ -17,6 +17,8 @@ alias pac="\pacman"
 alias pacman="sudo pacman"
 alias pacupd="sudo pacman -Syu"
 alias temp="acpi -t"
+alias matlab="ssh -X umbc 'matlab'"
+alias emacs="emacs -nw"
 
 # File aliases
 alias blog="vim ~/Documents/Misc/blog.txt"
