@@ -231,5 +231,8 @@ let g:syntastic_cpp_check_header = 1
 let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall -O2'
 let g:syntastic_c_compiler_options = '-std=c99 -Wall -O2'
 
+" Use python 3 for syntastic.
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+
 " Disable mode for airline
 set noshowmode
