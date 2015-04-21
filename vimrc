@@ -38,6 +38,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'kana/vim-altr'
 Plugin 'bling/vim-bufferline'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'kana/vim-filetype-haskell'
 Plugin 'tpope/vim-fugitive'
@@ -85,24 +86,24 @@ nmap <Leader>sw <Plug>(altr-forward)
 
 " Leader Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
+nnoremap <Leader>/ "ayaw:Ag! <C-r>a<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
-xnoremap <Leader>bc :!bc -l<CR>
+nnoremap <Leader>cK viWK
 nnoremap <Leader>cd :cd %:p:h<CR>
-nnoremap <Leader>el :15winc ><CR>
-nnoremap <Leader>ee :winc =<CR>
-nnoremap <Leader>er :15winc <<CR>
-nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
+nnoremap <Leader>ee :winc =<CR>
+nnoremap <Leader>el :15winc ><CR>
+nnoremap <Leader>er :15winc <<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>glK ?gl<CR>llx~K
-nnoremap <Leader>cK viWK
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
+nnoremap <Leader>gr :Ag!
+nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mr :MRU<CR>
 nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>oo o<esc>S
-xnoremap <Leader>pe :!python <CR>
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
@@ -128,6 +129,8 @@ nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
+xnoremap <Leader>bc :!bc -l<CR>
+xnoremap <Leader>pe :!python <CR>
 set pastetoggle=<Leader>pt
 
 " Quick window navigation
@@ -150,6 +153,9 @@ set smarttab
 set number
 set laststatus=2
 set autoindent
+
+" Scrolling
+set scrolloff=3
 
 " Backups
 set nobackup
