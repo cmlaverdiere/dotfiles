@@ -19,12 +19,12 @@ call vundle#begin()
 
 " Plugin 'godlygeek/csapprox'
 Plugin 'rking/ag.vim'
-Plugin 'jaxbot/browserlink.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'yegappan/mru'
 Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
+Plugin 'wellle/targets.vim'
 Plugin 'beyondmarc/opengl.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'mtth/scratch.vim'
@@ -69,6 +69,7 @@ set smartcase
 
 " Search settings
 set incsearch
+set timeoutlen=300
 
 " Critical remaps
 let mapleader=","
@@ -212,8 +213,10 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " Scratch settings
+let g:scratch_no_mappings = 1
 let g:scratch_autohide = 1
 let g:scratch_insert_autohide = 0
+nmap gs :Scratch<CR>
 
 " Solarized must be loaded later for some reason.
 colorscheme solarized
