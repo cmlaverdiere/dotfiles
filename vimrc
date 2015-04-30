@@ -21,7 +21,6 @@ call vundle#begin()
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
-Plugin 'yegappan/mru'
 Plugin 'scrooloose/nerdtree'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'wellle/targets.vim'
@@ -74,6 +73,7 @@ set timeoutlen=300
 " Critical remaps
 let mapleader=","
 inoremap jk <esc>
+map Y y$
 
 " Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
@@ -101,7 +101,7 @@ nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>gr :Ag!
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
-nnoremap <Leader>mr :MRU<CR>
+nnoremap <Leader>mr :CtrlPMRU<CR>
 nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>nt :NERDTree<CR>
 nnoremap <Leader>oo o<esc>S
@@ -119,10 +119,11 @@ nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
-nnoremap <Leader>sap vapk:sort<CR>
+nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>sr :SyntasticReset<CR>
 nnoremap <Leader>st :SyntasticToggleMode<CR>
+nnoremap <Leader>td :Ag! TODO<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>ul :call <SID>MDUL()<CR>
@@ -174,8 +175,8 @@ endfun
 
 " Convert markdown '#' headings to underlines.
 fun! <SID>MDUL()
-  g/^# /norm dwyypVr=
-  g/^## /norm dwyypVr-
+  silent! g/^# /norm dwyypVr=
+  silent! g/^## /norm dwyypVr-
 endfun
 
 " Remove trailing whitespace on each save.
@@ -192,6 +193,9 @@ au BufWritePost *.c,*.cpp,*.h silent! !ctags -R --c++-kinds=+p --fields=+iaS &
 
 " Markdown compatability
 au BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Bebop filetype
+au BufNewFile,BufReadPost *.bb set filetype=bebop
 
 " Add to jumplist for multi j/k jumps.
 nnoremap <silent> k :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
