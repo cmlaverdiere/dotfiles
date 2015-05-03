@@ -8,6 +8,7 @@
   ce = config -e
   cm = commit
   co = checkout
+  ds = diff --stat
   gud = push
   pm = push origin master
   st = status

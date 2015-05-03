@@ -77,8 +77,8 @@ map Y y$
 
 " Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
-imap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
-nmap <c-f> [s1z=<c-o>
+imap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+nmap <c-l> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
 
@@ -136,10 +136,10 @@ xnoremap <Leader>pe :!python <CR>
 set pastetoggle=<Leader>pt
 
 " Quick window navigation
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map gj <C-W>j
+map gk <C-W>k
+map gh <C-W>h
+map gl <C-W>l
 
 " Buffer switching maps
 map gn :bn<cr>
