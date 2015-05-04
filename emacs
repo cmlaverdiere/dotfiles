@@ -1,15 +1,15 @@
-; TODO package.el
+; Chris Laverdiere's .emacs file.
 
 ; Package repositories
 (require 'package)
 (setq package-archives '(
   ("elpa" . "http://tromey.com/elpa/")
+  ("gnu" . "http://elpa.gnu.org/packages/")
   ("melpa" . "http://melpa.milkbox.net/packages/")
   ("marmalade" . "http://marmalade-repo.org/packages/")
 ))
 
 ; Package management
-
 (setq package-list '(
   ace-jump-mode
   auto-complete
@@ -22,6 +22,7 @@
   evil-matchit
   evil-numbers
   evil-surround
+  flycheck
   goto-chg
   haskell-mode
   helm
@@ -86,22 +87,46 @@
 
 (evil-leader/set-leader ",")
 (evil-leader/set-key
+  "b" 'helm-buffers-list
+  "c" 'compile
   "e" 'eval-last-sexp
-  "j" 'ace-jump-line-mode)
-(evil-mode 1)
+  "f" 'flycheck-list-errors
+  "j" 'ace-jump-line-mode
+  "p" 'projectile-switch-project
+)
 
+; Evil window movement.
 (define-key evil-normal-state-map "gh" 'windmove-left)
 (define-key evil-normal-state-map "gj" 'windmove-down)
 (define-key evil-normal-state-map "gk" 'windmove-up)
 (define-key evil-normal-state-map "gl" 'windmove-right)
-
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
 
+; Evil projectile bindings.
+(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
+
+; Map <ESC> to jk.
 (key-chord-mode 1)
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
+; Misc evil bindings.
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+
+; Evil surround settings.
+(global-evil-surround-mode 1)
+
+; Evil jumper settings
+(evil-jumper-mode)
+  
+; Flycheck settings
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+; Haskell settings
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+(evil-mode 1)
 
 (require 'evil)
 (require 'evil-jumper)
@@ -109,4 +134,3 @@
 (require 'evil-matchit)
 (require 'evil-numbers)
 (require 'evil-surround)
-(global-evil-surround-mode 1)
