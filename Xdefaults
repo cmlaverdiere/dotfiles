@@ -3,8 +3,8 @@
 ! *urxvt*foreground: #d0d0d0
 ! *urxvt*cursorColor: #d0d0d0
 *urxvt*scrollBar: false
-*urxvt*font: xft:Ubuntu Mono:size=12:style=regular
-*urxvt*boldFont: xft:Ubuntu Mono:size=12:style=bold
+! *urxvt*boldFont: xft:Ubuntu Mono:size=12:style=bold
+*urxvt*.font: xft:Source\ Code\ Pro:Regular:size=10
 *urxvt*letterSpace: -1
 *urxvt*depth: 32
 ! *urxvt*background: rgba:0000/0000/0000/eeee

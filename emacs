@@ -13,7 +13,6 @@
 (setq package-list '(
   ace-jump-mode
   auto-complete
-  color-theme-sanityinc-solarized
   dash
   epl
   evil
@@ -24,13 +23,17 @@
   evil-surround
   flycheck
   goto-chg
+  guide-key
   haskell-mode
   helm
   helm-projectile
   key-chord
+  markdown-mode
   pkg-info
   popup
   projectile
+  relative-line-numbers
+  solarized-theme
   undo-tree
   visual-fill-column
   writeroom-mode
@@ -46,6 +49,9 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+  
+; Shell settings
+(setenv "SHELL" "/usr/bin/zsh")
 
 ; GUI settings
 (menu-bar-mode -1)
@@ -64,25 +70,48 @@
 (setq indent-line-function 'insert-tab)
 
 ; Color theme
-(load-theme 'sanityinc-solarized-dark t)
+(load-theme 'solarized-dark t)
   
 ; Scroll settings
 (setq scroll-step 1)
 
+(setq evil-want-C-u-scroll t)
+
+(require 'evil)
+(require 'evil-jumper)
+(require 'evil-leader)
+(require 'evil-matchit)
+(require 'evil-numbers)
+(require 'evil-surround)
+  
 ; Projectile settings
 (require 'projectile)
 (projectile-global-mode)
+(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
+
+; Helm settings
+(require 'helm-projectile)
+(helm-projectile-on)
+(setq helm-M-x-fuzzy-match t)
 
 ; Autocomplete settings
 (require 'auto-complete-config)
 (ac-config-default)
 (auto-complete-mode t)
 
+; Guide key settings
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-h"))
+(guide-key-mode 1)
+
 ; Ace jump settings
 (require 'ace-jump-mode)
 
+; Markdown settings
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+
 ; Evil settings
-(setq evil-want-C-u-scroll t)
 (global-evil-leader-mode)
 
 (evil-leader/set-leader ",")
@@ -90,9 +119,11 @@
   "b" 'helm-buffers-list
   "c" 'compile
   "e" 'eval-last-sexp
-  "f" 'flycheck-list-errors
+  "l" 'flycheck-list-errors
+  "f" 'helm-for-files
   "j" 'ace-jump-line-mode
   "p" 'projectile-switch-project
+  "q" 'kill-buffer
 )
 
 ; Evil window movement.
@@ -102,9 +133,6 @@
 (define-key evil-normal-state-map "gl" 'windmove-right)
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
-
-; Evil projectile bindings.
-(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
 ; Map <ESC> to jk.
 (key-chord-mode 1)
@@ -117,20 +145,21 @@
 (global-evil-surround-mode 1)
 
 ; Evil jumper settings
-(evil-jumper-mode)
+(global-evil-jumper-mode)
+  
+; Evil ace-jump settings
+(define-key evil-normal-state-map "s" 'ace-jump-mode)
   
 ; Flycheck settings
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  
+; Smex settings
+(require 'smex)
+(smex-initialize)
+(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
 
 ; Haskell settings
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 (evil-mode 1)
-
-(require 'evil)
-(require 'evil-jumper)
-(require 'evil-leader)
-(require 'evil-matchit)
-(require 'evil-numbers)
-(require 'evil-surround)
