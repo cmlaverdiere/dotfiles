@@ -1,5 +1,5 @@
 ; Chris Laverdiere's .emacs file.
-
+  
 ; Package repositories
 (require 'package)
 (setq package-archives '(
@@ -20,6 +20,7 @@
   evil-leader
   evil-matchit
   evil-numbers
+  evil-org
   evil-surround
   flycheck
   goto-chg
@@ -28,6 +29,7 @@
   helm
   helm-projectile
   key-chord
+  magit
   markdown-mode
   pkg-info
   popup
@@ -50,6 +52,9 @@
   (unless (package-installed-p package)
     (package-install package)))
   
+; History settings
+(savehist-mode 1)
+
 ; Shell settings
 (setenv "SHELL" "/usr/bin/zsh")
 
@@ -58,10 +63,18 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+  
+; Magit settings
+(require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ; Org mappings
-(define-key global-map "\C-cl" 'org-store-link)
+(setq org-agenda-files (list "~/org/school.org"))
+(setq org-default-notes-file "~/org/notes.org")
+          
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-cl" 'org-store-link)
 (setq org-log-done t)
 
 ; Tab settings
@@ -82,6 +95,7 @@
 (require 'evil-leader)
 (require 'evil-matchit)
 (require 'evil-numbers)
+(require 'evil-org)
 (require 'evil-surround)
   
 ; Projectile settings
@@ -93,11 +107,15 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 (setq helm-M-x-fuzzy-match t)
+(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
 
 ; Autocomplete settings
 (require 'auto-complete-config)
 (ac-config-default)
 (auto-complete-mode t)
+
+; Escape remap
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ; Guide key settings
 (require 'guide-key)
@@ -117,8 +135,9 @@
 (evil-leader/set-leader ",")
 (evil-leader/set-key
   "b" 'helm-buffers-list
-  "c" 'compile
+  "c" 'org-capture
   "e" 'eval-last-sexp
+  "g" 'magit-status
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
   "j" 'ace-jump-line-mode
@@ -154,11 +173,6 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   
-; Smex settings
-(require 'smex)
-(smex-initialize)
-(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
-
 ; Haskell settings
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
