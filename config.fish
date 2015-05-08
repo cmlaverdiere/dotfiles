@@ -18,20 +18,26 @@ alias pacman="sudo pacman"
 alias pacupd="sudo pacman -Syu"
 alias temp="acpi -t"
 alias matlab="ssh -X umbc 'matlab'"
-alias emacs="emacs -nw"
+alias em="emacsclient -c -a \"\""
 
 # File aliases
 alias blog="vim ~/Documents/Misc/blog.txt"
 alias books="vim ~/Documents/Misc/books.txt"
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
+alias emrc="vim ~/.emacs.d/init.el"
 alias fishrc="vim ~/.config/fish/config.fish"
 alias ideas="vim ~/Documents/Misc/ideas.txt"
 alias robots="vim ~/Documents/Misc/robots.txt"
 alias shows="vim ~/Documents/Misc/shows.txt"
-alias stask="vim ~/Documents/Misc/school_tasks.txt"
+alias stask="vim ~/Documents/Misc/school_tasks.org"
 alias todo="vim ~/Documents/Misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
+
+function mkcd
+  mkdir $argv
+  cd $argv
+end
 
 # Editor
 set -x EDITOR 'vim'

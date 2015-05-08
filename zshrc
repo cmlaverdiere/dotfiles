@@ -4,36 +4,40 @@ ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
 # Pick one.
 # ZSH_THEME="nanotech-mint"
-# ZSH_THEME="nanotech-arch-white"
+ZSH_THEME="nanotech"
 
 # Default browser
 BROWSER="chromium"
 
-# General aliases
+# Aliases
 alias sagi="sudo apt-get install"
 alias acs="apt-cache search"
+alias aps="apt search"
 alias df="df -h"
 alias du="du -h"
 alias rh="runhaskell"
 alias go="gnome-open"
+alias py="python"
 alias pac="\pacman"
 alias pacman="sudo pacman"
 alias pacupd="sudo pacman -Syu"
 alias temp="acpi -t"
+alias matlab="ssh -X umbc 'matlab'"
+alias em="emacsclient -c -a \"\""
 
 # File aliases
 alias blog="vim ~/Documents/Misc/blog.txt"
+alias books="vim ~/Documents/Misc/books.txt"
 alias dreamj="vim ~/Documents/Misc/dreams.txt"
+alias emrc="vim ~/.emacs.d/init.el"
+alias fishrc="vim ~/.config/fish/config.fish"
 alias ideas="vim ~/Documents/Misc/ideas.txt"
 alias robots="vim ~/Documents/Misc/robots.txt"
 alias shows="vim ~/Documents/Misc/shows.txt"
-alias stask="vim ~/Documents/Misc/school_tasks.txt"
+alias stask="vim ~/Documents/Misc/school_tasks.org"
 alias todo="vim ~/Documents/Misc/todo.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
-
-# Temporary alias to update our game on umbc gl.
-alias ugame="ssh umbc \"cd ~/www/Four-to-the-Fifth; git pull\""
 
 # alias for mkdir and cd into it.
 mkcd(){
@@ -74,7 +78,7 @@ function dot_copy {
   cp ~/.tmux.conf $DOTPATH/tmux.conf
 }
 
-ZSH_TMUX_AUTOSTART="true"
+# ZSH_TMUX_AUTOSTART="true"
 
 # Uncomment this to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
@@ -100,14 +104,41 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# # Setup zsh-autosuggestions
+# source /home/chris/.zsh-autosuggestions/autosuggestions.zsh
+#
+# # Enable autosuggestions automatically
+# zle-line-init() {
+#     zle autosuggest-start
+# }
+#
+# zle -N zle-line-init
+#
+# # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# # zsh-autosuggestions is designed to be unobtrusive)
+# # bindkey '^T' autosuggest-toggle
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# Setup zsh-autosuggestions
+source /home/chris/.zsh-autosuggestions/autosuggestions.zsh
+
+# Enable autosuggestions automatically
+zle-line-init() {
+    zle autosuggest-start
+}
+
+zle -N zle-line-init
+
+# use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# zsh-autosuggestions is designed to be unobtrusive)
+bindkey '^T' autosuggest-toggle
