@@ -1,5 +1,5 @@
 ; Chris Laverdiere's .emacs file.
-  
+
 ; Package repositories
 (require 'package)
 (setq package-archives '(
@@ -46,12 +46,12 @@
 ; Fetch list of packages available.
 (unless package-archive-contents
   (package-refresh-contents))
-  
+
 ; Install missing packages.
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-  
+
 ; History settings
 (savehist-mode 1)
 
@@ -63,7 +63,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-  
+
 ; Magit settings
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
@@ -71,20 +71,28 @@
 ; Org mappings
 (setq org-agenda-files (list "~/org/school.org"))
 (setq org-default-notes-file "~/org/notes.org")
-          
+
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
 (setq org-log-done t)
 
+(defun org-archive-done ()
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
 ; Tab settings
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+; Line settings
+(relative-line-numbers-mode t)
 
 ; Color theme
 (load-theme 'solarized-dark t)
-  
+
 ; Scroll settings
 (setq scroll-step 1)
 
@@ -97,7 +105,7 @@
 (require 'evil-numbers)
 (require 'evil-org)
 (require 'evil-surround)
-  
+
 ; Projectile settings
 (require 'projectile)
 (projectile-global-mode)
@@ -125,9 +133,15 @@
 ; Ace jump settings
 (require 'ace-jump-mode)
 
+; Change sentence definition to one space after a period.
+(setf sentence-end-double-space nil)
+
 ; Markdown settings
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+
+; Transpose arguments
+(define-key evil-normal-state-map "g>" 'transpose-words)
 
 ; Evil settings
 (global-evil-leader-mode)
@@ -141,8 +155,14 @@
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
   "j" 'ace-jump-line-mode
-  "p" 'projectile-switch-project
+  "od" 'org-deadline
+  "os" 'org-schedule
+  "p" 'helm-projectile-switch-project
   "q" 'kill-buffer
+)
+
+(evil-leader/set-key-for-mode 'haskell-mode
+  "x" 'inferior-haskell-load-and-run
 )
 
 ; Evil window movement.
@@ -152,6 +172,9 @@
 (define-key evil-normal-state-map "gl" 'windmove-right)
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
+
+; Remove trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; Map <ESC> to jk.
 (key-chord-mode 1)
@@ -165,14 +188,14 @@
 
 ; Evil jumper settings
 (global-evil-jumper-mode)
-  
+
 ; Evil ace-jump settings
 (define-key evil-normal-state-map "s" 'ace-jump-mode)
-  
+
 ; Flycheck settings
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-  
+
 ; Haskell settings
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 

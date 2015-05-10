@@ -35,12 +35,14 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'bling/vim-airline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'kana/vim-altr'
+Plugin 'PeterRincker/vim-argumentative'
 Plugin 'bling/vim-bufferline'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'tikhomirov/vim-glsl'
+Plugin 'Lokaltog/vim-easymotion'
 Plugin 'kana/vim-filetype-haskell'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tikhomirov/vim-glsl'
 Plugin 'lepture/vim-jinja'
 Plugin 'lervag/vim-latex'
 Plugin 'tpope/vim-repeat'
@@ -215,6 +217,9 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" Easymotion maps.
+nmap s <Plug>(easymotion-s)
 
 " Scratch settings
 let g:scratch_no_mappings = 1
