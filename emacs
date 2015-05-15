@@ -29,16 +29,18 @@
   helm
   helm-projectile
   key-chord
+  linum-relative
   magit
   markdown-mode
   pkg-info
   popup
   projectile
-  relative-line-numbers
+  smooth-scrolling
   solarized-theme
   undo-tree
   visual-fill-column
   writeroom-mode
+  yasnippet
 ))
 
 (package-initialize)
@@ -64,10 +66,6 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-; Magit settings
-(require 'magit)
-(setq magit-last-seen-setup-instructions "1.4.0")
-
 ; Org mappings
 (setq org-agenda-files (list "~/org/school.org"))
 (setq org-default-notes-file "~/org/notes.org")
@@ -87,16 +85,17 @@
 (setq indent-line-function 'insert-tab)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+; Escape remap
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 ; Line settings
-(relative-line-numbers-mode t)
+; (require 'linum-relative)
+; (global-linum-mode t)
 
 ; Color theme
 (load-theme 'solarized-dark t)
 
-; Scroll settings
-(setq scroll-step 1)
-
-(setq evil-want-C-u-scroll t)
+(require 'smooth-scrolling)
 
 (require 'evil)
 (require 'evil-jumper)
@@ -122,8 +121,13 @@
 (ac-config-default)
 (auto-complete-mode t)
 
-; Escape remap
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+; Magit settings
+(require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
+
+; YASnippet settings
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ; Guide key settings
 (require 'guide-key)
@@ -161,10 +165,6 @@
   "q" 'kill-buffer
 )
 
-(evil-leader/set-key-for-mode 'haskell-mode
-  "x" 'inferior-haskell-load-and-run
-)
-
 ; Evil window movement.
 (define-key evil-normal-state-map "gh" 'windmove-left)
 (define-key evil-normal-state-map "gj" 'windmove-down)
@@ -172,6 +172,9 @@
 (define-key evil-normal-state-map "gl" 'windmove-right)
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
+
+; Comment a region like tcomment.
+(define-key evil-normal-state-map "gc" 'comment-dwim)
 
 ; Remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -182,6 +185,8 @@
 
 ; Misc evil bindings.
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
+(define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
 
 ; Evil surround settings.
 (global-evil-surround-mode 1)
@@ -198,5 +203,9 @@
 
 ; Haskell settings
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+(evil-leader/set-key-for-mode 'haskell-mode
+  "x" 'inferior-haskell-load-and-run
+)
 
 (evil-mode 1)

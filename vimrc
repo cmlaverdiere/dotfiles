@@ -76,6 +76,8 @@ set timeoutlen=300
 let mapleader=","
 inoremap jk <esc>
 map Y y$
+map <c-j> <c-d>
+map <c-k> <c-u>
 
 " Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
