@@ -12,6 +12,7 @@
 ; Package management
 (setq package-list '(
   ace-jump-mode
+  auctex
   auto-complete
   dash
   epl
@@ -27,15 +28,17 @@
   guide-key
   haskell-mode
   helm
+  helm-ag
   helm-projectile
   key-chord
   linum-relative
   magit
   markdown-mode
+  pandoc-mode
   pkg-info
   popup
   projectile
-  smooth-scrolling
+  ;; smooth-scrolling
   solarized-theme
   undo-tree
   visual-fill-column
@@ -56,6 +59,18 @@
 
 ; History settings
 (savehist-mode 1)
+
+; Transparency
+(defun transparency-on ()
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(95 95)))
+
+(defun transparency-off ()
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(100 100)))
+
+; Session saving
+(desktop-save-mode 1)
 
 ; Shell settings
 (setenv "SHELL" "/usr/bin/zsh")
@@ -84,18 +99,25 @@
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
 (define-key global-map (kbd "RET") 'newline-and-indent)
+(setq evil-shift-width 2)
+
+; Backup settings
+(setq make-backup-files nil)
+
+; Wrap settings
+(setq-default fill-column 80)
 
 ; Escape remap
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ; Line settings
-; (require 'linum-relative)
-; (global-linum-mode t)
+(require 'linum-relative)
+(global-linum-mode t)
 
 ; Color theme
 (load-theme 'solarized-dark t)
 
-(require 'smooth-scrolling)
+;; (require 'smooth-scrolling)
 
 (require 'evil)
 (require 'evil-jumper)
@@ -115,6 +137,14 @@
 (helm-projectile-on)
 (setq helm-M-x-fuzzy-match t)
 (define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
+
+(evil-leader/set-key-for-mode 'projectile-mode
+  "/" 'projectile-helm-ag
+)
+
+(defun projectile-helm-ag ()
+  (interactive)
+  (helm-ag (projectile-project-root)))
 
 ; Autocomplete settings
 (require 'auto-complete-config)
@@ -144,18 +174,35 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
 
+(add-hook 'text-mode-hook (lambda ()
+  (turn-on-auto-fill) (set-fill-column 80)))
+
+(add-hook 'markdown-mode-hook (lambda ()
+  (turn-on-auto-fill) (set-fill-column 80)))
+
 ; Transpose arguments
 (define-key evil-normal-state-map "g>" 'transpose-words)
 
 ; Evil settings
 (global-evil-leader-mode)
 
+; Config file shortcut.
+(setq conf-file "~/.emacs.d/init.el")
+(defun open-conf()
+  "Opens the emacs config file."
+  (interactive)
+  (find-file conf-file))
+
+; Global evil leaders.
 (evil-leader/set-leader ",")
 (evil-leader/set-key
+  "/" 'helm-ag
   "b" 'helm-buffers-list
   "c" 'org-capture
+  "d" 'dired
   "e" 'eval-last-sexp
   "g" 'magit-status
+  "i" 'open-conf
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
   "j" 'ace-jump-line-mode
@@ -173,8 +220,21 @@
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
 
+; Fix wrapped line movement.
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+
 ; Comment a region like tcomment.
 (define-key evil-normal-state-map "gc" 'comment-dwim)
+
+; Pandoc mode settings
+(add-hook 'markdown-mode-hook 'pandoc-mode)
+(add-hook 'markdown-mode-hook 'auto-complete-mode)
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+
+(evil-leader/set-key-for-mode 'markdown-mode
+  "p" 'pandoc-convert-to-pdf
+)
 
 ; Remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -205,7 +265,19 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 (evil-leader/set-key-for-mode 'haskell-mode
+  "i" 'run-haskell
   "x" 'inferior-haskell-load-and-run
 )
+
+; Python settings
+(evil-leader/set-key-for-mode 'python-mode
+  "r" 'python-shell-send-buffer
+)
+
+(add-hook 'python-mode-hook
+  (lambda ()
+    (setq tab-width 4)
+    (setq python-indent 4)
+    (setq evil-shift-width 4)))
 
 (evil-mode 1)
