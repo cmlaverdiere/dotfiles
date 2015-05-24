@@ -1,94 +1,37 @@
-! -----------------------------------------------------------------------
 ! urxvt settings
-! *urxvt*foreground: #d0d0d0
-! *urxvt*cursorColor: #d0d0d0
 *urxvt*scrollBar: false
-! *urxvt*boldFont: xft:Ubuntu Mono:size=12:style=bold
+
+! Choice of font
 *urxvt*.font: xft:Source\ Code\ Pro:Regular:size=10
+! *urxvt*boldFont: xft:Ubuntu Mono:size=12:style=bold
+
 *urxvt*letterSpace: -1
 *urxvt*depth: 32
-! *urxvt*background: rgba:0000/0000/0000/eeee
 *urxvt*shading: 10
 *urxvt*blurRadius: 10
+
+! Mouse button functionality.
 *urxvt*perl-ext-common: default,fullscreen,matcher
 *urxvt*keysym.F11: perl:fullscreen:switch
 *urxvt*matcher.button: 3
 *urxvt*url-launcher: chromium-browser
 
-! *background:  #111111
-! *foreground:  #babdb6
+! Enable for transparency.
+! *urxvt*background: rgba:0000/0000/0000/eeee
 
+! Font settings
 Xft.autohint: 0
-Xft.lcdfilter:  lcddefault
-Xft.hintstyle:  hintfull
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
 Xft.hinting: 1
 Xft.antialias: 1
+Xft.dpi: 96
 Xft.rgba: rgb
 
-! -----------------------------------------------------------------------
-! Xterm settings
-*xterm*background: #101010
-*xterm*foreground: #d0d0d0
-*xterm*cursorColor: #d0d0d0
+! Emacs.FontBackend: xft
+! Emacs.font: Source Code Pro:pixelsize=10
 
-
-! Color schemes ---------------------------------------------------------
-
-! Blue Modified Scheme
-! *color0:  #020202
-! *color1:  #a40000
-! *color2:  #4E9A06
-! *color3:  #C4A000
-! *color4:  #33ADFF
-! *color5:  #75507B
-! *color6:  #ce5c00
-! *color7:  #babdb9
-! *color8:  #555753
-! *color9:  #EF2929
-! *color10: #8AE234
-! *color11: #FCE94F
-! *color12: #33ADFF
-! *color13: #AD7FA8
-! *color14: #fcaf3e
-! *color15: #EEEEEC
-
-! ! Tango Scheme
-! *color0:  #2E3436
-! *color1:  #a40000
-! *color2:  #4E9A06
-! *color3:  #C4A000
-! *color4:  #3465A4
-! *color5:  #75507B
-! *color6:  #ce5c00
-! *color7:  #babdb9
-! *color8:  #555753
-! *color9:  #EF2929
-! *color10: #8AE234
-! *color11: #FCE94F
-! *color12: #729FCF
-! *color13: #AD7FA8
-! *color14: #fcaf3e
-! *color15: #EEEEEC
-
-! Washed-Out color scheme
-! *color0:     #020202
-! *color8:     #050505
-! *color1:     #805959
-! *color9:     #805959
-! *color2:     #94a168
-! *color10:    #94a168
-! *color3:     #805d40
-! *color11:    #805d40
-! *color4:     #536473
-! *color12:    #536473
-! *color5:     #7e6c80
-! *color13:    #7e6c80
-! *color6:     #526b6a
-! *color14:    #526b6a
-! *color7:     #ababab
-! *color15:    #ababab
-
-! Solarized
+! Color scheme: Solarized
 *urxvt*background: #002b36
 *urxvt*foreground: #657b83
 *fadeColor: #002b36

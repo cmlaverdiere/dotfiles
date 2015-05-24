@@ -78,6 +78,13 @@
 ; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+; Font settings.
+(set-face-attribute 'default nil
+                    :family "Source Code Pro"
+                    :height 100
+                    :weight 'regular
+                    :width 'normal)
+
 ; GUI settings. This disables all the toolbar / extra GUI crap.
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
