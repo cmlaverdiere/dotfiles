@@ -12,6 +12,7 @@
   ("marmalade" . "http://marmalade-repo.org/packages/")
 ))
 
+
 ; Package list
 (setq package-list '(
   ace-jump-mode
@@ -26,6 +27,7 @@
   evil-numbers
   evil-org
   evil-surround
+  expand-region
   flycheck
   goto-chg
   guide-key
@@ -34,6 +36,7 @@
   helm-ag
   helm-projectile
   key-chord
+  linum-off
   linum-relative
   magit
   markdown-mode
@@ -42,6 +45,7 @@
   popup
   projectile
   solarized-theme
+  warm-night-theme
   undo-tree
   visual-fill-column
   writeroom-mode
@@ -66,14 +70,12 @@
 (setq make-backup-files nil)
 
 ; Color theme
-(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
+; (setq solarized-scale-org-headlines nil)
+(load-theme 'warm-night t)
 
-; Config file shortcut to open this file.
+; Config file location.
 (setq conf-file "~/.emacs.d/init.el")
-(defun open-conf()
-  "Opens the emacs config file."
-  (interactive)
-  (find-file conf-file))
 
 ; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -94,6 +96,9 @@
 ; History settings
 (savehist-mode 1)
 
+; Auto reload buffers when changed on disk.
+(global-auto-revert-mode t)
+
 ; Sentence definition should be one space after a period.
 (setf sentence-end-double-space nil)
 
@@ -110,19 +115,47 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (setq evil-shift-width 2)
 
-; Transparency enable / disable functions.
+; Wrap settings
+(setq-default fill-column 80)
+
+
+;; Utility functions ;;
+
+; Quick configuration opening.
+(defun open-conf()
+  "Opens the emacs config file."
+  (interactive)
+  (find-file conf-file))
+
+; Quick buffer switching.
+(defun switch-to-last-buffer ()
+  "Toggle between last buffer open."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+; Transparency enable.
 (defun transparency-on ()
   "Set to 95% transparency."
   (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(95 95)))
 
+; Transparency disable.
 (defun transparency-off ()
   "Set to 100% transparency."
   (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(100 100)))
 
-; Wrap settings
-(setq-default fill-column 80)
+(defun read-lines (fp)
+  "Read lines of file fp into a list"
+  (with-temp-buffer
+    (insert-file-contents fp)
+    (split-string (buffer-string) "\n" t)))
+
+(defun split-term ()
+  (interactive)
+  (split-window-right)
+  (other-window 1)
+  (term "/usr/bin/zsh"))
 
 
 ;; Plugin-dependent Emacs behavior (Small plugins) ;;
@@ -134,6 +167,10 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (auto-complete-mode t)
+
+; Expand region
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ; Magit (Git integration)
 (require 'magit)
@@ -149,9 +186,9 @@
 (guide-key-mode 1)
 
 ; Relative line numbers.
+(require 'linum-off)
 (require 'linum-relative)
 (global-linum-mode t)
-
 
 ;; Org Mode (Life organizer) ;;
 
@@ -170,6 +207,34 @@
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
+; Load babel languages.
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((C . t)
+   (haskell . t)
+   (python . t)
+   (sh . t)))
+
+; Correct fonts for code blocks.
+(setq org-src-fontify-natively t)
+
+; Capture templates
+(setq org-capture-templates
+      '(("d" "Dreams" entry
+         (file+headline "~/org/dream.org" "Dreams")
+         "*** %t\n")))
+
+
+;; ERC (IRC client)
+
+; Hide joins / parts / quits.
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+; Account login info
+(let ((f (read-lines "~/.erc-login")))
+  (setq erc-nick (car f))
+  (setq erc-password (nth 1 f)))
+
 
 ;; Evil Mode (Vim emulation) ;;
 
@@ -181,7 +246,7 @@
 (require 'evil-leader)
 (require 'evil-matchit)
 (require 'evil-numbers)
-(require 'evil-org)
+; (require 'evil-org)
 (require 'evil-surround)
 
 ; Use evil (mostly) everywhere.
@@ -190,8 +255,9 @@
 ; Global evil leaders.
 (evil-leader/set-leader ",")
 (evil-leader/set-key
-  "/" 'helm-ag
-  "b" 'helm-buffers-list
+  "/" 'helm-projectile-ag
+  "." 'search-word-under-cursor
+  "b" 'switch-to-last-buffer
   "c" 'org-capture
   "d" 'dired
   "e" 'eval-last-sexp
@@ -204,6 +270,7 @@
   "os" 'org-schedule
   "p" 'helm-projectile-switch-project
   "q" 'kill-buffer
+  "t" 'split-term
 )
 
 ; Evil window movement.
@@ -261,6 +328,12 @@
   "/" 'projectile-helm-ag
 )
 
+(defun search-word-under-cursor ()
+  "Searches for the word under the cursor using projectile."
+  (interactive)
+  (er/expand-region 1)
+  (projectile-helm-ag))
+
 
 ;; Helm (Incremental completion / Selection narrowing) ;;
 
@@ -315,16 +388,18 @@
 
 ; Evil mappings for haskell.
 (evil-leader/set-key-for-mode 'haskell-mode
-  "i" 'run-haskell
-  "x" 'inferior-haskell-load-and-run
+  "xb" 'inferior-haskell-load-and-run
+  "xd" 'inferior-haskell-send-decl
+  "xi" 'run-haskell
 )
-
 
 ;; Python ;;
 
 ; Evil mappings for python.
 (evil-leader/set-key-for-mode 'python-mode
-  "r" 'python-shell-send-buffer
+  "xb" 'python-shell-send-buffer
+  "xi" 'python-shell-switch-to-shell
+  "xr" 'python-shell-send-region
 )
 
 ; Fix tab settings for python files.
@@ -333,3 +408,8 @@
     (setq tab-width 4)
     (setq python-indent 4)
     (setq evil-shift-width 4)))
+
+
+;; Terminal ;;
+(add-to-list 'linum-disabled-modes-list 'term-mode)
+(delete 'org-mode linum-disabled-modes-list)
