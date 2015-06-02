@@ -1,6 +1,5 @@
 ; Chris Laverdiere's .emacs file.
 
-
 ;; Package management ;;
 
 ; Package repositories
@@ -18,6 +17,7 @@
   ace-jump-mode
   auctex
   auto-complete
+  bison-mode
   dash
   epl
   evil
@@ -224,6 +224,15 @@
          (file+headline "~/org/dream.org" "Dreams")
          "*** %t\n")))
 
+; Enable spell checking in org mode.
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+
+; Open PDF links in apvlv.
+(add-hook 'org-mode-hook
+      '(lambda ()
+         (delete '("\\.pdf\\'" . default) org-file-apps)
+         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+
 
 ;; ERC (IRC client)
 
@@ -326,6 +335,7 @@
 (define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
 (evil-leader/set-key-for-mode 'projectile-mode
   "/" 'projectile-helm-ag
+  "sw" 'projectile-find-other-file
 )
 
 (defun search-word-under-cursor ()
@@ -409,7 +419,10 @@
     (setq python-indent 4)
     (setq evil-shift-width 4)))
 
-
 ;; Terminal ;;
 (add-to-list 'linum-disabled-modes-list 'term-mode)
 (delete 'org-mode linum-disabled-modes-list)
+
+
+;; Flex / Bison ;;
+(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
