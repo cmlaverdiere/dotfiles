@@ -40,6 +40,7 @@
   linum-relative
   magit
   markdown-mode
+  multi-term
   pandoc-mode
   pkg-info
   popup
@@ -68,11 +69,13 @@
 
 ; Backup settings
 (setq make-backup-files nil)
+(setq backup-inhibited t)
+(setq auto-save-default nil)
 
 ; Color theme
-; (load-theme 'solarized-dark t)
-; (setq solarized-scale-org-headlines nil)
-(load-theme 'warm-night t)
+(load-theme 'solarized-dark t)
+(setq solarized-scale-org-headlines nil)
+; (load-theme 'warm-night t)
 
 ; Config file location.
 (setq conf-file "~/.emacs.d/init.el")
@@ -155,7 +158,7 @@
   (interactive)
   (split-window-right)
   (other-window 1)
-  (term "/usr/bin/zsh"))
+  (multi-term))
 
 
 ;; Plugin-dependent Emacs behavior (Small plugins) ;;
@@ -179,10 +182,16 @@
 ; YASnippet (Tab-completed snippets)
 (require 'yasnippet)
 (yas-global-mode 1)
+(setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
+
+; Redefine snippet key to not collide with autocomplete.
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
 
 ; Guide key (Pops up help menu for prefix-keys)
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-h"))
+(setq guide-key/guide-key-sequence t)
 (guide-key-mode 1)
 
 ; Relative line numbers.
@@ -423,6 +432,8 @@
 (add-to-list 'linum-disabled-modes-list 'term-mode)
 (delete 'org-mode linum-disabled-modes-list)
 
+(add-hook 'term-mode-hook (lambda()
+        (yas-minor-mode -1)))
 
 ;; Flex / Bison ;;
 (add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))

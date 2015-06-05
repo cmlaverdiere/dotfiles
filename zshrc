@@ -16,6 +16,7 @@ export EDITOR='vim'
 alias df="df -h"
 alias du="du -h"
 alias em="emacsclient -c -a \"\""
+alias ke="killall emacs"
 alias matlab="ssh -X umbc 'matlab'"
 alias py="python"
 alias rh="runhaskell"
@@ -86,23 +87,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Syntax highlighting.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Setup zsh-autosuggestions
-source /home/chris/.zsh-autosuggestions/autosuggestions.zsh
-
-# Enable autosuggestions automatically
-zle-line-init() {
-  zle autosuggest-start
-}
-
-zle -N zle-line-init
-
-# use ctrl+t to toggle autosuggestions
-bindkey '^T' autosuggest-toggle
-bindkey '^F' vi-forward-blank-word
-
-# autosuggestion settings.
-AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=10'
 
 # Start X on login.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
