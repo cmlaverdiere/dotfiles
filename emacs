@@ -13,11 +13,13 @@
 
 
 ; Package list
-(setq package-list '(
+(defvar package-list '(
   ace-jump-mode
+  ace-window
   auctex
-  auto-complete
   bison-mode
+  company
+  company-c-headers
   dash
   epl
   evil
@@ -74,11 +76,11 @@
 
 ; Color theme
 (load-theme 'solarized-dark t)
-(setq solarized-scale-org-headlines nil)
+(defvar solarized-scale-org-headlines nil)
 ; (load-theme 'warm-night t)
 
 ; Config file location.
-(setq conf-file "~/.emacs.d/init.el")
+(defvar conf-file "~/.emacs.d/init.el")
 
 ; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -116,7 +118,10 @@
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
 (define-key global-map (kbd "RET") 'newline-and-indent)
-(setq evil-shift-width 2)
+
+; Time in mode-line
+(defvar display-time-format "%I:%M %p")
+(display-time-mode 1)
 
 ; Wrap settings
 (setq-default fill-column 80)
@@ -140,7 +145,7 @@
 (defun transparency-on ()
   "Set to 95% transparency."
   (interactive)
-  (set-frame-parameter (selected-frame) 'alpha '(95 95)))
+  (set-frame-parameter (selected-frame) 'alpha '(85 85)))
 
 ; Transparency disable.
 (defun transparency-off ()
@@ -166,11 +171,6 @@
 ; Ace jump settings
 (require 'ace-jump-mode)
 
-; Autocomplete
-(require 'auto-complete-config)
-(ac-config-default)
-(auto-complete-mode t)
-
 ; Expand region
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -184,11 +184,6 @@
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
 
-; Redefine snippet key to not collide with autocomplete.
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
-
 ; Guide key (Pops up help menu for prefix-keys)
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
@@ -199,17 +194,18 @@
 (require 'linum-relative)
 (global-linum-mode t)
 
+
 ;; Org Mode (Life organizer) ;;
 
 ; Org files
-(setq org-agenda-files (list "~/org/school.org"))
-(setq org-default-notes-file "~/org/notes.org")
+(defvar org-agenda-files (list "~/org/school.org"))
+(defvar org-default-notes-file "~/org/notes.org")
 
 ; Org mappings
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
-(setq org-log-done t)
+(defvar org-log-done t)
 
 (defun org-archive-done ()
   "Removes all DONE entries and places them into an archive file."
@@ -225,10 +221,10 @@
    (sh . t)))
 
 ; Correct fonts for code blocks.
-(setq org-src-fontify-natively t)
+(defvar org-src-fontify-natively t)
 
 ; Capture templates
-(setq org-capture-templates
+(defvar org-capture-templates
       '(("d" "Dreams" entry
          (file+headline "~/org/dream.org" "Dreams")
          "*** %t\n")))
@@ -243,15 +239,26 @@
          (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
 
+;; Company mode (Autocompletion)
+
+(require 'company)
+(require 'company-c-headers)
+(add-to-list 'company-backends 'company-c-headers)
+(add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
+
+(setq company-idle-delay 0.2)
+(setq company-echo-delay 0)
+(add-hook 'prog-mode-hook (lambda () (company-mode 1)))
+
 ;; ERC (IRC client)
 
 ; Hide joins / parts / quits.
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+(defvar erc-hide-list '("JOIN" "PART" "QUIT"))
 
 ; Account login info
 (let ((f (read-lines "~/.erc-login")))
-  (setq erc-nick (car f))
-  (setq erc-password (nth 1 f)))
+  (defvar erc-nick (car f))
+  (defvar erc-password (nth 1 f)))
 
 
 ;; Evil Mode (Vim emulation) ;;
@@ -276,7 +283,7 @@
   "/" 'helm-projectile-ag
   "." 'search-word-under-cursor
   "b" 'switch-to-last-buffer
-  "c" 'org-capture
+  "c" 'compile
   "d" 'dired
   "e" 'eval-last-sexp
   "g" 'magit-status
@@ -289,7 +296,20 @@
   "p" 'helm-projectile-switch-project
   "q" 'kill-buffer
   "t" 'split-term
+  "w" 'ace-window
 )
+
+; Autoadd curly brackets.
+(defun auto-add-curly ()
+  (interactive)
+  (insert "{")
+  (newline-and-indent)
+  (insert "}")
+  (evil-shift-left-line 1)
+  (evil-open-above 0))
+
+; Curly bracket insertion
+(define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
 
 ; Evil window movement.
 (define-key evil-normal-state-map "gh" 'windmove-left)
@@ -318,6 +338,10 @@
 ; Evil ace-jump
 (define-key evil-normal-state-map "s" 'ace-jump-mode)
 
+; Evil company.
+(setq evil-complete-next-func 'bw/company-complete-lambda)
+(setq evil-complete-previous-func 'bw/company-complete-lambda)
+
 ; Evil jumper (C-o / C-i functionality)
 (global-evil-jumper-mode)
 
@@ -330,6 +354,9 @@
 ; Evil scrolling.
 (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
+
+; Evil shift.
+(setq evil-shift-width 2)
 
 (evil-mode 1)
 
@@ -360,7 +387,7 @@
 (helm-projectile-on)
 
 ; Helm fuzzy-finding.
-(setq helm-M-x-fuzzy-match t)
+(defvar helm-M-x-fuzzy-match t)
 
 ; Use the silver searcher ag with Helm.
 (defun projectile-helm-ag ()
@@ -390,8 +417,11 @@
 ;; Pandoc (Markup conversion) ;;
 
 (add-hook 'markdown-mode-hook 'pandoc-mode)
-(add-hook 'markdown-mode-hook 'auto-complete-mode)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+
+
+;; Flex / Bison ;;
+(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
 
 
 ;; Flycheck (Syntax checking)
@@ -412,6 +442,7 @@
   "xi" 'run-haskell
 )
 
+
 ;; Python ;;
 
 ; Evil mappings for python.
@@ -425,15 +456,14 @@
 (add-hook 'python-mode-hook
   (lambda ()
     (setq tab-width 4)
-    (setq python-indent 4)
-    (setq evil-shift-width 4)))
+    (setq evil-shift-width 4)
+    (defvar python-indent 4)))
+
 
 ;; Terminal ;;
+
 (add-to-list 'linum-disabled-modes-list 'term-mode)
 (delete 'org-mode linum-disabled-modes-list)
 
 (add-hook 'term-mode-hook (lambda()
         (yas-minor-mode -1)))
-
-;; Flex / Bison ;;
-(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
