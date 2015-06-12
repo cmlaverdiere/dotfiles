@@ -113,10 +113,12 @@
 ; Shell settings
 (setenv "SHELL" "/usr/bin/zsh")
 
-; Tab settings
+; Indentation settings
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq indent-line-function 'insert-tab)
+(setq-default indent-line-function 'insert-tab)
+(setq-default c-default-style "k&r")
+(setq-default c-basic-offset 2)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ; Time in mode-line
@@ -192,7 +194,7 @@
 ; Relative line numbers.
 (require 'linum-off)
 (require 'linum-relative)
-(global-linum-mode t)
+; (global-linum-mode t)
 
 
 ;; Org Mode (Life organizer) ;;
@@ -214,11 +216,11 @@
 
 ; Load babel languages.
 (org-babel-do-load-languages
- 'org-babel-load-languages
- '((C . t)
-   (haskell . t)
-   (python . t)
-   (sh . t)))
+  'org-babel-load-languages
+  '((C . t)
+    (haskell . t)
+    (python . t)
+    (sh . t)))
 
 ; Correct fonts for code blocks.
 (defvar org-src-fontify-natively t)
@@ -246,8 +248,8 @@
 (add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
-(setq company-idle-delay 0.2)
-(setq company-echo-delay 0)
+(setq-default company-idle-delay 0.2)
+(setq-default company-echo-delay 0)
 (add-hook 'prog-mode-hook (lambda () (company-mode 1)))
 
 ;; ERC (IRC client)
@@ -356,7 +358,7 @@
 (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
 
 ; Evil shift.
-(setq evil-shift-width 2)
+(setq-default evil-shift-width 2)
 
 (evil-mode 1)
 
