@@ -31,11 +31,13 @@
   evil-surround
   expand-region
   flycheck
+  ggtags
   goto-chg
   guide-key
   haskell-mode
   helm
   helm-ag
+  helm-gtags
   helm-projectile
   key-chord
   linum-off
@@ -52,6 +54,7 @@
   undo-tree
   visual-fill-column
   writeroom-mode
+  xcscope
   yasnippet
 ))
 
@@ -323,6 +326,9 @@
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
 
+; Use helm for man pages.
+(define-key evil-normal-state-map "K" 'helm-man-woman)
+
 ; Transpose arguments
 (define-key evil-normal-state-map "g>" 'transpose-words)
 
@@ -469,3 +475,38 @@
 
 (add-hook 'term-mode-hook (lambda()
         (yas-minor-mode -1)))
+
+
+;; GNU Global ;;
+(require 'ggtags)
+
+; Enable gtags for c/c++.
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (ggtags-mode 1))))
+
+(setq helm-gtags-ignore-case t
+      helm-gtags-auto-update t
+      helm-gtags-use-input-at-cursor t)
+
+(require 'helm-gtags)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'dired-mode-hook 'helm-gtags-mode)
+(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+
+;; Cscope (tag system) ;;
+(require 'xcscope)
+(cscope-setup)
+(setq cscope-program "gtags-cscope")
+
+
+;; Semantic (Source parsing) ;;
+(require 'semantic)
+(global-semanticdb-minor-mode 1)
+(global-semantic-idle-scheduler-mode 1)
+
+(semantic-mode 1)
+
