@@ -511,6 +511,18 @@
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
 
+; Use gtags instead of etags for tag lookup.
+(define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
+
+; Don't wait for company delay when tabbing.
+(global-set-key "\t" 'company-complete-common)
+
+; Rebind moving down company suggestion list.
+(define-key company-active-map (kbd "M-n") 'nil)
+(define-key company-active-map (kbd "M-p") 'nil)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+
 ;; Cscope (tag system) ;;
 (require 'xcscope)
 (cscope-setup)
@@ -523,4 +535,3 @@
 (global-semantic-idle-scheduler-mode 1)
 
 (semantic-mode 1)
-
