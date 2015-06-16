@@ -30,6 +30,7 @@
   evil-org
   evil-surround
   expand-region
+  fixme-mode
   flycheck
   ggtags
   goto-chg
@@ -73,9 +74,9 @@
 ;; Vanilla Emacs Behavior ;;
 
 ; Backup settings
-(setq make-backup-files nil)
-(setq backup-inhibited t)
-(setq auto-save-default nil)
+(setq-default make-backup-files nil)
+(setq-default backup-inhibited t)
+(setq-default auto-save-default nil)
 
 ; Color theme
 (load-theme 'solarized-dark t)
@@ -199,6 +200,7 @@
 (require 'linum-relative)
 ; (global-linum-mode t)
 
+(add-hook 'prog-mode-hook 'fixme-mode)
 
 ;; Org Mode (Life organizer) ;;
 
@@ -273,6 +275,18 @@
 
 (require 'evil)
 (require 'evil-jumper)
+
+; On evil jump, add to the jump list.
+(defadvice evil-next-visual-line
+    (before evil-next-visual-line-before activate) (evil-jumper--set-jump))
+
+(defadvice evil-previous-visual-line
+    (before evil-next-visual-line-before activate) (evil-jumper--set-jump))
+
+; On ace jump, add to the jump list.
+(defadvice ace-jump-mode
+    (before ace-jump-mode-before activate) (evil-jumper--set-jump))
+
 (require 'evil-leader)
 (require 'evil-matchit)
 (require 'evil-numbers)
