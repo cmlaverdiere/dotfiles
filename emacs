@@ -202,49 +202,6 @@
 
 (add-hook 'prog-mode-hook 'fixme-mode)
 
-;; Org Mode (Life organizer) ;;
-
-; Org files
-(defvar org-agenda-files (list "~/org/school.org"))
-(defvar org-default-notes-file "~/org/notes.org")
-
-; Org mappings
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
-(define-key global-map "\C-cl" 'org-store-link)
-(defvar org-log-done t)
-
-(defun org-archive-done ()
-  "Removes all DONE entries and places them into an archive file."
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
-
-; Load babel languages.
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((C . t)
-    (haskell . t)
-    (python . t)
-    (sh . t)))
-
-; Correct fonts for code blocks.
-(defvar org-src-fontify-natively t)
-
-; Capture templates
-(defvar org-capture-templates
-      '(("d" "Dreams" entry
-         (file+headline "~/org/dream.org" "Dreams")
-         "*** %t\n")))
-
-; Enable spell checking in org mode.
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-
-; Open PDF links in apvlv.
-(add-hook 'org-mode-hook
-      '(lambda ()
-         (delete '("\\.pdf\\'" . default) org-file-apps)
-         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
-
 
 ;; Company mode (Autocompletion)
 
@@ -256,6 +213,11 @@
 (setq-default company-idle-delay 0.2)
 (setq-default company-echo-delay 0)
 (add-hook 'prog-mode-hook (lambda () (company-mode 1)))
+
+;; Cscope (Tag system) ;;
+(defvar cscope-program "gtags-cscope")
+(require 'xcscope)
+
 
 ;; ERC (IRC client)
 
@@ -313,7 +275,7 @@
   "od" 'org-deadline
   "os" 'org-schedule
   "p" 'helm-projectile-switch-project
-  "q" 'kill-buffer
+  "q" 'evil-quit
   "t" 'split-term
   "w" 'ace-window
 )
@@ -377,30 +339,68 @@
 (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
 
+; Use gtags instead of etags for tag lookup.
+(define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
+
 ; Evil shift.
 (setq-default evil-shift-width 2)
 
 (evil-mode 1)
 
 
-;; Projectile (Project management) ;;
+;; GNU Global ;;
 
-(require 'projectile)
-(projectile-global-mode)
-(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
+(require 'ggtags)
 
-; Evil mappings for projectile.
-(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
-(evil-leader/set-key-for-mode 'projectile-mode
-  "/" 'projectile-helm-ag
-  "sw" 'projectile-find-other-file
+; Enable gtags for c/c++.
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (cscope-setup)
+              (ggtags-mode 1))))
+
+(defvar helm-gtags-ignore-case t)
+(defvar helm-gtags-auto-update t)
+(defvar helm-gtags-use-input-at-cursor t)
+
+(require 'helm-gtags)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'dired-mode-hook 'helm-gtags-mode)
+(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+
+; Don't wait for company delay when tabbing.
+(global-set-key "\t" 'company-complete-common)
+
+; Rebind moving down company suggestion list.
+(define-key company-active-map (kbd "M-n") 'nil)
+(define-key company-active-map (kbd "M-p") 'nil)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+
+
+;; Flex / Bison ;;
+(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
+
+
+;; Flycheck (Syntax checking)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+
+;; Haskell ;;
+
+; Haskell indent mode.
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+
+; Evil mappings for haskell.
+(evil-leader/set-key-for-mode 'haskell-mode
+  "xb" 'inferior-haskell-load-and-run
+  "xd" 'inferior-haskell-send-decl
+  "xi" 'run-haskell
 )
-
-(defun search-word-under-cursor ()
-  "Searches for the word under the cursor using projectile."
-  (interactive)
-  (er/expand-region 1)
-  (projectile-helm-ag))
 
 
 ;; Helm (Incremental completion / Selection narrowing) ;;
@@ -436,33 +436,79 @@
 )
 
 
+;; Org Mode (Life organizer) ;;
+
+; Org files
+(defvar org-agenda-files (list "~/org/school.org"))
+(defvar org-default-notes-file "~/org/notes.org")
+
+; Org mappings
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-cl" 'org-store-link)
+(defvar org-log-done t)
+
+(defun org-archive-done ()
+  "Removes all DONE entries and places them into an archive file."
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
+; Load babel languages.
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((C . t)
+    (haskell . t)
+    (python . t)
+    (sh . t)))
+
+; Correct fonts for code blocks.
+(defvar org-src-fontify-natively t)
+
+; Capture templates
+(defvar org-capture-templates
+      '(("d" "Dreams" entry
+         (file+headline "~/org/dream.org" "Dreams")
+         "*** %t\n")))
+
+; Enable spell checking in org mode.
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+
+; Open PDF links in apvlv.
+(add-hook 'org-mode-hook
+      '(lambda ()
+         (delete '("\\.pdf\\'" . default) org-file-apps)
+         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+
+
 ;; Pandoc (Markup conversion) ;;
 
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 
-;; Flex / Bison ;;
-(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
+;; Projectile (Project management) ;;
 
+(require 'projectile)
+(projectile-global-mode)
+(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
-;; Flycheck (Syntax checking)
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-
-
-;; Haskell ;;
-
-; Haskell indent mode.
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-
-; Evil mappings for haskell.
-(evil-leader/set-key-for-mode 'haskell-mode
-  "xb" 'inferior-haskell-load-and-run
-  "xd" 'inferior-haskell-send-decl
-  "xi" 'run-haskell
+; Evil mappings for projectile.
+(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
+(evil-leader/set-key-for-mode 'projectile-mode
+  "/" 'projectile-helm-ag
+  "sw" 'projectile-find-other-file
 )
+
+; Use project root as cscope database.
+(defadvice helm-projectile-switch-project
+    (after helm-projectile-switch-project-after activate)
+    (cscope-set-initial-directory (projectile-project-root)))
+
+(defun search-word-under-cursor ()
+  "Searches for the word under the cursor using projectile."
+  (interactive)
+  (er/expand-region 1)
+  (projectile-helm-ag))
 
 
 ;; Python ;;
@@ -482,6 +528,15 @@
     (defvar python-indent 4)))
 
 
+;; Semantic (Source parsing) ;;
+
+(require 'cc-mode)
+(require 'semantic)
+(global-semanticdb-minor-mode 1)
+(global-semantic-idle-scheduler-mode 1)
+(semantic-mode 1)
+
+
 ;; Terminal ;;
 
 (add-to-list 'linum-disabled-modes-list 'term-mode)
@@ -489,49 +544,3 @@
 
 (add-hook 'term-mode-hook (lambda()
         (yas-minor-mode -1)))
-
-
-;; GNU Global ;;
-(require 'ggtags)
-
-; Enable gtags for c/c++.
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode)
-              (ggtags-mode 1))))
-
-(setq helm-gtags-ignore-case t
-      helm-gtags-auto-update t
-      helm-gtags-use-input-at-cursor t)
-
-(require 'helm-gtags)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'dired-mode-hook 'helm-gtags-mode)
-(add-hook 'eshell-mode-hook 'helm-gtags-mode)
-
-; Use gtags instead of etags for tag lookup.
-(define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
-
-; Don't wait for company delay when tabbing.
-(global-set-key "\t" 'company-complete-common)
-
-; Rebind moving down company suggestion list.
-(define-key company-active-map (kbd "M-n") 'nil)
-(define-key company-active-map (kbd "M-p") 'nil)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-
-;; Cscope (tag system) ;;
-(require 'xcscope)
-(cscope-setup)
-(setq cscope-program "gtags-cscope")
-
-
-;; Semantic (Source parsing) ;;
-(require 'semantic)
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-
-(semantic-mode 1)
