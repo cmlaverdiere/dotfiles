@@ -20,6 +20,7 @@
   bison-mode
   company
   company-c-headers
+  company-irony
   dash
   epl
   evil
@@ -40,6 +41,7 @@
   helm-ag
   helm-gtags
   helm-projectile
+  irony
   key-chord
   linum-off
   linum-relative
@@ -124,6 +126,7 @@
 (setq-default c-default-style "k&r")
 (setq-default c-basic-offset 2)
 (define-key global-map (kbd "RET") 'newline-and-indent)
+(define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
 
 ; Time in mode-line
 (defvar display-time-format "%I:%M %p")
@@ -210,9 +213,31 @@
 (add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
-(setq-default company-idle-delay 0.2)
+; Don't wait for company delay when tabbing.
+(global-set-key "\t" 'company-complete-common-or-cycle)
+
+; Rebind moving down company suggestion list.
+(define-key company-active-map (kbd "M-n") 'nil)
+(define-key company-active-map (kbd "M-p") 'nil)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+
+(setq-default company-idle-delay 0.0)
 (setq-default company-echo-delay 0)
 (add-hook 'prog-mode-hook (lambda () (company-mode 1)))
+
+; Let yas play nicely with company completion.
+(defun company-yasnippet-or-completion ()
+  (interactive)
+  (let ((yas-fallback-behavior nil))
+    (unless (yas-expand)
+      (call-interactively #'company-complete-common))))
+
+(add-hook 'company-mode-hook (lambda ()
+  (substitute-key-definition 'company-complete-common
+                             'company-yasnippet-or-completion
+                              company-active-map)))
+
 
 ;; Cscope (Tag system) ;;
 (defvar cscope-program "gtags-cscope")
@@ -272,8 +297,7 @@
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
   "j" 'ace-jump-line-mode
-  "od" 'org-deadline
-  "os" 'org-schedule
+  "o" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
   "q" 'evil-quit
   "t" 'split-term
@@ -298,6 +322,9 @@
 (define-key evil-normal-state-map "gk" 'windmove-up)
 (define-key evil-normal-state-map "gl" 'windmove-right)
 
+; Line completion
+(define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
+
 ; Evil window scrolling.
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
@@ -321,10 +348,6 @@
 
 ; Evil ace-jump
 (define-key evil-normal-state-map "s" 'ace-jump-mode)
-
-; Evil company.
-(setq evil-complete-next-func 'bw/company-complete-lambda)
-(setq evil-complete-previous-func 'bw/company-complete-lambda)
 
 ; Evil jumper (C-o / C-i functionality)
 (global-evil-jumper-mode)
@@ -353,11 +376,11 @@
 (require 'ggtags)
 
 ; Enable gtags for c/c++.
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode)
-              (cscope-setup)
-              (ggtags-mode 1))))
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'c-mode 'c++-mode)
+;;               (cscope-setup)
+;;               (ggtags-mode 1))))
 
 (defvar helm-gtags-ignore-case t)
 (defvar helm-gtags-auto-update t)
@@ -369,15 +392,6 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-
-; Don't wait for company delay when tabbing.
-(global-set-key "\t" 'company-complete-common)
-
-; Rebind moving down company suggestion list.
-(define-key company-active-map (kbd "M-n") 'nil)
-(define-key company-active-map (kbd "M-p") 'nil)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
 
 ;; Flex / Bison ;;
@@ -415,6 +429,30 @@
 (defun projectile-helm-ag ()
   (interactive)
   (helm-ag (projectile-project-root)))
+
+
+;; Irony (clang completion) ;;
+
+; Use irony for C/C++
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+
+; Replace completion functions.
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+; Add irony backend for company.
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+; Extra completions.
+(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 
 
 ;; Markdown ;;
@@ -496,7 +534,6 @@
 (define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
 (evil-leader/set-key-for-mode 'projectile-mode
   "/" 'projectile-helm-ag
-  "sw" 'projectile-find-other-file
 )
 
 ; Use project root as cscope database.
@@ -530,11 +567,11 @@
 
 ;; Semantic (Source parsing) ;;
 
-(require 'cc-mode)
-(require 'semantic)
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-(semantic-mode 1)
+;; (require 'cc-mode)
+;; (require 'semantic)
+;; (global-semanticdb-minor-mode 1)
+;; (global-semantic-idle-scheduler-mode 1)
+;; (semantic-mode 1)
 
 
 ;; Terminal ;;
