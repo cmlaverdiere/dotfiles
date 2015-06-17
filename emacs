@@ -376,11 +376,13 @@
 (require 'ggtags)
 
 ; Enable gtags for c/c++.
-;; (add-hook 'c-mode-common-hook
-;;           (lambda ()
-;;             (when (derived-mode-p 'c-mode 'c++-mode)
-;;               (cscope-setup)
-;;               (ggtags-mode 1))))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (cscope-setup)
+              (cscope-minor-mode)
+              ; (ggtags-mode 1)
+          )))
 
 (defvar helm-gtags-ignore-case t)
 (defvar helm-gtags-auto-update t)
