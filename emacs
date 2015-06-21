@@ -81,9 +81,9 @@
 (setq-default auto-save-default nil)
 
 ; Color theme
-(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
 (defvar solarized-scale-org-headlines nil)
-; (load-theme 'warm-night t)
+(load-theme 'warm-night t)
 
 ; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
@@ -173,6 +173,12 @@
   (split-window-right)
   (other-window 1)
   (multi-term))
+
+(defun split-shell ()
+  (interactive)
+  (split-window-right)
+  (other-window 1)
+  (eshell))
 
 
 ;; Plugin-dependent Emacs behavior (Small plugins) ;;
@@ -288,6 +294,7 @@
 (evil-leader/set-key
   "/" 'helm-projectile-ag
   "." 'search-word-under-cursor
+  "a" 'ace-window
   "b" 'switch-to-last-buffer
   "c" 'compile
   "d" 'dired
@@ -300,8 +307,10 @@
   "o" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
   "q" 'evil-quit
+  "s" 'split-shell
   "t" 'split-term
-  "w" 'ace-window
+  "v" 'evil-window-vsplit
+  "w" 'save-buffer
 )
 
 ; Autoadd curly brackets.

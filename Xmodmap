@@ -1,0 +1,6 @@
+! Remap right alt to right control.
+clear Mod1
+clear Control
+keysym Alt_R = Control_R
+add Control = Control_L Control_R
+add Mod1 = Alt_L Alt_R
