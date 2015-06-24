@@ -34,6 +34,7 @@
   fixme-mode
   flycheck
   ggtags
+  golden-ratio
   goto-chg
   guide-key
   haskell-mode
@@ -128,9 +129,26 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
 
+; Find mappings
+(define-key 'help-command (kbd "C-l") 'find-library)
+(define-key 'help-command (kbd "C-f") 'find-function)
+(define-key 'help-command (kbd "C-k") 'find-function-on-key)
+(define-key 'help-command (kbd "C-v") 'find-variable)
+
+; Find at point mappings
+(define-prefix-command 'help-at-point-map)
+(global-set-key (kbd "C-h C-p") 'help-at-point-map)
+(define-key 'help-at-point-map (kbd "f") 'find-function-at-point)
+(define-key 'help-at-point-map (kbd "v") 'find-variable-at-point)
+
 ; Time in mode-line
 (defvar display-time-format "%I:%M %p")
 (display-time-mode 1)
+
+(defun ins-date ()
+  "Insert date into current buffer."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%m:%S")))
 
 ; Wrap settings
 (setq-default fill-column 80)
@@ -190,6 +208,11 @@
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+; Golden ratio (auto window resizing)
+(require 'golden-ratio)
+(golden-ratio-mode 1)
+(setq golden-ratio-auto-scale)
+
 ; Magit (Git integration)
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
@@ -230,7 +253,12 @@
 
 (setq-default company-idle-delay 0.0)
 (setq-default company-echo-delay 0)
-(add-hook 'prog-mode-hook (lambda () (company-mode 1)))
+
+(defun enable-company ()
+  (company-mode 1))
+
+(add-hook 'prog-mode-hook 'enable-company)
+(add-hook 'eshell-mode-hook 'enable-company)
 
 ; Let yas play nicely with company completion.
 (defun company-yasnippet-or-completion ()
@@ -307,6 +335,7 @@
   "o" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
   "q" 'evil-quit
+  "Q" 'kill-buffer
   "s" 'split-shell
   "t" 'split-term
   "v" 'evil-window-vsplit
@@ -330,6 +359,12 @@
 (define-key evil-normal-state-map "gj" 'windmove-down)
 (define-key evil-normal-state-map "gk" 'windmove-up)
 (define-key evil-normal-state-map "gl" 'windmove-right)
+
+; Make * and # search for symbols rather than words.
+(setq-default evil-symbol-word-search t)
+
+; Use global regexes by default.
+(setq-default evil-ex-substitute-global t)
 
 ; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
