@@ -54,9 +54,10 @@
   popup
   projectile
   solarized-theme
-  warm-night-theme
+  tao-theme
   undo-tree
   visual-fill-column
+  warm-night-theme
   writeroom-mode
   xcscope
   yasnippet
@@ -83,8 +84,10 @@
 
 ; Color theme
 ; (load-theme 'solarized-dark t)
-(defvar solarized-scale-org-headlines nil)
 (load-theme 'warm-night t)
+; (load-theme 'tao-yin t)
+
+(defvar solarized-scale-org-headlines nil)
 
 ; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
@@ -170,7 +173,7 @@
 
 ; Transparency enable.
 (defun transparency-on ()
-  "Set to 95% transparency."
+  "Set to 85% transparency."
   (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(85 85)))
 
@@ -212,6 +215,7 @@
 (require 'golden-ratio)
 (golden-ratio-mode 1)
 (setq golden-ratio-auto-scale)
+(add-to-list 'golden-ratio-extra-commands 'ace-window)
 
 ; Magit (Git integration)
 (require 'magit)
@@ -232,7 +236,11 @@
 (require 'linum-relative)
 ; (global-linum-mode t)
 
+; Enable highlighting of TODOs.
 (add-hook 'prog-mode-hook 'fixme-mode)
+
+; Enable folding
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 
 ;; Company mode (Autocompletion)
@@ -365,6 +373,9 @@
 
 ; Use global regexes by default.
 (setq-default evil-ex-substitute-global t)
+
+; Use evil's search instead of isearch.
+(setq-default evil-search-module 'evil-search)
 
 ; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
@@ -516,7 +527,7 @@
 
 ; Evil mappings for markdown.
 (evil-leader/set-key-for-mode 'markdown-mode
-  "p" 'pandoc-convert-to-pdf
+  "P" 'pandoc-convert-to-pdf
 )
 
 
