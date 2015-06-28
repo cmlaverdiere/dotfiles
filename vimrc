@@ -2,8 +2,7 @@
 " Requires: ctags, vundle
 
 " Distro specific settings. Pick one.
-runtime! debian.vim
-" runtime! archlinux.vim
+runtime! archlinux.vim
 
 " Tmux / color compatability settings.
 set shell=bash
@@ -132,6 +131,7 @@ nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>ul :call <SID>MDUL()<CR>
 nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
+nnoremap <Leader>w :w<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
@@ -167,7 +167,6 @@ set scrolloff=3
 set nobackup
 set noswapfile
 set undofile
-set history=100000
 
 " Remove trailing whitespace function.
 fun! <SID>RTW()

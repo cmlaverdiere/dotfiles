@@ -23,6 +23,7 @@
   company-irony
   dash
   epl
+  eshell-autojump
   evil
   evil-jumper
   evil-leader
@@ -30,6 +31,7 @@
   evil-numbers
   evil-org
   evil-surround
+  exec-path-from-shell
   expand-region
   fixme-mode
   flycheck
@@ -189,18 +191,19 @@
     (insert-file-contents fp)
     (split-string (buffer-string) "\n" t)))
 
-(defun split-term ()
+(defun do-in-split (fun)
   (interactive)
-  (split-window-right)
-  (other-window 1)
-  (multi-term))
+  (if (< 1 (length (window-list)))
+      (progn
+        (other-window 1)
+        (funcall fun))
+    (progn
+      (split-window-right)
+      (other-window 1)
+      (funcall fun))))
 
-(defun split-shell ()
-  (interactive)
-  (split-window-right)
-  (other-window 1)
-  (eshell))
-
+(defun split-eshell () (interactive) (do-in-split 'eshell))
+(defun split-term () (interactive) (do-in-split 'multi-term))
 
 ;; Plugin-dependent Emacs behavior (Small plugins) ;;
 
@@ -256,8 +259,8 @@
 ; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-j") 'company-select-next)
+(define-key company-active-map (kbd "C-k") 'company-select-previous)
 
 (setq-default company-idle-delay 0.0)
 (setq-default company-echo-delay 0)
@@ -286,6 +289,16 @@
 (require 'xcscope)
 
 
+;; Eshell
+
+(require 'eshell-autojump)
+
+(setq-default eshell-save-history-on-exit t)
+
+; Set path to shell path.
+(exec-path-from-shell-initialize)
+
+
 ;; ERC (IRC client)
 
 ; Hide joins / parts / quits.
@@ -305,12 +318,16 @@
 (require 'evil)
 (require 'evil-jumper)
 
-; On evil jump, add to the jump list.
+; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
-    (before evil-next-visual-line-before activate) (evil-jumper--set-jump))
+    (before evil-next-visual-line-before activate)
+    (unless (eq (ad-get-arg 0) nil)
+        (evil-jumper--set-jump)))
 
 (defadvice evil-previous-visual-line
-    (before evil-next-visual-line-before activate) (evil-jumper--set-jump))
+    (before evil-previous-visual-line-before activate)
+    (unless (eq (ad-get-arg 0) nil)
+        (evil-jumper--set-jump)))
 
 ; On ace jump, add to the jump list.
 (defadvice ace-jump-mode
@@ -344,7 +361,7 @@
   "p" 'helm-projectile-switch-project
   "q" 'evil-quit
   "Q" 'kill-buffer
-  "s" 'split-shell
+  "s" 'split-eshell
   "t" 'split-term
   "v" 'evil-window-vsplit
   "w" 'save-buffer
@@ -397,6 +414,9 @@
 ; Comment a region like tcomment from vim.
 (define-key evil-normal-state-map "gc" 'comment-dwim)
 
+; Quick buffer closing from insert mode.
+(define-key evil-insert-state-map (kbd "C-q") 'evil-quit)
+
 ; Map <ESC> to jk.
 (key-chord-mode 1)
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
@@ -426,6 +446,16 @@
 (evil-mode 1)
 
 
+;; Flex / Bison ;;
+(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
+
+
+;; Flycheck (Syntax checking)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+
 ;; GNU Global ;;
 
 (require 'ggtags)
@@ -449,16 +479,6 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-
-
-;; Flex / Bison ;;
-(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
-
-
-;; Flycheck (Syntax checking)
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
 
 ;; Haskell ;;
