@@ -658,3 +658,8 @@
 
 (add-hook 'term-mode-hook (lambda()
         (yas-minor-mode -1)))
+
+
+;; Web ;;
+
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
