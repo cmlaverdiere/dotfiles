@@ -70,9 +70,10 @@ set smartcase
 " Search settings
 set incsearch
 set timeoutlen=300
+set showcmd
 
 " Critical remaps
-let mapleader=","
+map <Space> <Leader>
 inoremap jk <esc>
 map Y y$
 map <c-j> <c-d>

@@ -343,7 +343,7 @@
 (global-evil-leader-mode)
 
 ; Global evil leaders.
-(evil-leader/set-leader ",")
+(evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "/" 'helm-projectile-ag
   "." 'search-word-under-cursor
@@ -608,7 +608,7 @@
 (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
 ; Evil mappings for projectile.
-(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
+(define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
 (evil-leader/set-key-for-mode 'projectile-mode
   "/" 'projectile-helm-ag
 )
