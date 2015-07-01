@@ -1,5 +1,9 @@
 ; Chris Laverdiere's .emacs file.
 
+; TODO Eshell doesn't save history.
+; TODO File evil bug for yank global.
+; TODO File evil bug for substitute visual
+
 ;; Package management ;;
 
 ; Package repositories
@@ -166,6 +170,12 @@
   "Opens the emacs config file."
   (interactive)
   (find-file conf-file))
+
+; Quick configuration opening.
+(defun open-scratch()
+  "Opens the emacs scratch buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*"))
 
 ; Quick buffer switching.
 (defun switch-to-last-buffer ()
@@ -365,6 +375,7 @@
   "t" 'split-term
   "v" 'evil-window-vsplit
   "w" 'save-buffer
+  "z" 'open-scratch
 )
 
 ; Autoadd curly brackets.
@@ -501,6 +512,10 @@
 
 ; Helm fuzzy-finding.
 (defvar helm-M-x-fuzzy-match t)
+
+; Consistent movement with company.
+(define-key helm-map (kbd "C-j") 'helm-next-line)
+(define-key helm-map (kbd "C-k") 'helm-previous-line)
 
 ; Use the silver searcher ag with Helm.
 (defun projectile-helm-ag ()
