@@ -1,7 +1,5 @@
-; Chris Laverdiere's .emacs file.
+;;; Chris Laverdiere's Emacs config ;;;
 
-; TODO Eshell doesn't save history.
-; TODO File evil bug for yank global.
 ; TODO File evil bug for substitute visual
 
 ;; Package management ;;
@@ -12,7 +10,6 @@
   ("elpa" . "http://tromey.com/elpa/")
   ("gnu" . "http://elpa.gnu.org/packages/")
   ("melpa" . "http://melpa.milkbox.net/packages/")
-  ("marmalade" . "http://marmalade-repo.org/packages/")
 ))
 
 
@@ -64,6 +61,7 @@
   undo-tree
   visual-fill-column
   warm-night-theme
+  web-mode
   writeroom-mode
   xcscope
   yasnippet
@@ -215,45 +213,9 @@
 (defun split-eshell () (interactive) (do-in-split 'eshell))
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
-;; Plugin-dependent Emacs behavior (Small plugins) ;;
 
-; Ace jump settings
+;; Ace jump ;;
 (require 'ace-jump-mode)
-
-; Expand region
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-
-; Golden ratio (auto window resizing)
-(require 'golden-ratio)
-(golden-ratio-mode 1)
-(setq golden-ratio-auto-scale)
-(add-to-list 'golden-ratio-extra-commands 'ace-window)
-
-; Magit (Git integration)
-(require 'magit)
-(setq magit-last-seen-setup-instructions "1.4.0")
-
-; YASnippet (Tab-completed snippets)
-(require 'yasnippet)
-(yas-global-mode 1)
-(setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
-
-; Guide key (Pops up help menu for prefix-keys)
-(require 'guide-key)
-(setq guide-key/guide-key-sequence t)
-(guide-key-mode 1)
-
-; Relative line numbers.
-(require 'linum-off)
-(require 'linum-relative)
-; (global-linum-mode t)
-
-; Enable highlighting of TODOs.
-(add-hook 'prog-mode-hook 'fixme-mode)
-
-; Enable folding
-(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 
 ;; Company mode (Autocompletion)
@@ -264,7 +226,7 @@
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
 ; Don't wait for company delay when tabbing.
-(global-set-key "\t" 'company-complete-common-or-cycle)
+; (global-set-key "\t" 'company-complete-common-or-cycle)
 
 ; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
@@ -299,15 +261,15 @@
 (require 'xcscope)
 
 
-;; Eshell
+;; Eshell ;;
 
+(require 'eshell)
 (require 'eshell-autojump)
 
 (setq-default eshell-save-history-on-exit t)
 
 ; Set path to shell path.
 (exec-path-from-shell-initialize)
-
 
 ;; ERC (IRC client)
 
@@ -346,17 +308,33 @@
 (require 'evil-leader)
 (require 'evil-matchit)
 (require 'evil-numbers)
-; (require 'evil-org)
+
+(require 'evil-org)
+
+(evil-set-initial-state 'org-capture-mode 'insert)
+(evil-set-initial-state 'git-commit-mode 'insert)
+(evil-set-initial-state 'occur-mode 'normal)
+(evil-declare-key 'motion occur-mode-map (kbd "RET")
+  'occur-mode-goto-occurrence)
+
+(evil-define-key 'normal evil-org-mode-map
+  "gh" nil "gj" nil "gk" nil "gl" nil)
+
+(evil-leader/set-key-for-mode 'org-mode
+  "a"  'ace-window)
+
 (require 'evil-surround)
+
 
 ; Use evil (mostly) everywhere.
 (global-evil-leader-mode)
 
 ; Global evil leaders.
+; TODO move these into their own modes.
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "/" 'helm-projectile-ag
   "." 'search-word-under-cursor
+  "/" 'helm-projectile-ag
   "a" 'ace-window
   "b" 'switch-to-last-buffer
   "c" 'compile
@@ -366,15 +344,19 @@
   "i" 'open-conf
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
-  "j" 'ace-jump-line-mode
-  "o" 'projectile-find-other-file
+  "j" 'winner-undo
+  "k" 'winner-redo
+  "o" 'occur
+  "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
+  "r" 'projectile-run-async-shell-command-in-root
   "q" 'evil-quit
   "Q" 'kill-buffer
   "s" 'split-eshell
   "t" 'split-term
   "v" 'evil-window-vsplit
   "w" 'save-buffer
+  "W" 'delete-other-windows
   "z" 'open-scratch
 )
 
@@ -451,10 +433,17 @@
 ; Use gtags instead of etags for tag lookup.
 (define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
 
+; Eshell history
+(define-key evil-insert-state-map (kbd "C-l") 'helm-eshell-history)
+
 ; Evil shift.
 (setq-default evil-shift-width 2)
 
 (evil-mode 1)
+
+
+;; Fixme highlighting ;;
+(add-hook 'prog-mode-hook 'fixme-mode)
 
 
 ;; Flex / Bison ;;
@@ -465,6 +454,11 @@
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+
+;; Expand region ;;
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 
 ;; GNU Global ;;
@@ -490,6 +484,19 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+
+
+;; Golden ratio (auto window resizing) ;;
+(require 'golden-ratio)
+(golden-ratio-mode 1)
+(setq golden-ratio-auto-scale)
+(add-to-list 'golden-ratio-extra-commands 'ace-window)
+
+
+;; Guide key (Prefix-keys menu) ;;
+(require 'guide-key)
+(setq guide-key/guide-key-sequence t)
+(guide-key-mode 1)
 
 
 ;; Haskell ;;
@@ -523,6 +530,10 @@
   (helm-ag (projectile-project-root)))
 
 
+;; Hide/Show ;;
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
+
 ;; Irony (clang completion) ;;
 
 ; Use irony for C/C++
@@ -545,6 +556,11 @@
 
 ; Extra completions.
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
+
+;; Magit (Git integration) ;;
+(require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 
 ;; Markdown ;;
@@ -624,9 +640,7 @@
 
 ; Evil mappings for projectile.
 (define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
-(evil-leader/set-key-for-mode 'projectile-mode
-  "/" 'projectile-helm-ag
-)
+(define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
 
 ; Use project root as cscope database.
 (defadvice helm-projectile-switch-project
@@ -657,13 +671,19 @@
     (defvar python-indent 4)))
 
 
+;; Relative line numbers. ;;
+(require 'linum-off)
+(require 'linum-relative)
+; (global-linum-mode t)
+
+
 ;; Semantic (Source parsing) ;;
 
-;; (require 'cc-mode)
-;; (require 'semantic)
-;; (global-semanticdb-minor-mode 1)
-;; (global-semantic-idle-scheduler-mode 1)
-;; (semantic-mode 1)
+; (require 'cc-mode)
+; (require 'semantic)
+; (global-semanticdb-minor-mode 1)
+; (global-semantic-idle-scheduler-mode 1)
+; (semantic-mode 1)
 
 
 ;; Terminal ;;
@@ -677,4 +697,32 @@
 
 ;; Web ;;
 
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
+(require 'web-mode)
+
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
+
+(defun my-web-mode-hook ()
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+)
+
+(add-hook 'web-mode-hook 'my-web-mode-hook)
+
+
+;; Winner (Window management) ;;
+(winner-mode 1)
+
+
+;; YASnippet (Tab-completed snippets) ;;
+(require 'yasnippet)
+(yas-global-mode 1)
+(setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
