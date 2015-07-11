@@ -1,6 +1,9 @@
 ;;; Chris Laverdiere's Emacs config ;;;
 
-; TODO File evil bug for substitute visual
+; TODO File evil bugs for:
+;   substitute visual
+;   evil-search previous match
+;   g C-g
 
 ;; Package management ;;
 
@@ -26,6 +29,7 @@
   epl
   eshell-autojump
   evil
+  evil-args
   evil-jumper
   evil-leader
   evil-matchit
@@ -122,7 +126,7 @@
 (setf sentence-end-double-space nil)
 
 ; Session saving
-(desktop-save-mode 1)
+; (desktop-save-mode 1)
 
 ; Shell settings
 (setenv "SHELL" "/usr/bin/zsh")
@@ -309,6 +313,11 @@
 (require 'evil-matchit)
 (require 'evil-numbers)
 
+(require 'evil-args)
+
+(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+
 (require 'evil-org)
 
 (evil-set-initial-state 'org-capture-mode 'insert)
@@ -385,10 +394,13 @@
 (setq-default evil-ex-substitute-global t)
 
 ; Use evil's search instead of isearch.
-(setq-default evil-search-module 'evil-search)
+; (setq-default evil-search-module 'evil-search)
 
 ; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
+
+; Visual line information
+(define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
 
 ; Evil window scrolling.
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
@@ -405,7 +417,7 @@
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
 ; Comment a region like tcomment from vim.
-(define-key evil-normal-state-map "gc" 'comment-dwim)
+(define-key evil-visual-state-map "gc" 'comment-dwim)
 
 ; Quick buffer closing from insert mode.
 (define-key evil-insert-state-map (kbd "C-q") 'evil-quit)
