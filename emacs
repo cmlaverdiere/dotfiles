@@ -363,6 +363,7 @@
   "Q" 'kill-buffer
   "s" 'split-eshell
   "t" 'split-term
+  "u" 'undo-tree-visualize
   "v" 'evil-window-vsplit
   "w" 'save-buffer
   "W" 'delete-other-windows
@@ -725,6 +726,7 @@
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
+  (yas-activate-extra-mode 'html-mode)
 )
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
@@ -738,3 +740,4 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
+(setq yas-triggers-in-field t)
