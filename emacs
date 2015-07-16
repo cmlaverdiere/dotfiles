@@ -10,9 +10,9 @@
 ; Package repositories
 (require 'package)
 (setq package-archives '(
-  ("elpa" . "http://tromey.com/elpa/")
-  ("gnu" . "http://elpa.gnu.org/packages/")
   ("melpa" . "http://melpa.milkbox.net/packages/")
+  ("gnu" . "http://elpa.gnu.org/packages/")
+  ("elpa" . "http://tromey.com/elpa/")
 ))
 
 
@@ -25,6 +25,7 @@
   company
   company-c-headers
   company-irony
+  company-quickhelp
   dash
   epl
   eshell-autojump
@@ -74,6 +75,7 @@
 (package-initialize)
 
 ; Fetch list of packages available.
+(setq package-archive-contents nil)
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -229,6 +231,8 @@
 (add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
+(company-quickhelp-mode 1)
+
 ; Don't wait for company delay when tabbing.
 ; (global-set-key "\t" 'company-complete-common-or-cycle)
 
@@ -274,6 +278,13 @@
 
 ; Set path to shell path.
 (exec-path-from-shell-initialize)
+
+(defun eshell-new ()
+  "Create a new eshell instance."
+  (interactive)
+  (let ((current-prefix-arg t))
+    (call-interactively 'eshell)))
+
 
 ;; ERC (IRC client)
 
@@ -362,6 +373,7 @@
   "q" 'evil-quit
   "Q" 'kill-buffer
   "s" 'split-eshell
+  "S" 'eshell-new
   "t" 'split-term
   "u" 'undo-tree-visualize
   "v" 'evil-window-vsplit
@@ -605,6 +617,11 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
+
+(evil-leader/set-key-for-mode 'org-mode
+ "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
+)
+
 (defvar org-log-done t)
 
 (defun org-archive-done ()
