@@ -1,0 +1,2 @@
+alias vim find-file $1
+alias ff find-file $1

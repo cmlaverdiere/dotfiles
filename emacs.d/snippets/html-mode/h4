@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: h4
+# key: h4
+# binding: direct-keybinding
+# --
+<h4>
+  $1
+</h4>
