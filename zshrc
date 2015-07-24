@@ -21,6 +21,7 @@ alias matlab="ssh -X umbc 'matlab'"
 alias py="python"
 alias rh="runhaskell"
 alias temp="acpi -t"
+alias tmux="tmux -2"
 
 # Ubuntu
 alias acs="apt-cache search"
@@ -31,7 +32,8 @@ alias sagi="sudo apt-get install"
 # Arch
 alias pac="\pacman"
 alias pacman="sudo pacman"
-alias pacupd="sudo pacman -Syu"
+alias pup="sudo pacman -Syu"
+alias pi="sudo pacman -S"
 
 # File aliases
 alias blog="vim ~/documents/Misc/blog.txt"
@@ -40,6 +42,7 @@ alias dreamj="vim ~/documents/Misc/dreams.txt"
 alias emrc="vim ~/.emacs.d/init.el"
 alias fishrc="vim ~/.config/fish/config.fish"
 alias ideas="vim ~/documents/Misc/ideas.txt"
+alias links="vim ~/documents/Misc/links.txt"
 alias robots="vim ~/documents/Misc/robots.txt"
 alias shows="vim ~/documents/Misc/shows.txt"
 alias stask="vim ~/org/school.org"
@@ -88,5 +91,10 @@ source $ZSH/oh-my-zsh.sh
 # Syntax highlighting.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Ruby path.
+export PATH=/home/chris/.gem/ruby/2.2.0/bin:$PATH
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+
 # Start X on login.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+

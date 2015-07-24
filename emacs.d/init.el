@@ -1,9 +1,14 @@
 ;;; Chris Laverdiere's Emacs config ;;;
 
-; TODO File evil bugs for:
-;   substitute visual
-;   evil-search previous match
-;   g C-g
+; TODO
+;  - File evil bugs for:
+;    - substitute visual
+;    - evil-search previous match
+;    - g C-g
+
+; FIXME
+;  - company eshell
+;  - lisp indent comment
 
 ;; Package management ;;
 
@@ -25,6 +30,7 @@
   company
   company-c-headers
   company-irony
+  company-jedi
   company-quickhelp
   dash
   epl
@@ -51,6 +57,7 @@
   helm-gtags
   helm-projectile
   irony
+  jedi
   key-chord
   linum-off
   linum-relative
@@ -93,8 +100,8 @@
 (setq-default auto-save-default nil)
 
 ; Color theme
-; (load-theme 'solarized-dark t)
-(load-theme 'warm-night t)
+(load-theme 'solarized-dark t)
+; (load-theme 'warm-night t)
 ; (load-theme 'tao-yin t)
 
 (defvar solarized-scale-org-headlines nil)
@@ -189,13 +196,13 @@
 
 ; Transparency enable.
 (defun transparency-on ()
-  "Set to 85% transparency."
+  "Set to 90% opacity."
   (interactive)
-  (set-frame-parameter (selected-frame) 'alpha '(85 85)))
+  (set-frame-parameter (selected-frame) 'alpha '(90 90)))
 
 ; Transparency disable.
 (defun transparency-off ()
-  "Set to 100% transparency."
+  "Set to 100% opacity."
   (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(100 100)))
 
@@ -249,7 +256,7 @@
   (company-mode 1))
 
 (add-hook 'prog-mode-hook 'enable-company)
-(add-hook 'eshell-mode-hook 'enable-company)
+; (add-hook 'eshell-mode-hook 'enable-company)
 
 ; Let yas play nicely with company completion.
 (defun company-yasnippet-or-completion ()
@@ -275,6 +282,10 @@
 (require 'eshell-autojump)
 
 (setq-default eshell-save-history-on-exit t)
+
+(require 'em-term)
+(add-to-list 'eshell-visual-commands "sl")
+
 
 ; Set path to shell path.
 (exec-path-from-shell-initialize)
@@ -331,11 +342,23 @@
 
 (require 'evil-org)
 
+; Mode specific evil init modes.
 (evil-set-initial-state 'org-capture-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 (evil-set-initial-state 'occur-mode 'normal)
+
+; Mode specific evil mappings.
 (evil-declare-key 'motion occur-mode-map (kbd "RET")
   'occur-mode-goto-occurrence)
+
+(evil-declare-key 'motion eshell-mode-map (kbd "RET")
+  'eshell-send-input)
+
+(evil-define-key 'motion Man-mode-map (kbd "C-j")
+  'evil-scroll-down)
+
+(evil-declare-key 'motion Man-mode-map (kbd "C-k")
+  'evil-scroll-up)
 
 (evil-define-key 'normal evil-org-mode-map
   "gh" nil "gj" nil "gk" nil "gl" nil)
@@ -356,6 +379,7 @@
   "." 'search-word-under-cursor
   "/" 'helm-projectile-ag
   "a" 'ace-window
+  "A" 'align
   "b" 'switch-to-last-buffer
   "c" 'compile
   "d" 'dired
@@ -377,6 +401,7 @@
   "t" 'split-term
   "u" 'undo-tree-visualize
   "v" 'evil-window-vsplit
+  "V" 'evil-window-split
   "w" 'save-buffer
   "W" 'delete-other-windows
   "z" 'open-scratch
@@ -414,6 +439,10 @@
 
 ; Visual line information
 (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
+
+; Visual repeat command
+(define-key evil-visual-state-map (kbd ".")
+  (lambda () (interactive) (execute-kbd-macro ":norm .")))
 
 ; Evil window scrolling.
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
@@ -693,9 +722,10 @@
   "xr" 'python-shell-send-region
 )
 
-; Fix tab settings for python files.
+; Custom Python mode hook.
 (add-hook 'python-mode-hook
   (lambda ()
+    (add-to-list 'company-backends 'company-jedi)
     (setq tab-width 4)
     (setq evil-shift-width 4)
     (defvar python-indent 4)))

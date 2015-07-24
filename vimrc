@@ -81,6 +81,7 @@ map <c-k> <c-u>
 
 " Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
+vnoremap . :normal .<CR>
 imap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nmap <c-l> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
