@@ -5,10 +5,18 @@
 ;    - substitute visual
 ;    - evil-search previous match
 ;    - g C-g
+;
+;  - Write a fn to load all included header files into buffers.
+;
+;  - Consider splitting init.el into separate files.
 
 ; FIXME
 ;  - company eshell
 ;  - lisp indent comment
+;  - company irony c headers
+;  - man page evil bindings
+;  - add evilify state
+
 
 ;; Package management ;;
 
@@ -342,32 +350,52 @@
 
 (require 'evil-org)
 
+; Some modes aren't for text editing and thus don't need the full range of evil
+; bindings. We still want movement to work smoothly across all modes though, so
+; these are the base movement bindings.
+(defun bind-essential-evil (map)
+  (evil-define-key 'motion map "h" 'evil-backward-char)
+  (evil-define-key 'motion map "j" 'evil-next-visual-line)
+  (evil-define-key 'motion map "k" 'evil-previous-visual-line)
+  (evil-define-key 'motion map "l" 'evil-forward-char)
+  (evil-define-key 'motion map "/" 'evil-search-forward)
+  (evil-define-key 'motion map ":" 'evil-ex)
+  (evil-define-key 'motion map "n" 'evil-search-next)
+  (evil-define-key 'motion map "N" 'evil-search-previous)
+  (evil-define-key 'motion map "v" 'evil-visual-char)
+  (evil-define-key 'motion map "V" 'evil-visual-line)
+  (evil-define-key 'motion map "y" 'evil-yank)
+  (evil-define-key 'motion map "gh" 'windmove-left)
+  (evil-define-key 'motion map "gj" 'windmove-down)
+  (evil-define-key 'motion map "gk" 'windmove-up)
+  (evil-define-key 'motion map "gl" 'windmove-right)
+  (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
+  (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up))
+
+(require 'compile)
+(require 'man)
+(bind-essential-evil Man-mode-map)
+(bind-essential-evil compilation-mode-map)
+
 ; Mode specific evil init modes.
 (evil-set-initial-state 'org-capture-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
-(evil-set-initial-state 'occur-mode 'normal)
 
-; Mode specific evil mappings.
+; TODO could probably just make RET be nil.
+(evil-set-initial-state 'occur-mode 'normal)
 (evil-declare-key 'motion occur-mode-map (kbd "RET")
   'occur-mode-goto-occurrence)
 
+; Mode specific evil mappings.
 (evil-declare-key 'motion eshell-mode-map (kbd "RET")
   'eshell-send-input)
 
-(evil-define-key 'motion Man-mode-map (kbd "C-j")
-  'evil-scroll-down)
-
-(evil-declare-key 'motion Man-mode-map (kbd "C-k")
-  'evil-scroll-up)
-
+; The evil-org plugin overrides our window movement keys, which we don't want.
+(evil-leader/set-key-for-mode 'org-mode "a" 'ace-window)
 (evil-define-key 'normal evil-org-mode-map
   "gh" nil "gj" nil "gk" nil "gl" nil)
 
-(evil-leader/set-key-for-mode 'org-mode
-  "a"  'ace-window)
-
 (require 'evil-surround)
-
 
 ; Use evil (mostly) everywhere.
 (global-evil-leader-mode)
