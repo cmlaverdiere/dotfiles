@@ -14,8 +14,6 @@
 ;  - company eshell
 ;  - lisp indent comment
 ;  - company irony c headers
-;  - man page evil bindings
-;  - add evilify state
 
 
 ;; Package management ;;
@@ -117,6 +115,10 @@
 ; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
 
+; Emacs source location.
+(setq source-directory (format "/usr/local/src/emacs-%d.%d/src"
+  emacs-major-version emacs-minor-version))
+
 ; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -184,14 +186,20 @@
 
 ;; Utility functions ;;
 
+(defun quick-compile-and-run ()
+  (interactive)
+  (let* ((fn (buffer-name))
+        (base (file-name-base fn)))
+    (compile (format "gcc -o %s %s && ./%s" base fn base))))
+
 ; Quick configuration opening.
-(defun open-conf()
+(defun open-conf ()
   "Opens the emacs config file."
   (interactive)
   (find-file conf-file))
 
 ; Quick configuration opening.
-(defun open-scratch()
+(defun open-scratch ()
   "Opens the emacs scratch buffer."
   (interactive)
   (switch-to-buffer "*scratch*"))
@@ -231,12 +239,18 @@
       (other-window 1)
       (funcall fun))))
 
-(defun split-eshell () (interactive) (do-in-split 'eshell))
+(defun split-eshell ()
+  (interactive)
+  (do-in-split 'eshell)
+  (evil-goto-line nil)
+  (evil-append-line 0))
+
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
 
 ;; Ace jump ;;
 (require 'ace-jump-mode)
+(ace-window-display-mode)
 
 
 ;; Company mode (Autocompletion)
@@ -365,6 +379,7 @@
   (evil-define-key 'motion map "v" 'evil-visual-char)
   (evil-define-key 'motion map "V" 'evil-visual-line)
   (evil-define-key 'motion map "y" 'evil-yank)
+  (evil-define-key 'motion map "s" 'ace-jump-mode)
   (evil-define-key 'motion map "gh" 'windmove-left)
   (evil-define-key 'motion map "gj" 'windmove-down)
   (evil-define-key 'motion map "gk" 'windmove-up)
@@ -410,6 +425,7 @@
   "A" 'align
   "b" 'switch-to-last-buffer
   "c" 'compile
+  "C" 'quick-compile-and-run
   "d" 'dired
   "e" 'eval-last-sexp
   "g" 'magit-status
@@ -618,11 +634,14 @@
 
 ;; Irony (clang completion) ;;
 
+(require 'irony)
+
 ; Use irony for C/C++
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 
 ; Replace completion functions.
+
 (defun my-irony-mode-hook ()
   (define-key irony-mode-map [remap completion-at-point]
     'irony-completion-at-point-async)
@@ -638,6 +657,11 @@
 
 ; Extra completions.
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
+
+;; Lisp ;;
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+  (prettify-symbols-mode 1)))
 
 
 ;; Magit (Git integration) ;;
@@ -765,21 +789,12 @@
 ; (global-linum-mode t)
 
 
-;; Semantic (Source parsing) ;;
-
-; (require 'cc-mode)
-; (require 'semantic)
-; (global-semanticdb-minor-mode 1)
-; (global-semantic-idle-scheduler-mode 1)
-; (semantic-mode 1)
-
-
 ;; Terminal ;;
 
 (add-to-list 'linum-disabled-modes-list 'term-mode)
 (delete 'org-mode linum-disabled-modes-list)
 
-(add-hook 'term-mode-hook (lambda()
+(add-hook 'term-mode-hook (lambda ()
         (yas-minor-mode -1)))
 
 
@@ -808,6 +823,7 @@
 
 
 ;; Winner (Window management) ;;
+
 (winner-mode 1)
 
 
