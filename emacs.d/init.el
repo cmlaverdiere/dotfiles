@@ -55,6 +55,7 @@
   flycheck
   ggtags
   golden-ratio
+  google-this
   goto-chg
   guide-key
   haskell-mode
@@ -74,6 +75,7 @@
   pkg-info
   popup
   projectile
+  rainbow-delimiters
   solarized-theme
   tao-theme
   undo-tree
@@ -144,9 +146,6 @@
 ; Sentence definition should be one space after a period.
 (setf sentence-end-double-space nil)
 
-; Session saving
-; (desktop-save-mode 1)
-
 ; Shell settings
 (setenv "SHELL" "/usr/bin/zsh")
 
@@ -191,6 +190,11 @@
   (let* ((fn (buffer-name))
         (base (file-name-base fn)))
     (compile (format "gcc -o %s %s && ./%s" base fn base))))
+
+; Switch to the previous window that was active.
+(defun prev-window ()
+   (interactive)
+   (other-window -1))
 
 ; Quick configuration opening.
 (defun open-conf ()
@@ -249,8 +253,16 @@
 
 
 ;; Ace jump ;;
+(require 'ace-window)
 (require 'ace-jump-mode)
 (ace-window-display-mode)
+(setq aw-keys '(?l ?k ?j ?h ?f ?d ?s ?a))
+
+
+;; Comint ;;
+(require 'comint)
+(define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
+(define-key comint-mode-map (kbd "<down>") 'comint-next-input)
 
 
 ;; Company mode (Autocompletion)
@@ -385,12 +397,17 @@
   (evil-define-key 'motion map "gk" 'windmove-up)
   (evil-define-key 'motion map "gl" 'windmove-right)
   (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
-  (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up))
+  (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up)
+  (evil-define-key 'motion map (kbd "C-<SPC>") 'helm-M-x))
 
-(require 'compile)
 (require 'man)
 (bind-essential-evil Man-mode-map)
+
+(require 'compile)
 (bind-essential-evil compilation-mode-map)
+
+(require 'help-mode)
+(bind-essential-evil help-mode-map)
 
 ; Mode specific evil init modes.
 (evil-set-initial-state 'org-capture-mode 'insert)
@@ -429,14 +446,16 @@
   "d" 'dired
   "e" 'eval-last-sexp
   "g" 'magit-status
+  "G" 'google-this
   "i" 'open-conf
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
-  "o" 'occur
-  "O" 'projectile-find-other-file
+  "o" 'projectile-find-other-file
+  "O" 'occur
   "p" 'helm-projectile-switch-project
+  "P" 'prev-window
   "r" 'projectile-run-async-shell-command-in-root
   "q" 'evil-quit
   "Q" 'kill-buffer
@@ -591,6 +610,10 @@
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
 
 
+;; Google this ;;
+(google-this-mode 1)
+
+
 ;; Guide key (Prefix-keys menu) ;;
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
@@ -602,9 +625,14 @@
 ; Haskell indent mode.
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
+(defun haskell-run-other-window ()
+  (interactive)
+  (inferior-haskell-load-and-run "main")
+  (prev-window))
+
 ; Evil mappings for haskell.
 (evil-leader/set-key-for-mode 'haskell-mode
-  "xb" 'inferior-haskell-load-and-run
+  "xb" 'haskell-run-other-window // FIXME
   "xd" 'inferior-haskell-send-decl
   "xi" 'run-haskell
 )
@@ -667,6 +695,12 @@
 ;; Magit (Git integration) ;;
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+
+;; Man ;;
+
+(add-hook 'Man-mode-hook (lambda ()
+  (Man-update-manpage)))
 
 
 ;; Markdown ;;
@@ -787,6 +821,10 @@
 (require 'linum-off)
 (require 'linum-relative)
 ; (global-linum-mode t)
+
+
+;; Rainbow Delimiters ;;
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 
 ;; Terminal ;;
