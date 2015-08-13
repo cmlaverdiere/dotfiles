@@ -74,6 +74,7 @@ set showcmd
 
 " Critical remaps
 map <Space> <Leader>
+nmap <CR> mao<Esc>k`a
 inoremap jk <esc>
 map Y y$
 map <c-j> <c-d>

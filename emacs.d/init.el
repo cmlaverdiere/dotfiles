@@ -15,6 +15,9 @@
 ;  - lisp indent comment
 ;  - company irony c headers
 
+; FROM SPACEMACS:
+;  - complete at point tab colon search
+
 
 ;; Package management ;;
 
@@ -43,6 +46,7 @@
   eshell-autojump
   evil
   evil-args
+  evil-escape
   evil-jumper
   evil-leader
   evil-matchit
@@ -63,6 +67,7 @@
   helm-ag
   helm-gtags
   helm-projectile
+  highlight-symbol
   irony
   jedi
   key-chord
@@ -109,6 +114,7 @@
 
 ; Color theme
 (load-theme 'solarized-dark t)
+; (load-theme 'solarized-light t)
 ; (load-theme 'warm-night t)
 ; (load-theme 'tao-yin t)
 
@@ -136,6 +142,12 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
+; Highlight current line
+(global-hl-line-mode)
+
+; Highlight all search matches line
+(highlight-symbol-mode)
 
 ; History settings
 (savehist-mode 1)
@@ -190,11 +202,6 @@
   (let* ((fn (buffer-name))
         (base (file-name-base fn)))
     (compile (format "gcc -o %s %s && ./%s" base fn base))))
-
-; Switch to the previous window that was active.
-(defun prev-window ()
-   (interactive)
-   (other-window -1))
 
 ; Quick configuration opening.
 (defun open-conf ()
@@ -374,6 +381,7 @@
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
+; TODO remove this and just take from it the keybindings we really want.
 (require 'evil-org)
 
 ; Some modes aren't for text editing and thus don't need the full range of evil
@@ -413,19 +421,23 @@
 (evil-set-initial-state 'org-capture-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 
-; TODO could probably just make RET be nil.
 (evil-set-initial-state 'occur-mode 'normal)
-(evil-declare-key 'motion occur-mode-map (kbd "RET")
+(evil-define-key 'normal occur-mode-map (kbd "RET")
   'occur-mode-goto-occurrence)
 
 ; Mode specific evil mappings.
-(evil-declare-key 'motion eshell-mode-map (kbd "RET")
+(evil-define-key 'normal eshell-mode-map (kbd "RET")
   'eshell-send-input)
 
 ; The evil-org plugin overrides our window movement keys, which we don't want.
 (evil-leader/set-key-for-mode 'org-mode "a" 'ace-window)
 (evil-define-key 'normal evil-org-mode-map
   "gh" nil "gj" nil "gk" nil "gl" nil)
+
+(evil-define-key 'normal evil-org-mode-map "O" nil)
+(evil-leader/set-key-for-mode 'org-mode
+ "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
+)
 
 (require 'evil-surround)
 
@@ -452,8 +464,8 @@
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
-  "o" 'projectile-find-other-file
-  "O" 'occur
+  "o" 'occur
+  "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
   "P" 'prev-window
   "r" 'projectile-run-async-shell-command-in-root
@@ -499,6 +511,14 @@
 
 ; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
+
+; Insert line on enter
+(define-key evil-normal-state-map (kbd "RET")
+  (lambda (x)
+    (interactive "p")
+    (save-excursion
+      (evil-open-below x)
+      (evil-normal-state))))
 
 ; Visual line information
 (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
@@ -605,9 +625,11 @@
 
 ;; Golden ratio (auto window resizing) ;;
 (require 'golden-ratio)
-(golden-ratio-mode 1)
 (setq golden-ratio-auto-scale)
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
+(add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*")
+(setq-default window-combination-resize t)
+(golden-ratio-mode 1)
 
 
 ;; Google this ;;
@@ -617,22 +639,28 @@
 ;; Guide key (Prefix-keys menu) ;;
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
+(setq guide-key/idle-delay 0.4)
 (guide-key-mode 1)
 
 
 ;; Haskell ;;
+
+; TODO setup hasktags
+; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 
 ; Haskell indent mode.
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 (defun haskell-run-other-window ()
   (interactive)
-  (inferior-haskell-load-and-run "main")
-  (prev-window))
+  (let ((current-win (selected-window)))
+    (inferior-haskell-load-and-run "main")
+    (select-window current-win)
+    (golden-ratio)))
 
 ; Evil mappings for haskell.
 (evil-leader/set-key-for-mode 'haskell-mode
-  "xb" 'haskell-run-other-window // FIXME
+  "xb" 'haskell-run-other-window
   "xd" 'inferior-haskell-send-decl
   "xi" 'run-haskell
 )
@@ -697,12 +725,6 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 
-;; Man ;;
-
-(add-hook 'Man-mode-hook (lambda ()
-  (Man-update-manpage)))
-
-
 ;; Markdown ;;
 
 ; Filetypes to apply markdown to.
@@ -733,10 +755,6 @@
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
 
-(evil-leader/set-key-for-mode 'org-mode
- "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
-)
-
 (defvar org-log-done t)
 
 (defun org-archive-done ()
@@ -752,8 +770,11 @@
     (python . t)
     (sh . t)))
 
+; Do not prompt for babel code execution
+(setq org-confirm-babel-evaluate nil)
+
 ; Correct fonts for code blocks.
-(defvar org-src-fontify-natively t)
+(setq-default org-src-fontify-natively t)
 
 ; Capture templates
 (defvar org-capture-templates
