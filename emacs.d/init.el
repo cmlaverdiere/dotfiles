@@ -38,8 +38,11 @@
   bison-mode
   company
   company-c-headers
+  company-ghc
+  company-ghci
   company-irony
   company-jedi
+  company-math
   company-quickhelp
   dash
   epl
@@ -55,7 +58,7 @@
   evil-surround
   exec-path-from-shell
   expand-region
-  fixme-mode
+  ; fixme-mode
   flycheck
   ggtags
   golden-ratio
@@ -203,25 +206,21 @@
         (base (file-name-base fn)))
     (compile (format "gcc -o %s %s && ./%s" base fn base))))
 
-; Quick configuration opening.
 (defun open-conf ()
   "Opens the emacs config file."
   (interactive)
   (find-file conf-file))
 
-; Quick configuration opening.
 (defun open-scratch ()
   "Opens the emacs scratch buffer."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
-; Quick buffer switching.
 (defun switch-to-last-buffer ()
   "Toggle between last buffer open."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-; Transparency enable.
 (defun transparency-on ()
   "Set to 90% opacity."
   (interactive)
@@ -240,6 +239,7 @@
     (split-string (buffer-string) "\n" t)))
 
 (defun do-in-split (fun)
+  "Calls function in a split window"
   (interactive)
   (if (< 1 (length (window-list)))
       (progn
@@ -250,23 +250,26 @@
       (other-window 1)
       (funcall fun))))
 
-(defun split-eshell ()
-  (interactive)
-  (do-in-split 'eshell)
-  (evil-goto-line nil)
-  (evil-append-line 0))
-
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
 
 ;; Ace jump ;;
+
 (require 'ace-window)
 (require 'ace-jump-mode)
 (ace-window-display-mode)
 (setq aw-keys '(?l ?k ?j ?h ?f ?d ?s ?a))
 
 
+;; C/C++ ;;
+
+(require 'company)
+(add-hook 'cc-mode-hook (lambda ()
+  (add-to-list 'company-backends 'company-c-headers)))
+
+
 ;; Comint ;;
+
 (require 'comint)
 (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
 (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
@@ -274,15 +277,10 @@
 
 ;; Company mode (Autocompletion)
 
-(require 'company)
 (require 'company-c-headers)
-(add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
 (company-quickhelp-mode 1)
-
-; Don't wait for company delay when tabbing.
-; (global-set-key "\t" 'company-complete-common-or-cycle)
 
 ; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
@@ -295,9 +293,6 @@
 
 (defun enable-company ()
   (company-mode 1))
-
-(add-hook 'prog-mode-hook 'enable-company)
-; (add-hook 'eshell-mode-hook 'enable-company)
 
 ; Let yas play nicely with company completion.
 (defun company-yasnippet-or-completion ()
@@ -326,6 +321,7 @@
 
 (require 'em-term)
 (add-to-list 'eshell-visual-commands "sl")
+(add-to-list 'eshell-visual-commands "git")
 
 
 ; Set path to shell path.
@@ -336,6 +332,13 @@
   (interactive)
   (let ((current-prefix-arg t))
     (call-interactively 'eshell)))
+
+(defun split-eshell ()
+  "Create an eshell split"
+  (interactive)
+  (do-in-split 'eshell)
+  (evil-goto-line nil)
+  (evil-append-line 0))
 
 
 ;; ERC (IRC client)
@@ -579,10 +582,6 @@
 (evil-mode 1)
 
 
-;; Fixme highlighting ;;
-(add-hook 'prog-mode-hook 'fixme-mode)
-
-
 ;; Flex / Bison ;;
 (add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
 
@@ -627,7 +626,7 @@
 (require 'golden-ratio)
 (setq golden-ratio-auto-scale)
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
-(add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*")
+(add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*") ; FIXME
 (setq-default window-combination-resize t)
 (golden-ratio-mode 1)
 
@@ -648,8 +647,12 @@
 ; TODO setup hasktags
 ; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 
-; Haskell indent mode.
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook (lambda ()
+  ; (add-to-list 'company-backends 'company-ghc)
+  (turn-on-haskell-indent)))
+
+(add-hook 'interactive-haskell-mode-hook (lambda ()
+  (add-to-list 'company-backends 'company-ghci)))
 
 (defun haskell-run-other-window ()
   (interactive)
@@ -684,10 +687,6 @@
   (helm-ag (projectile-project-root)))
 
 
-;; Hide/Show ;;
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-
-
 ;; Irony (clang completion) ;;
 
 (require 'irony)
@@ -713,6 +712,13 @@
 
 ; Extra completions.
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
+
+;; LaTeX ;;
+(require 'tex)
+(add-hook 'LaTeX-mode-hook (lambda ()
+  (enable-company)
+  (add-to-list 'company-backends 'company-math)))
 
 
 ;; Lisp ;;
@@ -798,6 +804,14 @@
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 
+;; Prog mode ;;
+(add-hook 'prog-mode-hook (lambda ()
+  (enable-company)
+  ; (fixme-mode)
+  (hs-minor-mode)
+  (rainbow-delimiters-mode)))
+
+
 ;; Projectile (Project management) ;;
 
 (require 'projectile)
@@ -842,10 +856,6 @@
 (require 'linum-off)
 (require 'linum-relative)
 ; (global-linum-mode t)
-
-
-;; Rainbow Delimiters ;;
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 
 ;; Terminal ;;
