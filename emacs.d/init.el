@@ -1,22 +1,13 @@
 ;;; Chris Laverdiere's Emacs config ;;;
 
 ; TODO
-;  - File evil bugs for:
-;    - substitute visual
-;    - evil-search previous match
-;    - g C-g
-;
 ;  - Write a fn to load all included header files into buffers.
-;
-;  - Consider splitting init.el into separate files.
+;  - helm complete at point tab colon search
 
 ; FIXME
 ;  - company eshell
 ;  - lisp indent comment
 ;  - company irony c headers
-
-; FROM SPACEMACS:
-;  - complete at point tab colon search
 
 
 ;; Package management ;;
@@ -61,6 +52,7 @@
   ; fixme-mode
   flycheck
   ggtags
+  glsl-mode
   golden-ratio
   google-this
   goto-chg
@@ -185,6 +177,7 @@
 (define-key 'help-at-point-map (kbd "f") 'find-function-at-point)
 (define-key 'help-at-point-map (kbd "v") 'find-variable-at-point)
 
+
 ; Time in mode-line
 (defvar display-time-format "%I:%M %p")
 (display-time-mode 1)
@@ -258,7 +251,7 @@
 (require 'ace-window)
 (require 'ace-jump-mode)
 (ace-window-display-mode)
-(setq aw-keys '(?l ?k ?j ?h ?f ?d ?s ?a))
+(setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
 
 
 ;; C/C++ ;;
@@ -307,10 +300,27 @@
                               company-active-map)))
 
 
+;; Compilation mode ;;
+(setq-default compilation-scroll-output 'first-error)
+
+
 ;; Cscope (Tag system) ;;
 (defvar cscope-program "gtags-cscope")
 (require 'xcscope)
 
+
+;; Doc-view ;;
+
+(require 'doc-view)
+(setf doc-view-continuous t)
+(define-key doc-view-mode-map (kbd "j") 'doc-view-next-page)
+(define-key doc-view-mode-map (kbd "k") 'doc-view-previous-page)
+(define-key doc-view-mode-map (kbd "g") nil)
+(define-key doc-view-mode-map (kbd "h") nil)
+(key-chord-define doc-view-mode-map "gh" 'windmove-left)
+(key-chord-define doc-view-mode-map "gj" 'windmove-down)
+(key-chord-define doc-view-mode-map "gk" 'windmove-up)
+(key-chord-define doc-view-mode-map "gl" 'windmove-right)
 
 ;; Eshell ;;
 
@@ -396,6 +406,7 @@
   (evil-define-key 'motion map "k" 'evil-previous-visual-line)
   (evil-define-key 'motion map "l" 'evil-forward-char)
   (evil-define-key 'motion map "/" 'evil-search-forward)
+  (evil-define-key 'motion map "?" 'evil-search-backward)
   (evil-define-key 'motion map ":" 'evil-ex)
   (evil-define-key 'motion map "n" 'evil-search-next)
   (evil-define-key 'motion map "N" 'evil-search-previous)
@@ -403,13 +414,18 @@
   (evil-define-key 'motion map "V" 'evil-visual-line)
   (evil-define-key 'motion map "y" 'evil-yank)
   (evil-define-key 'motion map "s" 'ace-jump-mode)
+  (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
+  (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up)
+  (evil-define-key 'motion map (kbd "C-<SPC>") 'helm-M-x)
+  (bind-window-movements map))
+
+(defun bind-window-movements (map)
   (evil-define-key 'motion map "gh" 'windmove-left)
   (evil-define-key 'motion map "gj" 'windmove-down)
   (evil-define-key 'motion map "gk" 'windmove-up)
-  (evil-define-key 'motion map "gl" 'windmove-right)
-  (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
-  (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up)
-  (evil-define-key 'motion map (kbd "C-<SPC>") 'helm-M-x))
+  (evil-define-key 'motion map "gl" 'windmove-right))
+
+(bind-window-movements doc-view-mode-map)
 
 (require 'man)
 (bind-essential-evil Man-mode-map)
@@ -588,8 +604,10 @@
 
 ;; Flycheck (Syntax checking)
 
+(require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
 
 ;; Expand region ;;
@@ -729,6 +747,7 @@
 ;; Magit (Git integration) ;;
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
+(setq magit-push-always-verify nil)
 
 
 ;; Markdown ;;
@@ -750,11 +769,14 @@
 )
 
 
-;; Org Mode (Life organizer) ;;
+;; Org Mode ;;
+
+(require 'org)
 
 ; Org files
-(defvar org-agenda-files (list "~/org/school.org"))
-(defvar org-default-notes-file "~/org/notes.org")
+(setq org-agenda-files '("~/org"))
+(setq org-default-notes-file "~/org/notes.org")
+
 
 ; Org mappings
 (define-key global-map "\C-ca" 'org-agenda)
@@ -797,8 +819,11 @@
          (delete '("\\.pdf\\'" . default) org-file-apps)
          (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
+(evil-leader/set-key-for-mode 'org-mode
+  "P" 'org-latex-export-to-pdf
+)
 
-;; Pandoc (Markup conversion) ;;
+;; Pandoc ;;
 
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
