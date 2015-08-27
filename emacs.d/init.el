@@ -53,6 +53,8 @@
   flycheck
   ggtags
   glsl-mode
+  gnuplot
+  gnuplot-mode
   golden-ratio
   google-this
   goto-chg
@@ -63,6 +65,7 @@
   helm-gtags
   helm-projectile
   highlight-symbol
+  hl-todo
   irony
   jedi
   key-chord
@@ -258,7 +261,9 @@
 
 (require 'company)
 (add-hook 'cc-mode-hook (lambda ()
-  (add-to-list 'company-backends 'company-c-headers)))
+  (add-to-list 'company-backends 'company-c-headers)
+  ; (flycheck-select-checker 'c/c++-gcc)
+  ))
 
 
 ;; Comint ;;
@@ -551,7 +556,12 @@
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
 
 ; Use helm for man pages.
-(define-key evil-normal-state-map "K" 'helm-man-woman)
+; (define-key evil-normal-state-map "K" 'helm-man-woman)
+
+; Use man for man pages instead of woman.
+(setq evil-lookup-func (lambda ()
+  (interactive)
+  (man (current-word))))
 
 ; Transpose arguments
 (define-key evil-normal-state-map "g>" 'transpose-words)
@@ -711,6 +721,7 @@
 
 ; Use irony for C/C++
 (add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'cc-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 
 ; Replace completion functions.
@@ -830,12 +841,12 @@
 
 
 ;; Prog mode ;;
+
 (add-hook 'prog-mode-hook (lambda ()
   (enable-company)
-  ; (fixme-mode)
   (hs-minor-mode)
+  (hl-todo-mode 1)
   (rainbow-delimiters-mode)))
-
 
 ;; Projectile (Project management) ;;
 
