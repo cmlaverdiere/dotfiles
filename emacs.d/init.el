@@ -488,11 +488,14 @@
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
+  "n" 'flycheck-next-error
+  "N" 'flycheck-previous-error
   "o" 'occur
   "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
   "P" 'prev-window
   "r" 'projectile-run-async-shell-command-in-root
+  "R" 'revert-buffer
   "q" 'evil-quit
   "Q" 'kill-buffer
   "s" 'split-eshell
@@ -700,6 +703,7 @@
 ;; Helm (Incremental completion / Selection narrowing) ;;
 
 (require 'helm-projectile)
+(require 'grep)
 (helm-projectile-on)
 
 ; Helm fuzzy-finding.
@@ -780,6 +784,18 @@
 )
 
 
+;; Octave / Matlab ;;
+(add-to-list 'auto-mode-alist
+    '("\\.m$" . octave-mode))
+
+
+; Evil mappings for python.
+(evil-leader/set-key-for-mode 'octave-mode
+  "xb" 'octave-send-buffer
+  "xi" 'run-octave
+  "xr" 'octave-send-region
+)
+
 ;; Org Mode ;;
 
 (require 'org)
@@ -787,7 +803,6 @@
 ; Org files
 (setq org-agenda-files '("~/org"))
 (setq org-default-notes-file "~/org/notes.org")
-
 
 ; Org mappings
 (define-key global-map "\C-ca" 'org-agenda)
