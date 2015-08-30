@@ -788,13 +788,13 @@
 (add-to-list 'auto-mode-alist
     '("\\.m$" . octave-mode))
 
-
-; Evil mappings for python.
+; Evil mappings for octave.
 (evil-leader/set-key-for-mode 'octave-mode
   "xb" 'octave-send-buffer
   "xi" 'run-octave
   "xr" 'octave-send-region
 )
+
 
 ;; Org Mode ;;
 
