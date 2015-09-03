@@ -257,6 +257,12 @@
 (setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
 
 
+;; Asm ;;
+
+(require 'asm-mode)
+(define-key asm-mode-map (kbd ";") nil)
+
+
 ;; C/C++ ;;
 
 (require 'company)
@@ -419,6 +425,7 @@
   (evil-define-key 'motion map "V" 'evil-visual-line)
   (evil-define-key 'motion map "y" 'evil-yank)
   (evil-define-key 'motion map "s" 'ace-jump-mode)
+  (evil-define-key 'motion map "gg" 'evil-goto-first-line)
   (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
   (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up)
   (evil-define-key 'motion map (kbd "C-<SPC>") 'helm-M-x)
@@ -460,6 +467,8 @@
 
 (evil-define-key 'normal evil-org-mode-map "O" nil)
 (evil-leader/set-key-for-mode 'org-mode
+ "A" 'org-agenda
+ "D" 'org-archive-done
  "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
@@ -488,6 +497,7 @@
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
+  "K" 'kill-compilation
   "n" 'flycheck-next-error
   "N" 'flycheck-previous-error
   "o" 'occur
@@ -568,6 +578,7 @@
 
 ; Transpose arguments
 (define-key evil-normal-state-map "g>" 'transpose-words)
+(define-key evil-normal-state-map "g<" (lambda () (interactive) (transpose-words -1)))
 
 ; Fix wrapped line movement.
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
