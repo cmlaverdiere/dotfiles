@@ -47,6 +47,7 @@ alias robots="vim ~/documents/Misc/robots.txt"
 alias shows="vim ~/documents/Misc/shows.txt"
 alias stask="vim ~/org/school.org"
 alias todo="vim ~/documents/Misc/todo.txt"
+alias wanted="vim ~/documents/Misc/wanted.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias zshrc="vim ~/.zshrc"
 
@@ -94,6 +95,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Ruby path.
 export PATH=/home/chris/.gem/ruby/2.2.0/bin:$PATH
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+
+# Rust path.
+export RUST_SRC_PATH=/usr/src/rust/src
 
 # Start X on login.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

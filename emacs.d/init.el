@@ -49,7 +49,6 @@
   evil-surround
   exec-path-from-shell
   expand-region
-  ; fixme-mode
   flycheck
   ggtags
   glsl-mode
@@ -78,13 +77,17 @@
   pkg-info
   popup
   projectile
+  racer
   rainbow-delimiters
+  rust-mode
   solarized-theme
   tao-theme
   undo-tree
   visual-fill-column
   warm-night-theme
   web-mode
+  wgrep
+  wgrep-ag
   writeroom-mode
   xcscope
   yasnippet
@@ -145,7 +148,9 @@
 (global-hl-line-mode)
 
 ; Highlight all search matches line
+(require 'highlight-symbol)
 (highlight-symbol-mode)
+(setq highlight-symbol-idle-delay 0.5)
 
 ; History settings
 (savehist-mode 1)
@@ -285,6 +290,7 @@
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
 (company-quickhelp-mode 1)
+(setq company-minimum-prefix-length 0)
 
 ; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
@@ -498,6 +504,7 @@
   "j" 'winner-undo
   "k" 'winner-redo
   "K" 'kill-compilation
+  "m" 'helm-man-woman
   "n" 'flycheck-next-error
   "N" 'flycheck-previous-error
   "o" 'occur
@@ -680,7 +687,7 @@
 ;; Guide key (Prefix-keys menu) ;;
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
-(setq guide-key/idle-delay 0.4)
+(setq guide-key/idle-delay 0.3)
 (guide-key-mode 1)
 
 
@@ -918,6 +925,20 @@
 (require 'linum-off)
 (require 'linum-relative)
 ; (global-linum-mode t)
+
+
+;; Rust ;;
+(require 'rust-mode)
+
+(exec-path-from-shell-copy-env "RUST_SRC_PATH")
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-to-list 'auto-mode-alist '("\\.toml\\'" . text-mode))
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (racer-mode)
+            (setq tab-width 4)
+            (setq rust-indent-offset 4)
+            (setq evil-shift-width 4)))
 
 
 ;; Terminal ;;
