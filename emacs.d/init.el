@@ -394,7 +394,7 @@
 (require 'evil-jumper)
 
 (require 'evil-escape)
-(setq-default evil-escape-delay 0.05)
+(setq-default evil-escape-delay 0.1)
 (setq-default evil-escape-key-sequence "jk")
 (evil-escape-mode)
 
@@ -414,7 +414,10 @@
     (before ace-jump-mode-before activate) (evil-jumper--set-jump))
 
 (require 'evil-leader)
+
 (require 'evil-matchit)
+(global-evil-matchit-mode 1)
+
 (require 'evil-numbers)
 
 (require 'evil-args)
@@ -866,6 +869,10 @@
   "A" 'org-agenda
   "D" 'org-archive-done
   "P" 'org-latex-export-to-pdf
+  ">" 'org-metaright
+  "<" 'org-metaleft
+  ")" 'org-shiftmetaright
+  "(" 'org-shiftmetaleft
   "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
