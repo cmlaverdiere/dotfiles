@@ -3,6 +3,7 @@
 ; TODO
 ;  - Write a fn to load all included header files into buffers.
 ;  - helm complete at point tab colon search
+;  - add hjkl bindings to magit
 
 ; FIXME
 ;  - company eshell
@@ -45,7 +46,6 @@
   evil-leader
   evil-matchit
   evil-numbers
-  evil-org
   evil-surround
   exec-path-from-shell
   expand-region
@@ -284,13 +284,13 @@
 (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
 
 
-;; Company mode (Autocompletion)
+;; Company mode ;;
 
 (require 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
 
 (company-quickhelp-mode 1)
-(setq company-minimum-prefix-length 0)
+(setq company-minimum-prefix-length 3)
 
 ; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
@@ -321,7 +321,7 @@
 (setq-default compilation-scroll-output 'first-error)
 
 
-;; Cscope (Tag system) ;;
+;; Cscope ;;
 (defvar cscope-program "gtags-cscope")
 (require 'xcscope)
 
@@ -368,7 +368,7 @@
   (evil-append-line 0))
 
 
-;; ERC (IRC client)
+;; ERC ;;
 
 ; Hide joins / parts / quits.
 (defvar erc-hide-list '("JOIN" "PART" "QUIT"))
@@ -379,7 +379,7 @@
   (defvar erc-password (nth 1 f)))
 
 
-;; Evil Mode (Vim emulation) ;;
+;; Evil Mode ;;
 
 ; Remap escape to quit out of things.
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -411,12 +411,9 @@
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-; TODO remove this and just take from it the keybindings we really want.
-(require 'evil-org)
-
 ; Some modes aren't for text editing and thus don't need the full range of evil
-; bindings. We still want movement to work smoothly across all modes though, so
-; these are the base movement bindings.
+; bindings                             . We still want movement to work smoothly across all modes though, so
+; these are the base movement bindings .
 (defun bind-essential-evil (map)
   (evil-define-key 'motion map "h" 'evil-backward-char)
   (evil-define-key 'motion map "j" 'evil-next-visual-line)
@@ -454,7 +451,7 @@
 (require 'help-mode)
 (bind-essential-evil help-mode-map)
 
-; Mode specific evil init modes.
+; Mode specific evil init modes .
 (evil-set-initial-state 'org-capture-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 
@@ -462,21 +459,9 @@
 (evil-define-key 'normal occur-mode-map (kbd "RET")
   'occur-mode-goto-occurrence)
 
-; Mode specific evil mappings.
+; Mode specific evil mappings .
 (evil-define-key 'normal eshell-mode-map (kbd "RET")
   'eshell-send-input)
-
-; The evil-org plugin overrides our window movement keys, which we don't want.
-(evil-leader/set-key-for-mode 'org-mode "a" 'ace-window)
-(evil-define-key 'normal evil-org-mode-map
-  "gh" nil "gj" nil "gk" nil "gl" nil)
-
-(evil-define-key 'normal evil-org-mode-map "O" nil)
-(evil-leader/set-key-for-mode 'org-mode
- "A" 'org-agenda
- "D" 'org-archive-done
- "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
-)
 
 (require 'evil-surround)
 
@@ -633,7 +618,7 @@
 (add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
 
 
-;; Flycheck (Syntax checking)
+;; Flycheck ;;
 
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -671,7 +656,7 @@
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
 
 
-;; Golden ratio (auto window resizing) ;;
+;; Golden ratio ;;
 (require 'golden-ratio)
 (setq golden-ratio-auto-scale)
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
@@ -684,7 +669,7 @@
 (google-this-mode 1)
 
 
-;; Guide key (Prefix-keys menu) ;;
+;; Guide key ;;
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
 (setq guide-key/idle-delay 0.3)
@@ -718,7 +703,7 @@
 )
 
 
-;; Helm (Incremental completion / Selection narrowing) ;;
+;; Helm ;;
 
 (require 'helm-projectile)
 (require 'grep)
@@ -737,7 +722,7 @@
   (helm-ag (projectile-project-root)))
 
 
-;; Irony (clang completion) ;;
+;; Irony ;;
 
 (require 'irony)
 
@@ -777,7 +762,7 @@
   (prettify-symbols-mode 1)))
 
 
-;; Magit (Git integration) ;;
+;; Magit ;;
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq magit-push-always-verify nil)
@@ -827,6 +812,10 @@
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
 
+(evil-define-key 'normal org-mode-map "t" 'org-todo)
+
+(define-key org-mode-map (kbd "<C-return") 'org-insert-heading-after-current)
+
 (defvar org-log-done t)
 
 (defun org-archive-done ()
@@ -864,7 +853,10 @@
          (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
 (evil-leader/set-key-for-mode 'org-mode
+  "A" 'org-agenda
+  "D" 'org-archive-done
   "P" 'org-latex-export-to-pdf
+  "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
 ;; Pandoc ;;
@@ -881,7 +873,7 @@
   (hl-todo-mode 1)
   (rainbow-delimiters-mode)))
 
-;; Projectile (Project management) ;;
+;; Projectile ;;
 
 (require 'projectile)
 (projectile-global-mode)
@@ -921,7 +913,7 @@
     (defvar python-indent 4)))
 
 
-;; Relative line numbers. ;;
+;; Relative line numbers ;;
 (require 'linum-off)
 (require 'linum-relative)
 ; (global-linum-mode t)
@@ -974,12 +966,11 @@
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
 
-;; Winner (Window management) ;;
-
+;; Winner ;;
 (winner-mode 1)
 
 
-;; YASnippet (Tab-completed snippets) ;;
+;; YASnippet ;;
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
