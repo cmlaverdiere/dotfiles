@@ -4,6 +4,7 @@
 ;  - Write a fn to load all included header files into buffers.
 ;  - helm complete at point tab colon search
 ;  - add hjkl bindings to magit
+;  - Try paradox
 
 ; FIXME
 ;  - company eshell
@@ -185,6 +186,7 @@
 (define-key 'help-at-point-map (kbd "f") 'find-function-at-point)
 (define-key 'help-at-point-map (kbd "v") 'find-variable-at-point)
 
+(key-chord-mode 1)
 
 ; Time in mode-line
 (defvar display-time-format "%I:%M %p")
@@ -326,7 +328,7 @@
 (require 'xcscope)
 
 
-;; Doc-view ;;
+;; DocView ;;
 
 (require 'doc-view)
 (setf doc-view-continuous t)
@@ -334,6 +336,10 @@
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-page)
 (define-key doc-view-mode-map (kbd "g") nil)
 (define-key doc-view-mode-map (kbd "h") nil)
+(define-key doc-view-mode-map (kbd "/") 'doc-view-search)
+(define-key doc-view-mode-map (kbd "?") 'doc-view-search-backward)
+(define-key doc-view-mode-map (kbd "G") 'doc-view-last-page)
+(key-chord-define doc-view-mode-map "gg" 'doc-view-first-page)
 (key-chord-define doc-view-mode-map "gh" 'windmove-left)
 (key-chord-define doc-view-mode-map "gj" 'windmove-down)
 (key-chord-define doc-view-mode-map "gk" 'windmove-up)
@@ -386,6 +392,11 @@
 
 (require 'evil)
 (require 'evil-jumper)
+
+(require 'evil-escape)
+(setq-default evil-escape-delay 0.05)
+(setq-default evil-escape-key-sequence "jk")
+(evil-escape-mode)
 
 ; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
@@ -459,7 +470,7 @@
 (evil-define-key 'normal occur-mode-map (kbd "RET")
   'occur-mode-goto-occurrence)
 
-; Mode specific evil mappings .
+; Mode specific evil mappings.
 (evil-define-key 'normal eshell-mode-map (kbd "RET")
   'eshell-send-input)
 
@@ -523,6 +534,9 @@
 ; Curly bracket insertion
 (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
 
+; Remove digraph key (useless, interferes with company)
+(define-key evil-insert-state-map (kbd "C-k") nil)
+
 ; Evil window movement.
 (define-key evil-normal-state-map "gh" 'windmove-left)
 (define-key evil-normal-state-map "gj" 'windmove-down)
@@ -581,10 +595,6 @@
 
 ; Quick buffer closing from insert mode.
 (define-key evil-insert-state-map (kbd "C-q") 'evil-quit)
-
-; Map <ESC> to jk.
-(key-chord-mode 1)
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
 ; Evil ace-jump
 (define-key evil-normal-state-map "s" 'ace-jump-mode)
