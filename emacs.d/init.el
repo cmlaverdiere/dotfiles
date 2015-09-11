@@ -18,8 +18,8 @@
 (require 'package)
 (setq package-archives '(
   ("melpa" . "http://melpa.milkbox.net/packages/")
-  ("gnu" . "http://elpa.gnu.org/packages/")
-  ("elpa" . "http://tromey.com/elpa/")
+  ; ("gnu" . "http://elpa.gnu.org/packages/")
+  ; ("elpa" . "http://tromey.com/elpa/")
 ))
 
 
@@ -765,9 +765,15 @@
 
 ;; LaTeX ;;
 (require 'tex)
-(add-hook 'LaTeX-mode-hook (lambda ()
+
+(defun enable-company-math ()
+  (add-to-list 'company-backends 'company-math-symbols-latex)
+  (setq company-tooltip-align-annotations t))
+
+(add-hook 'TeX-mode-hook (lambda ()
+  (enable-company-math)
   (enable-company)
-  (add-to-list 'company-backends 'company-math)))
+  ))
 
 
 ;; Lisp ;;
@@ -817,7 +823,7 @@
 (require 'org)
 
 ; Org files
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files '("~/org/tracking"))
 (setq org-default-notes-file "~/org/notes.org")
 
 ; Org mappings
@@ -826,8 +832,6 @@
 (define-key global-map "\C-cl" 'org-store-link)
 
 (evil-define-key 'normal org-mode-map "t" 'org-todo)
-
-(define-key org-mode-map (kbd "<C-return") 'org-insert-heading-after-current)
 
 (defvar org-log-done t)
 
@@ -856,14 +860,13 @@
          (file+headline "~/org/dream.org" "Dreams")
          "*** %t\n")))
 
-; Enable spell checking in org mode.
-(add-hook 'org-mode-hook 'turn-on-flyspell)
 
 ; Open PDF links in apvlv.
-(add-hook 'org-mode-hook
-      '(lambda ()
-         (delete '("\\.pdf\\'" . default) org-file-apps)
-         (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+(add-hook 'org-mode-hook (lambda ()
+         (turn-on-flyspell)
+         ; (enable-company-math) // TODO
+         (enable-company)
+))
 
 (evil-leader/set-key-for-mode 'org-mode
   "A" 'org-agenda
