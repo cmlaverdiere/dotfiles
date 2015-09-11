@@ -274,9 +274,8 @@
 
 (require 'company)
 (add-hook 'cc-mode-hook (lambda ()
-  (add-to-list 'company-backends 'company-c-headers)
+  (add-to-list 'company-backends 'company-c-headers)))
   ; (flycheck-select-checker 'c/c++-gcc)
-  ))
 
 
 ;; Comint ;;
@@ -400,18 +399,18 @@
 
 ; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
-    (before evil-next-visual-line-before activate)
-    (unless (eq (ad-get-arg 0) nil)
-        (evil-jumper--set-jump)))
+  (before evil-next-visual-line-before activate)
+  (unless (eq (ad-get-arg 0) nil)
+    (evil-jumper--set-jump)))
 
 (defadvice evil-previous-visual-line
-    (before evil-previous-visual-line-before activate)
-    (unless (eq (ad-get-arg 0) nil)
-        (evil-jumper--set-jump)))
+  (before evil-previous-visual-line-before activate)
+  (unless (eq (ad-get-arg 0) nil)
+    (evil-jumper--set-jump)))
 
 ; On ace jump, add to the jump list.
 (defadvice ace-jump-mode
-    (before ace-jump-mode-before activate) (evil-jumper--set-jump))
+  (before ace-jump-mode-before activate) (evil-jumper--set-jump))
 
 (require 'evil-leader)
 
@@ -649,13 +648,11 @@
 (require 'ggtags)
 
 ; Enable gtags for c/c++.
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode)
-              (cscope-setup)
-              (cscope-minor-mode)
-              ; (ggtags-mode 1)
-          )))
+(add-hook 'c-mode-common-hook (lambda ()
+  (when (derived-mode-p 'c-mode 'c++-mode)
+        ; (ggtags-mode 1)
+        (cscope-setup)
+        (cscope-minor-mode))))
 
 (defvar helm-gtags-ignore-case t)
 (defvar helm-gtags-auto-update t)
@@ -772,8 +769,7 @@
 
 (add-hook 'TeX-mode-hook (lambda ()
   (enable-company-math)
-  (enable-company)
-  ))
+  (enable-company)))
 
 
 ;; Lisp ;;
@@ -856,17 +852,16 @@
 
 ; Capture templates
 (defvar org-capture-templates
-      '(("d" "Dreams" entry
-         (file+headline "~/org/dream.org" "Dreams")
-         "*** %t\n")))
+  '(("d" "Dreams" entry
+      (file+headline "~/org/dream.org" "Dreams")
+                     "*** %t\n")))
 
 
 ; Open PDF links in apvlv.
 (add-hook 'org-mode-hook (lambda ()
-         (turn-on-flyspell)
-         ; (enable-company-math) // TODO
-         (enable-company)
-))
+  (turn-on-flyspell)
+  ; (enable-company-math) // TODO
+  (enable-company)))
 
 (evil-leader/set-key-for-mode 'org-mode
   "A" 'org-agenda
@@ -905,8 +900,8 @@
 
 ; Use project root as cscope database.
 (defadvice helm-projectile-switch-project
-    (after helm-projectile-switch-project-after activate)
-    (cscope-set-initial-directory (projectile-project-root)))
+  (after helm-projectile-switch-project-after activate)
+  (cscope-set-initial-directory (projectile-project-root)))
 
 (defun search-word-under-cursor ()
   "Searches for the word under the cursor using projectile."
@@ -945,12 +940,11 @@
 (exec-path-from-shell-copy-env "RUST_SRC_PATH")
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.toml\\'" . text-mode))
-(add-hook 'rust-mode-hook
-          (lambda ()
-            (racer-mode)
-            (setq tab-width 4)
-            (setq rust-indent-offset 4)
-            (setq evil-shift-width 4)))
+(add-hook 'rust-mode-hook (lambda ()
+  (racer-mode)
+  (setq tab-width 4)
+  (setq rust-indent-offset 4)
+  (setq evil-shift-width 4)))
 
 
 ;; Terminal ;;
@@ -959,7 +953,7 @@
 (delete 'org-mode linum-disabled-modes-list)
 
 (add-hook 'term-mode-hook (lambda ()
-        (yas-minor-mode -1)))
+  (yas-minor-mode -1)))
 
 
 ;; Web ;;
@@ -980,8 +974,7 @@
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
-  (yas-activate-extra-mode 'html-mode)
-)
+  (yas-activate-extra-mode 'html-mode))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
