@@ -1,47 +1,33 @@
 " Chris Laverdiere's vimrc
-" Requires: vundle
-
-" Distro specific settings. Pick one.
-runtime! archlinux.vim
+" Requires: plug.vim
 
 " Tmux / color compatability settings.
 set shell=bash
 set background=dark
-
-" Vundle setup
-" ------------
 set nocompatible
-filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+syntax on
 
-Plugin 'tmhedberg/matchit'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'wellle/targets.vim'
-Plugin 'beyondmarc/opengl.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'kana/vim-altr'
-Plugin 'PeterRincker/vim-argumentative'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'kana/vim-filetype-haskell'
-Plugin 'tikhomirov/vim-glsl'
-Plugin 'lepture/vim-jinja'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'triglav/vim-visual-increment'
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+Plug 'tmhedberg/matchit'
+Plug 'wellle/targets.vim'
+Plug 'beyondmarc/opengl.vim'
+Plug 'godlygeek/tabular'
+Plug 'tomtom/tcomment_vim'
+Plug 'kana/vim-altr'
+Plug 'PeterRincker/vim-argumentative'
+Plug 'altercation/vim-colors-solarized'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'kana/vim-filetype-haskell'
+Plug 'tikhomirov/vim-glsl'
+Plug 'lepture/vim-jinja'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'triglav/vim-visual-increment'
+call plug#end()
 
-" Vundle teardown.
-call vundle#end()
 filetype plugin indent on
-
-if has("syntax")
-  syntax on
-endif
 
 " Case settings
 set ignorecase
@@ -89,7 +75,7 @@ nnoremap <Leader>oo o<esc>S
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
-nnoremap <Leader>pi :PluginInstall<CR>
+nnoremap <Leader>pi :PlugInstall<CR>
 nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
@@ -98,7 +84,6 @@ nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
-nnoremap <Leader>rt :RainbowParenthesesToggle<CR>
 nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
@@ -172,12 +157,6 @@ nnoremap <silent> j :<C-U>execute 'normal!'
 " Convenient settings for prose.
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 au BufRead *.txt,*.md setlocal spell
-
-" Rainbow parens enabled by default.
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 
 " Easymotion maps.
 nmap s <Plug>(easymotion-s)
