@@ -8,6 +8,7 @@ set nocompatible
 
 syntax on
 
+" Plugins (mostly syntax files and motion extensions)
 call plug#begin('~/.vim/plugged')
 Plug 'tmhedberg/matchit'
 Plug 'wellle/targets.vim'
@@ -40,22 +41,20 @@ set showcmd
 
 " Critical remaps
 map <Space> <Leader>
-nmap <CR> mao<Esc>k`a
-inoremap jk <esc>
 map Y y$
 map <c-j> <c-d>
 map <c-k> <c-u>
+map <CR> mao<Esc>k`a
+imap jk <esc>
 
 " Less critical remaps
+nmap s <Plug>(easymotion-s)
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
 imap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nmap <c-l> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
-
-" Encryption
-set cm=blowfish2
 
 " Leader Mappings
 nnoremap <Leader>asc ggVG:Tab /;<CR>
@@ -102,7 +101,7 @@ map gk <C-W>k
 map gh <C-W>h
 map gl <C-W>l
 
-" Buffer switching maps
+" Buffer switching
 map gn :bn<cr>
 map gp :bp<cr>
 map gx :bd<cr>
@@ -113,17 +112,18 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set smarttab
-set nonumber
-set laststatus=2
 set autoindent
-
-" Scrolling
-set scrolloff=3
 
 " Backups
 set nobackup
 set noswapfile
 set undofile
+
+" Misc
+set nonumber
+set laststatus=2
+set scrolloff=3
+set cm=blowfish2
 
 " Remove trailing whitespace function.
 fun! <SID>RTW()
@@ -158,11 +158,5 @@ nnoremap <silent> j :<C-U>execute 'normal!'
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 au BufRead *.txt,*.md setlocal spell
 
-" Easymotion maps.
-nmap s <Plug>(easymotion-s)
-
 " Solarized must be loaded later for some reason.
 colorscheme solarized
-
-" Disable mode for airline
-set noshowmode
