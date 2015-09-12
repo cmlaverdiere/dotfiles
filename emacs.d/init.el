@@ -5,6 +5,7 @@
 ;  - helm complete at point tab colon search
 ;  - add hjkl bindings to magit
 ;  - Try paradox
+;  - Try use-package
 
 ; FIXME
 ;  - company eshell
@@ -287,7 +288,7 @@
 ;; Company mode ;;
 
 (require 'company-c-headers)
-(add-to-list 'company-c-headers-path-system "/usr/include/c++/5.1.0/")
+(add-to-list 'company-c-headers-path-system "/usr/include/c++/5.2.0/") ; FIXME
 
 (company-quickhelp-mode 1)
 (setq company-minimum-prefix-length 3)
@@ -670,8 +671,13 @@
 (setq golden-ratio-auto-scale)
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
 (add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*") ; FIXME
+(add-to-list 'golden-ratio-inhibit-functions 'helm-active)
 (setq-default window-combination-resize t)
 (golden-ratio-mode 1)
+
+(defun helm-active ()
+  (if (boundp 'helm-alive-p)
+      (symbol-value 'helm-alive-p)))
 
 
 ;; Google this ;;
@@ -682,6 +688,7 @@
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
 (setq guide-key/idle-delay 0.3)
+(setq guide-key/popup-window-position 'bottom)
 (guide-key-mode 1)
 
 
@@ -762,6 +769,7 @@
 ;; LaTeX ;;
 (require 'tex)
 
+(require 'company-math)
 (defun enable-company-math ()
   (add-to-list 'company-backends 'company-math-symbols-latex)
   (setq company-tooltip-align-annotations t))
@@ -855,11 +863,10 @@
       (file+headline "~/org/dream.org" "Dreams")
                      "*** %t\n")))
 
-
-; Open PDF links in apvlv.
 (add-hook 'org-mode-hook (lambda ()
   (turn-on-flyspell)
-  ; (enable-company-math) // TODO
+  (enable-company-math)
+  (setq-local company-math-allow-latex-symbols-in-faces t)
   (enable-company)))
 
 (evil-leader/set-key-for-mode 'org-mode
