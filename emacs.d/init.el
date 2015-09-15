@@ -772,6 +772,7 @@
 
 
 ;; LaTeX ;;
+
 (require 'tex)
 
 (require 'company-math)
@@ -779,7 +780,16 @@
   (add-to-list 'company-backends 'company-math-symbols-latex)
   (setq company-tooltip-align-annotations t))
 
-(add-hook 'TeX-mode-hook (lambda ()
+(defun latex-compile ()
+  (interactive)
+  (TeX-command "LaTeX" 'TeX-master-file -1))
+
+; Evil mappings for latex.
+(evil-leader/set-key-for-mode 'latex-mode
+  "c" 'latex-compile
+)
+
+(add-hook 'latex-mode-hook (lambda ()
   (enable-company-math)
   (enable-company)))
 
