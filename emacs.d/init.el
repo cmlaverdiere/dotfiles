@@ -877,11 +877,14 @@
 (evil-leader/set-key-for-mode 'org-mode
   "A" 'org-agenda
   "D" 'org-archive-done
+  "L" 'org-preview-latex-fragment
   "P" 'org-latex-export-to-pdf
   ">" 'org-metaright
   "<" 'org-metaleft
   ")" 'org-shiftmetaright
   "(" 'org-shiftmetaleft
+  "<up>" 'org-metaup
+  "<down>" 'org-metadown
   "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
