@@ -109,6 +109,9 @@
 
 ;; Vanilla Emacs Behavior ;;
 
+; Garbage collector max
+(setq gc-cons-threshold 100000000)
+
 ; Backup settings
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
