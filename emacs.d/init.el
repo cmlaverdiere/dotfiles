@@ -727,6 +727,7 @@
 
 (require 'helm-projectile)
 (require 'grep)
+(helm-mode 1)
 (helm-projectile-on)
 
 ; Helm fuzzy-finding.
