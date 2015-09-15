@@ -170,10 +170,10 @@
 
 ; Indentation settings
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (setq-default indent-line-function 'insert-tab)
 (setq-default c-default-style "k&r")
-(setq-default c-basic-offset 2)
+(setq-default c-basic-offset 4)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
 
@@ -624,7 +624,7 @@
 (define-key evil-insert-state-map (kbd "C-l") 'helm-eshell-history)
 
 ; Evil shift.
-(setq-default evil-shift-width 2)
+(setq-default evil-shift-width 4)
 
 (evil-mode 1)
 
@@ -979,10 +979,10 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
 
 (defun my-web-mode-hook ()
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
   (yas-activate-extra-mode 'html-mode))
 
 (add-hook 'web-mode-hook 'my-web-mode-hook)
