@@ -416,6 +416,7 @@
   (before ace-jump-mode-before activate) (evil-jumper--set-jump))
 
 (require 'evil-leader)
+(setq evil-leader/no-prefix-mode-rx '("magit-.*-mode"))
 
 (require 'evil-matchit)
 (global-evil-matchit-mode 1)
