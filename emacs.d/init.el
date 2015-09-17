@@ -395,10 +395,14 @@
 (require 'evil)
 (require 'evil-jumper)
 
-(require 'evil-escape)
-(setq-default evil-escape-delay 0.1)
-(setq-default evil-escape-key-sequence "jk")
-(evil-escape-mode)
+; TODO remove once evil-escape fixed
+(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+
+; FIXME broken upstream
+;; (require 'evil-escape)
+;; (setq-default evil-escape-delay 0.1)
+;; (setq-default evil-escape-key-sequence "jk")
+;; (evil-escape-mode)
 
 ; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
