@@ -832,6 +832,10 @@
 (add-to-list 'auto-mode-alist
     '("\\.m$" . octave-mode))
 
+
+(add-hook 'octave-mode-hook (lambda ()
+    (setq-local evil-shift-width 2)))
+
 ; Evil mappings for octave.
 (evil-leader/set-key-for-mode 'octave-mode
   "xb" 'octave-send-buffer
