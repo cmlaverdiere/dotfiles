@@ -81,7 +81,7 @@
   racer
   rainbow-delimiters
   rust-mode
-  solarized-theme
+  solarized-theme ; TODO try the other one
   tao-theme
   undo-tree
   visual-fill-column
@@ -92,6 +92,7 @@
   writeroom-mode
   xcscope
   yasnippet
+  zenburn-theme
 ))
 
 (package-initialize)
@@ -118,10 +119,11 @@
 (setq-default auto-save-default nil)
 
 ; Color theme
-(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
 ; (load-theme 'solarized-light t)
 ; (load-theme 'warm-night t)
 ; (load-theme 'tao-yin t)
+(load-theme 'zenburn t)
 
 (defvar solarized-scale-org-headlines nil)
 
@@ -831,7 +833,6 @@
 ;; Octave / Matlab ;;
 (add-to-list 'auto-mode-alist
     '("\\.m$" . octave-mode))
-
 
 (add-hook 'octave-mode-hook (lambda ()
     (setq-local evil-shift-width 2)))
