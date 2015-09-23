@@ -524,7 +524,7 @@
   "q" 'evil-quit
   "Q" 'kill-buffer
   "s" 'split-eshell
-  "S" 'eshell-new
+  "S" 'sort-lines
   "t" 'split-term
   "u" 'undo-tree-visualize
   "v" 'evil-window-vsplit
@@ -895,9 +895,9 @@
 
 (evil-leader/set-key-for-mode 'org-mode
   "A" 'org-agenda
+  "c" 'org-latex-export-to-pdf
   "D" 'org-archive-done
   "L" 'org-preview-latex-fragment
-  "P" 'org-latex-export-to-pdf
   ">" 'org-metaright
   "<" 'org-metaleft
   ")" 'org-shiftmetaright
