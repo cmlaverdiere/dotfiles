@@ -989,6 +989,12 @@
   (yas-minor-mode -1)))
 
 
+;; Undo Tree ;;
+
+; Persistent undo
+(setq undo-tree-auto-save-history t)
+
+
 ;; Web ;;
 
 (require 'web-mode)
