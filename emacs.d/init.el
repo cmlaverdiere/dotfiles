@@ -45,6 +45,7 @@
   evil-anzu
   evil-args
   evil-escape
+  evil-exchange
   evil-jumper
   evil-leader
   evil-matchit
@@ -405,14 +406,13 @@
 (require 'evil-anzu)
 (require 'evil-jumper)
 
-; TODO remove once evil-escape fixed
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+(require 'evil-exchange)
+(evil-exchange-install)
 
-; FIXME broken upstream
-;; (require 'evil-escape)
-;; (setq-default evil-escape-delay 0.1)
-;; (setq-default evil-escape-key-sequence "jk")
-;; (evil-escape-mode)
+(require 'evil-escape)
+(setq-default evil-escape-delay 0.1)
+(setq-default evil-escape-key-sequence "jk")
+(evil-escape-mode)
 
 ; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
