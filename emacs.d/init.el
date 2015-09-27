@@ -25,6 +25,7 @@
 
 ; Package list
 (defvar package-list '(
+  anzu
   ace-jump-mode
   ace-window
   auctex
@@ -41,6 +42,7 @@
   epl
   eshell-autojump
   evil
+  evil-anzu
   evil-args
   evil-escape
   evil-jumper
@@ -269,6 +271,11 @@
 (setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
 
 
+;; Anzu
+
+(global-anzu-mode +1)
+
+
 ;; Asm ;;
 
 (require 'asm-mode)
@@ -395,6 +402,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (require 'evil)
+(require 'evil-anzu)
 (require 'evil-jumper)
 
 ; TODO remove once evil-escape fixed
@@ -542,6 +550,7 @@
   (insert "}")
   (evil-shift-left-line 1)
   (evil-open-above 0))
+
 
 ; Curly bracket insertion
 (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
