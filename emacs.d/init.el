@@ -512,9 +512,11 @@
   "C" 'quick-compile-and-run
   "d" 'dired
   "e" 'eval-last-sexp
+  "E" 'helm-calcul-expression
   "g" 'magit-status
   "G" 'google-this
   "i" 'open-conf
+  "I" 'helm-imenu
   "l" 'flycheck-list-errors
   "f" 'helm-for-files
   "j" 'winner-undo
@@ -523,11 +525,11 @@
   "m" 'helm-man-woman
   "n" 'flycheck-next-error
   "N" 'flycheck-previous-error
-  "o" 'occur
+  "o" 'helm-occur
   "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
   "P" 'prev-window
-  "r" 'projectile-run-async-shell-command-in-root
+  "r" 'helm-do-ag
   "R" 'revert-buffer
   "q" 'evil-quit
   "Q" 'kill-buffer
@@ -740,6 +742,8 @@
 
 ;; Helm ;;
 
+(require 'helm)
+(require 'helm-imenu)
 (require 'helm-projectile)
 (require 'grep)
 (helm-mode 1)
@@ -747,6 +751,10 @@
 
 ; Helm fuzzy-finding.
 (defvar helm-M-x-fuzzy-match t)
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-imenu-fuzzy-match t)
+(setq helm-locate-fuzzy-match t)
+(setq helm-recentf-fuzzy-match t)
 
 ; Consistent movement with company.
 (define-key helm-map (kbd "C-j") 'helm-next-line)
