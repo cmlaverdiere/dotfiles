@@ -268,7 +268,7 @@
 (require 'ace-jump-mode)
 (ace-window-display-mode)
 (setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
-
+(setq ace-jump-mode-scope 'frame)
 
 ;; Anzu
 
