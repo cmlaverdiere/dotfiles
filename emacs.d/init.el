@@ -54,6 +54,7 @@
   exec-path-from-shell
   expand-region
   flycheck
+  flycheck-rust
   ggtags
   glsl-mode
   gnuplot
@@ -657,7 +658,7 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
-
+(add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
 ;; Expand region ;;
 (require 'expand-region)
