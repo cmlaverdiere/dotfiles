@@ -967,6 +967,7 @@
 
 ; Evil mappings for python.
 (evil-leader/set-key-for-mode 'python-mode
+  "c" 'python-shell-send-buffer
   "xb" 'python-shell-send-buffer
   "xi" 'python-shell-switch-to-shell
   "xr" 'python-shell-send-region
