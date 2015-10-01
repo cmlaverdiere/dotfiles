@@ -177,11 +177,8 @@
 ; Indentation settings
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default indent-line-function 'insert-tab)
 (setq-default c-default-style "k&r")
 (setq-default c-basic-offset 4)
-(define-key global-map (kbd "RET") 'newline-and-indent)
-(define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
 
 ; Find mappings
 (define-key 'help-command (kbd "C-l") 'find-library)
@@ -934,6 +931,8 @@
 ;; Prog mode ;;
 
 (add-hook 'prog-mode-hook (lambda ()
+  (define-key global-map (kbd "RET") 'newline-and-indent)
+  (define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
   (enable-company)
   (hs-minor-mode)
   (hl-todo-mode 1)
