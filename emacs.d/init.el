@@ -279,6 +279,9 @@
 
 (require 'asm-mode)
 (define-key asm-mode-map (kbd ";") nil)
+(define-key asm-mode-map (kbd ":") nil)
+(add-hook 'asm-mode-hook (lambda ()
+    (local-unset-key (vector asm-comment-char))))
 
 
 ;; C/C++ ;;
