@@ -1,21 +1,20 @@
-;;; Chris Laverdiere's Emacs config ;;;
+;;;; Chris Laverdiere's Emacs config ;;;;
 
-; TODO
-;  - Write a fn to load all included header files into buffers.
-;  - helm complete at point tab colon search
-;  - add hjkl bindings to magit
-;  - Try paradox
-;  - Try use-package
+;; TODO
+;;  - Write a fn to load all included header files into buffers.
+;;  - helm complete at point tab colon search
+;;  - add hjkl bindings to magit
+;;  - Try paradox
+;;  - Try use-package
 
-; FIXME
-;  - company eshell
-;  - lisp indent comment
-;  - company irony c headers
+;; FIXME
+;;  - company eshell
+;;  - company irony c headers
 
 
-;; Package management ;;
+;;; Package management ;;;
 
-; Package repositories
+;; Package repositories
 (require 'package)
 (setq package-archives '(
   ("melpa" . "http://melpa.milkbox.net/packages/")
@@ -23,7 +22,7 @@
 ))
 
 
-; Package list
+;; Package list
 (defvar package-list '(
   anzu
   ace-jump-mode
@@ -101,92 +100,92 @@
 
 (package-initialize)
 
-; Fetch list of packages available.
+;; Fetch list of packages available.
 (setq package-archive-contents nil)
 (unless package-archive-contents
   (package-refresh-contents))
 
-; Install missing packages.
+;; Install missing packages.
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
 
-;; Vanilla Emacs Behavior ;;
+;;; Vanilla Emacs Behavior ;;;
 
-; Garbage collector max
+;; Garbage collector max
 (setq gc-cons-threshold 100000000)
 
-; Backup settings
+;; Backup settings
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
 (setq-default auto-save-default nil)
 
-; Color theme
-; (load-theme 'solarized-dark t)
-; (load-theme 'solarized-light t)
-; (load-theme 'warm-night t)
-; (load-theme 'tao-yin t)
+;; Color theme
+;; (load-theme 'solarized-dark t)
+;; (load-theme 'solarized-light t)
+;; (load-theme 'warm-night t)
+;; (load-theme 'tao-yin t)
 (load-theme 'zenburn t)
 
 (defvar solarized-scale-org-headlines nil)
 
-; Config file location.
+;; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
 
-; Emacs source location.
+;; Emacs source location.
 (setq source-directory (format "/usr/local/src/emacs-%d.%d/src"
   emacs-major-version emacs-minor-version))
 
-; Delete trailing whitespace on save
+;; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-; Font settings.
+;; Font settings.
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
                     :height 100
                     :weight 'regular
                     :width 'normal)
 
-; GUI settings. This disables all the toolbar / extra GUI crap.
+;; GUI settings. This disables all the toolbar / extra GUI crap.
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-; Highlight current line
+;; Highlight current line
 (global-hl-line-mode)
 
-; Highlight all search matches line
+;; Highlight all search matches line
 (require 'highlight-symbol)
 (highlight-symbol-mode)
 (setq highlight-symbol-idle-delay 0.5)
 
-; History settings
+;; History settings
 (savehist-mode 1)
 
-; Auto reload buffers when changed on disk.
+;; Auto reload buffers when changed on disk.
 (global-auto-revert-mode t)
 
-; Sentence definition should be one space after a period.
+;; Sentence definition should be one space after a period.
 (setf sentence-end-double-space nil)
 
-; Shell settings
+;; Shell settings
 (setenv "SHELL" "/usr/bin/zsh")
 
-; Indentation settings
+;; Indentation settings
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-default-style "k&r")
 (setq-default c-basic-offset 4)
 
-; Find mappings
+;; Find mappings
 (define-key 'help-command (kbd "C-l") 'find-library)
 (define-key 'help-command (kbd "C-f") 'find-function)
 (define-key 'help-command (kbd "C-k") 'find-function-on-key)
 (define-key 'help-command (kbd "C-v") 'find-variable)
 
-; Find at point mappings
+;; Find at point mappings
 (define-prefix-command 'help-at-point-map)
 (global-set-key (kbd "C-h C-p") 'help-at-point-map)
 (define-key 'help-at-point-map (kbd "f") 'find-function-at-point)
@@ -194,7 +193,7 @@
 
 (key-chord-mode 1)
 
-; Time in mode-line
+;; Time in mode-line
 (defvar display-time-format "%I:%M %p")
 (display-time-mode 1)
 
@@ -203,11 +202,11 @@
   (interactive)
   (insert (format-time-string "%Y-%m-%d %H:%m:%S")))
 
-; Wrap settings
+;; Wrap settings
 (setq-default fill-column 80)
 
 
-;; Utility functions ;;
+;;; Utility functions ;;;
 
 (defun quick-compile-and-run ()
   (interactive)
@@ -235,7 +234,7 @@
   (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(90 90)))
 
-; Transparency disable.
+;; Transparency disable.
 (defun transparency-off ()
   "Set to 100% opacity."
   (interactive)
@@ -262,7 +261,7 @@
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
 
-;; Ace jump ;;
+;;; Ace jump ;;;
 
 (require 'ace-window)
 (require 'ace-jump-mode)
@@ -270,12 +269,13 @@
 (setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
 (setq ace-jump-mode-scope 'frame)
 
-;; Anzu
+
+;;; Anzu
 
 (global-anzu-mode +1)
 
 
-;; Asm ;;
+;;; Asm ;;;
 
 (require 'asm-mode)
 (define-key asm-mode-map (kbd ";") nil)
@@ -284,22 +284,22 @@
     (local-unset-key (vector asm-comment-char))))
 
 
-;; C/C++ ;;
+;;; C/C++ ;;;
 
 (require 'company)
 (add-hook 'cc-mode-hook (lambda ()
   (add-to-list 'company-backends 'company-c-headers)))
-  ; (flycheck-select-checker 'c/c++-gcc)
+  ;; (flycheck-select-checker 'c/c++-gcc)
 
 
-;; Comint ;;
+;;; Comint ;;;
 
 (require 'comint)
 (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
 (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
 
 
-;; Company mode ;;
+;;; Company mode ;;;
 
 (require 'company-c-headers)
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.2.0/") ; FIXME
@@ -307,7 +307,7 @@
 (company-quickhelp-mode 1)
 (setq company-minimum-prefix-length 3)
 
-; Rebind moving down company suggestion list.
+;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
 (define-key company-active-map (kbd "C-j") 'company-select-next)
@@ -319,7 +319,7 @@
 (defun enable-company ()
   (company-mode 1))
 
-; Let yas play nicely with company completion.
+;; Let yas play nicely with company completion.
 (defun company-yasnippet-or-completion ()
   (interactive)
   (let ((yas-fallback-behavior nil))
@@ -332,16 +332,16 @@
                               company-active-map)))
 
 
-;; Compilation mode ;;
+;;; Compilation mode ;;;
 (setq-default compilation-scroll-output 'first-error)
 
 
-;; Cscope ;;
+;;; Cscope ;;;
 (defvar cscope-program "gtags-cscope")
 (require 'xcscope)
 
 
-;; DocView ;;
+;;; DocView ;;;
 
 (require 'doc-view)
 (setf doc-view-continuous t)
@@ -358,19 +358,23 @@
 (key-chord-define doc-view-mode-map "gk" 'windmove-up)
 (key-chord-define doc-view-mode-map "gl" 'windmove-right)
 
-;; Eshell ;;
+
+;;; Eshell ;;;
 
 (require 'eshell)
+(require 'esh-mode)
 (require 'eshell-autojump)
 
 (setq-default eshell-save-history-on-exit t)
+
+;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete) TODO
 
 (require 'em-term)
 (add-to-list 'eshell-visual-commands "sl")
 (add-to-list 'eshell-visual-commands "git")
 
 
-; Set path to shell path.
+;; Set path to shell path.
 (exec-path-from-shell-initialize)
 
 (defun eshell-new ()
@@ -387,20 +391,20 @@
   (evil-append-line 0))
 
 
-;; ERC ;;
+;;; ERC ;;;
 
-; Hide joins / parts / quits.
+;; Hide joins / parts / quits.
 (defvar erc-hide-list '("JOIN" "PART" "QUIT"))
 
-; Account login info
+;; Account login info
 (let ((f (read-lines "~/.erc-login")))
   (defvar erc-nick (car f))
   (defvar erc-password (nth 1 f)))
 
 
-;; Evil Mode ;;
+;;; Evil Mode ;;;
 
-; Remap escape to quit out of things.
+;; Remap escape to quit out of things.
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (require 'evil)
@@ -415,7 +419,7 @@
 (setq-default evil-escape-key-sequence "jk")
 (evil-escape-mode)
 
-; On multi-line evil jump, add to the jump list.
+;; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
   (before evil-next-visual-line-before activate)
   (unless (eq (ad-get-arg 0) nil)
@@ -426,7 +430,7 @@
   (unless (eq (ad-get-arg 0) nil)
     (evil-jumper--set-jump)))
 
-; On ace jump, add to the jump list.
+;; On ace jump, add to the jump list.
 (defadvice ace-jump-mode
   (before ace-jump-mode-before activate) (evil-jumper--set-jump))
 
@@ -443,9 +447,9 @@
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-; Some modes aren't for text editing and thus don't need the full range of evil
-; bindings                             . We still want movement to work smoothly across all modes though, so
-; these are the base movement bindings .
+;; Some modes aren't for text editing and thus don't need the full range of evil
+;; bindings. We still want movement to work smoothly across all modes though, so
+;; these are the base movement bindings.
 (defun bind-essential-evil (map)
   (evil-define-key 'motion map "h" 'evil-backward-char)
   (evil-define-key 'motion map "j" 'evil-next-visual-line)
@@ -483,7 +487,7 @@
 (require 'help-mode)
 (bind-essential-evil help-mode-map)
 
-; Mode specific evil init modes .
+;; Mode specific evil init modes .
 (evil-set-initial-state 'org-capture-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 
@@ -491,17 +495,17 @@
 (evil-define-key 'normal occur-mode-map (kbd "RET")
   'occur-mode-goto-occurrence)
 
-; Mode specific evil mappings.
+;; Mode specific evil mappings.
 (evil-define-key 'normal eshell-mode-map (kbd "RET")
   'eshell-send-input)
 
 (require 'evil-surround)
 
-; Use evil (mostly) everywhere.
+;; Use evil (mostly) everywhere.
 (global-evil-leader-mode)
 
-; Global evil leaders.
-; TODO move these into their own modes.
+;; Global evil leaders.
+;; TODO move these into their own modes.
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "." 'search-word-under-cursor
@@ -545,7 +549,7 @@
   "z" 'open-scratch
 )
 
-; Autoadd curly brackets.
+;; Autoadd curly brackets.
 (defun auto-add-curly ()
   (interactive)
   (insert "{")
@@ -555,31 +559,31 @@
   (evil-open-above 0))
 
 
-; Curly bracket insertion
+;; Curly bracket insertion
 (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
 
-; Remove digraph key (useless, interferes with company)
+;; Remove digraph key (useless, interferes with company)
 (define-key evil-insert-state-map (kbd "C-k") nil)
 
-; Evil window movement.
+;; Evil window movement.
 (define-key evil-normal-state-map "gh" 'windmove-left)
 (define-key evil-normal-state-map "gj" 'windmove-down)
 (define-key evil-normal-state-map "gk" 'windmove-up)
 (define-key evil-normal-state-map "gl" 'windmove-right)
 
-; Make * and # search for symbols rather than words.
+;; Make * and # search for symbols rather than words.
 (setq-default evil-symbol-word-search t)
 
-; Use global regexes by default.
+;; Use global regexes by default.
 (setq-default evil-ex-substitute-global t)
 
-; Use evil's search instead of isearch.
-; (setq-default evil-search-module 'evil-search)
+;; Use evil's search instead of isearch.
+;; (setq-default evil-search-module 'evil-search)
 
-; Line completion
+;; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
 
-; Insert line on enter
+;; Insert line on enter
 (define-key evil-normal-state-map (kbd "RET")
   (lambda (x)
     (interactive "p")
@@ -587,72 +591,73 @@
       (evil-open-below x)
       (evil-normal-state))))
 
-; Visual line information
+;; Visual line information
 (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
 
-; Visual repeat command
+;; Visual repeat command
 (define-key evil-visual-state-map (kbd ".")
   (lambda () (interactive) (execute-kbd-macro ":norm .")))
 
-; Evil window scrolling.
+;; Evil window scrolling.
 (define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
 (define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
 
-; Use helm for man pages.
-; (define-key evil-normal-state-map "K" 'helm-man-woman)
+;; Use helm for man pages.
+;; (define-key evil-normal-state-map "K" 'helm-man-woman)
 
-; Use man for man pages instead of woman.
+;; Use man for man pages instead of woman.
 (setq evil-lookup-func (lambda ()
   (interactive)
   (man (current-word))))
 
-; Transpose arguments
+;; Transpose arguments
 (define-key evil-normal-state-map "g>" 'transpose-words)
 (define-key evil-normal-state-map "g<" (lambda () (interactive) (transpose-words -1)))
 
-; Fix wrapped line movement.
+;; Fix wrapped line movement.
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
-; Comment a region like tcomment from vim.
+;; Comment a region like tcomment from vim.
 (define-key evil-visual-state-map "gc" 'comment-dwim)
 
-; Quick buffer closing from insert mode.
+;; Quick buffer closing from insert mode.
 (define-key evil-insert-state-map (kbd "C-q") 'evil-quit)
 
-; Evil ace-jump
+;; Evil ace-jump
 (define-key evil-normal-state-map "s" 'ace-jump-mode)
 
-; Evil jumper (C-o / C-i functionality)
+;; Evil jumper (C-o / C-i functionality)
 (global-evil-jumper-mode)
 
-; Evil surround settings.
+;; Evil surround settings.
 (global-evil-surround-mode 1)
 
-; Evil increment.
+;; Evil increment.
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 
-; Evil scrolling.
+;; Evil scrolling.
 (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
 
-; Use gtags instead of etags for tag lookup.
+;; Use gtags instead of etags for tag lookup.
 (define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
 
-; Eshell history
+;; Eshell history
 (define-key evil-insert-state-map (kbd "C-l") 'helm-eshell-history)
 
-; Evil shift.
+;; Evil shift.
 (setq-default evil-shift-width 4)
 
 (evil-mode 1)
 
 
-;; Flex / Bison ;;
+;;; Flex / Bison ;;;
+
 (add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
 
 
-;; Flycheck ;;
+;;; Flycheck ;;;
 
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -660,19 +665,20 @@
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
-;; Expand region ;;
+;;; Expand region ;;;
+
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 
-;; GNU Global ;;
+;;; GNU Global ;;;
 
 (require 'ggtags)
 
-; Enable gtags for c/c++.
+;; Enable gtags for c/c++.
 (add-hook 'c-mode-common-hook (lambda ()
   (when (derived-mode-p 'c-mode 'c++-mode)
-        ; (ggtags-mode 1)
+        ;; (ggtags-mode 1)
         (cscope-setup)
         (cscope-minor-mode))))
 
@@ -688,11 +694,11 @@
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
 
 
-;; Golden ratio ;;
+;;; Golden ratio ;;;
 (require 'golden-ratio)
 (setq golden-ratio-auto-scale)
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
-(add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*") ; FIXME
+(add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*") ;; FIXME
 (add-to-list 'golden-ratio-inhibit-functions 'helm-active)
 (setq-default window-combination-resize t)
 (golden-ratio-mode 1)
@@ -702,11 +708,11 @@
       (symbol-value 'helm-alive-p)))
 
 
-;; Google this ;;
+;;; Google this ;;;
 (google-this-mode 1)
 
 
-;; Guide key ;;
+;;; Guide key ;;;
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
 (setq guide-key/idle-delay 0.3)
@@ -714,13 +720,13 @@
 (guide-key-mode 1)
 
 
-;; Haskell ;;
+;;; Haskell ;;;
 
-; TODO setup hasktags
-; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
+;; TODO setup hasktags
+;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 
 (add-hook 'haskell-mode-hook (lambda ()
-  ; (add-to-list 'company-backends 'company-ghc)
+  ;; (add-to-list 'company-backends 'company-ghc)
   (turn-on-haskell-indent)))
 
 (add-hook 'interactive-haskell-mode-hook (lambda ()
@@ -733,7 +739,7 @@
     (select-window current-win)
     (golden-ratio)))
 
-; Evil mappings for haskell.
+;; Evil mappings for haskell.
 (evil-leader/set-key-for-mode 'haskell-mode
   "xb" 'haskell-run-other-window
   "xd" 'inferior-haskell-send-decl
@@ -741,7 +747,7 @@
 )
 
 
-;; Helm ;;
+;;; Helm ;;;
 
 (require 'helm)
 (require 'helm-imenu)
@@ -750,33 +756,33 @@
 (helm-mode 1)
 (helm-projectile-on)
 
-; Helm fuzzy-finding.
+;; Helm fuzzy-finding.
 (defvar helm-M-x-fuzzy-match t)
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-imenu-fuzzy-match t)
 (setq helm-locate-fuzzy-match t)
 (setq helm-recentf-fuzzy-match t)
 
-; Consistent movement with company.
+;; Consistent movement with company.
 (define-key helm-map (kbd "C-j") 'helm-next-line)
 (define-key helm-map (kbd "C-k") 'helm-previous-line)
 
-; Use the silver searcher ag with Helm.
+;; Use the silver searcher ag with Helm.
 (defun projectile-helm-ag ()
   (interactive)
   (helm-ag (projectile-project-root)))
 
 
-;; Irony ;;
+;;; Irony ;;;
 
 (require 'irony)
 
-; Use irony for C/C++
+;; Use irony for C/C++
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'cc-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 
-; Replace completion functions.
+;; Replace completion functions.
 
 (defun my-irony-mode-hook ()
   (define-key irony-mode-map [remap completion-at-point]
@@ -787,15 +793,15 @@
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-; Add irony backend for company.
+;; Add irony backend for company.
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
-; Extra completions.
+;; Extra completions.
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 
 
-;; LaTeX ;;
+;;; LaTeX ;;;
 
 (require 'tex)
 
@@ -808,7 +814,7 @@
   (interactive)
   (TeX-command "LaTeX" 'TeX-master-file -1))
 
-; Evil mappings for latex.
+;; Evil mappings for latex.
 (evil-leader/set-key-for-mode 'latex-mode
   "c" 'latex-compile
 )
@@ -818,44 +824,44 @@
   (enable-company)))
 
 
-;; Lisp ;;
+;;; Lisp ;;;
 (add-hook 'emacs-lisp-mode-hook (lambda ()
   (prettify-symbols-mode 1)))
 
 
-;; Magit ;;
+;;; Magit ;;;
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq magit-push-always-verify nil)
 
 
-;; Markdown ;;
+;;; Markdown ;;;
 
-; Filetypes to apply markdown to.
+;; Filetypes to apply markdown to.
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
 
-; Wrap settings by filetype.
+;; Wrap settings by filetype.
 (add-hook 'text-mode-hook (lambda ()
   (turn-on-auto-fill) (set-fill-column 80)))
 
 (add-hook 'markdown-mode-hook (lambda ()
   (turn-on-auto-fill) (set-fill-column 80)))
 
-; Evil mappings for markdown.
+;; Evil mappings for markdown.
 (evil-leader/set-key-for-mode 'markdown-mode
   "P" 'pandoc-convert-to-pdf
 )
 
 
-;; Octave / Matlab ;;
+;;; Octave / Matlab ;;;
 (add-to-list 'auto-mode-alist
     '("\\.m$" . octave-mode))
 
 (add-hook 'octave-mode-hook (lambda ()
     (setq-local evil-shift-width 2)))
 
-; Evil mappings for octave.
+;; Evil mappings for octave.
 (evil-leader/set-key-for-mode 'octave-mode
   "xb" 'octave-send-buffer
   "xi" 'run-octave
@@ -863,15 +869,15 @@
 )
 
 
-;; Org Mode ;;
+;;; Org Mode ;;;
 
 (require 'org)
 
-; Org files
+;; Org files
 (setq org-agenda-files '("~/org/tracking"))
 (setq org-default-notes-file "~/org/notes.org")
 
-; Org mappings
+;; Org mappings
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
@@ -885,7 +891,7 @@
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
-; Load babel languages.
+;; Load babel languages.
 (org-babel-do-load-languages
   'org-babel-load-languages
   '((C . t)
@@ -893,13 +899,13 @@
     (python . t)
     (sh . t)))
 
-; Do not prompt for babel code execution
+;; Do not prompt for babel code execution
 (setq org-confirm-babel-evaluate nil)
 
-; Correct fonts for code blocks.
+;; Correct fonts for code blocks.
 (setq-default org-src-fontify-natively t)
 
-; Capture templates
+;; Capture templates
 (defvar org-capture-templates
   '(("d" "Dreams" entry
       (file+headline "~/org/dream.org" "Dreams")
@@ -925,13 +931,14 @@
   "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
-;; Pandoc ;;
+
+;;; Pandoc ;;;
 
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 
-;; Prog mode ;;
+;;; Prog mode ;;;
 
 (add-hook 'prog-mode-hook (lambda ()
   (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -941,17 +948,18 @@
   (hl-todo-mode 1)
   (rainbow-delimiters-mode)))
 
-;; Projectile ;;
+
+;;; Projectile ;;;
 
 (require 'projectile)
 (projectile-global-mode)
 (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
-; Evil mappings for projectile.
+;; Evil mappings for projectile.
 (define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
 (define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
 
-; Use project root as cscope database.
+;; Use project root as cscope database.
 (defadvice helm-projectile-switch-project
   (after helm-projectile-switch-project-after activate)
   (cscope-set-initial-directory (projectile-project-root)))
@@ -963,9 +971,9 @@
   (projectile-helm-ag))
 
 
-;; Python ;;
+;;; Python ;;;
 
-; Evil mappings for python.
+;; Evil mappings for python.
 (evil-leader/set-key-for-mode 'python-mode
   "c" 'python-shell-send-buffer
   "xb" 'python-shell-send-buffer
@@ -973,7 +981,7 @@
   "xr" 'python-shell-send-region
 )
 
-; Custom Python mode hook.
+;; Custom Python mode hook.
 (add-hook 'python-mode-hook
   (lambda ()
     (add-to-list 'company-backends 'company-jedi)
@@ -982,13 +990,13 @@
     (defvar python-indent 4)))
 
 
-;; Relative line numbers ;;
+;;; Relative line numbers ;;;
 (require 'linum-off)
 (require 'linum-relative)
-; (global-linum-mode t)
+;; (global-linum-mode t)
 
 
-;; Rust ;;
+;;; Rust ;;;
 (require 'rust-mode)
 
 (exec-path-from-shell-copy-env "RUST_SRC_PATH")
@@ -1001,7 +1009,7 @@
   (setq evil-shift-width 4)))
 
 
-;; Terminal ;;
+;;; Terminal ;;;
 
 (add-to-list 'linum-disabled-modes-list 'term-mode)
 (delete 'org-mode linum-disabled-modes-list)
@@ -1010,13 +1018,13 @@
   (yas-minor-mode -1)))
 
 
-;; Undo Tree ;;
+;;; Undo Tree ;;;
 
-; Persistent undo
+;; Persistent undo
 (setq undo-tree-auto-save-history t)
 
 
-;; Web ;;
+;;; Web ;;;
 
 (require 'web-mode)
 
@@ -1039,11 +1047,11 @@
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
 
-;; Winner ;;
+;;; Winner ;;;
 (winner-mode 1)
 
 
-;; YASnippet ;;
+;;; YASnippet ;;;
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
