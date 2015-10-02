@@ -407,6 +407,10 @@
 ;; Remap escape to quit out of things.
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Use evil's search instead of isearch.
+(setq-default evil-search-module 'evil-search)
+(setq-default evil-ex-search-persistent-highlight nil)
+
 (require 'evil)
 (require 'evil-anzu)
 (require 'evil-jumper)
@@ -576,9 +580,6 @@
 
 ;; Use global regexes by default.
 (setq-default evil-ex-substitute-global t)
-
-;; Use evil's search instead of isearch.
-;; (setq-default evil-search-module 'evil-search)
 
 ;; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
