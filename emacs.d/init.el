@@ -764,7 +764,6 @@
 (defvar helm-M-x-fuzzy-match t)
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-imenu-fuzzy-match t)
-(setq helm-locate-fuzzy-match t)
 (setq helm-recentf-fuzzy-match t)
 
 ;; Consistent movement with company.
