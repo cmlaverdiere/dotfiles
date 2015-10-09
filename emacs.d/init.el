@@ -519,8 +519,8 @@
   "a" 'ace-window
   "A" 'align
   "b" 'switch-to-last-buffer
-  "c" 'compile
-  "C" 'quick-compile-and-run
+  "c" 'recompile
+  "C" 'compile
   "d" 'dired
   "e" 'eval-last-sexp
   "E" 'helm-calcul-expression
@@ -539,8 +539,8 @@
   "o" 'helm-occur
   "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
-  "P" 'prev-window
-  "r" 'helm-do-ag
+  "r" 'recompile
+  ;; "r" 'helm-do-ag
   "R" 'revert-buffer
   "q" 'evil-quit
   "Q" 'kill-buffer
@@ -744,6 +744,7 @@
 
 ;; Evil mappings for haskell.
 (evil-leader/set-key-for-mode 'haskell-mode
+  "r" 'haskell-run-other-window
   "xb" 'haskell-run-other-window
   "xd" 'inferior-haskell-send-decl
   "xi" 'run-haskell
@@ -819,7 +820,7 @@
 
 ;; Evil mappings for latex.
 (evil-leader/set-key-for-mode 'latex-mode
-  "c" 'latex-compile
+  "r" 'latex-compile
 )
 
 (add-hook 'latex-mode-hook (lambda ()
@@ -866,6 +867,7 @@
 
 ;; Evil mappings for octave.
 (evil-leader/set-key-for-mode 'octave-mode
+  "r" 'octave-send-buffer
   "xb" 'octave-send-buffer
   "xi" 'run-octave
   "xr" 'octave-send-region
@@ -893,6 +895,12 @@
   "Removes all DONE entries and places them into an archive file."
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
+(defun org-export-latex-no-preamble ()
+  "Exports to latex without any preamble."
+  (interactive)
+  (org-latex-export-to-latex nil nil nil t nil)
+)
 
 ;; Load babel languages.
 (org-babel-do-load-languages
@@ -922,9 +930,10 @@
 
 (evil-leader/set-key-for-mode 'org-mode
   "A" 'org-agenda
-  "c" 'org-latex-export-to-pdf
   "D" 'org-archive-done
   "L" 'org-preview-latex-fragment
+  "P" 'org-export-latex-no-preamble
+  "r" 'org-latex-export-to-pdf
   ">" 'org-metaright
   "<" 'org-metaleft
   ")" 'org-shiftmetaright
@@ -978,7 +987,7 @@
 
 ;; Evil mappings for python.
 (evil-leader/set-key-for-mode 'python-mode
-  "c" 'python-shell-send-buffer
+  "r" 'python-shell-send-buffer
   "xb" 'python-shell-send-buffer
   "xi" 'python-shell-switch-to-shell
   "xr" 'python-shell-send-region
