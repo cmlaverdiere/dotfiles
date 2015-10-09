@@ -305,7 +305,7 @@
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.2.0/") ; FIXME
 
 (company-quickhelp-mode 1)
-(setq company-minimum-prefix-length 3)
+(setq company-minimum-prefix-length 0)
 
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
@@ -450,6 +450,8 @@
 
 (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+
+(define-key evil-insert-state-map (kbd "C-;") 'company-complete)
 
 ;; Some modes aren't for text editing and thus don't need the full range of evil
 ;; bindings. We still want movement to work smoothly across all modes though, so
