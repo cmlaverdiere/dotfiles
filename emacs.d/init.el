@@ -539,7 +539,6 @@
   "o" 'helm-occur
   "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
-  "r" 'recompile
   ;; "r" 'helm-do-ag
   "R" 'revert-buffer
   "q" 'evil-quit
