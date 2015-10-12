@@ -900,6 +900,9 @@
   (org-latex-export-to-latex nil nil nil t nil)
 )
 
+;; Properly indent src blocks.
+(setq org-src-tab-acts-natively t)
+
 ;; Load babel languages.
 (org-babel-do-load-languages
   'org-babel-load-languages
