@@ -926,6 +926,11 @@
   (setq-local company-math-allow-latex-symbols-in-faces t)
   (enable-company)))
 
+(evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
+(evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
+(evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
+(evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
+
 (evil-leader/set-key-for-mode 'org-mode
   "A" 'org-agenda
   "D" 'org-archive-done
@@ -934,10 +939,6 @@
   "r" 'org-latex-export-to-pdf
   ">" 'org-metaright
   "<" 'org-metaleft
-  ")" 'org-shiftmetaright
-  "(" 'org-shiftmetaleft
-  "<up>" 'org-metaup
-  "<down>" 'org-metadown
   "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
