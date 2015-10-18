@@ -539,7 +539,6 @@
   "o" 'helm-occur
   "O" 'projectile-find-other-file
   "p" 'helm-projectile-switch-project
-  ;; "r" 'helm-do-ag
   "R" 'revert-buffer
   "q" 'evil-quit
   "Q" 'kill-buffer
@@ -744,7 +743,6 @@
 ;; Evil mappings for haskell.
 (evil-leader/set-key-for-mode 'haskell-mode
   "r" 'haskell-run-other-window
-  "xb" 'haskell-run-other-window
   "xd" 'inferior-haskell-send-decl
   "xi" 'run-haskell
 )
@@ -866,7 +864,6 @@
 ;; Evil mappings for octave.
 (evil-leader/set-key-for-mode 'octave-mode
   "r" 'octave-send-buffer
-  "xb" 'octave-send-buffer
   "xi" 'run-octave
   "xr" 'octave-send-region
 )
@@ -989,7 +986,6 @@
 ;; Evil mappings for python.
 (evil-leader/set-key-for-mode 'python-mode
   "r" 'python-shell-send-buffer
-  "xb" 'python-shell-send-buffer
   "xi" 'python-shell-switch-to-shell
   "xr" 'python-shell-send-region
 )
