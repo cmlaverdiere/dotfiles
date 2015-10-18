@@ -1009,6 +1009,15 @@
 ;;; Rust ;;;
 (require 'rust-mode)
 
+(defun cargo-run ()
+  (interactive)
+  (compile "cargo run"))
+
+;; Evil mappings for rust.
+(evil-leader/set-key-for-mode 'rust-mode
+  "r" 'cargo-run
+)
+
 (exec-path-from-shell-copy-env "RUST_SRC_PATH")
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.toml\\'" . text-mode))
