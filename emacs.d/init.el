@@ -401,6 +401,14 @@
   (defvar erc-nick (car f))
   (defvar erc-password (nth 1 f)))
 
+;; Auto identify
+(require 'erc-services)
+(erc-services-mode 1)
+(setq erc-prompt-for-nickserv-password nil)
+(setq erc-nickserv-passwords
+      `((freenode ((erc-nick . ,erc-password)))
+        (mozilla  ((erc-nick . ,erc-password)))))
+
 
 ;;; Evil Mode ;;;
 
