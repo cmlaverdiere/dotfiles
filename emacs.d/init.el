@@ -6,6 +6,7 @@
 ;;  - add hjkl bindings to magit
 ;;  - Try paradox
 ;;  - Try use-package
+;;  - Add 'make test' generic leader for 't'
 
 ;; FIXME
 ;;  - company eshell
@@ -121,14 +122,15 @@
 (setq-default backup-inhibited t)
 (setq-default auto-save-default nil)
 
+(setq-default solarized-scale-org-headlines nil)
+
 ;; Color theme
-;; (load-theme 'solarized-dark t)
+(load-theme 'solarized-dark t)
 ;; (load-theme 'solarized-light t)
 ;; (load-theme 'warm-night t)
 ;; (load-theme 'tao-yin t)
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
 
-(defvar solarized-scale-org-headlines nil)
 
 ;; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
@@ -416,8 +418,8 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Use evil's search instead of isearch.
-(setq-default evil-search-module 'evil-search)
 (setq-default evil-ex-search-persistent-highlight nil)
+(setq-default evil-search-module 'evil-search)
 
 (require 'evil)
 (require 'evil-anzu)
