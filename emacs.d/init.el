@@ -1028,13 +1028,14 @@
 ;;; Rust ;;;
 (require 'rust-mode)
 
-(defun cargo-run ()
+(defun cargo-cmd (cmd)
   (interactive)
-  (compile "cargo run"))
+  (compile (format "cargo %s" cmd)))
 
 ;; Evil mappings for rust.
 (evil-leader/set-key-for-mode 'rust-mode
-  "r" 'cargo-run
+  "r" (lambda () (interactive) (cargo-cmd "run"))
+  "t" (lambda () (interactive) (cargo-cmd "test"))
 )
 
 (exec-path-from-shell-copy-env "RUST_SRC_PATH")
