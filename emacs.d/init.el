@@ -308,7 +308,7 @@
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.2.0/") ; FIXME
 
 (company-quickhelp-mode 1)
-(setq company-minimum-prefix-length 1)
+(setq company-minimum-prefix-length 0)
 
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
@@ -316,7 +316,7 @@
 (define-key company-active-map (kbd "C-j") 'company-select-next)
 (define-key company-active-map (kbd "C-k") 'company-select-previous)
 
-(setq-default company-idle-delay 0.0)
+(setq-default company-idle-delay 0.25)
 (setq-default company-echo-delay 0)
 
 (defun enable-company ()
@@ -935,7 +935,8 @@
   (turn-on-flyspell)
   (enable-company-math)
   (setq-local company-math-allow-latex-symbols-in-faces t)
-  (enable-company)))
+  (enable-company)
+  ))
 
 (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
 (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
