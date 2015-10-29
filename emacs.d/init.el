@@ -866,6 +866,12 @@
 )
 
 
+;;; Midnight ;;;
+
+; Clean out old buffers at midnight.
+(require 'midnight)
+
+
 ;;; Octave / Matlab ;;;
 (add-to-list 'auto-mode-alist
     '("\\.m$" . octave-mode))
