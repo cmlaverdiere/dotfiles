@@ -540,6 +540,7 @@
   "i" 'open-conf
   "I" 'helm-imenu
   "l" 'flycheck-list-errors
+  "L" 'browse-url
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
