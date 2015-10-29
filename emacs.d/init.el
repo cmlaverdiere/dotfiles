@@ -9,6 +9,7 @@
 ;;  - Add 'make test' generic leader for 't'
 
 ;; FIXME
+;;  - Visual select mode lag on 'j'
 ;;  - company eshell
 ;;  - company irony c headers
 
@@ -85,7 +86,7 @@
   racer
   rainbow-delimiters
   rust-mode
-  solarized-theme ; TODO try the other one
+  solarized-theme
   tao-theme
   undo-tree
   visual-fill-column
@@ -126,10 +127,10 @@
 
 ;; Color theme
 (load-theme 'solarized-dark t)
-;; (load-theme 'solarized-light t)
-;; (load-theme 'warm-night t)
-;; (load-theme 'tao-yin t)
-;; (load-theme 'zenburn t)
+; (load-theme 'solarized-light t)
+; (load-theme 'warm-night t)
+; (load-theme 'tao-yin t)
+; (load-theme 'zenburn t)
 
 
 ;; Config file location.
