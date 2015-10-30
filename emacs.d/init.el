@@ -31,6 +31,7 @@
   ace-window
   auctex
   bison-mode
+  color-theme-sanityinc-tomorrow
   company
   company-c-headers
   company-ghc
@@ -126,7 +127,8 @@
 (setq-default solarized-scale-org-headlines nil)
 
 ;; Color theme
-(load-theme 'solarized-dark t)
+(require 'sanityinc-tomorrow-night-theme)
+; (load-theme 'solarized-dark t)
 ; (load-theme 'solarized-light t)
 ; (load-theme 'warm-night t)
 ; (load-theme 'tao-yin t)
