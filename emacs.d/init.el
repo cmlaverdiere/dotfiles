@@ -310,7 +310,7 @@
 (add-to-list 'company-c-headers-path-system "/usr/include/c++/5.2.0/") ; FIXME
 
 (company-quickhelp-mode 1)
-(setq company-minimum-prefix-length 0)
+(setq company-minimum-prefix-length 1)
 
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
