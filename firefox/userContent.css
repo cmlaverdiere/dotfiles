@@ -1,0 +1,26 @@
+/* ------------------------------------------------------ */
+/* Hide the bookmarks bar                                 */
+/* Modified from https://gist.github.com/ecornell/5558721 */
+/* ------------------------------------------------------ */
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+#navigator-toolbox {
+    position: relative;
+    transition: all 0.25s ease-out .5s !important;
+}
+
+#PersonalToolbar {
+    /*overflow: hidden;*/
+    margin-top: -32px !important;
+    transition: all 0.25s ease-out .5s !important;
+}
+
+#navigator-toolbox:hover {
+    margin-bottom: -32px !important;
+    transition-delay: 0s !important;
+}
+
+#navigator-toolbox:hover > #PersonalToolbar {
+    margin-top: 0 !important;
+    transition-delay: 0s !important;
+}
