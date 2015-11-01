@@ -564,7 +564,7 @@
   "Q" 'kill-buffer
   "s" 'split-eshell
   "S" 'sort-lines
-  "t" 'split-term
+  "T" 'split-term
   "u" 'undo-tree-visualize
   "v" 'evil-window-vsplit
   "V" 'evil-window-split
