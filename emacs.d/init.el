@@ -145,7 +145,7 @@
 (defvar conf-file "~/.emacs.d/init.el")
 
 ;; Emacs source location.
-(setq source-directory (format "/usr/local/src/emacs-%d.%d/src"
+(setq-default source-directory (format "/usr/local/src/emacs-%d.%d"
   emacs-major-version emacs-minor-version))
 
 ;; Delete trailing whitespace on save
