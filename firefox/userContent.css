@@ -1,5 +1,5 @@
 /* ------------------------------------------------------ */
-/* Hide the bookmarks bar                                 */
+/* Toggle the bookmarks bar on hover.                     */
 /* Modified from https://gist.github.com/ecornell/5558721 */
 /* ------------------------------------------------------ */
 @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);

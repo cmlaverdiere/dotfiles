@@ -7,12 +7,12 @@
 ;;  - Try paradox
 ;;  - Try use-package
 ;;  - Add 'make test' generic leader for 't'
+;;  - Powerline
 
 ;; FIXME
 ;;  - Visual select mode lag on 'j'
 ;;  - company eshell
 ;;  - company irony c headers
-
 
 ;;; Package management ;;;
 
@@ -127,7 +127,13 @@
 (setq-default solarized-scale-org-headlines nil)
 
 ;; Color theme
+
+;; Tomorrow theme specific.
 (require 'sanityinc-tomorrow-night-theme)
+(set-face-attribute 'fringe nil :background (face-background 'default))
+(set-face-attribute 'mode-line nil :background (face-background 'default))
+(set-face-attribute 'mode-line-inactive nil :background (face-background 'default))
+
 ; (load-theme 'solarized-dark t)
 ; (load-theme 'solarized-light t)
 ; (load-theme 'warm-night t)
