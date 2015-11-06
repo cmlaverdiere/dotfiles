@@ -1041,12 +1041,17 @@
 
 ;;; Python ;;;
 
+(require 'python)
+
 ;; Evil mappings for python.
 (evil-leader/set-key-for-mode 'python-mode
   "r" 'python-shell-send-buffer
   "xi" 'python-shell-switch-to-shell
   "xr" 'python-shell-send-region
 )
+
+;; Faster printing of large lines
+(setq python-shell-enable-font-lock nil)
 
 ;; Custom Python mode hook.
 (add-hook 'python-mode-hook
