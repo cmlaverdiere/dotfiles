@@ -493,6 +493,7 @@
 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
 (define-key evil-insert-state-map (kbd "C-;") 'company-complete)
+(define-key evil-normal-state-map (kbd "gy") (kbd "gg y G C-o"))
 
 ;; Some modes aren't for text editing and thus don't need the full range of evil
 ;; bindings. We still want movement to work smoothly across all modes though, so
@@ -557,6 +558,7 @@
 (evil-leader/set-key
   "." 'search-word-under-cursor
   "/" 'helm-projectile-ag
+  ";" 'helm-M-x
   "a" 'ace-window
   "A" 'align
   "b" 'switch-to-last-buffer
@@ -583,7 +585,7 @@
   "p" 'helm-projectile-switch-project
   "R" 'revert-buffer
   "q" 'evil-quit
-  "Q" 'kill-buffer
+  "Q" 'kill-this-buffer
   "s" 'split-eshell
   "S" 'sort-lines
   "T" 'split-term
@@ -738,6 +740,7 @@
 
 
 ;;; Golden ratio ;;;
+
 (require 'golden-ratio)
 (setq golden-ratio-auto-scale)
 (add-to-list 'golden-ratio-extra-commands 'ace-window)
@@ -752,10 +755,12 @@
 
 
 ;;; Google this ;;;
+
 (google-this-mode 1)
 
 
 ;;; Guide key ;;;
+
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t)
 (setq guide-key/idle-delay 0.3)
@@ -867,11 +872,13 @@
 
 
 ;;; Lisp ;;;
+
 (add-hook 'emacs-lisp-mode-hook (lambda ()
   (prettify-symbols-mode 1)))
 
 
 ;;; Magit ;;;
+
 (require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq magit-push-always-verify nil)
@@ -903,6 +910,7 @@
 
 
 ;;; Octave / Matlab ;;;
+
 (add-to-list 'auto-mode-alist
     '("\\.m$" . octave-mode))
 
@@ -1050,12 +1058,14 @@
 
 
 ;;; Relative line numbers ;;;
+
 (require 'linum-off)
 (require 'linum-relative)
 ;; (global-linum-mode t)
 
 
 ;;; Rust ;;;
+
 (require 'rust-mode)
 
 (defun cargo-cmd (cmd)
@@ -1110,11 +1120,19 @@
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
 
+;;; Which-function ;;;
+
+(require 'which-func)
+(which-function-mode 1)
+
+
 ;;; Winner ;;;
+
 (winner-mode 1)
 
 
 ;;; YASnippet ;;;
+
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
