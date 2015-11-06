@@ -76,6 +76,7 @@
   irony
   jedi
   key-chord
+  ledger-mode
   linum-off
   linum-relative
   magit
