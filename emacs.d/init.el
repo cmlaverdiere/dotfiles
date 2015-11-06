@@ -2,15 +2,15 @@
 
 ;; TODO
 ;;  - Write a fn to load all included header files into buffers.
-;;  - helm complete at point tab colon search
-;;  - add hjkl bindings to magit
+;;  - add hjkl bindings to magit (evil-magit in progress)
 ;;  - Try paradox
 ;;  - Try use-package
 ;;  - Add 'make test' generic leader for 't'
-;;  - Powerline
+;;  - Leader help keys
 
 ;; FIXME
 ;;  - Visual select mode lag on 'j'
+;;  - Highlight persisting (anzu?)
 ;;  - company eshell
 ;;  - company irony c headers
 
@@ -41,6 +41,7 @@
   company-math
   company-quickhelp
   dash
+  diminish
   epl
   eshell-autojump
   evil
@@ -344,12 +345,32 @@
 
 
 ;;; Compilation mode ;;;
+
 (setq-default compilation-scroll-output 'first-error)
 
 
 ;;; Cscope ;;;
+
 (defvar cscope-program "gtags-cscope")
 (require 'xcscope)
+
+
+;;; Diminish ;;;
+
+(diminish 'abbrev-mode)
+(diminish 'anzu-mode)
+(diminish 'company-mode)
+(diminish 'evil-escape-mode)
+(diminish 'flycheck-mode)
+(diminish 'golden-ratio-mode)
+(diminish 'google-this-mode)
+(diminish 'guide-key-mode)
+(diminish 'helm-mode)
+(diminish 'helm-gtags-mode)
+(diminish 'hs-minor-mode)
+(diminish 'projectile-mode)
+(diminish 'undo-tree-mode)
+(diminish 'yas-minor-mode)
 
 
 ;;; DocView ;;;
