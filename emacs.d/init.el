@@ -358,24 +358,6 @@
 (require 'xcscope)
 
 
-;;; Diminish ;;;
-
-(diminish 'abbrev-mode)
-(diminish 'anzu-mode)
-(diminish 'company-mode)
-(diminish 'evil-escape-mode)
-(diminish 'flycheck-mode)
-(diminish 'golden-ratio-mode)
-(diminish 'google-this-mode)
-(diminish 'guide-key-mode)
-(diminish 'helm-mode)
-(diminish 'helm-gtags-mode)
-(diminish 'hs-minor-mode)
-(diminish 'projectile-mode)
-(diminish 'undo-tree-mode)
-(diminish 'yas-minor-mode)
-
-
 ;;; DocView ;;;
 
 (require 'doc-view)
@@ -1012,6 +994,8 @@
 
 ;;; Prog mode ;;;
 
+(require 'hideshow)
+
 (add-hook 'prog-mode-hook (lambda ()
   (define-key global-map (kbd "RET") 'newline-and-indent)
   (define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
@@ -1146,3 +1130,22 @@
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
 (setq yas-triggers-in-field t)
+
+
+;;; Diminish ;;;
+
+;; This must be done after everything is loaded.
+(diminish 'abbrev-mode)
+(diminish 'anzu-mode)
+(diminish 'company-mode)
+(diminish 'evil-escape-mode)
+(diminish 'flycheck-mode)
+(diminish 'golden-ratio-mode)
+(diminish 'google-this-mode)
+(diminish 'guide-key-mode)
+(diminish 'helm-mode)
+(diminish 'helm-gtags-mode)
+(diminish 'hs-minor-mode)
+(diminish 'projectile-mode)
+(diminish 'undo-tree-mode)
+(diminish 'yas-minor-mode)
