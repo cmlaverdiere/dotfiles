@@ -9,7 +9,7 @@
 ;;  - Leader help keys
 
 ;; FIXME
-;;  - Visual select mode lag on 'j'
+;;  - Visual select mode lag on 'j' (reported upstream)
 ;;  - Highlight persisting (anzu?)
 ;;  - company eshell
 ;;  - company irony c headers
@@ -19,8 +19,8 @@
 ;; Package repositories
 (require 'package)
 (setq package-archives '(
-  ("melpa" . "http://melpa.milkbox.net/packages/")
-  ("gnu" . "http://elpa.gnu.org/packages/")
+  ("melpa" . "https://melpa.milkbox.net/packages/")
+  ("gnu" . "https://elpa.gnu.org/packages/")
 ))
 
 
@@ -51,6 +51,7 @@
   evil-exchange
   evil-jumper
   evil-leader
+  evil-magit
   evil-matchit
   evil-numbers
   evil-surround
@@ -455,6 +456,7 @@
 (require 'evil)
 (require 'evil-anzu)
 (require 'evil-jumper)
+(require 'evil-magit)
 
 (require 'evil-exchange)
 (evil-exchange-install)
@@ -629,12 +631,12 @@
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
 
 ;; Insert line on enter
-(define-key evil-normal-state-map (kbd "RET")
-  (lambda (x)
-    (interactive "p")
-    (save-excursion
-      (evil-open-below x)
-      (evil-normal-state))))
+;; (define-key evil-normal-state-map (kbd "RET")
+;;   (lambda (x)
+;;     (interactive "p")
+;;     (save-excursion
+;;       (evil-open-below x)
+;;       (evil-normal-state))))
 
 ;; Visual line information
 (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
