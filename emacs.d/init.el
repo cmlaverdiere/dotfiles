@@ -614,14 +614,6 @@
 ;; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
 
-;; Insert line on enter
-;; (define-key evil-normal-state-map (kbd "RET")
-;;   (lambda (x)
-;;     (interactive "p")
-;;     (save-excursion
-;;       (evil-open-below x)
-;;       (evil-normal-state))))
-
 ;; Visual line information
 (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
 
