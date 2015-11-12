@@ -102,6 +102,7 @@
   xcscope
   yasnippet
   zenburn-theme
+  zeal-at-point
 ))
 
 (package-initialize)
@@ -597,6 +598,7 @@
   "w" 'save-buffer
   "W" 'delete-other-windows
   "z" 'open-scratch
+  "Z" 'zeal-at-point
 )
 
 ;; Autoadd curly brackets.
