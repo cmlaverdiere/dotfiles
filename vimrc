@@ -56,6 +56,11 @@ imap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nmap <c-l> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
+nmap gy ggyG
+nmap <Left> 5<C-w><
+nmap <Right> 5<C-w>>
+nmap <Up> 5<C-w>-
+nmap <Down> 5<C-w>+
 
 " Leader Mappings
 nnoremap <Leader>asc ggVG:Tab /;<CR>
@@ -88,7 +93,8 @@ nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
-nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
+nnoremap <Leader>v :vs<CR>
+nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
@@ -103,7 +109,7 @@ map gh <C-W>h
 map gl <C-W>l
 
 " Buffer switching
-map gn :bn<cr>
+" map gn :bn<cr>
 map gp :bp<cr>
 map gx :bd<cr>
 set hidden
