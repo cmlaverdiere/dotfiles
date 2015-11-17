@@ -68,11 +68,10 @@ nnoremap <Leader>cK viWK
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>ee :winc =<CR>
-nnoremap <Leader>el :15winc ><CR>
-nnoremap <Leader>er :15winc <<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
+nnoremap <Leader>i :e ~/.vim/vimrc<CR>
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
