@@ -17,7 +17,8 @@ Plug 'godlygeek/tabular'
 Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'kana/vim-filetype-haskell'
@@ -158,5 +159,5 @@ nnoremap <silent> j :<C-U>execute 'normal!'
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 au BufRead *.txt,*.md setlocal spell
 
-" Solarized must be loaded later for some reason.
-colorscheme solarized
+" Color scheme must be loaded later for some reason.
+colorscheme Tomorrow-Night
