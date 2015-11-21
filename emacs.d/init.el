@@ -965,6 +965,7 @@
   (enable-company-math)
   (setq-local company-math-allow-latex-symbols-in-faces t)
   (enable-company)
+  (setq-local company-minimum-prefix-length 100) ; Never complete.
   ))
 
 (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
