@@ -445,9 +445,15 @@
 (evil-exchange-install)
 
 (require 'evil-escape)
-(setq-default evil-escape-delay 0.1)
+(setq-default evil-escape-delay 0.10)
 (setq-default evil-escape-key-sequence "jk")
-(evil-escape-mode)
+(setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
+(setq-default evil-escape-excluded-major-modes
+              '(magit-mode magit-log-mode magit-cherry-mode
+                magit-diff-mode magit-log-mode magit-log-select-mode
+                magit-process-mode magit-reflog-mode magit-refs-mode
+                magit-revision-mode magit-stash-mode magit-stashes-mode
+                magit-status-mode))
 
 ;; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
