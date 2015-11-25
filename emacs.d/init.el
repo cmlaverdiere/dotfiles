@@ -691,7 +691,11 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (setq flycheck-gcc-language-standard "c++11")
+            (setq flycheck-clang-language-standard "c++11")))
+
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
 ;;; Expand region ;;;
