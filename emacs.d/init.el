@@ -9,7 +9,6 @@
 ;;  - Leader help keys
 
 ;; FIXME
-;;  - Visual select mode lag on 'j' (reported upstream)
 ;;  - Highlight persisting (anzu?)
 ;;  - company eshell
 ;;  - company irony c headers
@@ -445,6 +444,7 @@
 (evil-exchange-install)
 
 (require 'evil-escape)
+(evil-escape-mode)
 (setq-default evil-escape-delay 0.10)
 (setq-default evil-escape-key-sequence "jk")
 (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
