@@ -274,7 +274,7 @@
 (defun kill-and-quit-buffer ()
   (interactive)
   (kill-this-buffer)
-  (evil-quit))
+  (delete-window))
 
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
