@@ -2,7 +2,6 @@
 
 ;; TODO
 ;;  - Write a fn to load all included header files into buffers.
-;;  - add hjkl bindings to magit (evil-magit in progress)
 ;;  - Try paradox
 ;;  - Try use-package
 ;;  - Add 'make test' generic leader for 't'
@@ -549,10 +548,8 @@
 (global-evil-leader-mode)
 
 ;; Global evil leaders.
-;; TODO move these into their own modes.
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "." 'search-word-under-cursor
   "/" 'helm-projectile-ag
   ";" 'helm-M-x
   "a" 'ace-window
@@ -791,6 +788,7 @@
 ;;; Helm ;;;
 
 (require 'helm)
+(require 'helm-ag)
 (require 'helm-imenu)
 (require 'helm-projectile)
 (require 'grep)
@@ -808,6 +806,7 @@
 (define-key helm-map (kbd "C-k") 'helm-previous-line)
 
 ;; Use the silver searcher ag with Helm.
+(setq helm-ag-insert-at-point 'symbol)
 (defun projectile-helm-ag ()
   (interactive)
   (helm-ag (projectile-project-root)))
@@ -1027,13 +1026,6 @@
 (defadvice helm-projectile-switch-project
   (after helm-projectile-switch-project-after activate)
   (cscope-set-initial-directory (projectile-project-root)))
-
-(defun search-word-under-cursor ()
-  "Searches for the word under the cursor using projectile."
-  (interactive)
-  (er/expand-region 1)
-  (projectile-helm-ag))
-
 
 ;;; Python ;;;
 
