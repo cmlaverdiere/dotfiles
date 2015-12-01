@@ -550,6 +550,7 @@
 ;; Global evil leaders.
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
+  "." 'repeat
   "/" 'helm-projectile-ag
   ";" 'helm-M-x
   "a" 'ace-window
@@ -577,7 +578,7 @@
   "p" 'helm-projectile-switch-project
   "R" 'revert-buffer
   "q" 'evil-quit
-  "Q" 'kill-and-quit-buffer
+  "Q" 'kill-this-buffer
   "s" 'split-eshell
   "S" 'sort-lines
   "T" 'eshell-new
