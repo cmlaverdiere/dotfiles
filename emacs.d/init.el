@@ -272,6 +272,11 @@
       (other-window 1)
       (funcall fun))))
 
+(defun kill-and-quit-buffer ()
+  (interactive)
+  (kill-this-buffer)
+  (evil-quit))
+
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
 
@@ -563,7 +568,6 @@
   "i" 'open-conf
   "I" 'helm-imenu
   "l" 'flycheck-list-errors
-  "L" 'browse-url
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
@@ -576,11 +580,12 @@
   "p" 'helm-projectile-switch-project
   "R" 'revert-buffer
   "q" 'evil-quit
-  "Q" 'kill-this-buffer
+  "Q" 'kill-and-quit-buffer
   "s" 'split-eshell
   "S" 'sort-lines
-  "T" 'split-term
+  "T" 'eshell-new
   "u" 'undo-tree-visualize
+  "U" 'browse-url
   "v" 'evil-window-vsplit
   "V" 'evil-window-split
   "w" 'save-buffer
@@ -985,7 +990,7 @@
   "r" 'org-latex-export-to-pdf
   ">" 'org-metaright
   "<" 'org-metaleft
-  "T" (lambda () (interactive) (org-table-sort-lines nil ?a))
+  "+" (lambda () (interactive) (org-table-sort-lines nil ?a))
 )
 
 
