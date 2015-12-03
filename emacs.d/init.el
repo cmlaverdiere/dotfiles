@@ -150,7 +150,7 @@
 (setq-default source-directory (format "/usr/local/src/emacs-%d.%d"
   emacs-major-version emacs-minor-version))
 
-;; Delete trailing whitespace on save
+;; Delete trailing whitespace on save.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Font settings.
@@ -166,15 +166,15 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; Highlight current line
+;; Highlight current line.
 (global-hl-line-mode)
 
-;; Highlight all search matches line
+;; Highlight all search matches line.
 (require 'highlight-symbol)
 (highlight-symbol-mode)
 (setq highlight-symbol-idle-delay 0.5)
 
-;; History settings
+;; History settings.
 (savehist-mode 1)
 
 ;; Auto reload buffers when changed on disk.
@@ -183,22 +183,25 @@
 ;; Sentence definition should be one space after a period.
 (setf sentence-end-double-space nil)
 
-;; Shell settings
+;; Shell settings.
 (setenv "SHELL" "/usr/bin/zsh")
 
-;; Indentation settings
+;; No-confirm for buffer kill.
+(define-key global-map (kbd "C-x k") 'kill-this-buffer)
+
+;; Indentation settings.
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-default-style "k&r")
 (setq-default c-basic-offset 4)
 
-;; Find mappings
+;; Find mappings.
 (define-key 'help-command (kbd "C-l") 'find-library)
 (define-key 'help-command (kbd "C-f") 'find-function)
 (define-key 'help-command (kbd "C-k") 'find-function-on-key)
 (define-key 'help-command (kbd "C-v") 'find-variable)
 
-;; Find at point mappings
+;; Find at point mappings.
 (define-prefix-command 'help-at-point-map)
 (global-set-key (kbd "C-h C-p") 'help-at-point-map)
 (define-key 'help-at-point-map (kbd "f") 'find-function-at-point)
@@ -206,7 +209,7 @@
 
 (key-chord-mode 1)
 
-;; Time in mode-line
+;; Time in mode-line.
 (defvar display-time-format "%I:%M %p")
 (display-time-mode 1)
 
@@ -288,7 +291,7 @@
 (setq ace-jump-mode-scope 'frame)
 
 
-;;; Anzu
+;;; Anzu ;;;
 
 (global-anzu-mode +1)
 
@@ -530,7 +533,7 @@
 (require 'help-mode)
 (bind-essential-evil help-mode-map)
 
-;; Mode specific evil init modes .
+;; Mode specific evil init modes.
 (evil-set-initial-state 'org-capture-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 
