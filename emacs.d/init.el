@@ -180,6 +180,9 @@
 ;; Auto reload buffers when changed on disk.
 (global-auto-revert-mode t)
 
+;; Disable confirmation for following symlinks.
+(setq-default vc-follow-symlinks t)
+
 ;; Sentence definition should be one space after a period.
 (setf sentence-end-double-space nil)
 
