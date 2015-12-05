@@ -463,7 +463,7 @@
                 magit-diff-mode magit-log-mode magit-log-select-mode
                 magit-process-mode magit-reflog-mode magit-refs-mode
                 magit-revision-mode magit-stash-mode magit-stashes-mode
-                magit-status-mode))
+                magit-status-mode Man-mode-map))
 
 ;; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
