@@ -813,7 +813,7 @@
 (define-key helm-map (kbd "C-k") 'helm-previous-line)
 
 ;; Better mappings.
-(define-key helm-map (kbd "C-p") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-o") 'helm-select-action)
 (define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
 
