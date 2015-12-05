@@ -812,6 +812,11 @@
 (define-key helm-map (kbd "C-j") 'helm-next-line)
 (define-key helm-map (kbd "C-k") 'helm-previous-line)
 
+;; Better mappings.
+(define-key helm-map (kbd "C-p") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-o") 'helm-select-action)
+(define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
+
 ;; Use the silver searcher ag with Helm.
 (setq helm-ag-insert-at-point 'symbol)
 (defun projectile-helm-ag ()
