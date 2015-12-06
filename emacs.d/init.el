@@ -476,6 +476,9 @@
   (unless (eq (ad-get-arg 0) nil)
     (evil-jumper--set-jump)))
 
+;; Auto-correct the last word with flyspell in normal mode.
+(define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-word)
+
 ;; On ace jump, add to the jump list.
 (defadvice ace-jump-mode
   (before ace-jump-mode-before activate) (evil-jumper--set-jump))
