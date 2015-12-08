@@ -480,7 +480,8 @@
     (evil-jumper--set-jump)))
 
 ;; Auto-correct the last word with flyspell in normal mode.
-(define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-word)
+(define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
+(define-key evil-insert-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
 
 ;; On ace jump, add to the jump list.
 (defadvice ace-jump-mode
