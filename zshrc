@@ -102,3 +102,6 @@ export RUST_SRC_PATH=/usr/src/rust/src
 # Start X on login.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
+# A sane amount of history.
+export HISTSIZE=1000000
+export SAVEHIST=1000000
