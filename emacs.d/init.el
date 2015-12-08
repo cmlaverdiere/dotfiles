@@ -189,6 +189,9 @@
 ;; Shell settings.
 (setenv "SHELL" "/usr/bin/zsh")
 
+;; Time in modeline.
+(setq-default display-time-format "%a %b %d, %l:%M %p")
+
 ;; No-confirm for buffer kill.
 (define-key global-map (kbd "C-x k") 'kill-this-buffer)
 
