@@ -395,6 +395,7 @@
 (require 'eshell-autojump)
 
 (setq-default eshell-save-history-on-exit t)
+(setq-default eshell-history-size 1000000)
 
 ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete) TODO
 
