@@ -105,3 +105,7 @@ export RUST_SRC_PATH=/usr/src/rust/src
 # A sane amount of history.
 export HISTSIZE=1000000
 export SAVEHIST=1000000
+
+# fzf setup.
+alias fzf="fzf -m"
+. /etc/profile.d/fzf.zsh
