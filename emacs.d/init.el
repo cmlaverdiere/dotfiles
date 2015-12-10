@@ -177,6 +177,9 @@
 ;; History settings.
 (savehist-mode 1)
 
+;; Lisp offset
+(setq-default lisp-indent-offset 2)
+
 ;; Auto reload buffers when changed on disk.
 (global-auto-revert-mode t)
 
