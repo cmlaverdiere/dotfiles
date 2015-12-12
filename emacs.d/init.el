@@ -455,6 +455,8 @@
 (require 'evil)
 (require 'evil-anzu)
 (require 'evil-jumper)
+
+(setq-default evil-magit-use-y-for-yank t)
 (require 'evil-magit)
 
 (require 'evil-exchange)
