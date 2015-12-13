@@ -8,6 +8,7 @@
 ;;  - Leader help keys
 
 ;; FIXME
+;;  - g[hjkl] window commands should shadow everything.
 ;;  - Highlight persisting (anzu?)
 ;;  - company eshell
 ;;  - company irony c headers
@@ -445,8 +446,10 @@
 
 ;;; Evil Mode ;;;
 
-;; Remap escape to quit out of things.
+;; When all else fails...
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+(setq-default evil-want-C-u-scroll t)
 
 ;; Use evil's search instead of isearch.
 (setq-default evil-ex-search-persistent-highlight nil)
@@ -585,6 +588,7 @@
   "i" 'open-conf
   "I" 'helm-imenu
   "l" 'flycheck-list-errors
+  "L" 'browse-url
   "f" 'helm-for-files
   "j" 'winner-undo
   "k" 'winner-redo
@@ -601,8 +605,8 @@
   "s" 'split-eshell
   "S" 'sort-lines
   "T" 'eshell-new
-  "u" 'undo-tree-visualize
-  "U" 'browse-url
+  "u" 'universal-argument
+  "U" 'undo-tree-visualize
   "v" 'evil-window-vsplit
   "V" 'evil-window-split
   "w" 'save-buffer
