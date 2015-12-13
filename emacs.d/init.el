@@ -119,7 +119,8 @@
 
 ;;; Vanilla Emacs Behavior ;;;
 
-;; Garbage collector max
+;; Disable garbage collector on init (restored at end of file).
+(defvar temp-gc gc-cons-threshold)
 (setq gc-cons-threshold 100000000)
 
 ;; Backup settings
@@ -1178,3 +1179,6 @@
 (diminish 'projectile-mode)
 (diminish 'undo-tree-mode)
 (diminish 'yas-minor-mode)
+
+;; Restore gc threshhold.
+(setq gc-cons-threshold temp-gc)
