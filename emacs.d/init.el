@@ -124,9 +124,10 @@
 (setq gc-cons-threshold 100000000)
 
 ;; Backup settings
-(setq-default make-backup-files nil)
-(setq-default backup-inhibited t)
-(setq-default auto-save-default nil)
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+;; (setq-default make-backup-files nil)
+;; (setq-default backup-inhibited t)
+;; (setq-default auto-save-default nil)
 
 (setq-default solarized-scale-org-headlines nil)
 
