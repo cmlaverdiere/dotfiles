@@ -463,6 +463,11 @@
 
 (setq-default evil-magit-use-y-for-yank t)
 (require 'evil-magit)
+(evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
+(evil-define-key evil-magit-state magit-mode-map "gh" 'windmove-left)
+(evil-define-key evil-magit-state magit-mode-map "gj" 'windmove-down)
+(evil-define-key evil-magit-state magit-mode-map "gk" 'windmove-up)
+(evil-define-key evil-magit-state magit-mode-map "gl" 'windmove-right)
 
 (require 'evil-exchange)
 (evil-exchange-install)
