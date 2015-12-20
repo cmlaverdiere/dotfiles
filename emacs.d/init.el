@@ -22,6 +22,8 @@
   ("gnu" . "https://elpa.gnu.org/packages/")
 ))
 
+(setq package-enable-at-startup nil)
+(package-initialize)
 
 ;; Package list
 (defvar package-list '(
@@ -104,17 +106,8 @@
   zeal-at-point
 ))
 
-(package-initialize)
-
-;; Fetch list of packages available.
 (setq package-archive-contents nil)
-(unless package-archive-contents
-  (package-refresh-contents))
 
-;; Install missing packages.
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
 
 
 ;;; Vanilla Emacs Behavior ;;;
