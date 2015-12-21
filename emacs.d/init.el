@@ -57,7 +57,6 @@
   evil-numbers
   evil-surround
   exec-path-from-shell
-  expand-region
   flycheck
   flycheck-rust
   ggtags
@@ -724,10 +723,7 @@
 
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
-;;; Expand region ;;;
 
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
 
 
 ;;; GNU Global ;;;
