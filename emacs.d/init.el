@@ -308,6 +308,7 @@
 
 
 (use-package anzu
+  :diminish anzu-mode
   :init
   (global-anzu-mode +1))
 
@@ -399,6 +400,22 @@
 
 
 (use-package eshell
+  :defer 5
+  :init
+
+  (defun eshell-new ()
+    "Create a new eshell instance."
+    (interactive)
+    (let ((current-prefix-arg t))
+      (call-interactively 'eshell)))
+
+  (defun split-eshell ()
+    "Create an eshell split"
+    (interactive)
+    (do-in-split 'eshell)
+    (evil-goto-line nil)
+    (evil-append-line 0)))
+
   :config
   (require 'esh-mode)
   (require 'eshell-autojump)
@@ -414,19 +431,6 @@
 
   ;; Set path to shell path.
   (exec-path-from-shell-initialize)
-
-  (defun eshell-new ()
-    "Create a new eshell instance."
-    (interactive)
-    (let ((current-prefix-arg t))
-      (call-interactively 'eshell)))
-
-  (defun split-eshell ()
-    "Create an eshell split"
-    (interactive)
-    (do-in-split 'eshell)
-    (evil-goto-line nil)
-    (evil-append-line 0)))
 
 
 (use-package erc
@@ -717,6 +721,7 @@
 
 
 (use-package flycheck
+  :diminish flycheck-mode
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
@@ -738,6 +743,7 @@
         (cscope-minor-mode))))
 
   (use-package helm-gtags
+    :diminish helm-gtags-mode
     :defer t
     :init
     (defvar helm-gtags-ignore-case t)
@@ -839,6 +845,10 @@
       (symbol-value 'helm-alive-p)))
 
   (setq-default helm-ag-insert-at-point 'symbol))
+
+
+(use-package hideshow
+  :diminish hs-minor-mode)
 
 
 (use-package irony
@@ -984,8 +994,6 @@
 
 ;;; Prog-mode ;;;
 
-(require 'hideshow)
-
 (add-hook 'prog-mode-hook
   (lambda ()
     (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -997,7 +1005,7 @@
 
 
 (use-package projectile
-  :defer 2
+  :defer 5
   :diminish projectile-mode
 
   :init
@@ -1155,12 +1163,8 @@
 ;; This must be done after everything is loaded.
 ;; TODO just use an init load hook.
 (diminish 'abbrev-mode)
-(diminish 'anzu-mode)
 (diminish 'company-mode)
 (diminish 'evil-escape-mode)
-(diminish 'flycheck-mode)
-(diminish 'helm-gtags-mode)
-(diminish 'hs-minor-mode)
 
 ;; Restore gc threshhold.
 (setq gc-cons-threshold temp-gc)
