@@ -1,67 +1,53 @@
 " Chris Laverdiere's vimrc
-" Requires: ctags, vundle
-
-" Distro specific settings. Pick one.
-runtime! archlinux.vim
+" Requires: plug.vim
 
 " Tmux / color compatability settings.
 set shell=bash
 set background=dark
-
-" Vundle setup
-" ------------
 set nocompatible
-filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+syntax on
 
-" Plugin 'godlygeek/csapprox'
-Plugin 'rking/ag.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tmhedberg/matchit'
-Plugin 'scrooloose/nerdtree'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'wellle/targets.vim'
-Plugin 'beyondmarc/opengl.vim'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'mtth/scratch.vim'
-Plugin 'ervandew/supertab'
-Plugin 'scrooloose/syntastic'
-Plugin 'godlygeek/tabular'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'tomtom/tlib_vim'
-Plugin 'bling/vim-airline'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'kana/vim-altr'
-Plugin 'PeterRincker/vim-argumentative'
-Plugin 'bling/vim-bufferline'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'kana/vim-filetype-haskell'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tikhomirov/vim-glsl'
-Plugin 'lepture/vim-jinja'
-Plugin 'lervag/vim-latex'
-Plugin 'tpope/vim-repeat'
-Plugin 'jpalardy/vim-slime'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'tpope/vim-surround'
-Plugin 'triglav/vim-visual-increment'
-Plugin 'gmarik/Vundle.vim'
+" Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'rking/ag.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'tmhedberg/matchit'
+Plug 'scrooloose/nerdtree'
+Plug 'myusuf3/numbers.vim'
+Plug 'wellle/targets.vim'
+Plug 'beyondmarc/opengl.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'mtth/scratch.vim'
+Plug 'ervandew/supertab'
+Plug 'scrooloose/syntastic'
+Plug 'godlygeek/tabular'
+Plug 'tomtom/tcomment_vim'
+Plug 'tomtom/tlib_vim'
+Plug 'bling/vim-airline'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'kana/vim-altr'
+Plug 'PeterRincker/vim-argumentative'
+Plug 'bling/vim-bufferline'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'kana/vim-filetype-haskell'
+Plug 'tpope/vim-fugitive'
+Plug 'tikhomirov/vim-glsl'
+Plug 'lepture/vim-jinja'
+Plug 'lervag/vim-latex'
+Plug 'tpope/vim-repeat'
+Plug 'jpalardy/vim-slime'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+Plug 'triglav/vim-visual-increment'
+Plug 'gmarik/Vundle.vim'
+call plug#end()
 
-" Vundle teardown.
-call vundle#end()
 filetype plugin indent on
-
-if has("syntax")
-  syntax on
-endif
-
-" Terminal transparency support.
-" hi Normal ctermbg=NONE
 
 " Case settings
 set ignorecase
@@ -74,22 +60,26 @@ set showcmd
 
 " Critical remaps
 map <Space> <Leader>
-nmap <CR> mao<Esc>k`a
-inoremap jk <esc>
 map Y y$
 map <c-j> <c-d>
 map <c-k> <c-u>
+map <CR> mao<Esc>k`a
+imap jk <esc>
 
 " Less critical remaps
+nmap s <Plug>(easymotion-s)
+nmap gs :Scratch<CR>
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
 imap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nmap <c-l> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
-
-" Character remaps
-" inoremap /l λ
+nmap gy ggyG
+nmap <Left> 5<C-w><
+nmap <Right> 5<C-w>>
+nmap <Up> 5<C-w>-
+nmap <Down> 5<C-w>+
 
 " Leader Mappings
 nnoremap <Leader>. :CtrlPTag<CR>
@@ -105,6 +95,7 @@ nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>gr :Ag!
+nnoremap <Leader>i :e ~/.vim/vimrc<CR>
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mr :CtrlPMRU<CR>
@@ -115,7 +106,7 @@ nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pdf :!pdflatex % && !okular %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
-nnoremap <Leader>pi :PluginInstall<CR>
+nnoremap <Leader>pi :PlugInstall<CR>
 nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
@@ -132,8 +123,9 @@ nnoremap <Leader>st :SyntasticToggleMode<CR>
 nnoremap <Leader>td :Ag! TODO<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
+nnoremap <Leader>v :vs<CR>
+nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>ul :call <SID>MDUL()<CR>
-nnoremap <Leader>vrc :e ~/.vim/vimrc<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
@@ -148,7 +140,7 @@ map gk <C-W>k
 map gh <C-W>h
 map gl <C-W>l
 
-" Buffer switching maps
+" Buffer switching
 map gn :bn<cr>
 map gp :bp<cr>
 map gx :bd<cr>
@@ -156,11 +148,9 @@ set hidden
 
 " Tabbing / Indentation
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set smarttab
-set number
-set laststatus=2
 set autoindent
 
 " Scrolling
@@ -170,6 +160,12 @@ set scrolloff=3
 set nobackup
 set noswapfile
 set undofile
+
+" Misc
+set nonumber
+set laststatus=2
+set scrolloff=3
+set cm=blowfish2
 
 " Remove trailing whitespace function.
 fun! <SID>RTW()
@@ -204,8 +200,10 @@ au BufNewFile,BufReadPost *.md set filetype=markdown
 au BufNewFile,BufReadPost *.bb set filetype=bebop
 
 " Add to jumplist for multi j/k jumps.
-nnoremap <silent> k :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
-nnoremap <silent> j :<C-U>execute 'normal!' (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
+nnoremap <silent> k :<C-U>execute 'normal!'
+      \ (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
+nnoremap <silent> j :<C-U>execute 'normal!'
+      \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
 " Convenient settings for prose.
 au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
@@ -214,7 +212,6 @@ au BufRead *.txt,*.md setlocal spell
 " au InsertLeave *.txt,*.md setlocal nospell
 
 " Plugin specific settings
-" ------------------------
 
 " Rainbow parens enabled by default.
 au VimEnter * RainbowParenthesesToggle
@@ -222,18 +219,14 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" Easymotion maps.
-nmap s <Plug>(easymotion-s)
-
 " Scratch settings
 let g:scratch_no_mappings = 1
 let g:scratch_autohide = 1
 let g:scratch_insert_autohide = 0
-nmap gs :Scratch<CR>
 
-" Solarized must be loaded later for some reason.
-colorscheme solarized
-let g:airline_theme = 'solarized'
+" Color scheme must be loaded later for some reason.
+colorscheme Tomorrow-Night
+let g:airline_theme = 'tomorrow'
 
 " Slime settings
 let g:slime_target = "tmux"
@@ -246,7 +239,7 @@ let g:bufferline_echo = 0
 " For jumping between syntastic errors.
 let g:syntastic_always_populate_loc_list = 1
 
-" I forget what this does.
+" Force syntastic to also check header files.
 let g:syntastic_cpp_check_header = 1
 
 " Use c++11 for syntastic.

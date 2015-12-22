@@ -108,7 +108,7 @@ map gh <C-W>h
 map gl <C-W>l
 
 " Buffer switching
-" map gn :bn<cr>
+map gn :bn<cr>
 map gp :bp<cr>
 map gx :bd<cr>
 set hidden
@@ -119,6 +119,9 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set autoindent
+
+" Scrolling
+set scrolloff=3
 
 " Backups
 set nobackup
