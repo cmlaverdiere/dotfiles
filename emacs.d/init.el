@@ -79,7 +79,6 @@
   key-chord
   ledger-mode
   linum-off
-  linum-relative
   magit
   markdown-mode
   multi-term
@@ -93,6 +92,7 @@
   solarized-theme
   tao-theme
   undo-tree
+  use-package
   visual-fill-column
   warm-night-theme
   web-mode
@@ -107,6 +107,10 @@
 
 (setq package-archive-contents nil)
 
+;; Use-package setup.
+(require 'use-package)
+(setq-default use-package-always-ensure t)
+(setq use-package-verbose t)
 
 
 ;;; Vanilla Emacs Behavior ;;;
@@ -278,6 +282,13 @@
       (other-window 1)
       (funcall fun))))
 
+(defun send-selection (start end buffer-fn region-fn)
+  "Send either the selected region or the entire buffer to the process that
+    buffer-fn and region-fn send to."
+  (if (evil-visual-state-p)
+      (funcall region-fn start end)
+    (funcall buffer-fn)))
+
 (defun kill-and-quit-buffer ()
   (interactive)
   (kill-this-buffer)
@@ -286,27 +297,33 @@
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
 
-;;; Ace jump ;;;
+;;; Package Configuration ;;;
 
-(require 'ace-window)
-(require 'ace-jump-mode)
-(ace-window-display-mode)
-(setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
-(setq ace-jump-mode-scope 'frame)
-
-
-;;; Anzu ;;;
-
-(global-anzu-mode +1)
+(use-package ace-window)
+(use-package ace-jump-mode
+  :init
+  (ace-window-display-mode)
+  (setq aw-keys '(?a ?s ?d ?f ?h ?j ?k ?l))
+  (setq ace-jump-mode-scope 'frame))
 
 
-;;; Asm ;;;
+(use-package anzu
+  :init
+  (global-anzu-mode +1))
 
-(require 'asm-mode)
-(define-key asm-mode-map (kbd ";") nil)
-(define-key asm-mode-map (kbd ":") nil)
-(add-hook 'asm-mode-hook (lambda ()
-    (local-unset-key (vector asm-comment-char))))
+
+(use-package asm-mode
+  :bind (:unbind ";"
+         :unbind ":")
+
+  :config
+  (add-hook 'asm-mode-hook
+    (lambda ()
+      (local-unset-key (vector asm-comment-char)))))
+
+
+(use-package bison-mode
+  :mode "\\.yy\\'")
 
 
 ;;; C/C++ ;;;
@@ -357,85 +374,77 @@
                               company-active-map)))
 
 
-;;; Compilation mode ;;;
-
-(setq-default compilation-scroll-output 'first-error)
-
-
-;;; Cscope ;;;
-
-(defvar cscope-program "gtags-cscope")
-(require 'xcscope)
+(use-package compile
+  :config
+  (setq-default compilation-scroll-output 'first-error))
 
 
-;;; DocView ;;;
+(use-package doc-view
+  :config
+  (setf doc-view-continuous t)
 
-(require 'doc-view)
-(setf doc-view-continuous t)
-(define-key doc-view-mode-map (kbd "j") 'doc-view-next-page)
-(define-key doc-view-mode-map (kbd "k") 'doc-view-previous-page)
-(define-key doc-view-mode-map (kbd "g") nil)
-(define-key doc-view-mode-map (kbd "h") nil)
-(define-key doc-view-mode-map (kbd "/") 'doc-view-search)
-(define-key doc-view-mode-map (kbd "?") 'doc-view-search-backward)
-(define-key doc-view-mode-map (kbd "G") 'doc-view-last-page)
-(key-chord-define doc-view-mode-map "gg" 'doc-view-first-page)
-(key-chord-define doc-view-mode-map "gh" 'windmove-left)
-(key-chord-define doc-view-mode-map "gj" 'windmove-down)
-(key-chord-define doc-view-mode-map "gk" 'windmove-up)
-(key-chord-define doc-view-mode-map "gl" 'windmove-right)
+  (define-key doc-view-mode-map (kbd "j") 'doc-view-next-page)
+  (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-page)
+  (define-key doc-view-mode-map (kbd "g") nil)
+  (define-key doc-view-mode-map (kbd "h") nil)
+  (define-key doc-view-mode-map (kbd "/") 'doc-view-search)
+  (define-key doc-view-mode-map (kbd "?") 'doc-view-search-backward)
+  (define-key doc-view-mode-map (kbd "G") 'doc-view-last-page)
 
-
-;;; Eshell ;;;
-
-(require 'eshell)
-(require 'esh-mode)
-(require 'eshell-autojump)
-
-(setq-default eshell-save-history-on-exit t)
-(setq-default eshell-history-size 1000000)
-
-;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete) TODO
-
-(require 'em-term)
-(add-to-list 'eshell-visual-commands "sl")
-(add-to-list 'eshell-visual-commands "git")
+  (key-chord-define doc-view-mode-map "gg" 'doc-view-first-page)
+  (key-chord-define doc-view-mode-map "gh" 'windmove-left)
+  (key-chord-define doc-view-mode-map "gj" 'windmove-down)
+  (key-chord-define doc-view-mode-map "gk" 'windmove-up)
+  (key-chord-define doc-view-mode-map "gl" 'windmove-right))
 
 
-;; Set path to shell path.
-(exec-path-from-shell-initialize)
+(use-package eshell
+  :config
+  (require 'esh-mode)
+  (require 'eshell-autojump)
 
-(defun eshell-new ()
-  "Create a new eshell instance."
-  (interactive)
-  (let ((current-prefix-arg t))
-    (call-interactively 'eshell)))
+  (setq-default eshell-save-history-on-exit t)
+  (setq-default eshell-history-size 1000000)
 
-(defun split-eshell ()
-  "Create an eshell split"
-  (interactive)
-  (do-in-split 'eshell)
-  (evil-goto-line nil)
-  (evil-append-line 0))
+  ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete) TODO
+
+  (require 'em-term)
+  (add-to-list 'eshell-visual-commands "sl")
+  (add-to-list 'eshell-visual-commands "git")
+
+  ;; Set path to shell path.
+  (exec-path-from-shell-initialize)
+
+  (defun eshell-new ()
+    "Create a new eshell instance."
+    (interactive)
+    (let ((current-prefix-arg t))
+      (call-interactively 'eshell)))
+
+  (defun split-eshell ()
+    "Create an eshell split"
+    (interactive)
+    (do-in-split 'eshell)
+    (evil-goto-line nil)
+    (evil-append-line 0)))
 
 
-;;; ERC ;;;
+(use-package erc
+  :defer 5
+  :init
+  (setq-default erc-prompt-for-nickserv-password nil)
 
-;; Hide joins / parts / quits.
-(defvar erc-hide-list '("JOIN" "PART" "QUIT"))
+  (defvar erc-hide-list '("JOIN" "PART" "QUIT"))
 
-;; Account login info
-(let ((f (read-lines "~/.erc-login")))
-  (defvar erc-nick (car f))
-  (defvar erc-password (nth 1 f)))
+  (let ((f (read-lines "~/.erc-login")))
+    (defvar erc-nick (car f))
+    (defvar erc-password (nth 1 f)))
 
-;; Auto identify
-(require 'erc-services)
-(erc-services-mode 1)
-(setq erc-prompt-for-nickserv-password nil)
-(setq erc-nickserv-passwords
-      `((freenode ((erc-nick . ,erc-password)))
-        (mozilla  ((erc-nick . ,erc-password)))))
+  (setq-default erc-nickserv-passwords
+    `((freenode ((erc-nick . ,erc-password)))
+       (mozilla  ((erc-nick . ,erc-password)))))
+
+  (erc-services-mode 1))
 
 
 ;;; Evil Mode ;;;
@@ -475,6 +484,7 @@
                 magit-process-mode magit-reflog-mode magit-refs-mode
                 magit-revision-mode magit-stash-mode magit-stashes-mode
                 magit-status-mode Man-mode-map))
+
 
 ;; On multi-line evil jump, add to the jump list.
 (defadvice evil-next-visual-line
@@ -706,474 +716,451 @@
 (evil-mode 1)
 
 
-;;; Flex / Bison ;;;
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
-(add-to-list 'auto-mode-alist '("\\.yy\\'" . bison-mode))
-
-
-;;; Flycheck ;;;
-
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (setq flycheck-gcc-language-standard "c++11")
-            (setq flycheck-clang-language-standard "c++11")))
-
-(add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+  (add-hook 'c++-mode-hook
+    (lambda ()
+      (setq flycheck-gcc-language-standard "c++11")
+      (setq flycheck-clang-language-standard "c++11"))))
 
 
-
-
-;;; GNU Global ;;;
-
-(require 'ggtags)
-
-;; Enable gtags for c/c++.
-(add-hook 'c-mode-common-hook (lambda ()
-  (when (derived-mode-p 'c-mode 'c++-mode)
+(use-package ggtags
+  :defer t
+  :init
+  (add-hook 'c-mode-common-hook
+    (lambda ()
+      (when (derived-mode-p 'c-mode 'c++-mode)
         ;; (ggtags-mode 1)
         (cscope-setup)
         (cscope-minor-mode))))
 
-(defvar helm-gtags-ignore-case t)
-(defvar helm-gtags-auto-update t)
-(defvar helm-gtags-use-input-at-cursor t)
+  (use-package helm-gtags
+    :defer t
+    :init
+    (defvar helm-gtags-ignore-case t)
+    (defvar helm-gtags-auto-update t)
+    (defvar helm-gtags-use-input-at-cursor t)
 
-(require 'helm-gtags)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'dired-mode-hook 'helm-gtags-mode)
-(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+    (add-hook 'asm-mode-hook 'helm-gtags-mode)
+    (add-hook 'c-mode-hook 'helm-gtags-mode)
+    (add-hook 'c++-mode-hook 'helm-gtags-mode)
+    (add-hook 'dired-mode-hook 'helm-gtags-mode)
+    (add-hook 'eshell-mode-hook 'helm-gtags-mode)))
 
 
-;;; Golden ratio ;;;
+(use-package golden-ratio
+  :defer 5
+  :diminish golden-ratio-mode
+  :init
+  (golden-ratio-mode 1)
 
-(require 'golden-ratio)
-(setq golden-ratio-auto-scale)
-(add-to-list 'golden-ratio-extra-commands 'ace-window)
-(add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*") ;; FIXME
-(add-to-list 'golden-ratio-inhibit-functions 'helm-active)
-(setq-default window-combination-resize t)
-(golden-ratio-mode 1)
+  :config
+  (setq-default window-combination-resize t)
+  (add-to-list 'golden-ratio-extra-commands 'ace-window)
+  (add-to-list 'golden-ratio-exclude-buffer-names " *guide-key*") ;; FIXME
+  (add-to-list 'golden-ratio-inhibit-functions 'helm-active))
 
-(defun helm-active ()
-  (if (boundp 'helm-alive-p)
+
+(use-package google-this
+  :defer 10
+  :diminish google-this-mode
+  :init
+  (google-this-mode 1))
+
+
+(use-package guide-key
+  :defer 10
+  :diminish guide-key-mode
+  :init
+  (setq guide-key/guide-key-sequence t)
+  (setq guide-key/idle-delay 0.3)
+  (setq guide-key/popup-window-position 'bottom)
+  (guide-key-mode 1))
+
+
+(use-package haskell-mode
+  :mode "\\.hs\\'"
+
+  ;; TODO setup hasktags
+  ;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
+
+  :init
+  (add-hook 'haskell-mode-hook
+    (lambda ()
+      ;; (add-to-list 'company-backends 'company-ghc)
+      (turn-on-haskell-indent)))
+
+  (add-hook 'interactive-haskell-mode-hook
+    (lambda ()
+      (add-to-list 'company-backends 'company-ghci)))
+
+  :config
+  (defun haskell-run-other-window ()
+    (interactive)
+    (let ((current-win (selected-window)))
+      (inferior-haskell-load-and-run "main")
+      (select-window current-win)
+      (golden-ratio)))
+
+  (evil-leader/set-key-for-mode 'haskell-mode
+    "r" 'haskell-run-other-window
+    "xd" 'inferior-haskell-send-decl
+    "xi" 'run-haskell))
+
+(use-package helm
+  :diminish helm-mode
+
+  :init
+  (require 'helm-ag)
+  (require 'helm-imenu)
+  (require 'helm-projectile)
+  (require 'grep)
+
+  (helm-mode 1)
+  (helm-projectile-on)
+
+  (defvar helm-M-x-fuzzy-match t)
+  (setq-default helm-ff-skip-boring-files t)
+  (setq-default helm-buffers-fuzzy-matching t)
+  (setq-default helm-imenu-fuzzy-match t)
+  (setq-default helm-recentf-fuzzy-match t)
+
+  (define-key helm-map (kbd "C-j") 'helm-next-line)
+  (define-key helm-map (kbd "C-k") 'helm-previous-line)
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-o") 'helm-select-action)
+  (define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
+
+  (defun helm-active ()
+    (if (boundp 'helm-alive-p)
       (symbol-value 'helm-alive-p)))
 
-
-;;; Google this ;;;
-
-(google-this-mode 1)
+  (setq-default helm-ag-insert-at-point 'symbol))
 
 
-;;; Guide key ;;;
+(use-package irony
+  :init
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'cc-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
 
-(require 'guide-key)
-(setq guide-key/guide-key-sequence t)
-(setq guide-key/idle-delay 0.3)
-(setq guide-key/popup-window-position 'bottom)
-(guide-key-mode 1)
+  ;; Replace completion functions.
+  (defun my-irony-mode-hook ()
+    (define-key irony-mode-map [remap completion-at-point]
+      'irony-completion-at-point-async)
+    (define-key irony-mode-map [remap complete-symbol]
+      'irony-completion-at-point-async))
 
+  (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;;; Haskell ;;;
+  :config
+  (eval-after-load 'company
+    '(add-to-list 'company-backends 'company-irony))
 
-;; TODO setup hasktags
-;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
-
-(add-hook 'haskell-mode-hook (lambda ()
-  ;; (add-to-list 'company-backends 'company-ghc)
-  (turn-on-haskell-indent)))
-
-(add-hook 'interactive-haskell-mode-hook (lambda ()
-  (add-to-list 'company-backends 'company-ghci)))
-
-(defun haskell-run-other-window ()
-  (interactive)
-  (let ((current-win (selected-window)))
-    (inferior-haskell-load-and-run "main")
-    (select-window current-win)
-    (golden-ratio)))
-
-;; Evil mappings for haskell.
-(evil-leader/set-key-for-mode 'haskell-mode
-  "r" 'haskell-run-other-window
-  "xd" 'inferior-haskell-send-decl
-  "xi" 'run-haskell
-)
+  (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))
 
 
-;;; Helm ;;;
-
-(require 'helm)
-(require 'helm-ag)
-(require 'helm-imenu)
-(require 'helm-projectile)
-(require 'grep)
-(helm-mode 1)
-(helm-projectile-on)
-
-;; Helm fuzzy-finding.
-(defvar helm-M-x-fuzzy-match t)
-(setq helm-buffers-fuzzy-matching t)
-(setq helm-imenu-fuzzy-match t)
-(setq helm-recentf-fuzzy-match t)
-
-;; Consistent movement with company.
-(define-key helm-map (kbd "C-j") 'helm-next-line)
-(define-key helm-map (kbd "C-k") 'helm-previous-line)
-
-;; Better mappings.
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-o") 'helm-select-action)
-(define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
-
-;; Use the silver searcher ag with Helm.
-(setq helm-ag-insert-at-point 'symbol)
-(defun projectile-helm-ag ()
-  (interactive)
-  (helm-ag (projectile-project-root)))
+(use-package magit
+  :defer t
+  :config
+  (setq-default magit-last-seen-setup-instructions "1.4.0")
+  (setq-default magit-push-always-verify nil))
 
 
-;;; Irony ;;;
+(use-package markdown-mode
+  :mode ("\\.md\\'" "\\.txt\\'")
 
-(require 'irony)
+  :init
+  (add-hook 'text-mode-hook
+    (lambda () (turn-on-auto-fill) (set-fill-column 80)))
 
-;; Use irony for C/C++
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'cc-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'markdown-mode-hook
+    (lambda () (turn-on-auto-fill) (set-fill-column 80)))
 
-;; Replace completion functions.
-
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
-
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-;; Add irony backend for company.
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-;; Extra completions.
-(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+  :config
+  (evil-leader/set-key-for-mode 'markdown-mode
+    "P" 'pandoc-convert-to-pdf))
 
 
-;;; LaTeX ;;;
+; Clean out old buffers at midnight.
+(use-package midnight
+  :defer 5)
 
-(require 'tex)
 
-(require 'company-math)
-(defun enable-company-math ()
-  (add-to-list 'company-backends 'company-math-symbols-latex)
-  (setq company-tooltip-align-annotations t))
+(use-package octave
+  :mode "\\.m\\'"
 
-(defun latex-compile ()
-  (interactive)
-  (TeX-command "LaTeX" 'TeX-master-file -1))
+  :config
+  (evil-leader/set-key-for-mode 'octave-mode
+    "r" 'octave-send-buffer
+    "xi" 'run-octave
+    "xr" 'octave-send-region)
 
-;; Evil mappings for latex.
-(evil-leader/set-key-for-mode 'latex-mode
-  "r" 'latex-compile
-)
+  (add-hook 'octave-mode-hook
+    (lambda ()
+      (setq-local evil-shift-width 2))))
 
-(add-hook 'latex-mode-hook (lambda ()
-  (enable-company-math)
-  (enable-company)))
+
+(use-package org
+  :defer t
+
+  :init
+  (defvar org-log-done t)
+
+  (setq org-agenda-files '("~/org/tracking"))
+  (setq org-default-notes-file "~/org/notes.org")
+
+  (define-key global-map "\C-ca" 'org-agenda)
+  (define-key global-map "\C-cc" 'org-capture)
+  (define-key global-map "\C-cl" 'org-store-link)
+
+  ;; Capture templates
+  (defvar org-capture-templates
+    '(("d" "Dreams" entry
+        (file+headline "~/org/dream.org" "Dreams")
+        "*** %t\n")))
+
+  :config
+  (evil-define-key 'normal org-mode-map "t" 'org-todo)
+  (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
+  (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
+  (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
+  (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
+
+  (evil-leader/set-key-for-mode 'org-mode
+    "A" 'org-agenda
+    "D" 'org-archive-done
+    "L" 'org-preview-latex-fragment
+    "P" 'org-export-latex-no-preamble
+    "r" 'org-latex-export-to-pdf
+    ">" 'org-metaright
+    "<" 'org-metaleft
+    "+" (lambda () (interactive) (org-table-sort-lines nil ?a)))
+
+  ;; Properly indent src blocks.
+  (setq org-src-tab-acts-natively t)
+
+  (defun org-archive-done ()
+    "Removes all DONE entries and places them into an archive file."
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
+  (defun org-export-latex-no-preamble ()
+    "Exports to latex without any preamble."
+    (interactive)
+    (org-latex-export-to-latex nil nil nil t nil))
+
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((C . t)
+       (haskell . t)
+       (python . t)
+       (sh . t)))
+
+  ;; Do not prompt for babel code execution
+  (setq-default org-confirm-babel-evaluate nil)
+
+  ;; Correct fonts for code blocks.
+  (setq-default org-src-fontify-natively t)
+
+  (add-hook 'org-mode-hook
+    (lambda ()
+      (turn-on-flyspell)
+      (enable-company-math)
+      (setq-local company-math-allow-latex-symbols-in-faces t)
+      (enable-company)
+      (setq-local company-minimum-prefix-length 100))))
+
+
+(use-package pandoc-mode
+  :init
+  (add-hook 'markdown-mode-hook 'pandoc-mode)
+  (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
+
+
+;;; Prog-mode ;;;
+
+(require 'hideshow)
+
+(add-hook 'prog-mode-hook
+  (lambda ()
+    (define-key global-map (kbd "RET") 'newline-and-indent)
+    (define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
+    (enable-company)
+    (hs-minor-mode)
+    (hl-todo-mode 1)
+    (rainbow-delimiters-mode)))
+
+
+(use-package projectile
+  :defer 2
+  :diminish projectile-mode
+
+  :init
+  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
+  (define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
+  (define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
+
+  :config
+  (projectile-global-mode)
+
+  ;; Use project root as cscope database.
+  (defadvice helm-projectile-switch-project
+    (after helm-projectile-switch-project-after activate)
+    (cscope-set-initial-directory (projectile-project-root))))
+
+
+(use-package python
+  :init
+  (setq python-shell-enable-font-lock nil)
+
+  :config
+  (evil-leader/set-key-for-mode 'python-mode
+    "r" 'python-shell-send-selection
+    "xi" 'python-shell-switch-to-shell)
+
+  (defun python-shell-send-selection (start end)
+    (interactive "r")
+    (send-selection
+      start end 'python-shell-send-buffer 'python-shell-send-region))
+
+  (add-hook 'python-mode-hook
+    (lambda ()
+      (add-to-list 'company-backends 'company-jedi)
+      (setq tab-width 4)
+      (setq evil-shift-width 4)
+      (defvar python-indent 4))))
+
+
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :init
+  (exec-path-from-shell-copy-env "RUST_SRC_PATH")
+
+  :config
+  (evil-leader/set-key-for-mode 'rust-mode
+    "r" (lambda () (interactive) (cargo-cmd "run"))
+    "t" (lambda () (interactive) (cargo-cmd "test")))
+
+  (defun cargo-cmd (cmd)
+    (interactive)
+    (compile (format "cargo %s" cmd)))
+
+  (add-hook 'rust-mode-hook
+    (lambda ()
+      (racer-mode)
+      (setq tab-width 4)
+      (setq rust-indent-offset 4)
+      (setq evil-shift-width 4))))
+
+  ;; FIXME
+  ;; (use-package flycheck-rust
+  ;;   :config
+  ;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
+
+(use-package term
+  :defer t
+  :config
+  (add-hook 'term-mode-hook
+    (lambda () (yas-minor-mode -1))))
+
+
+(use-package tex-mode
+  :mode "\\.tex\\."
+
+  :init
+  ;; TODO move this to company subsection.
+  (require 'company-math)
+  (defun enable-company-math ()
+    (add-to-list 'company-backends 'company-math-symbols-latex)
+    (setq company-tooltip-align-annotations t))
+
+  (defun latex-compile ()
+    (interactive)
+    (TeX-command "LaTeX" 'TeX-master-file -1))
+
+  :config
+  (evil-leader/set-key-for-mode 'latex-mode
+    "r" 'latex-compile)
+
+  (add-hook 'TeX-mode-hook
+    (lambda ()
+      (enable-company-math)
+      (enable-company)
+      (setq-local company-minimum-prefix-length 100))))
 
 
 ;;; Lisp ;;;
 
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-  (prettify-symbols-mode 1)))
+(add-hook 'emacs-lisp-mode-hook
+  (lambda () (prettify-symbols-mode 1)))
 
 
-;;; Magit ;;;
+(use-package undo-tree
+  :defer 10
+  :diminish undo-tree-mode
 
-(require 'magit)
-(setq magit-last-seen-setup-instructions "1.4.0")
-(setq magit-push-always-verify nil)
+  :config
+  (setq undo-tree-auto-save-history t))
 
 
-;;; Markdown ;;;
+(use-package web-mode
+  :mode ("\\.php\\'" "\\.erb\\'" "\\.scss\\'" )
 
-;; Filetypes to apply markdown to.
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+  :config
+  (add-hook 'web-mode-hook
+    (lambda ()
+      (setq web-mode-markup-indent-offset 4)
+      (setq web-mode-css-indent-offset 4)
+      (setq web-mode-code-indent-offset 4)
+      (yas-activate-extra-mode 'html-mode))))
 
-;; Wrap settings by filetype.
-(add-hook 'text-mode-hook (lambda ()
-  (turn-on-auto-fill) (set-fill-column 80)))
 
-(add-hook 'markdown-mode-hook (lambda ()
-  (turn-on-auto-fill) (set-fill-column 80)))
+(use-package which-func
+  :defer 5
+  :config
+  (which-function-mode 1))
 
-;; Evil mappings for markdown.
-(evil-leader/set-key-for-mode 'markdown-mode
-  "P" 'pandoc-convert-to-pdf
-)
 
+(use-package winner
+  :defer 5
+  :config
+  (winner-mode 1))
 
-;;; Midnight ;;;
 
-; Clean out old buffers at midnight.
-(require 'midnight)
+(use-package xcscope
+  :config
+  (defvar cscope-program "gtags-cscope"))
 
 
-;;; Octave / Matlab ;;;
+(use-package yasnippet
+  :defer 5
+  :diminish yas-minor-mode
 
-(add-to-list 'auto-mode-alist
-    '("\\.m$" . octave-mode))
+  :init
+  (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
+  (setq yas-triggers-in-field t)
 
-(add-hook 'octave-mode-hook (lambda ()
-    (setq-local evil-shift-width 2)))
-
-;; Evil mappings for octave.
-(evil-leader/set-key-for-mode 'octave-mode
-  "r" 'octave-send-buffer
-  "xi" 'run-octave
-  "xr" 'octave-send-region
-)
-
-
-;;; Org Mode ;;;
-
-(require 'org)
-
-;; Org files
-(setq org-agenda-files '("~/org/tracking"))
-(setq org-default-notes-file "~/org/notes.org")
-
-;; Org mappings
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cc" 'org-capture)
-(define-key global-map "\C-cl" 'org-store-link)
-
-(evil-define-key 'normal org-mode-map "t" 'org-todo)
-
-(defvar org-log-done t)
-
-(defun org-archive-done ()
-  "Removes all DONE entries and places them into an archive file."
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
-
-(defun org-export-latex-no-preamble ()
-  "Exports to latex without any preamble."
-  (interactive)
-  (org-latex-export-to-latex nil nil nil t nil)
-)
-
-;; Properly indent src blocks.
-(setq org-src-tab-acts-natively t)
-
-;; Load babel languages.
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((C . t)
-    (haskell . t)
-    (python . t)
-    (sh . t)))
-
-;; Do not prompt for babel code execution
-(setq org-confirm-babel-evaluate nil)
-
-;; Correct fonts for code blocks.
-(setq-default org-src-fontify-natively t)
-
-;; Capture templates
-(defvar org-capture-templates
-  '(("d" "Dreams" entry
-      (file+headline "~/org/dream.org" "Dreams")
-                     "*** %t\n")))
-
-(add-hook 'org-mode-hook (lambda ()
-  (turn-on-flyspell)
-  (enable-company-math)
-  (setq-local company-math-allow-latex-symbols-in-faces t)
-  (enable-company)
-  (setq-local company-minimum-prefix-length 100) ; Never complete.
-  ))
-
-(evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
-(evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
-(evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
-(evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
-
-(evil-leader/set-key-for-mode 'org-mode
-  "A" 'org-agenda
-  "D" 'org-archive-done
-  "L" 'org-preview-latex-fragment
-  "P" 'org-export-latex-no-preamble
-  "r" 'org-latex-export-to-pdf
-  ">" 'org-metaright
-  "<" 'org-metaleft
-  "+" (lambda () (interactive) (org-table-sort-lines nil ?a))
-)
-
-
-;;; Pandoc ;;;
-
-(add-hook 'markdown-mode-hook 'pandoc-mode)
-(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
-
-
-;;; Prog mode ;;;
-
-(require 'hideshow)
-
-(add-hook 'prog-mode-hook (lambda ()
-  (define-key global-map (kbd "RET") 'newline-and-indent)
-  (define-key global-map (kbd "<C-return>") 'indent-new-comment-line)
-  (enable-company)
-  (hs-minor-mode)
-  (hl-todo-mode 1)
-  (rainbow-delimiters-mode)))
-
-
-;;; Projectile ;;;
-
-(require 'projectile)
-(projectile-global-mode)
-(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
-
-;; Evil mappings for projectile.
-(define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
-(define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
-
-;; Use project root as cscope database.
-(defadvice helm-projectile-switch-project
-  (after helm-projectile-switch-project-after activate)
-  (cscope-set-initial-directory (projectile-project-root)))
-
-;;; Python ;;;
-
-(require 'python)
-
-;; Evil mappings for python.
-(evil-leader/set-key-for-mode 'python-mode
-  "r" 'python-shell-send-buffer
-  "xi" 'python-shell-switch-to-shell
-  "xr" 'python-shell-send-region
-)
-
-;; Faster printing of large lines
-(setq python-shell-enable-font-lock nil)
-
-;; Custom Python mode hook.
-(add-hook 'python-mode-hook
-  (lambda ()
-    (add-to-list 'company-backends 'company-jedi)
-    (setq tab-width 4)
-    (setq evil-shift-width 4)
-    (defvar python-indent 4)))
-
-
-;;; Relative line numbers ;;;
-
-(require 'linum-off)
-(require 'linum-relative)
-;; (global-linum-mode t)
-
-
-;;; Rust ;;;
-
-(require 'rust-mode)
-
-(defun cargo-cmd (cmd)
-  (interactive)
-  (compile (format "cargo %s" cmd)))
-
-;; Evil mappings for rust.
-(evil-leader/set-key-for-mode 'rust-mode
-  "r" (lambda () (interactive) (cargo-cmd "run"))
-  "t" (lambda () (interactive) (cargo-cmd "test"))
-)
-
-(exec-path-from-shell-copy-env "RUST_SRC_PATH")
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-(add-to-list 'auto-mode-alist '("\\.toml\\'" . text-mode))
-(add-hook 'rust-mode-hook (lambda ()
-  (racer-mode)
-  (setq tab-width 4)
-  (setq rust-indent-offset 4)
-  (setq evil-shift-width 4)))
-
-
-;;; Terminal ;;;
-
-(add-to-list 'linum-disabled-modes-list 'term-mode)
-(delete 'org-mode linum-disabled-modes-list)
-
-(add-hook 'term-mode-hook (lambda ()
-  (yas-minor-mode -1)))
-
-
-;;; Undo Tree ;;;
-
-;; Persistent undo
-(setq undo-tree-auto-save-history t)
-
-
-;;; Web ;;;
-
-(require 'web-mode)
-
-(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
-
-(defun my-web-mode-hook ()
-  (setq web-mode-markup-indent-offset 4)
-  (setq web-mode-css-indent-offset 4)
-  (setq web-mode-code-indent-offset 4)
-  (yas-activate-extra-mode 'html-mode))
-
-(add-hook 'web-mode-hook 'my-web-mode-hook)
-
-
-;;; Which-function ;;;
-
-(require 'which-func)
-(which-function-mode 1)
-
-
-;;; Winner ;;;
-
-(winner-mode 1)
-
-
-;;; YASnippet ;;;
-
-(require 'yasnippet)
-(yas-global-mode 1)
-(setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
-(setq yas-triggers-in-field t)
+  :config
+  (yas-global-mode 1))
 
 
 ;;; Diminish ;;;
 
 ;; This must be done after everything is loaded.
+;; TODO just use an init load hook.
 (diminish 'abbrev-mode)
 (diminish 'anzu-mode)
 (diminish 'company-mode)
 (diminish 'evil-escape-mode)
 (diminish 'flycheck-mode)
-(diminish 'golden-ratio-mode)
-(diminish 'google-this-mode)
-(diminish 'guide-key-mode)
-(diminish 'helm-mode)
 (diminish 'helm-gtags-mode)
 (diminish 'hs-minor-mode)
-(diminish 'projectile-mode)
-(diminish 'undo-tree-mode)
-(diminish 'yas-minor-mode)
 
 ;; Restore gc threshhold.
 (setq gc-cons-threshold temp-gc)
