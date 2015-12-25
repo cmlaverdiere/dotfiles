@@ -176,9 +176,6 @@
 ;; History settings.
 (savehist-mode 1)
 
-;; Lisp offset
-(setq-default lisp-indent-offset 2)
-
 ;; Auto reload buffers when changed on disk.
 (global-auto-revert-mode t)
 
@@ -1124,7 +1121,9 @@
 ;;; Lisp ;;;
 
 (add-hook 'emacs-lisp-mode-hook
-  (lambda () (prettify-symbols-mode 1)))
+          (lambda ()
+            (setq-local lisp-indent-offset 2)
+            (prettify-symbols-mode 1)))
 
 
 (use-package undo-tree
