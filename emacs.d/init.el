@@ -593,7 +593,7 @@
   "b" 'switch-to-last-buffer
   "c" 'recompile
   "C" 'compile
-  "d" 'dired
+  "D" 'dired
   "e" 'eval-last-sexp
   "E" 'helm-calcul-expression
   "g" 'magit-status
@@ -1069,6 +1069,24 @@
   ;; (use-package flycheck-rust
   ;;   :config
   ;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+
+
+(use-package scheme
+  :config
+  (defun scheme-send-buffer ()
+    (interactive)
+    (comint-send-region (scheme-proc) (point-min) (point-max))
+    (comint-send-string (scheme-proc) "\n"))
+
+  (defun scheme-send-selection (start end)
+    (interactive "r")
+    (send-selection
+      start end 'scheme-send-buffer 'scheme-send-region))
+
+  (evil-leader/set-key-for-mode 'scheme-mode
+    "d" 'scheme-send-definition
+    "e" 'scheme-send-last-sexp
+    "r" 'scheme-send-selection))
 
 
 (use-package term
