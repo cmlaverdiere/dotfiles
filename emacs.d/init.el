@@ -145,6 +145,9 @@
 ;; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
 
+;; Blinking cursor
+(blink-cursor-mode t)
+
 ;; Emacs source location.
 (setq-default source-directory (format "/usr/local/src/emacs-%d.%d"
   emacs-major-version emacs-minor-version))
