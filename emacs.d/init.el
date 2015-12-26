@@ -191,6 +191,11 @@
 ;; Shell settings.
 (setenv "SHELL" "/usr/bin/zsh")
 
+;; Show paren matching
+
+(setq-default show-paren-delay 0)
+(show-paren-mode 1)
+
 ;; Time in modeline.
 (setq-default display-time-format "%a %b %d, %l:%M %p")
 
@@ -1121,7 +1126,7 @@
       (setq-local company-minimum-prefix-length 100))))
 
 
-;;; Lisp ;;;
+;;; Emacs Lisp ;;;
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
