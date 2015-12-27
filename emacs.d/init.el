@@ -1077,6 +1077,10 @@
 
 
 (use-package scheme
+  :init
+  ;; Setup interpreter to use settings compatable with sicp code.
+  (setq-default scheme-program-name "racket -i -p neil/sicp")
+
   :config
   (defun scheme-send-buffer ()
     (interactive)
