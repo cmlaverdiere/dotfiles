@@ -997,6 +997,15 @@
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
 
 
+(use-package paredit
+  :config
+  (evil-define-key 'normal scheme-mode-map
+    (kbd ")") 'paredit-forward-slurp-sexp
+    (kbd "(") 'paredit-backward-slurp-sexp
+    (kbd "C-0") 'paredit-forward-barf-sexp
+    (kbd "C-9") 'paredit-backward-barf-sexp))
+
+
 ;;; Prog-mode ;;;
 
 (add-hook 'prog-mode-hook
