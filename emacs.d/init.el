@@ -83,6 +83,7 @@
   markdown-mode
   multi-term
   pandoc-mode
+  paredit
   pkg-info
   popup
   projectile
