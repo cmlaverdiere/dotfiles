@@ -161,6 +161,7 @@ set noswapfile
 set undofile
 
 " Misc
+set cursorline
 set nonumber
 set laststatus=2
 set scrolloff=3
@@ -209,6 +210,12 @@ au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
 au BufRead *.txt,*.md setlocal spell
 " au InsertEnter *.txt,*.md setlocal spell
 " au InsertLeave *.txt,*.md setlocal nospell
+
+" GUI options
+:set go-=m  "remove menu bar
+:set go-=T  "remove toolbar
+:set go-=r  "remove right-hand scroll bar
+:set go-=L  "remove left-hand scroll bar
 
 " Plugin specific settings
 
