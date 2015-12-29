@@ -1,10 +1,10 @@
-" Chris Laverdiere's vimrc
+" Chris Laverdiere's nvimrc
 " Requires: plug.vim
 
 " Tmux / color compatability settings.
 set shell=bash
 set background=dark
-set nocompatible
+" set nocompatible
 
 syntax on
 
@@ -12,6 +12,7 @@ syntax on
 call plug#begin('~/.vim/plugged')
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdtree'
 Plug 'wellle/targets.vim'
@@ -23,6 +24,7 @@ Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tcomment_vim'
 Plug 'tomtom/tlib_vim'
+Plug 'Shougo/unite.vim'
 Plug 'bling/vim-airline'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-altr'
@@ -90,11 +92,12 @@ nnoremap <Leader>dsB diB]pkdk<CR>
 nnoremap <Leader>ee :winc =<CR>
 nnoremap <Leader>el :15winc ><CR>
 nnoremap <Leader>er :15winc <<CR>
+nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>gr :Ag!
-nnoremap <Leader>i :e ~/.vim/vimrc<CR>
+nnoremap <Leader>i :e ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>ln :lnext<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mr :CtrlPMRU<CR>
@@ -165,7 +168,7 @@ set cursorline
 set nonumber
 set laststatus=2
 set scrolloff=3
-set cm=blowfish2
+" set cm=blowfish2
 
 " Remove trailing whitespace function.
 fun! <SID>RTW()
