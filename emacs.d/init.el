@@ -193,7 +193,6 @@
 (setenv "SHELL" "/usr/bin/zsh")
 
 ;; Show paren matching
-
 (setq-default show-paren-delay 0)
 (show-paren-mode 1)
 
@@ -1195,6 +1194,11 @@
 
   :config
   (yas-global-mode 1))
+
+
+(use-package zone
+  :config
+  (zone-when-idle 120))
 
 
 ;;; Diminish ;;;
