@@ -1196,11 +1196,6 @@
   (yas-global-mode 1))
 
 
-(use-package zone
-  :config
-  (zone-when-idle 120))
-
-
 ;;; Diminish ;;;
 
 ;; This must be done after everything is loaded.
