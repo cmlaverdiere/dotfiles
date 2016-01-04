@@ -108,6 +108,11 @@
 
 (setq package-archive-contents nil)
 
+;; Install missing packages.
+;; (dolist (package package-list)
+;;   (unless (package-installed-p package)
+;;     (package-install package)))
+
 ;; Use-package setup.
 (require 'use-package)
 (setq-default use-package-always-ensure t)
@@ -126,8 +131,6 @@
 ;; (setq-default backup-inhibited t)
 ;; (setq-default auto-save-default nil)
 
-(setq-default solarized-scale-org-headlines nil)
-
 ;; Color theme
 
 ;; Tomorrow theme specific.
@@ -136,6 +139,7 @@
 (set-face-attribute 'mode-line nil :background (face-background 'default))
 (set-face-attribute 'mode-line-inactive nil :background (face-background 'default))
 
+; (setq-default solarized-scale-org-headlines nil)
 ; (load-theme 'solarized-dark t)
 ; (load-theme 'solarized-light t)
 ; (load-theme 'warm-night t)
@@ -660,6 +664,9 @@
 
 ;; Use global regexes by default.
 (setq-default evil-ex-substitute-global t)
+
+;; Can't break my games.
+(add-to-list 'evil-emacs-state-modes 'snake-mode)
 
 ;; Line completion
 (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
