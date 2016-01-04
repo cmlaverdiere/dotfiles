@@ -1052,6 +1052,9 @@
     "r" 'python-shell-send-selection
     "xi" 'python-shell-switch-to-shell)
 
+  (when (executable-find "ipython")
+    (setq-default python-shell-interpreter "ipython"))
+
   (defun python-shell-send-selection (start end)
     (interactive "r")
     (send-selection
