@@ -85,6 +85,7 @@
   pandoc-mode
   paredit
   pkg-info
+  pony-mode
   popup
   projectile
   racer
@@ -1065,7 +1066,9 @@
       (add-to-list 'company-backends 'company-jedi)
       (setq tab-width 4)
       (setq evil-shift-width 4)
-      (defvar python-indent 4))))
+      (defvar python-indent 4)))
+
+  (use-package pony-mode))
 
 
 (use-package rust-mode
