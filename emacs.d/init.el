@@ -110,6 +110,7 @@
 (setq package-archive-contents nil)
 
 ;; Install missing packages.
+;; (package-refresh-contents)
 ;; (dolist (package package-list)
 ;;   (unless (package-installed-p package)
 ;;     (package-install package)))
