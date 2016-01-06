@@ -604,6 +604,7 @@
   "c" 'recompile
   "C" 'compile
   "D" 'dired
+  "d" 'helm-projectile-find-dir
   "e" 'eval-last-sexp
   "E" 'helm-calcul-expression
   "g" 'magit-status
