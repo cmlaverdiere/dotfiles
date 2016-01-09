@@ -462,277 +462,282 @@
   (erc-services-mode 1))
 
 
-;;; Evil Mode ;;;
+(use-package evil
+  :init
+  ;; When all else fails...
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; When all else fails...
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  ;; Override the universal argument for scrolling.
+  (setq-default evil-want-C-u-scroll t)
 
-(setq-default evil-want-C-u-scroll t)
+  ;; Use evil's search instead of isearch.
+  (setq-default evil-ex-search-persistent-highlight nil)
+  (setq-default evil-search-module 'evil-search)
 
-;; Use evil's search instead of isearch.
-(setq-default evil-ex-search-persistent-highlight nil)
-(setq-default evil-search-module 'evil-search)
+  ;; Evil shift.
+  (setq-default evil-shift-width 4)
 
-(require 'evil)
-(require 'evil-anzu)
-(require 'evil-jumper)
+  ;; Make * and # search for symbols rather than words.
+  (setq-default evil-symbol-word-search t)
 
-(setq-default evil-magit-use-y-for-yank t)
-(require 'evil-magit)
-(evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-(evil-define-key evil-magit-state magit-mode-map "gh" 'windmove-left)
-(evil-define-key evil-magit-state magit-mode-map "gj" 'windmove-down)
-(evil-define-key evil-magit-state magit-mode-map "gk" 'windmove-up)
-(evil-define-key evil-magit-state magit-mode-map "gl" 'windmove-right)
+  ;; Use global regexes by default.
+  (setq-default evil-ex-substitute-global t)
 
-(require 'evil-exchange)
-(evil-exchange-install)
+  ;; Use man for man pages instead of woman.
+  (setq evil-lookup-func
+    (lambda ()
+      (interactive)
+      (man (current-word))))
 
-(require 'evil-escape)
-(evil-escape-mode)
-(setq-default evil-escape-delay 0.10)
-(setq-default evil-escape-key-sequence "jk")
-(setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
-(setq-default evil-escape-excluded-major-modes
-              '(magit-mode magit-log-mode magit-cherry-mode
-                magit-diff-mode magit-log-mode magit-log-select-mode
-                magit-process-mode magit-reflog-mode magit-refs-mode
-                magit-revision-mode magit-stash-mode magit-stashes-mode
-                magit-status-mode Man-mode-map))
+  :config
+  (use-package evil-anzu)
 
+  (use-package evil-args
+    :config
+    (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))
 
-;; On multi-line evil jump, add to the jump list.
-(defadvice evil-next-visual-line
-  (before evil-next-visual-line-before activate)
-  (unless (eq (ad-get-arg 0) nil)
-    (evil-jumper--set-jump)))
+  (use-package evil-escape
+    :config
+    (evil-escape-mode)
 
-(defadvice evil-previous-visual-line
-  (before evil-previous-visual-line-before activate)
-  (unless (eq (ad-get-arg 0) nil)
-    (evil-jumper--set-jump)))
+    (setq-default evil-escape-delay 0.10)
+    (setq-default evil-escape-key-sequence "jk")
+    (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
 
-;; Auto-correct the last word with flyspell in normal mode.
-(define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
-(define-key evil-insert-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
+    (setq-default evil-escape-excluded-major-modes
+      '(magit-mode magit-log-mode magit-cherry-mode
+         magit-diff-mode magit-log-mode magit-log-select-mode
+         magit-process-mode magit-reflog-mode magit-refs-mode
+         magit-revision-mode magit-stash-mode magit-stashes-mode
+         magit-status-mode Man-mode-map)))
 
-;; On ace jump, add to the jump list.
-(defadvice ace-jump-mode
-  (before ace-jump-mode-before activate) (evil-jumper--set-jump))
+  (use-package evil-exchange
+    :config
+    (evil-exchange-install))
 
-(require 'evil-leader)
-(setq evil-leader/no-prefix-mode-rx '("magit-.*-mode"))
+  (use-package evil-jumper
+    :config
+    ;; On ace jump, add to the jump list.
+    (defadvice ace-jump-mode
+      (before ace-jump-mode-before activate) (evil-jumper--set-jump))
 
-(require 'evil-matchit)
-(global-evil-matchit-mode 1)
+    ;; On multi-line evil jump, add to the jump list.
+    (defadvice evil-next-visual-line
+      (before evil-next-visual-line-before activate)
+      (unless (eq (ad-get-arg 0) nil)
+        (evil-jumper--set-jump)))
 
-(require 'evil-numbers)
+    (defadvice evil-previous-visual-line
+      (before evil-previous-visual-line-before activate)
+      (unless (eq (ad-get-arg 0) nil)
+        (evil-jumper--set-jump)))
 
-(require 'evil-args)
+    (global-evil-jumper-mode))
 
-(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+  (use-package evil-leader
+    :config
+    (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode"))
 
-(define-key evil-insert-state-map (kbd "C-;") 'company-complete)
-(define-key evil-normal-state-map (kbd "gy") (kbd "gg y G C-o"))
+    ;; Global evil leaders.
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+      "." 'repeat
+      "/" 'helm-projectile-ag
+      ";" 'helm-M-x
+      "a" 'ace-window
+      "A" 'align
+      "b" 'switch-to-last-buffer
+      "c" 'recompile
+      "C" 'compile
+      "D" 'dired
+      "d" 'helm-projectile-find-dir
+      "e" 'eval-last-sexp
+      "E" 'helm-calcul-expression
+      "g" 'magit-status
+      "G" 'google-this
+      "i" 'open-conf
+      "I" 'helm-imenu
+      "l" 'flycheck-list-errors
+      "L" 'browse-url
+      "f" 'helm-for-files
+      "j" 'winner-undo
+      "k" 'winner-redo
+      "K" 'kill-compilation
+      "m" 'helm-man-woman
+      "n" 'flycheck-next-error
+      "N" 'flycheck-previous-error
+      "o" 'helm-occur
+      "O" 'projectile-find-other-file
+      "p" 'helm-projectile-switch-project
+      "R" 'revert-buffer
+      "q" 'evil-quit
+      "Q" 'kill-this-buffer
+      "s" 'split-eshell
+      "S" 'sort-lines
+      "T" 'eshell-new
+      "u" 'universal-argument
+      "U" 'undo-tree-visualize
+      "v" 'evil-window-vsplit
+      "V" 'evil-window-split
+      "w" 'save-buffer
+      "W" 'delete-other-windows
+      "z" 'open-scratch
+      "Z" 'zeal-at-point)
 
-;; Some modes aren't for text editing and thus don't need the full range of evil
-;; bindings. We still want movement to work smoothly across all modes though, so
-;; these are the base movement bindings.
-(defun bind-essential-evil (map)
-  (evil-define-key 'motion map "h" 'evil-backward-char)
-  (evil-define-key 'motion map "j" 'evil-next-visual-line)
-  (evil-define-key 'motion map "k" 'evil-previous-visual-line)
-  (evil-define-key 'motion map "l" 'evil-forward-char)
-  (evil-define-key 'motion map "/" 'evil-search-forward)
-  (evil-define-key 'motion map "?" 'evil-search-backward)
-  (evil-define-key 'motion map ":" 'evil-ex)
-  (evil-define-key 'motion map "n" 'evil-search-next)
-  (evil-define-key 'motion map "N" 'evil-search-previous)
-  (evil-define-key 'motion map "v" 'evil-visual-char)
-  (evil-define-key 'motion map "V" 'evil-visual-line)
-  (evil-define-key 'motion map "y" 'evil-yank)
-  (evil-define-key 'motion map "s" 'ace-jump-mode)
-  (evil-define-key 'motion map "gg" 'evil-goto-first-line)
-  (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
-  (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up)
-  (evil-define-key 'motion map (kbd "C-<SPC>") 'helm-M-x)
-  (bind-window-movements map))
+    (global-evil-leader-mode))
 
-(defun bind-window-movements (map)
-  (evil-define-key 'motion map "gh" 'windmove-left)
-  (evil-define-key 'motion map "gj" 'windmove-down)
-  (evil-define-key 'motion map "gk" 'windmove-up)
-  (evil-define-key 'motion map "gl" 'windmove-right))
+  (use-package evil-magit
+    :init
+    (setq-default evil-magit-use-y-for-yank t)
 
-(bind-window-movements doc-view-mode-map)
+    :config
+    (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
+    (evil-define-key evil-magit-state magit-mode-map "gh" 'windmove-left)
+    (evil-define-key evil-magit-state magit-mode-map "gj" 'windmove-down)
+    (evil-define-key evil-magit-state magit-mode-map "gk" 'windmove-up)
+    (evil-define-key evil-magit-state magit-mode-map "gl" 'windmove-right))
 
-(require 'man)
-(bind-essential-evil Man-mode-map)
+  (use-package evil-matchit
+    :config
+    (global-evil-matchit-mode 1))
 
-(require 'compile)
-(bind-essential-evil compilation-mode-map)
+  (use-package evil-numbers)
 
-(require 'help-mode)
-(bind-essential-evil help-mode-map)
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode 1))
 
-;; Mode specific evil init modes.
-(evil-set-initial-state 'org-capture-mode 'insert)
-(evil-set-initial-state 'git-commit-mode 'insert)
+  ;; Autoadd curly brackets.
+  (defun auto-add-curly ()
+    (interactive)
+    (insert "{")
+    (newline-and-indent)
+    (insert "}")
+    (evil-shift-left-line 1)
+    (evil-open-above 0))
 
-(evil-set-initial-state 'occur-mode 'normal)
-(evil-define-key 'normal occur-mode-map (kbd "RET")
-  'occur-mode-goto-occurrence)
+  ;; Some modes aren't for text editing and thus don't need the full range of evil
+  ;; bindings. We still want movement to work smoothly across all modes though, so
+  ;; these are the base movement bindings.
+  (defun bind-essential-evil (map)
+    (evil-define-key 'motion map "h" 'evil-backward-char)
+    (evil-define-key 'motion map "j" 'evil-next-visual-line)
+    (evil-define-key 'motion map "k" 'evil-previous-visual-line)
+    (evil-define-key 'motion map "l" 'evil-forward-char)
+    (evil-define-key 'motion map "/" 'evil-search-forward)
+    (evil-define-key 'motion map "?" 'evil-search-backward)
+    (evil-define-key 'motion map ":" 'evil-ex)
+    (evil-define-key 'motion map "n" 'evil-search-next)
+    (evil-define-key 'motion map "N" 'evil-search-previous)
+    (evil-define-key 'motion map "v" 'evil-visual-char)
+    (evil-define-key 'motion map "V" 'evil-visual-line)
+    (evil-define-key 'motion map "y" 'evil-yank)
+    (evil-define-key 'motion map "s" 'ace-jump-mode)
+    (evil-define-key 'motion map "gg" 'evil-goto-first-line)
+    (evil-define-key 'motion map (kbd "C-j") 'evil-scroll-down)
+    (evil-define-key 'motion map (kbd "C-k") 'evil-scroll-up)
+    (evil-define-key 'motion map (kbd "C-<SPC>") 'helm-M-x)
+    (bind-window-movements map))
 
-;; Mode specific evil mappings.
-(evil-define-key 'normal eshell-mode-map (kbd "RET")
-  'eshell-send-input)
+  (defun bind-window-movements (map)
+    (evil-define-key 'motion map "gh" 'windmove-left)
+    (evil-define-key 'motion map "gj" 'windmove-down)
+    (evil-define-key 'motion map "gk" 'windmove-up)
+    (evil-define-key 'motion map "gl" 'windmove-right))
 
-(require 'evil-surround)
+  (bind-window-movements doc-view-mode-map)
 
-;; Use evil (mostly) everywhere.
-(global-evil-leader-mode)
+  (require 'man)
+  (bind-essential-evil Man-mode-map)
 
-;; Global evil leaders.
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "." 'repeat
-  "/" 'helm-projectile-ag
-  ";" 'helm-M-x
-  "a" 'ace-window
-  "A" 'align
-  "b" 'switch-to-last-buffer
-  "c" 'recompile
-  "C" 'compile
-  "D" 'dired
-  "d" 'helm-projectile-find-dir
-  "e" 'eval-last-sexp
-  "E" 'helm-calcul-expression
-  "g" 'magit-status
-  "G" 'google-this
-  "i" 'open-conf
-  "I" 'helm-imenu
-  "l" 'flycheck-list-errors
-  "L" 'browse-url
-  "f" 'helm-for-files
-  "j" 'winner-undo
-  "k" 'winner-redo
-  "K" 'kill-compilation
-  "m" 'helm-man-woman
-  "n" 'flycheck-next-error
-  "N" 'flycheck-previous-error
-  "o" 'helm-occur
-  "O" 'projectile-find-other-file
-  "p" 'helm-projectile-switch-project
-  "R" 'revert-buffer
-  "q" 'evil-quit
-  "Q" 'kill-this-buffer
-  "s" 'split-eshell
-  "S" 'sort-lines
-  "T" 'eshell-new
-  "u" 'universal-argument
-  "U" 'undo-tree-visualize
-  "v" 'evil-window-vsplit
-  "V" 'evil-window-split
-  "w" 'save-buffer
-  "W" 'delete-other-windows
-  "z" 'open-scratch
-  "Z" 'zeal-at-point
-)
+  (require 'compile)
+  (bind-essential-evil compilation-mode-map)
 
-;; Autoadd curly brackets.
-(defun auto-add-curly ()
-  (interactive)
-  (insert "{")
-  (newline-and-indent)
-  (insert "}")
-  (evil-shift-left-line 1)
-  (evil-open-above 0))
+  (require 'help-mode)
+  (bind-essential-evil help-mode-map)
 
+  ;; Mode specific evil init modes.
+  (evil-set-initial-state 'org-capture-mode 'insert)
+  (evil-set-initial-state 'git-commit-mode 'insert)
 
-;; Curly bracket insertion
-(define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
+  (evil-set-initial-state 'occur-mode 'normal)
+  (evil-define-key 'normal occur-mode-map (kbd "RET")
+    'occur-mode-goto-occurrence)
 
-;; Remove digraph key (useless, interferes with company)
-(define-key evil-insert-state-map (kbd "C-k") nil)
+  ;; Mode specific evil mappings.
+  (evil-define-key 'normal eshell-mode-map (kbd "RET") 'eshell-send-input)
 
-;; Evil window movement.
-(define-key evil-normal-state-map "gh" 'windmove-left)
-(define-key evil-normal-state-map "gj" 'windmove-down)
-(define-key evil-normal-state-map "gk" 'windmove-up)
-(define-key evil-normal-state-map "gl" 'windmove-right)
+  ;; Auto-correct the last word with flyspell in normal mode.
+  (define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
+  (define-key evil-insert-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
 
-;; Make * and # search for symbols rather than words.
-(setq-default evil-symbol-word-search t)
+  ;; Yank the whole buffer.
+  (define-key evil-normal-state-map (kbd "gy") (kbd "gg y G C-o"))
 
-;; Use global regexes by default.
-(setq-default evil-ex-substitute-global t)
+  ;; Company manual complete.
+  (define-key evil-insert-state-map (kbd "C-;") 'company-complete)
 
-;; Can't break my games.
-(add-to-list 'evil-emacs-state-modes 'snake-mode)
+  ;; Curly bracket insertion
+  (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
 
-;; Line completion
-(define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
+  ;; Remove digraph key (useless, interferes with company)
+  (define-key evil-insert-state-map (kbd "C-k") nil)
 
-;; Visual line information
-(define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
+  ;; Evil window movement.
+  (define-key evil-normal-state-map "gh" 'windmove-left)
+  (define-key evil-normal-state-map "gj" 'windmove-down)
+  (define-key evil-normal-state-map "gk" 'windmove-up)
+  (define-key evil-normal-state-map "gl" 'windmove-right)
 
-;; Visual repeat command
-(define-key evil-visual-state-map (kbd ".")
-  (lambda () (interactive) (execute-kbd-macro ":norm .")))
+  ;; Can't break my games.
+  (add-to-list 'evil-emacs-state-modes 'snake-mode)
 
-;; Evil window scrolling.
-(define-key evil-normal-state-map (kbd "C-S-d") 'scroll-other-window)
-(define-key evil-normal-state-map (kbd "C-S-u") 'scroll-other-window-down)
+  ;; Line completion
+  (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
 
-;; Use helm for man pages.
-;; (define-key evil-normal-state-map "K" 'helm-man-woman)
+  ;; Visual line information
+  (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
 
-;; Use man for man pages instead of woman.
-(setq evil-lookup-func (lambda ()
-  (interactive)
-  (man (current-word))))
+  ;; Visual repeat command
+  (define-key evil-visual-state-map (kbd ".")
+    (lambda () (interactive) (execute-kbd-macro ":norm .")))
 
-;; Transpose arguments
-(define-key evil-normal-state-map "g>" 'transpose-words)
-(define-key evil-normal-state-map "g<" (lambda () (interactive) (transpose-words -1)))
+  ;; Evil window scrolling.
+  (define-key evil-normal-state-map (kbd "C-S-j") 'scroll-other-window)
+  (define-key evil-normal-state-map (kbd "C-S-k") 'scroll-other-window-down)
 
-;; Fix wrapped line movement.
-(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+  ;; Transpose arguments
+  (define-key evil-normal-state-map "g>" 'transpose-words)
+  (define-key evil-normal-state-map "g<" (lambda () (interactive) (transpose-words -1)))
 
-;; Comment a region like tcomment from vim.
-(define-key evil-visual-state-map "gc" 'comment-dwim)
+  ;; Fix wrapped line movement.
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
-;; Quick buffer closing from insert mode.
-(define-key evil-insert-state-map (kbd "C-q") 'evil-quit)
+  ;; Comment a region like tcomment from vim.
+  (define-key evil-visual-state-map "gc" 'comment-dwim)
 
-;; Evil ace-jump
-(define-key evil-normal-state-map "s" 'ace-jump-mode)
+  ;; Quick buffer closing from insert mode.
+  (define-key evil-insert-state-map (kbd "C-q") 'evil-quit)
 
-;; Evil jumper (C-o / C-i functionality)
-(global-evil-jumper-mode)
+  ;; Evil ace-jump
+  (define-key evil-normal-state-map "s" 'ace-jump-mode)
 
-;; Evil surround settings.
-(global-evil-surround-mode 1)
+  ;; Evil increment.
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 
-;; Evil increment.
-(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  ;; Evil scrolling.
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
 
-;; Evil scrolling.
-(define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
-(define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
+  ;; Use gtags instead of etags for tag lookup.
+  (define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
 
-;; Use gtags instead of etags for tag lookup.
-(define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
+  ;; Eshell history
+  (define-key evil-insert-state-map (kbd "C-l") 'helm-eshell-history)
 
-;; Eshell history
-(define-key evil-insert-state-map (kbd "C-l") 'helm-eshell-history)
-
-;; Evil shift.
-(setq-default evil-shift-width 4)
-
-(evil-mode 1)
+  (evil-mode 1))
 
 
 (use-package flycheck
