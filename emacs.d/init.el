@@ -3,7 +3,6 @@
 ;; TODO
 ;;  - Write a fn to load all included header files into buffers.
 ;;  - Try paradox
-;;  - Try use-package
 ;;  - Add 'make test' generic leader for 't'
 ;;  - Leader help keys
 
@@ -12,6 +11,7 @@
 ;;  - Highlight persisting (anzu?)
 ;;  - company eshell
 ;;  - company irony c headers
+
 
 ;;; Package management ;;;
 
@@ -498,6 +498,7 @@
     (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))
 
   (use-package evil-escape
+    :diminish evil-escape-mode
     :config
     (evil-escape-mode)
 
@@ -1224,10 +1225,8 @@
 ;;; Diminish ;;;
 
 ;; This must be done after everything is loaded.
-;; TODO just use an init load hook.
 (diminish 'abbrev-mode)
 (diminish 'company-mode)
-(diminish 'evil-escape-mode)
 
 ;; Restore gc threshhold.
 (setq gc-cons-threshold temp-gc)
