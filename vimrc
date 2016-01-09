@@ -45,7 +45,6 @@ map <Space> <Leader>
 map Y y$
 map <c-j> <c-d>
 map <c-k> <c-u>
-map <CR> mao<Esc>k`a
 imap jk <esc>
 
 " Less critical remaps
