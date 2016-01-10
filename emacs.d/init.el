@@ -26,6 +26,7 @@
 (package-initialize)
 
 ;; Package list
+;; TODO make use-package blocks for all of these, and remove this list.
 (defvar package-list '(
   anzu
   ace-jump-mode
@@ -589,6 +590,7 @@
     (global-evil-leader-mode))
 
   (use-package evil-magit
+    :defer 5
     :init
     (setq-default evil-magit-use-y-for-yank t)
 
