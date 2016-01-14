@@ -653,6 +653,7 @@
 
   (require 'man)
   (bind-essential-evil Man-mode-map)
+  (setenv "MANWIDTH" "80")
 
   (require 'compile)
   (bind-essential-evil compilation-mode-map)
