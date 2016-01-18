@@ -42,6 +42,7 @@ alias dreamj="vim ~/documents/Misc/dreams.txt"
 alias emrc="vim ~/.emacs.d/init.el"
 alias fishrc="vim ~/.config/fish/config.fish"
 alias ideas="vim ~/documents/Misc/ideas.txt"
+alias goals="vim ~/documents/Misc/goals.txt"
 alias links="vim ~/documents/Misc/links.txt"
 alias robots="vim ~/documents/Misc/robots.txt"
 alias shows="vim ~/documents/Misc/shows.txt"
@@ -49,6 +50,7 @@ alias stask="vim ~/org/school.org"
 alias todo="vim ~/documents/Misc/todo.txt"
 alias wanted="vim ~/documents/Misc/wanted.txt"
 alias vimrc="vim ~/.vim/vimrc"
+alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
 
 # alias for mkdir and cd into it.
@@ -93,7 +95,7 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Ruby path.
-export PATH=/home/chris/.gem/ruby/2.2.0/bin:$PATH
+export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
 # Rust path.
@@ -109,3 +111,10 @@ export SAVEHIST=1000000
 # fzf setup.
 alias fzf="fzf -m"
 . /etc/profile.d/fzf.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# virtualenv setup (uncomment for speed).
+# export WORKON_HOME=~/.virtualenvs
+# export PROJECT_HOME=~/devel/python/projects
+# source /usr/bin/virtualenvwrapper.sh
