@@ -83,6 +83,7 @@
   magit
   markdown-mode
   multi-term
+  ox-reveal
   pandoc-mode
   paredit
   pkg-info
@@ -1008,6 +1009,12 @@
       (setq-local company-math-allow-latex-symbols-in-faces t)
       (enable-company)
       (setq-local company-minimum-prefix-length 100))))
+
+
+(use-package ox-reveal
+  :defer 5
+  :config
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
 
 
 (use-package pandoc-mode
