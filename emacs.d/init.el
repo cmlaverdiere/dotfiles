@@ -553,7 +553,6 @@
       "b" 'switch-to-last-buffer
       "c" 'recompile
       "C" 'compile
-      "D" 'dired
       "d" 'helm-projectile-find-dir
       "e" 'eval-last-sexp
       "E" 'helm-calcul-expression
@@ -669,6 +668,10 @@
   (evil-set-initial-state 'occur-mode 'normal)
   (evil-define-key 'normal occur-mode-map (kbd "RET")
     'occur-mode-goto-occurrence)
+
+  ;; Dired maps
+  (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+  (define-key dired-mode-map (kbd "-") 'dired-up-directory)
 
   ;; Mode specific evil mappings.
   (evil-define-key 'normal eshell-mode-map (kbd "RET") 'eshell-send-input)
