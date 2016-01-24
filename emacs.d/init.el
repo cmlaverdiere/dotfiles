@@ -472,6 +472,9 @@
   ;; Override the universal argument for scrolling.
   (setq-default evil-want-C-u-scroll t)
 
+  ;; Column-aware visual matching
+  (setq evil-ex-visual-char-range t)
+
   ;; Use evil's search instead of isearch.
   (setq-default evil-ex-search-persistent-highlight nil)
   (setq-default evil-search-module 'evil-search)
