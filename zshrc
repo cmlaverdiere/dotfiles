@@ -118,3 +118,6 @@ alias fzf="fzf -m"
 # export WORKON_HOME=~/.virtualenvs
 # export PROJECT_HOME=~/devel/python/projects
 # source /usr/bin/virtualenvwrapper.sh
+
+alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
+alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
