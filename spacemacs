@@ -259,8 +259,15 @@ layers configuration. You are free to put any user code."
   (with-eval-after-load 'org
     (setq org-startup-indented nil))
 
+  ;; Org leaders.
   (spacemacs/set-leader-keys-for-major-mode
     'org-mode "r" 'org-latex-export-to-pdf)
+
+  ;; Quick quit.
+  (spacemacs/set-leader-keys "q SPC" 'evil-quit)
+
+  ;; Disable vi tilde fringe.
+  (global-vi-tilde-fringe-mode -1)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
