@@ -28,6 +28,7 @@ values."
      emacs-lisp
      git
      haskell
+     latex
      markdown
      org
      python
@@ -39,6 +40,7 @@ values."
      syntax-checking
      themes-megapack
      version-control
+     vinegar
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -133,7 +135,7 @@ values."
    ;; and TAB or <C-m> and RET.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
    ;; (Not implemented) dotspacemacs-distinguish-gui-ret nil
    ;; The command key used for Evil commands (ex-commands) and
    ;; Emacs commands (M-x).
@@ -207,7 +209,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
@@ -249,11 +251,23 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; Cleaner mode-line style.
   (setq powerline-default-separator 'slant)
+
+  ;; Disable org indent mode.
+  (with-eval-after-load 'org
+    (setq org-startup-indented nil))
+
+  (spacemacs/set-leader-keys-for-major-mode
+    'org-mode "r" 'org-latex-export-to-pdf)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
-  
+
+  ;; Start global golden-ratio.
+  (golden-ratio-mode)
+
   ;; Slightly tweak the tomorrow-night theme.
   (set-face-attribute 'fringe nil :background (face-background 'default))
   (set-face-attribute 'mode-line nil :background (face-background 'default))
