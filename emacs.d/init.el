@@ -5,6 +5,8 @@
 ;;  - Try paradox
 ;;  - Add 'make test' generic leader for 't'
 ;;  - Leader help keys
+;;  - Try which-key
+;;  - Add projectile-aware compile / recompile
 
 ;; FIXME
 ;;  - g[hjkl] window commands should shadow everything.
@@ -865,6 +867,7 @@
   (setq-default helm-imenu-fuzzy-match t)
   (setq-default helm-recentf-fuzzy-match t)
 
+  ;; TODO ctrl-h, ctrl-l
   (define-key helm-map (kbd "C-j") 'helm-next-line)
   (define-key helm-map (kbd "C-k") 'helm-previous-line)
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
@@ -947,7 +950,7 @@
 
 
 (use-package org
-  :defer t
+  :defer 5
 
   :init
   (defvar org-log-done t)
