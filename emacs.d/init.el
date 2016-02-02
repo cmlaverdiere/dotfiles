@@ -829,7 +829,7 @@
   :init
   (add-hook 'haskell-mode-hook
     (lambda ()
-      ;; (add-to-list 'company-backends 'company-ghc)
+      (add-to-list 'company-backends '(company-ghc company-dabbrev-code))
       (turn-on-haskell-indent)))
 
   (add-hook 'interactive-haskell-mode-hook
@@ -844,10 +844,14 @@
       (select-window current-win)
       (golden-ratio)))
 
+  ;; TODO evil-leader should handle multiple modes.
+  (evil-leader/set-key-for-mode 'literate-haskell-mode
+    "r" 'haskell-run-other-window
+    "d" 'inferior-haskell-send-decl)
+
   (evil-leader/set-key-for-mode 'haskell-mode
     "r" 'haskell-run-other-window
-    "xd" 'inferior-haskell-send-decl
-    "xi" 'run-haskell))
+    "d" 'inferior-haskell-send-decl))
 
 (use-package helm
   :diminish helm-mode
