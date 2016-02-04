@@ -37,6 +37,7 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
+     scheme
      spell-checking
      syntax-checking
      themes-megapack
@@ -246,8 +247,13 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
-  )
 
+  ;; Enable evil-jumper on C-i
+  (setq-default evil-want-C-i-jump t))
+
+;; TODO
+;; Scan through old init.el and find what should be transferred.
+;; Learn how to configure modes for layers.
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -256,22 +262,27 @@ layers configuration. You are free to put any user code."
   ;; Cleaner mode-line style.
   (setq powerline-default-separator 'slant)
 
+  (defun org-archive-done ()
+    "Removes all DONE entries and places them into an archive file."
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
   ;; Disable org indent mode.
   (with-eval-after-load 'org
     (setq org-startup-indented nil))
 
   ;; Org leaders.
-  (spacemacs/set-leader-keys-for-major-mode
-    'org-mode "r" 'org-latex-export-to-pdf)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "D" 'org-archive-done
+    "r" 'org-latex-export-to-pdf)
 
   ;; Quick quit.
   (spacemacs/set-leader-keys "q SPC" 'evil-quit)
 
   ;; Default evil-escape
-  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-key-sequence ";j")
 
-  ;; Disable evil-escape in visual mode.
-  (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
+  (vi-tilde-fringe-mode nil)
 
   ;; Evil page movement.
   (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
@@ -283,7 +294,7 @@ layers configuration. You are free to put any user code."
   (display-time-mode 1)
 
   ;; Start global golden-ratio.
-  (golden-ratio-mode)
+  (spacemacs/toggle-golden-ratio-on)
 
   ;; Slightly tweak the tomorrow-night theme.
   (set-face-attribute 'fringe nil :background (face-background 'default))
