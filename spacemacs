@@ -24,7 +24,8 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     c-c++
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      emacs-lisp
      git
      haskell
@@ -266,8 +267,17 @@ layers configuration. You are free to put any user code."
   ;; Quick quit.
   (spacemacs/set-leader-keys "q SPC" 'evil-quit)
 
-  ;; Disable vi tilde fringe.
-  (global-vi-tilde-fringe-mode -1)
+  ;; Default evil-escape
+  (setq-default evil-escape-key-sequence "jk")
+
+  ;; Disable evil-escape in visual mode.
+  (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
+
+  ;; Evil page movement.
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
+  (define-key evil-evilified-state-map (kbd "C-j") 'evil-scroll-down)
+  (define-key evil-evilified-state-map (kbd "C-k") 'evil-scroll-up)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
