@@ -355,7 +355,7 @@
 (require 'comint)
 (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
 (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
-
+(setq comint-scroll-to-bottom-on-output t)
 
 ;;; Company mode ;;;
 
@@ -558,7 +558,7 @@
       "b" 'switch-to-last-buffer
       "c" 'recompile
       "C" 'compile
-      "d" 'helm-projectile-find-dir
+      "D" 'helm-projectile-find-dir
       "e" 'eval-last-sexp
       "E" 'helm-calcul-expression
       "g" 'magit-status
