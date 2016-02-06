@@ -982,7 +982,7 @@
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
     "D" 'org-archive-done
-    "L" 'org-preview-latex-fragment
+    "F" 'org-preview-latex-fragment
     "P" 'org-export-latex-no-preamble
     "r" 'org-latex-export-to-pdf
     ">" 'org-metaright
@@ -1083,6 +1083,8 @@
   (evil-leader/set-key-for-mode 'python-mode
     "r" 'python-shell-send-selection
     "xi" 'python-shell-switch-to-shell)
+
+  (evil-define-key 'normal python-mode-map (kbd "C-]") 'jedi:goto-definition)
 
   (when (executable-find "ipython")
     (setq-default python-shell-interpreter "ipython"))
