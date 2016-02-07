@@ -1123,12 +1123,11 @@
       (racer-mode)
       (setq tab-width 4)
       (setq rust-indent-offset 4)
-      (setq evil-shift-width 4))))
+      (setq evil-shift-width 4)))
 
-  ;; FIXME
-  ;; (use-package flycheck-rust
-  ;;   :config
-  ;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+  (use-package flycheck-rust
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 
 (use-package scheme

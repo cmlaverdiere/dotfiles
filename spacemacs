@@ -280,7 +280,7 @@ layers configuration. You are free to put any user code."
   (spacemacs/set-leader-keys "q SPC" 'evil-quit)
 
   ;; Default evil-escape
-  (setq-default evil-escape-key-sequence ";j")
+  (setq-default evil-escape-key-sequence "jk")
 
   (vi-tilde-fringe-mode nil)
 
