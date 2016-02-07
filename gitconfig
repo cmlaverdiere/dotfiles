@@ -1,6 +1,7 @@
 [user]
   email = cmlaverdiere@gmail.com
   name = Chris Laverdiere
+  signingkey = 334857AB
 
 [alias]
   aa = add -A
