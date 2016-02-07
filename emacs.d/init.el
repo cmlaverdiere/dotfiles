@@ -1091,7 +1091,15 @@
   (evil-define-key 'normal python-mode-map (kbd "C-]") 'jedi:goto-definition)
 
   (when (executable-find "ipython")
-    (setq-default python-shell-interpreter "ipython"))
+    (setq-default python-shell-interpreter "ipython")
+
+    ;; Auto reload modules in ipython repl on change.
+    ;; This requires that you run
+    ;; > ipython profile create dev
+    ;; And add these options to the configuration:
+    ;; > c.InteractiveShellApp.extensions = ['autoreload']
+    ;; > c.InteractiveShellApp.exec_lines = ['%autoreload 2']
+    (setq-default python-shell-interpreter-args "--profile=dev"))
 
   (defun python-shell-send-selection (start end)
     (interactive "r")
