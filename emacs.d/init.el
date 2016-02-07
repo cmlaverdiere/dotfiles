@@ -510,15 +510,7 @@
     (evil-escape-mode)
 
     (setq-default evil-escape-delay 0.10)
-    (setq-default evil-escape-key-sequence "jk")
-    (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
-
-    (setq-default evil-escape-excluded-major-modes
-      '(magit-mode magit-log-mode magit-cherry-mode
-         magit-diff-mode magit-log-mode magit-log-select-mode
-         magit-process-mode magit-reflog-mode magit-refs-mode
-         magit-revision-mode magit-stash-mode magit-stashes-mode
-         magit-status-mode Man-mode-map)))
+    (setq-default evil-escape-key-sequence ";j"))
 
   (use-package evil-exchange
     :config
