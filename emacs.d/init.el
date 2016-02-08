@@ -875,12 +875,14 @@
   (setq-default helm-imenu-fuzzy-match t)
   (setq-default helm-recentf-fuzzy-match t)
 
-  ;; TODO ctrl-h, ctrl-l
   (define-key helm-map (kbd "C-j") 'helm-next-line)
   (define-key helm-map (kbd "C-k") 'helm-previous-line)
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-o") 'helm-select-action)
   (define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
+
+  (dolist (keymap (list helm-find-files-map helm-read-file-map))
+    (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
+    (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level))
 
   (defun helm-active ()
     (if (boundp 'helm-alive-p)
