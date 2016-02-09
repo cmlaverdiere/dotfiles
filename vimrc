@@ -63,6 +63,7 @@ nmap <Down> 5<C-w>+
 
 " Leader Mappings
 nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>b :b#<CR>
 nnoremap <Leader>cK viWK
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>

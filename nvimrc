@@ -85,6 +85,7 @@ nmap <Down> 5<C-w>+
 nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>/ "ayaw:Ag! <C-r>a<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>b :b#<CR>
 nnoremap <Leader>cK viWK
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
