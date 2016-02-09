@@ -284,10 +284,14 @@
   (set-frame-parameter (selected-frame) 'alpha '(100 100)))
 
 (defun read-lines (fp)
-  "Read lines of file fp into a list"
+  "Read lines of file fp into a list."
   (with-temp-buffer
     (insert-file-contents fp)
     (split-string (buffer-string) "\n" t)))
+
+(defun system (cmd)
+  "Insert result from shell command into buffer."
+  (shell-command cmd t))
 
 (defun do-in-split (fun)
   "Calls function in a split window"
