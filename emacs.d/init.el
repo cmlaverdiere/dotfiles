@@ -7,7 +7,7 @@
 ;;  - Leader help keys
 ;;  - Try which-key
 ;;  - Add projectile-aware compile / recompile
-;;  - Add evil-ex \= in :s command for expression register
+;;  - Evil argdo commands
 
 ;; FIXME
 ;;  - g[hjkl] window commands should shadow everything.
@@ -292,7 +292,7 @@
 
 (defun system (cmd)
   "Insert result from shell command into buffer."
-  (shell-command cmd t))
+  (shell-command-to-string cmd))
 
 (defun do-in-split (fun)
   "Calls function in a split window"
