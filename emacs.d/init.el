@@ -984,7 +984,7 @@
         "*** %t\n")))
 
   :config
-  (evil-define-key 'normal org-mode-map "t" 'org-todo-and-update)
+  (evil-define-key 'normal org-mode-map "t" 'org-todo)
   (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
   (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
   (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
@@ -1008,14 +1008,15 @@
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
-  (defun org-todo-and-update ()
-    (interactive)
-    (org-todo)
-    (if (= (count-windows) 2)
+  (defun refresh-org-agenda-view ()
+    (if (and (eq major-mode 'org-mode)
+          (eq (count-windows) 2))
       (progn
         (other-window 1)
         (org-agenda-redo t)
         (other-window -1))))
+
+  (add-hook 'after-save-hook 'refresh-org-agenda-view)
 
   (defun org-export-latex-no-preamble ()
     "Exports to latex without any preamble."
