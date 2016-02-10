@@ -1,4 +1,4 @@
-" Chris Laverdiere's nvimrc
+" Chris Laverdiere's vimrc
 " Requires: plug.vim
 
 " Tmux / color compatability settings.

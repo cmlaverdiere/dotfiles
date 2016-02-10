@@ -7,6 +7,7 @@
 ;;  - Leader help keys
 ;;  - Try which-key
 ;;  - Add projectile-aware compile / recompile
+;;  - Add evil-ex \= in :s command for expression register
 
 ;; FIXME
 ;;  - g[hjkl] window commands should shadow everything.
@@ -983,7 +984,7 @@
         "*** %t\n")))
 
   :config
-  (evil-define-key 'normal org-mode-map "t" 'org-todo)
+  (evil-define-key 'normal org-mode-map "t" 'org-todo-and-update)
   (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
   (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
   (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
@@ -1006,6 +1007,15 @@
     "Removes all DONE entries and places them into an archive file."
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
+  (defun org-todo-and-update ()
+    (interactive)
+    (org-todo)
+    (if (= (count-windows) 2)
+      (progn
+        (other-window 1)
+        (org-agenda-redo t)
+        (other-window -1))))
 
   (defun org-export-latex-no-preamble ()
     "Exports to latex without any preamble."
