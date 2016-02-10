@@ -1010,7 +1010,7 @@
 
   (defun refresh-org-agenda-view ()
     (if (and (eq major-mode 'org-mode)
-          (eq (count-windows) 2))
+          (get-buffer-window "*Org Agenda*"))
       (progn
         (other-window 1)
         (org-agenda-redo t)
