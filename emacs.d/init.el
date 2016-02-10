@@ -970,6 +970,18 @@
   :init
   (defvar org-log-done t)
 
+  ;; Do not prompt for babel code execution
+  (setq-default org-confirm-babel-evaluate nil)
+
+  ;; Correct fonts for code blocks.
+  (setq-default org-src-fontify-natively t)
+
+  ;; Disable deadline warning in agenda
+  (setq-default org-agenda-skip-deadline-prewarning-if-scheduled t)
+
+  ;; Properly indent src blocks.
+  (setq org-src-tab-acts-natively t)
+
   (setq org-agenda-files '("~/org/tracking"))
   (setq org-default-notes-file "~/org/notes.org")
 
@@ -1000,9 +1012,6 @@
     "<" 'org-metaleft
     "+" (lambda () (interactive) (org-table-sort-lines nil ?a)))
 
-  ;; Properly indent src blocks.
-  (setq org-src-tab-acts-natively t)
-
   (defun org-archive-done ()
     "Removes all DONE entries and places them into an archive file."
     (interactive)
@@ -1029,12 +1038,6 @@
        (haskell . t)
        (python . t)
        (sh . t)))
-
-  ;; Do not prompt for babel code execution
-  (setq-default org-confirm-babel-evaluate nil)
-
-  ;; Correct fonts for code blocks.
-  (setq-default org-src-fontify-natively t)
 
   (add-hook 'org-mode-hook
     (lambda ()
