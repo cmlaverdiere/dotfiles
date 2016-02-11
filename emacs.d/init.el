@@ -567,6 +567,7 @@
       "b" 'switch-to-last-buffer
       "c" 'recompile
       "C" 'compile
+      "d" 'eval-defun
       "D" 'helm-projectile-find-dir
       "e" 'eval-last-sexp
       "E" 'helm-calcul-expression
