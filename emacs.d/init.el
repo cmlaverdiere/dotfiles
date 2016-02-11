@@ -297,14 +297,17 @@
 (defun do-in-split (fun)
   "Calls function in a split window"
   (interactive)
-  (if (< 1 (length (window-list)))
+  (let ((source-directory default-directory))
+    (if (< 1 (length (window-list)))
       (progn
         (other-window 1)
-        (funcall fun))
-    (progn
-      (split-window-right)
-      (other-window 1)
-      (funcall fun))))
+        (let ((default-directory source-directory))
+          (funcall fun)))
+      (progn
+        (split-window-right)
+        (other-window 1)
+        (let ((default-directory source-directory))
+          (funcall fun))))))
 
 (defun send-selection (start end buffer-fn region-fn)
   "Send either the selected region or the entire buffer to the process that
@@ -434,7 +437,7 @@
       (call-interactively 'eshell)))
 
   (defun split-eshell ()
-    "Create an eshell split"
+    "Create an eshell split and enter insert mode at prompt."
     (interactive)
     (do-in-split 'eshell)
     (evil-goto-line nil)
