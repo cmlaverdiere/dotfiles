@@ -31,7 +31,8 @@ Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'bling/vim-bufferline'
 " Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'morhetz/gruvbox'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'kana/vim-filetype-haskell'
@@ -62,8 +63,6 @@ set showcmd
 " Critical remaps
 map <Space> <Leader>
 map Y y$
-map <c-j> <c-d>
-map <c-k> <c-u>
 imap jk <esc>
 
 " Less critical remaps
@@ -71,8 +70,9 @@ nmap s <Plug>(easymotion-s)
 nmap gs :Scratch<CR>
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
-imap <c-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-nmap <c-l> [s1z=<c-o>
+xnoremap @q :normal @q<CR>
+imap <C-c> <c-g>u<Esc>[s1z=`]a<c-g>u
+nmap <C-c> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
 nmap gy ggyG
@@ -82,6 +82,7 @@ nmap <Up> 5<C-w>-
 nmap <Down> 5<C-w>+
 
 " Leader Mappings
+nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>. :CtrlPTag<CR>
 nnoremap <Leader>/ "ayaw:Ag! <C-r>a<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
@@ -126,26 +127,27 @@ nnoremap <Leader>td :Ag! TODO<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>v :vs<CR>
-nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>ul :call <SID>MDUL()<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>xe :!xelatex %<CR>
 nnoremap <Leader>xxd :%!xxd<CR>
 nnoremap <Leader>xxr :%!xxd -r<CR>
+
 xnoremap <Leader>bc :!bc -l<CR>
 xnoremap <Leader>pe :!python <CR>
+
 set pastetoggle=<Leader>pt
 
 " Quick window navigation
-map gj <C-W>j
-map gk <C-W>k
-map gh <C-W>h
-map gl <C-W>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Buffer switching
-map gn :bn<cr>
-map gp :bp<cr>
-map gx :bd<cr>
+nnoremap gl :bn<cr>
+nnoremap gh :bp<cr>
+nnoremap gx :bd<cr>
 set hidden
 
 " Tabbing / Indentation
@@ -234,8 +236,8 @@ let g:scratch_autohide = 1
 let g:scratch_insert_autohide = 0
 
 " Color scheme must be loaded later for some reason.
-colorscheme Tomorrow-Night
-let g:airline_theme = 'tomorrow'
+" colorscheme Tomorrow-Night
+colorscheme gruvbox
 
 " Slime settings
 let g:slime_target = "tmux"

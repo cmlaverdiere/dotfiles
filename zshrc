@@ -121,3 +121,5 @@ alias fzf="fzf -m"
 
 alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
 alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
+
+source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
