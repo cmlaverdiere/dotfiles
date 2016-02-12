@@ -860,7 +860,7 @@
   (evil-leader/set-key-for-mode 'haskell-mode
     "d" 'inferior-haskell-send-decl
     "H" 'haskell-hoogle
-    "r" 'haskell-run-other-window)
+    "r" 'haskell-run-other-window))
 
 (use-package helm
   :diminish helm-mode
