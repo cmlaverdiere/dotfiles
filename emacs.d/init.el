@@ -1,19 +1,20 @@
 ;;;; Chris Laverdiere's Emacs config ;;;;
 
 ;; TODO
+;;  - Switch window movement g[hjkl] to C-[hjkl] (and remap all conflicting)
+;;  - Leader help keys
 ;;  - Write a fn to load all included header files into buffers.
 ;;  - Try paradox
 ;;  - Add 'make test' generic leader for 't'
-;;  - Leader help keys
 ;;  - Try which-key
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
+;;  - Try gruvbox
 
 ;; FIXME
-;;  - g[hjkl] window commands should shadow everything.
 ;;  - Highlight persisting (anzu?)
-;;  - company eshell
-;;  - company irony c headers
+;;  - Company eshell
+;;  - Company irony c headers
 
 
 ;;; Package management ;;;
@@ -530,7 +531,7 @@
          magit-diff-mode magit-log-mode magit-log-select-mode
          magit-process-mode magit-reflog-mode magit-refs-mode
          magit-revision-mode magit-stash-mode magit-stashes-mode
-         magit-status-mode Man-mode doc-view-mode)))
+         magit-status-mode Man-mode doc-view-mode help-mode)))
 
   (use-package evil-exchange
     :config
@@ -656,8 +657,8 @@
     (evil-define-key mode map "y" 'evil-yank)
     (evil-define-key mode map "s" 'ace-jump-mode)
     (evil-define-key mode map "gg" 'evil-goto-first-line)
-    (evil-define-key mode map (kbd "C-j") 'evil-scroll-down)
-    (evil-define-key mode map (kbd "C-k") 'evil-scroll-up)
+    (evil-define-key mode map (kbd "C-d") 'evil-scroll-down)
+    (evil-define-key mode map (kbd "C-u") 'evil-scroll-up)
     (evil-define-key mode map (kbd "C-<SPC>") 'helm-M-x)
     (bind-window-movements map mode))
 
@@ -753,10 +754,6 @@
   ;; Evil increment.
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 
-  ;; Evil scrolling.
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
-
   ;; Use gtags instead of etags for tag lookup.
   (define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
 
@@ -836,6 +833,8 @@
 (use-package haskell-mode
   :mode "\\.hs\\'"
 
+  ;; TODO try haskell-interactive-mode instead of inferior.
+
   ;; TODO setup hasktags
   ;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 
@@ -857,14 +856,11 @@
       (select-window current-win)
       (golden-ratio)))
 
-  ;; TODO evil-leader should handle multiple modes.
-  (evil-leader/set-key-for-mode 'literate-haskell-mode
-    "r" 'haskell-run-other-window
-    "d" 'inferior-haskell-send-decl)
-
+  ;; TODO setup literate-haskell-mode to use these as well.
   (evil-leader/set-key-for-mode 'haskell-mode
-    "r" 'haskell-run-other-window
-    "d" 'inferior-haskell-send-decl))
+    "d" 'inferior-haskell-send-decl
+    "H" 'haskell-hoogle
+    "r" 'haskell-run-other-window)
 
 (use-package helm
   :diminish helm-mode
