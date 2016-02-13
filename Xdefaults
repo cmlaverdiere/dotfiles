@@ -2,7 +2,7 @@
 *urxvt*scrollBar: false
 
 ! Choice of font
-*urxvt*.font: xft:Source\ Code\ Pro:Regular:size=10
+*urxvt*.font: xft:Source\ Code\ Pro:Medium:size=10
 ! *urxvt*boldFont: xft:Ubuntu Mono:size=12:style=bold
 
 *urxvt*letterSpace: -1

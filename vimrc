@@ -18,7 +18,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 " Plug 'altercation/vim-colors-solarized'
-" Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'morhetz/gruvbox'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'Lokaltog/vim-easymotion'
@@ -172,5 +171,4 @@ nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
 " Color scheme must be loaded later for some reason.
-" colorscheme Tomorrow-Night
 colorscheme gruvbox
