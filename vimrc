@@ -52,8 +52,8 @@ nmap s <Plug>(easymotion-s)
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
 xnoremap @q :normal @q<CR>
-imap <C-m> <c-g>u<Esc>[s1z=`]a<c-g>u
-nmap <C-m> [s1z=<c-o>
+imap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
+nmap <C-y> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
 nmap gy ggyG
