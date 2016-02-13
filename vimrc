@@ -40,19 +40,21 @@ set smartcase
 set incsearch
 set timeoutlen=300
 set showcmd
+set hlsearch
 
 " Critical remaps
 map <Space> <Leader>
 map Y y$
 imap jk <esc>
+cnoremap jk <esc>
 
 " Less critical remaps
 nmap s <Plug>(easymotion-s)
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
 xnoremap @q :normal @q<CR>
-imap <C-c> <c-g>u<Esc>[s1z=`]a<c-g>u
-nmap <C-c> [s1z=<c-o>
+imap <C-m> <c-g>u<Esc>[s1z=`]a<c-g>u
+nmap <C-m> [s1z=<c-o>
 nmap <silent> dsa ds}dF\
 nmap <Leader>sw <Plug>(altr-forward)
 nmap gy ggyG
@@ -74,6 +76,7 @@ nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e ~/.vim/vimrc<CR>
 nnoremap <Leader>ln :lnext<CR>
+nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>p2 :!python2 %<CR>
@@ -129,6 +132,10 @@ set nobackup
 set noswapfile
 set undofile
 
+" Spelling and alignment
+setlocal textwidth=80
+setlocal spell
+
 " Misc
 set nonumber
 set laststatus=2
@@ -163,10 +170,6 @@ nnoremap <silent> k :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
 nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
-
-" Convenient settings for prose.
-au BufRead,BufNewFile *.txt,*.md setlocal textwidth=80
-au BufRead *.txt,*.md setlocal spell
 
 " Color scheme must be loaded later for some reason.
 " colorscheme Tomorrow-Night
