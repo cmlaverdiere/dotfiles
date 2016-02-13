@@ -230,12 +230,6 @@
 (define-key 'help-command (kbd "C-k") 'find-function-on-key)
 (define-key 'help-command (kbd "C-v") 'find-variable)
 
-;; Find at point mappings.
-(define-prefix-command 'help-at-point-map)
-(global-set-key (kbd "C-h C-p") 'help-at-point-map)
-(define-key 'help-at-point-map (kbd "f") 'find-function-at-point)
-(define-key 'help-at-point-map (kbd "v") 'find-variable-at-point)
-
 (key-chord-mode 1)
 
 ;; Time in mode-line.
@@ -576,6 +570,7 @@
       "e" 'eval-last-sexp
       "E" 'helm-calcul-expression
       "g" 'magit-status
+      "h" help-map
       "G" 'google-this
       "i" 'open-conf
       "I" 'helm-imenu
