@@ -1,8 +1,6 @@
 ;;;; Chris Laverdiere's Emacs config ;;;;
 
 ;; TODO
-;;  - Switch window movement g[hjkl] to C-[hjkl] (and remap all conflicting)
-;;  - Leader help keys
 ;;  - Write a fn to load all included header files into buffers.
 ;;  - Try paradox
 ;;  - Add 'make test' generic leader for 't'
@@ -171,6 +169,12 @@
 
 ;; Delete trailing whitespace on save.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Window movement
+(define-key global-map "\C-h" 'windmove-left)
+(define-key global-map "\C-j" 'windmove-down)
+(define-key global-map "\C-k" 'windmove-up)
+(define-key global-map "\C-l" 'windmove-right)
 
 ;; Font settings.
 (set-face-attribute 'default nil
@@ -414,11 +418,7 @@
   (define-key doc-view-mode-map (kbd "?") 'doc-view-search-backward)
   (define-key doc-view-mode-map (kbd "G") 'doc-view-last-page)
 
-  (key-chord-define doc-view-mode-map "gg" 'doc-view-first-page)
-  (key-chord-define doc-view-mode-map "gh" 'windmove-left)
-  (key-chord-define doc-view-mode-map "gj" 'windmove-down)
-  (key-chord-define doc-view-mode-map "gk" 'windmove-up)
-  (key-chord-define doc-view-mode-map "gl" 'windmove-right))
+  (key-chord-define doc-view-mode-map "gg" 'doc-view-first-page))
 
 
 (use-package eshell
@@ -610,10 +610,10 @@
 
     :config
     (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-    (evil-define-key evil-magit-state magit-mode-map "gh" 'windmove-left)
-    (evil-define-key evil-magit-state magit-mode-map "gj" 'windmove-down)
-    (evil-define-key evil-magit-state magit-mode-map "gk" 'windmove-up)
-    (evil-define-key evil-magit-state magit-mode-map "gl" 'windmove-right))
+    (evil-define-key evil-magit-state magit-mode-map "\C-h" 'windmove-left)
+    (evil-define-key evil-magit-state magit-mode-map "\C-j" 'windmove-down)
+    (evil-define-key evil-magit-state magit-mode-map "\C-k" 'windmove-up)
+    (evil-define-key evil-magit-state magit-mode-map "\C-l" 'windmove-right))
 
   (use-package evil-matchit
     :config
@@ -658,10 +658,10 @@
     (bind-window-movements map mode))
 
   (defun bind-window-movements (map mode)
-    (evil-define-key mode map "gh" 'windmove-left)
-    (evil-define-key mode map "gj" 'windmove-down)
-    (evil-define-key mode map "gk" 'windmove-up)
-    (evil-define-key mode map "gl" 'windmove-right))
+    (evil-define-key mode map "\C-h" 'windmove-left)
+    (evil-define-key mode map "\C-j" 'windmove-down)
+    (evil-define-key mode map "\C-k" 'windmove-up)
+    (evil-define-key mode map "\C-l" 'windmove-right))
 
   (require 'man)
   (bind-essential-evil Man-mode-map 'motion)
@@ -707,10 +707,10 @@
   (define-key evil-insert-state-map (kbd "C-k") nil)
 
   ;; Evil window movement.
-  (define-key evil-normal-state-map "gh" 'windmove-left)
-  (define-key evil-normal-state-map "gj" 'windmove-down)
-  (define-key evil-normal-state-map "gk" 'windmove-up)
-  (define-key evil-normal-state-map "gl" 'windmove-right)
+  (define-key evil-normal-state-map "\C-h" 'windmove-left)
+  (define-key evil-normal-state-map "\C-j" 'windmove-down)
+  (define-key evil-normal-state-map "\C-k" 'windmove-up)
+  (define-key evil-normal-state-map "\C-l" 'windmove-right)
 
   ;; Can't break my games.
   (add-to-list 'evil-emacs-state-modes 'snake-mode)

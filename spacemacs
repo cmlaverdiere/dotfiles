@@ -280,15 +280,10 @@ layers configuration. You are free to put any user code."
   (spacemacs/set-leader-keys "q SPC" 'evil-quit)
 
   ;; Default evil-escape
+  ;; TODO disable evil-escape
   (setq-default evil-escape-key-sequence "jk")
 
   (vi-tilde-fringe-mode nil)
-
-  ;; Evil page movement.
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
-  (define-key evil-evilified-state-map (kbd "C-j") 'evil-scroll-down)
-  (define-key evil-evilified-state-map (kbd "C-k") 'evil-scroll-up)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
