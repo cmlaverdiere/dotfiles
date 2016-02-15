@@ -446,7 +446,6 @@
   (setq-default eshell-save-history-on-exit t)
   (setq-default eshell-history-size 1000000)
 
-  (evil-define-key 'insert eshell-mode-map (kbd "C-l") 'helm-eshell-history)
   ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete) TODO
 
   (require 'em-term)
@@ -527,7 +526,7 @@
          magit-diff-mode magit-log-mode magit-log-select-mode
          magit-process-mode magit-reflog-mode magit-refs-mode
          magit-revision-mode magit-stash-mode magit-stashes-mode
-         magit-status-mode Man-mode doc-view-mode help-mode)))
+         magit-status-mode Man-mode doc-view-mode help-mode compilation-mode)))
 
   (use-package evil-exchange
     :config
@@ -695,6 +694,7 @@
 
   ;; Mode specific evil mappings.
   (evil-define-key 'normal eshell-mode-map (kbd "RET") 'eshell-send-input)
+  (evil-define-key 'insert eshell-mode-map (kbd "C-l") 'helm-eshell-history)
 
   ;; Auto-correct the last word with flyspell in normal mode.
   (define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
