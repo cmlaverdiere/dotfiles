@@ -894,6 +894,7 @@
 
 
 (use-package irony
+  ;; Deps: clang
   :init
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'cc-mode-hook 'irony-mode)
@@ -1093,6 +1094,7 @@
 
 
 (use-package python
+  ;; Deps: jedi, pylint, ipython, virtualenv
   :init
   (setq python-shell-enable-font-lock nil)
 
@@ -1132,6 +1134,7 @@
 
 
 (use-package rust-mode
+  ;; Deps: racer, rust-src
   :mode "\\.rs\\'"
   :init
   (exec-path-from-shell-copy-env "RUST_SRC_PATH")
