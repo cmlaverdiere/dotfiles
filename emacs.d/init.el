@@ -446,6 +446,7 @@
   (setq-default eshell-save-history-on-exit t)
   (setq-default eshell-history-size 1000000)
 
+  (evil-define-key 'insert eshell-mode-map (kbd "C-l") 'helm-eshell-history)
   ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete) TODO
 
   (require 'em-term)
@@ -756,9 +757,6 @@
 
   ;; Use gtags instead of etags for tag lookup.
   (define-key evil-normal-state-map (kbd "C-]") 'helm-gtags-dwim)
-
-  ;; Eshell history
-  (define-key evil-insert-state-map (kbd "C-l") 'helm-eshell-history)
 
   (evil-mode 1))
 
