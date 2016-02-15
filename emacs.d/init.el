@@ -53,7 +53,6 @@
   evil-args
   evil-escape
   evil-exchange
-  evil-jumper
   evil-leader
   evil-magit
   evil-matchit
@@ -532,25 +531,6 @@
     :config
     (evil-exchange-install))
 
-  (use-package evil-jumper
-    :config
-    ;; On ace jump, add to the jump list.
-    (defadvice ace-jump-mode
-      (before ace-jump-mode-before activate) (evil-jumper--set-jump))
-
-    ;; On multi-line evil jump, add to the jump list.
-    (defadvice evil-next-visual-line
-      (before evil-next-visual-line-before activate)
-      (unless (eq (ad-get-arg 0) nil)
-        (evil-jumper--set-jump)))
-
-    (defadvice evil-previous-visual-line
-      (before evil-previous-visual-line-before activate)
-      (unless (eq (ad-get-arg 0) nil)
-        (evil-jumper--set-jump)))
-
-    (global-evil-jumper-mode))
-
   (use-package evil-leader
     :config
     (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode"))
@@ -629,6 +609,21 @@
   (use-package evil-visualstar
     :config
     (global-evil-visualstar-mode))
+
+  ;; On ace jump, add to the jump list.
+  (defadvice ace-jump-mode
+    (before ace-jump-mode-before activate) (evil-set-jump))
+
+  ;; On multi-line evil jump, add to the jump list.
+  (defadvice evil-next-visual-line
+    (before evil-next-visual-line-before activate)
+    (unless (eq (ad-get-arg 0) nil)
+      (evil-set-jump)))
+
+  (defadvice evil-previous-visual-line
+    (before evil-previous-visual-line-before activate)
+    (unless (eq (ad-get-arg 0) nil)
+      (evil-set-jump)))
 
   ;; Autoadd curly brackets.
   (defun auto-add-curly ()
