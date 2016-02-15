@@ -8,7 +8,6 @@
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
 ;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
-;;  - Evil visual-star
 
 ;; FIXME
 ;;  - Highlight persisting (anzu?)
@@ -1109,7 +1108,9 @@
     "r" 'python-shell-send-selection
     "xi" 'python-shell-switch-to-shell)
 
-  (evil-define-key 'normal python-mode-map (kbd "C-]") 'jedi:goto-definition)
+  (evil-define-key 'normal python-mode-map
+    "K" 'jedi:show-doc
+    "\C-]" 'jedi:goto-definition)
 
   (when (executable-find "ipython")
     (setq-default python-shell-interpreter "ipython")
