@@ -1,20 +1,5 @@
 ;;;; Chris Laverdiere's Emacs config ;;;;
 
-;; TODO
-;;  - Write a fn to load all included header files into buffers.
-;;  - Try paradox
-;;  - Add 'make test' generic leader for 't'
-;;  - Try which-key
-;;  - Add projectile-aware compile / recompile
-;;  - Evil argdo commands
-;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
-
-;; FIXME
-;;  - Highlight persisting (anzu?)
-;;  - Company eshell
-;;  - Company irony c headers
-
-
 ;;; Package management ;;;
 
 ;; Package repositories
@@ -1284,3 +1269,17 @@
 
 ;; Restore gc threshhold.
 (setq gc-cons-threshold temp-gc)
+
+;; TODO
+;;  - Write a fn to load all included header files into buffers.
+;;  - Try paradox
+;;  - Add 'make test' generic leader for 't'
+;;  - Try which-key
+;;  - Add projectile-aware compile / recompile
+;;  - Evil argdo commands
+;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
+
+;; FIXME
+;;  - Highlight persisting (anzu?)
+;;  - Company eshell
+;;  - Company irony c headers
