@@ -7,7 +7,8 @@
 ;;  - Try which-key
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
-;;  - Try gruvbox
+;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
+;;  - Evil visual-star
 
 ;; FIXME
 ;;  - Highlight persisting (anzu?)
@@ -59,6 +60,7 @@
   evil-matchit
   evil-numbers
   evil-surround
+  evil-visualstar
   exec-path-from-shell
   flycheck
   flycheck-rust
@@ -624,6 +626,10 @@
   (use-package evil-surround
     :config
     (global-evil-surround-mode 1))
+
+  (use-package evil-visualstar
+    :config
+    (global-evil-visualstar-mode))
 
   ;; Autoadd curly brackets.
   (defun auto-add-curly ()

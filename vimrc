@@ -26,6 +26,7 @@ Plug 'lepture/vim-jinja'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'triglav/vim-visual-increment'
+Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
 
 filetype plugin indent on
