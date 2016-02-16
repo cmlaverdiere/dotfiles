@@ -1212,6 +1212,7 @@
   :diminish undo-tree-mode
 
   :config
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/backups")))
   (setq undo-tree-auto-save-history t))
 
 

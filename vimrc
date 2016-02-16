@@ -130,6 +130,7 @@ set scrolloff=3
 set nobackup
 set noswapfile
 set undofile
+set undodir=~/.vimundo
 
 " Spelling and alignment
 setlocal textwidth=80
