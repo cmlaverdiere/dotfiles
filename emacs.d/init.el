@@ -575,6 +575,8 @@
     (setq-default evil-magit-use-y-for-yank t)
 
     :config
+    (evil-define-key evil-magit-state magit-mode-map "\C-n" 'magit-section-forward)
+    (evil-define-key evil-magit-state magit-mode-map "\C-p" 'magit-section-backward)
     (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
     (evil-define-key evil-magit-state magit-mode-map "\C-h" 'windmove-left)
     (evil-define-key evil-magit-state magit-mode-map "\C-j" 'windmove-down)
