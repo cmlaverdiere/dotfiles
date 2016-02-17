@@ -1087,6 +1087,7 @@
 
   :config
   (evil-leader/set-key-for-mode 'python-mode
+    "d" 'python-shell-send-defun
     "r" 'python-shell-send-selection
     "xi" 'python-shell-switch-to-shell)
 
