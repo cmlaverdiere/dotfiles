@@ -1,10 +1,51 @@
 " Chris Laverdiere's vimrc
 " Requires: plug.vim
 
-" Tmux / color compatability settings.
+" Shell compatibility settings.
 set shell=bash
 set background=dark
 set nocompatible
+
+" Buffer settings
+set hidden
+
+" Case settings
+set ignorecase
+set smartcase
+
+" Search settings
+set incsearch
+set timeoutlen=300
+set showcmd
+set hlsearch
+
+" Tabbing / Indentation
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set autoindent
+set tw=72
+
+" Scrolling
+set scrolloff=3
+
+" Backups
+set nobackup
+set noswapfile
+set undofile
+set undodir=~/.vimundo
+
+" Spelling and alignment
+setlocal textwidth=80
+setlocal spell
+
+" Misc
+set gdefault
+set number
+set laststatus=2
+set scrolloff=3
+set cm=blowfish2
 
 syntax on
 
@@ -30,23 +71,12 @@ call plug#end()
 
 filetype plugin indent on
 
-" Case settings
-set ignorecase
-set smartcase
-
-" Search settings
-set incsearch
-set timeoutlen=300
-set showcmd
-set hlsearch
-
 " Critical remaps
 map <Space> <Leader>
 map Y y$
 imap jk <esc>
 
 " Less critical remaps
-nmap s <Plug>(easymotion-s)
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
 xnoremap @q :normal @q<CR>
@@ -112,34 +142,6 @@ nnoremap <C-l> <C-w>l
 nnoremap gl :bn<cr>
 nnoremap gh :bp<cr>
 nnoremap gx :bd<cr>
-set hidden
-
-" Tabbing / Indentation
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set smarttab
-set autoindent
-
-" Scrolling
-set scrolloff=3
-
-" Backups
-set nobackup
-set noswapfile
-set undofile
-set undodir=~/.vimundo
-
-" Spelling and alignment
-setlocal textwidth=80
-setlocal spell
-
-" Misc
-set gdefault
-set number
-set laststatus=2
-set scrolloff=3
-set cm=blowfish2
 
 " Remove trailing whitespace function.
 fun! <SID>RTW()
@@ -158,7 +160,7 @@ au Filetype tex setlocal nofoldenable
 " Python specific indentation.
 au FileType python setlocal shiftwidth=4 tabstop=4
 
-" Markdown compatability
+" Markdown compatibility
 au BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Add to jumplist for multi j/k jumps.
