@@ -10,7 +10,6 @@ syntax on
 
 " Plugins (mostly syntax files and motion extensions)
 call plug#begin('~/.vim/plugged')
-Plug 'tmhedberg/matchit'
 Plug 'wellle/targets.vim'
 Plug 'beyondmarc/opengl.vim'
 Plug 'godlygeek/tabular'
@@ -19,12 +18,12 @@ Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'morhetz/gruvbox'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'Lokaltog/vim-easymotion'
 Plug 'kana/vim-filetype-haskell'
 Plug 'tikhomirov/vim-glsl'
-Plug 'lepture/vim-jinja'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-user'
 Plug 'triglav/vim-visual-increment'
 Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
@@ -45,7 +44,6 @@ set hlsearch
 map <Space> <Leader>
 map Y y$
 imap jk <esc>
-cnoremap jk <esc>
 
 " Less critical remaps
 nmap s <Plug>(easymotion-s)
@@ -137,7 +135,8 @@ setlocal textwidth=80
 setlocal spell
 
 " Misc
-set nonumber
+set gdefault
+set number
 set laststatus=2
 set scrolloff=3
 set cm=blowfish2
@@ -161,9 +160,6 @@ au FileType python setlocal shiftwidth=4 tabstop=4
 
 " Markdown compatability
 au BufNewFile,BufReadPost *.md set filetype=markdown
-
-" Bebop filetype
-au BufNewFile,BufReadPost *.bb set filetype=bebop
 
 " Add to jumplist for multi j/k jumps.
 nnoremap <silent> k :<C-U>execute 'normal!'
