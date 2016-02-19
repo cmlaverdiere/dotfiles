@@ -25,7 +25,7 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set autoindent
-set tw=72
+set textwidth=72
 
 " Scrolling
 set scrolloff=3
@@ -45,7 +45,7 @@ set gdefault
 set number
 set laststatus=2
 set scrolloff=3
-set cm=blowfish2
+set cryptmethod=blowfish2
 
 syntax on
 
@@ -73,22 +73,20 @@ filetype plugin indent on
 
 " Critical remaps
 map <Space> <Leader>
-map Y y$
-imap jk <esc>
+nnoremap Y y$
+inoremap jk <esc>
 
 " Less critical remaps
 inoremap <C-]> {<CR>}<esc>O
 vnoremap . :normal .<CR>
 xnoremap @q :normal @q<CR>
-imap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
-nmap <C-y> [s1z=<c-o>
-nmap <silent> dsa ds}dF\
-nmap <Leader>sw <Plug>(altr-forward)
-nmap gy ggyG
-nmap <Left> 5<C-w><
-nmap <Right> 5<C-w>>
-nmap <Up> 5<C-w>-
-nmap <Down> 5<C-w>+
+inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
+nnoremap <C-y> [s1z=<c-o>
+nnoremap <silent> dsa ds}dF\
+nnoremap <Left> 5<C-w><
+nnoremap <Right> 5<C-w>>
+nnoremap <Up> 5<C-w>-
+nnoremap <Down> 5<C-w>+
 
 " Leader Mappings
 nnoremap <Leader>V :sp<CR>
@@ -120,6 +118,7 @@ nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
+nnoremap <Leader>sw <Plug>(altr-forward)
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>v :vs<CR>
@@ -144,15 +143,13 @@ nnoremap gh :bp<cr>
 nnoremap gx :bd<cr>
 
 " Remove trailing whitespace function.
-fun! <SID>RTW()
+fun! RTW()
   let l = line(".")
   let c = col(".")
   %s/\s\+$//e
   call cursor(l, c)
 endfun
-
-" Remove trailing whitespace on each save.
-au BufWritePre * :call <SID>RTW()
+command! RTW call RTW()
 
 " Disable folding in tex documents.
 au Filetype tex setlocal nofoldenable
