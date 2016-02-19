@@ -1095,6 +1095,8 @@
     "K" 'jedi:show-doc
     "\C-]" 'jedi:goto-definition)
 
+  (bind-essential-evil inferior-python-mode-map 'normal)
+
   (when (executable-find "ipython")
     (setq-default python-shell-interpreter "ipython")
 
