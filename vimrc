@@ -52,14 +52,14 @@ syntax on
 " Plugins (mostly syntax files and motion extensions)
 call plug#begin('~/.vim/plugged')
 Plug 'wellle/targets.vim'
-Plug 'beyondmarc/opengl.vim'
+Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'morhetz/gruvbox'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'kana/vim-filetype-haskell'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'tikhomirov/vim-glsl'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
