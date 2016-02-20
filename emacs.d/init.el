@@ -153,7 +153,7 @@
   emacs-major-version emacs-minor-version))
 
 ;; Delete trailing whitespace on save.
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Window movement
 (define-key global-map "\C-h" 'windmove-left)
