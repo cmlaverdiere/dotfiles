@@ -364,8 +364,8 @@
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
-(define-key company-active-map (kbd "C-j") 'company-select-next)
-(define-key company-active-map (kbd "C-k") 'company-select-previous)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
 (setq-default company-idle-delay 0.25)
 (setq-default company-echo-delay 0)
@@ -959,6 +959,12 @@
 
   ;; Disable deadline warning in agenda
   (setq-default org-agenda-skip-deadline-prewarning-if-scheduled t)
+
+  ;; Use am/pm in agenda view.
+  (setq-default org-agenda-timegrid-use-ampm t)
+
+  ;; Only show repeating events daily.
+  (setq-default org-agenda-repeating-timestamp-show-all nil)
 
   ;; Properly indent src blocks.
   (setq org-src-tab-acts-natively t)
