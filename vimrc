@@ -36,8 +36,7 @@ set noswapfile
 set undofile
 set undodir=~/.vimundo
 
-" Spelling and alignment
-setlocal textwidth=80
+" Spelling
 setlocal spell
 
 " Misc
@@ -51,16 +50,17 @@ syntax on
 
 " Plugins (mostly syntax files and motion extensions)
 call plug#begin('~/.vim/plugged')
-Plug 'wellle/targets.vim'
+Plug 'morhetz/gruvbox'
 Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'godlygeek/tabular'
+Plug 'wellle/targets.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
-Plug 'morhetz/gruvbox'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'tikhomirov/vim-glsl'
+Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-entire'
@@ -136,11 +136,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Buffer switching
-nnoremap gl :bn<cr>
-nnoremap gh :bp<cr>
-nnoremap gx :bd<cr>
 
 " Remove trailing whitespace function.
 fun! RTW()
