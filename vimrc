@@ -25,7 +25,7 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set autoindent
-set textwidth=72
+set textwidth=80
 
 " Scrolling
 set scrolloff=3
