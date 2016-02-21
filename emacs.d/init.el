@@ -364,8 +364,8 @@
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-j") 'company-select-next)
+(define-key company-active-map (kbd "C-k") 'company-select-previous)
 
 (setq-default company-idle-delay 0.25)
 (setq-default company-echo-delay 0)
@@ -496,6 +496,7 @@
     (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
     (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))
 
+  ;; TODO Honestly just remove this.
   (use-package evil-escape
     :diminish evil-escape-mode
     :config
@@ -510,7 +511,8 @@
          magit-diff-mode magit-log-mode magit-log-select-mode
          magit-process-mode magit-reflog-mode magit-refs-mode
          magit-revision-mode magit-stash-mode magit-stashes-mode
-         magit-status-mode Man-mode doc-view-mode help-mode compilation-mode)))
+         magit-status-mode Man-mode doc-view-mode help-mode
+         compilation-mode org-agenda-mode)))
 
   (use-package evil-exchange
     :config
@@ -989,6 +991,13 @@
   (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
   (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
 
+  (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
+  (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
+  (define-key org-agenda-mode-map "\C-h" 'windmove-left)
+  (define-key org-agenda-mode-map "\C-j" 'windmove-down)
+  (define-key org-agenda-mode-map "\C-k" 'windmove-up)
+  (define-key org-agenda-mode-map "\C-l" 'windmove-right)
+
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
     "D" 'org-archive-done
@@ -1290,6 +1299,7 @@
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
 ;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
+;;  - Disable auto-company by default.
 
 ;; FIXME
 ;;  - Highlight persisting (anzu?)
