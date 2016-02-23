@@ -31,8 +31,9 @@ set textwidth=80
 set scrolloff=3
 
 " Backups
-set nobackup
 set noswapfile
+set backup
+set backupdir=~/.vimbak
 set undofile
 set undodir=~/.vimundo
 
