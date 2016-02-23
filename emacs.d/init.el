@@ -962,6 +962,9 @@
   ;; Disable deadline warning in agenda
   (setq-default org-agenda-skip-deadline-prewarning-if-scheduled t)
 
+  ;; Don't show DONE tasks in the agenda view.
+  (setq-default org-agenda-skip-scheduled-if-done t)
+
   ;; Use am/pm in agenda view.
   (setq-default org-agenda-timegrid-use-ampm t)
 
@@ -991,16 +994,18 @@
   (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
   (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
 
-  (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
-  (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
-  (define-key org-agenda-mode-map "\C-h" 'windmove-left)
-  (define-key org-agenda-mode-map "\C-j" 'windmove-down)
-  (define-key org-agenda-mode-map "\C-k" 'windmove-up)
-  (define-key org-agenda-mode-map "\C-l" 'windmove-right)
+  (add-hook 'org-agenda-mode-hook
+    (lambda ()
+      (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
+      (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
+      (define-key org-agenda-mode-map "\C-h" 'windmove-left)
+      (define-key org-agenda-mode-map "\C-j" 'windmove-down)
+      (define-key org-agenda-mode-map "\C-k" 'windmove-up)
+      (define-key org-agenda-mode-map "\C-l" 'windmove-right)))
 
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
-    "D" 'org-archive-done
+    "D" 'org-archive-subtree
     "F" 'org-preview-latex-fragment
     "P" 'org-export-latex-no-preamble
     "r" 'org-latex-export-to-pdf
