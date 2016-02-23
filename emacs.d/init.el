@@ -367,8 +367,8 @@
 (define-key company-active-map (kbd "C-j") 'company-select-next)
 (define-key company-active-map (kbd "C-k") 'company-select-previous)
 
-(setq-default company-idle-delay 0.25)
-(setq-default company-echo-delay 0)
+(setq-default company-idle-delay nil)
+;; (setq-default company-echo-delay 0)
 
 (defun enable-company ()
   (company-mode 1))
@@ -1040,8 +1040,7 @@
       (turn-on-flyspell)
       (enable-company-math)
       (setq-local company-math-allow-latex-symbols-in-faces t)
-      (enable-company)
-      (setq-local company-minimum-prefix-length 100))))
+      (enable-company))))
 
 
 (use-package ox-reveal
@@ -1215,8 +1214,7 @@
   (add-hook 'TeX-mode-hook
     (lambda ()
       (enable-company-math)
-      (enable-company)
-      (setq-local company-minimum-prefix-length 100))))
+      (enable-company))))
 
 
 ;;; Emacs Lisp ;;;
@@ -1299,7 +1297,6 @@
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
 ;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
-;;  - Disable auto-company by default.
 
 ;; FIXME
 ;;  - Highlight persisting (anzu?)
