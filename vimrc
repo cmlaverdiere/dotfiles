@@ -42,12 +42,13 @@ setlocal spell
 
 " Misc
 set gdefault
-set number
+set nonumber
 set laststatus=2
 set scrolloff=3
 set cryptmethod=blowfish2
 
 syntax on
+filetype plugin indent on
 
 " Plugins (mostly syntax files and motion extensions)
 call plug#begin('~/.vim/plugged')
@@ -69,8 +70,6 @@ Plug 'kana/vim-textobj-user'
 Plug 'triglav/vim-visual-increment'
 Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
-
-filetype plugin indent on
 
 " Critical remaps
 map <Space> <Leader>
