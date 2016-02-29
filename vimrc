@@ -15,8 +15,6 @@ set smartcase
 
 " Search settings
 set incsearch
-set timeoutlen=300
-set showcmd
 set hlsearch
 
 " Tabbing / Indentation
@@ -26,6 +24,9 @@ set shiftwidth=4
 set smarttab
 set autoindent
 set textwidth=80
+set wildmenu
+set wildmode=full
+" set colorcolumn=81
 
 " Scrolling
 set scrolloff=3
@@ -46,6 +47,8 @@ set nonumber
 set laststatus=2
 set scrolloff=3
 set cryptmethod=blowfish2
+set timeoutlen=300
+set showcmd
 
 syntax on
 filetype plugin indent on
