@@ -125,10 +125,13 @@
 ;; Color theme
 
 ;; Tomorrow theme specific.
-(require 'sanityinc-tomorrow-night-theme)
-(set-face-attribute 'fringe nil :background (face-background 'default))
-(set-face-attribute 'mode-line nil :background (face-background 'default))
-(set-face-attribute 'mode-line-inactive nil :background (face-background 'default))
+;; (require 'sanityinc-tomorrow-night-theme)
+;; (set-face-attribute 'fringe nil :background (face-background 'default))
+;; (set-face-attribute 'mode-line nil :background (face-background 'default))
+;; (set-face-attribute 'mode-line-inactive nil :background (face-background 'default))
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'gruvbox-dark t)
 
 ; (setq-default solarized-scale-org-headlines nil)
 ; (load-theme 'solarized-dark t)
@@ -163,9 +166,10 @@
 
 ;; Font settings.
 (set-face-attribute 'default nil
-                    :family "Source Code Pro"
+                    :family "Roboto Mono"
+                    ;; :family "Source Code Pro"
                     :height 100
-                    :weight 'regular
+                    :weight 'medium
                     :width 'normal)
 
 ;; GUI settings. This disables all the toolbar / extra GUI crap.
