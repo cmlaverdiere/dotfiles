@@ -89,6 +89,7 @@
   web-mode
   wgrep
   wgrep-ag
+  which-key
   writeroom-mode
   xcscope
   yasnippet
@@ -806,16 +807,6 @@
   (google-this-mode 1))
 
 
-(use-package guide-key
-  :defer 10
-  :diminish guide-key-mode
-  :init
-  (setq guide-key/guide-key-sequence t)
-  (setq guide-key/idle-delay 0.3)
-  (setq guide-key/popup-window-position 'bottom)
-  (guide-key-mode 1))
-
-
 (use-package haskell-mode
   :mode "\\.hs\\'"
 
@@ -1259,6 +1250,13 @@
       (setq web-mode-enable-auto-pairing nil)
       (setq web-mode-enable-auto-quoting nil)
       (yas-activate-extra-mode 'html-mode))))
+
+
+(use-package which-key
+  :config
+  (setq-default which-key-idle-delay 0.3)
+  (which-key-mode))
+
 
 (use-package which-func
   :defer 5
