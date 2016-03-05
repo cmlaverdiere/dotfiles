@@ -713,6 +713,10 @@
   ;; Line completion
   (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
 
+  ;; Helm M-x from anywhere
+  (define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
+  (define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
+
   ;; Visual line information
   (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
 
@@ -1082,8 +1086,6 @@
 
   :init
   (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
-  (define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
-  (define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
 
   :config
   (projectile-global-mode)
@@ -1297,15 +1299,9 @@
 (setq gc-cons-threshold temp-gc)
 
 ;; TODO
-;;  - Write a fn to load all included header files into buffers.
-;;  - Try paradox
 ;;  - Add 'make test' generic leader for 't'
-;;  - Try which-key
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
-;;  - Try gruvbox https://github.com/d125q/gruvbox-dark-emacs
 
 ;; FIXME
-;;  - Highlight persisting (anzu?)
 ;;  - Company eshell
-;;  - Company irony c headers
