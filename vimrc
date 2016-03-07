@@ -68,6 +68,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'triglav/vim-visual-increment'
@@ -79,17 +80,28 @@ map <Space> <Leader>
 nnoremap Y y$
 inoremap jk <esc>
 
-" Less critical remaps
-inoremap <C-]> {<CR>}<esc>O
+
+" Repeat maps
 vnoremap . :normal .<CR>
 xnoremap @q :normal @q<CR>
+
+" Spelling maps
 inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <C-y> [s1z=<c-o>
-nnoremap <silent> dsa ds}dF\
+
+" Window movement / resize maps
 nnoremap <Left> 5<C-w><
 nnoremap <Right> 5<C-w>>
 nnoremap <Up> 5<C-w>-
 nnoremap <Down> 5<C-w>+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Misc maps
+nnoremap <silent> dsa ds}dF\
+inoremap <C-]> {<CR>}<esc>O
 
 " Leader Mappings
 nnoremap <Leader>V :sp<CR>
@@ -133,12 +145,6 @@ xnoremap <Leader>bc :!bc -l<CR>
 xnoremap <Leader>pe :!python <CR>
 
 set pastetoggle=<Leader>pt
-
-" Quick window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
 " Remove trailing whitespace function.
 fun! RTW()

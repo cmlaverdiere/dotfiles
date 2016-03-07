@@ -111,8 +111,8 @@ export SAVEHIST=1000000
 # fzf setup.
 alias fzf="fzf -m"
 . /etc/profile.d/fzf.zsh
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey '^O' fzf-cd-widget
 
 # virtualenv setup (uncomment for speed).
 # export WORKON_HOME=~/.virtualenvs
