@@ -262,16 +262,25 @@
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
+(defvar transparency-active nil)
 (defun transparency-on ()
   "Set to 90% opacity."
   (interactive)
+  (setq transparency-active t)
   (set-frame-parameter (selected-frame) 'alpha '(90 90)))
 
 ;; Transparency disable.
 (defun transparency-off ()
   "Set to 100% opacity."
   (interactive)
+  (setq transparency-active nil)
   (set-frame-parameter (selected-frame) 'alpha '(100 100)))
+
+(defun toggle-transparency ()
+  (interactive)
+  (if transparency-active
+    (transparency-off)
+    (transparency-on)))
 
 (defun read-lines (fp)
   "Read lines of file fp into a list."
@@ -554,6 +563,7 @@
       "k" 'winner-redo
       "K" 'kill-compilation
       "m" 'helm-man-woman
+      "M" 'toggle-transparency
       "n" 'flycheck-next-error
       "N" 'flycheck-previous-error
       "o" 'helm-occur
