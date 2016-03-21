@@ -58,6 +58,7 @@ runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
 Plug 'tomtom/tcomment_vim'
@@ -81,7 +82,6 @@ map <Space> <Leader>
 nnoremap Y y$
 inoremap jk <esc>
 
-
 " Repeat maps
 vnoremap . :normal .<CR>
 xnoremap @q :normal @q<CR>
@@ -90,11 +90,13 @@ xnoremap @q :normal @q<CR>
 inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <C-y> [s1z=<c-o>
 
-" Window movement / resize maps
+" Window resize maps
 nnoremap <Left> 5<C-w><
 nnoremap <Right> 5<C-w>>
 nnoremap <Up> 5<C-w>-
 nnoremap <Down> 5<C-w>+
+
+" Window movement maps
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -171,5 +173,5 @@ nnoremap <silent> k :<C-U>execute 'normal!'
 nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
-" Color scheme must be loaded later for some reason.
+" Color scheme must be loaded at the end.
 colorscheme gruvbox
