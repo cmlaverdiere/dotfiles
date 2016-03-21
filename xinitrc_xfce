@@ -1,0 +1,19 @@
+# Give functionality to volume buttons.
+xbindkeys
+
+# For my eyes late at night.
+redshift &
+
+# Compose key
+# setxkbmap -option compose:ralt
+
+# Remap ctrl key to caps lock.
+setxkbmap -option ctrl:rctrl
+setxkbmap -option ctrl:swapcaps
+setxkbmap -option ctrl:nocaps
+
+# Caps lock as escape when pressed
+# xcape -e 'Control_L=Escape'
+
+# Start xfce
+exec startxfce4
