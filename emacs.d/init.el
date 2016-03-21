@@ -237,7 +237,7 @@
 
 ;; Wrap settings
 (setq-default fill-column 80)
-
+(auto-fill-mode)
 
 ;;; Utility functions ;;;
 
