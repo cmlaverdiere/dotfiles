@@ -54,6 +54,7 @@ syntax on
 filetype plugin indent on
 
 " Plugins (mostly syntax files and motion extensions)
+runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
