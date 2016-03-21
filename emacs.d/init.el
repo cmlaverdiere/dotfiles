@@ -693,7 +693,7 @@
 
   ;; Mode specific evil mappings.
   (evil-define-key 'normal eshell-mode-map (kbd "RET") 'eshell-send-input)
-  (evil-define-key 'insert eshell-mode-map (kbd "C-l") 'helm-eshell-history)
+  (evil-define-key 'insert eshell-mode-map (kbd "C-,") 'helm-eshell-history)
 
   ;; Auto-correct the last word with flyspell in normal mode.
   (define-key evil-normal-state-map (kbd "C-.") 'flyspell-auto-correct-previous-word)
@@ -1312,6 +1312,7 @@
 ;;  - Add 'make test' generic leader for 't'
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
+;;  - Try rtags
 
 ;; FIXME
 ;;  - Company eshell
