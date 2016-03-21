@@ -568,7 +568,7 @@
       "N" 'flycheck-previous-error
       "o" 'helm-occur
       "O" 'projectile-find-other-file
-      "p" 'helm-projectile-switch-project
+      "P" 'helm-projectile-switch-project
       "R" 'revert-buffer
       "q" 'evil-quit
       "Q" 'kill-this-buffer
@@ -1100,6 +1100,8 @@
 
   :config
   (projectile-global-mode)
+
+  (evil-leader/set-key "p" projectile-command-map)
 
   ;; Use project root as cscope database.
   (defadvice helm-projectile-switch-project
