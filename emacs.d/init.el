@@ -998,10 +998,11 @@
 
   :config
   (evil-define-key 'normal org-mode-map "t" 'org-todo)
-  (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
-  (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
-  (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
-  (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
+  (dolist (mode (list 'normal 'insert))
+    (evil-define-key mode org-mode-map (kbd "<left>") 'org-shiftmetaleft)
+    (evil-define-key mode org-mode-map (kbd "<right>") 'org-shiftmetaright)
+    (evil-define-key mode org-mode-map (kbd "<up>") 'org-metaup)
+    (evil-define-key mode org-mode-map (kbd "<down>") 'org-metadown))
 
   (add-hook 'org-agenda-mode-hook
     (lambda ()
