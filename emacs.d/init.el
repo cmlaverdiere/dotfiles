@@ -820,18 +820,24 @@
   :init
   (google-this-mode 1))
 
-
 (use-package haskell-mode
   :mode "\\.hs\\'"
 
   ;; TODO try haskell-interactive-mode instead of inferior.
 
-  ;; TODO setup hasktags
-  ;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
-
   :init
+  (setq-default haskell-tags-on-save t)
+
+  (autoload 'ghc-init "ghc" nil t)
+  (autoload 'ghc-debug "ghc" nil t)
+
+  (use-package company-ghc)
+
   (add-hook 'haskell-mode-hook
     (lambda ()
+      (ghc-init)
+      (company-ghc-turn-on-autoscan)
+      (company-ghc-scan-modules)
       (add-to-list 'company-backends '(company-ghc company-dabbrev-code))
       (turn-on-haskell-indent)))
 
@@ -846,6 +852,9 @@
       (inferior-haskell-load-and-run "main")
       (select-window current-win)
       (golden-ratio)))
+
+  (evil-define-key 'normal haskell-mode-map
+    "\C-]" 'haskell-mode-jump-to-def-or-tag)
 
   ;; TODO setup literate-haskell-mode to use these as well.
   (evil-leader/set-key-for-mode 'haskell-mode
