@@ -80,7 +80,8 @@ function marks {
 }
 
 # How often oh-my-zsh updates.
-export UPDATE_ZSH_DAYS=30
+# export UPDATE_ZSH_DAYS=30
+DISABLE_AUTO_UPDATE="true"
 
 # All plugins.
 plugins=(git history vi-mode history-substring-search autojump)
