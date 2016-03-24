@@ -770,6 +770,8 @@
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
+  (setq-default flycheck-check-syntax-automatically '(save mode-enabled))
+
   (add-hook 'c++-mode-hook
     (lambda ()
       (setq flycheck-gcc-language-standard "c++11")
@@ -819,6 +821,7 @@
   :diminish google-this-mode
   :init
   (google-this-mode 1))
+
 
 (use-package haskell-mode
   :mode "\\.hs\\'"
