@@ -23,7 +23,7 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set autoindent
-set textwidth=80
+set textwidth=79
 set wildmenu
 set wildmode=full
 " set colorcolumn=81

@@ -236,7 +236,7 @@
   (insert (format-time-string "%Y-%m-%d %H:%m:%S")))
 
 ;; Wrap settings
-(setq-default fill-column 80)
+(setq-default fill-column 79)
 (auto-fill-mode)
 
 ;;; Utility functions ;;;
