@@ -117,6 +117,11 @@
 (defvar temp-gc gc-cons-threshold)
 (setq gc-cons-threshold 100000000)
 
+
+;; Frame settings
+(add-to-list 'default-frame-alist '(height . 24))
+(add-to-list 'default-frame-alist '(width . 80))
+
 ;; Backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 ;; (setq-default make-backup-files nil)
