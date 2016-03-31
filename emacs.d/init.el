@@ -690,6 +690,7 @@
   ;; Mode specific evil init modes.
   (evil-set-initial-state 'org-capture-mode 'insert)
   (evil-set-initial-state 'git-commit-mode 'insert)
+  (add-hook 'git-commit-mode-hook 'evil-insert-state)
 
   (evil-set-initial-state 'occur-mode 'normal)
   (evil-define-key 'normal occur-mode-map (kbd "RET")
