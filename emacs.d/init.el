@@ -326,6 +326,10 @@
   (kill-this-buffer)
   (delete-window))
 
+(defun open-current-file-in-vim ()
+  (interactive)
+  (shell-command (format "urxvt -e vim %s" buffer-file-name)))
+
 (defun split-term () (interactive) (do-in-split 'multi-term))
 
 
@@ -567,6 +571,7 @@
       "l" 'flycheck-list-errors
       "L" 'browse-url
       "f" 'helm-for-files
+      "F" 'open-current-file-in-vim
       "j" 'winner-undo
       "k" 'winner-redo
       "K" 'kill-compilation
@@ -1037,7 +1042,6 @@
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
     "D" 'org-archive-subtree
-    "F" 'org-preview-latex-fragment
     "P" 'org-export-latex-no-preamble
     "r" 'org-latex-export-to-pdf
     ">" 'org-metaright
