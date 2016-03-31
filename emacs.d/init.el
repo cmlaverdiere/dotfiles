@@ -79,6 +79,8 @@
   projectile
   racer
   rainbow-delimiters
+  request
+  restclient
   rust-mode
   solarized-theme
   tao-theme
@@ -1168,6 +1170,13 @@
       (defvar python-indent 4)))
 
   (use-package pony-mode))
+
+
+(use-package restclient
+  :config
+  (evil-leader/set-key-for-mode 'restclient-mode
+    "d" 'restclient-http-send-current-stay-in-window
+    "r" 'restclient-http-send-current))
 
 
 (use-package rust-mode
