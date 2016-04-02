@@ -152,6 +152,9 @@
 ;; Config file location.
 (defvar conf-file "~/.emacs.d/init.el")
 
+;; Shorten yes/no prompt to just y/n.
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; Blinking cursor
 (blink-cursor-mode t)
 
