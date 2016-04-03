@@ -540,7 +540,8 @@
          magit-process-mode magit-reflog-mode magit-refs-mode
          magit-revision-mode magit-stash-mode magit-stashes-mode
          magit-status-mode Man-mode doc-view-mode help-mode
-         compilation-mode org-agenda-mode)))
+         compilation-mode org-agenda-mode mu4e-main-mode
+         mu4e-headers-mode mu4e-org-mode mu4e-view-mode)))
 
   (use-package evil-exchange
     :config
@@ -942,6 +943,44 @@
     '(add-to-list 'company-backends 'company-irony))
 
   (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))
+
+
+;;; Mu4e ;;;
+
+;; Deps: mu, gnutls, offlineimap
+(require 'mu4e)
+
+(setq-default mu4e-maildir "~/mail")
+(setq-default mu4e-drafts-folder "/[Gmail].Drafts")
+(setq-default mu4e-sent-folder "/[Gmail].Sent Mail")
+(setq-default mu4e-trash-folder "/[Gmail].Trash")
+
+;; (setq-default mu4e-update-interval (* 60 30))
+
+(setq-default mu4e-sent-message-behavior 'delete)
+
+(setq-default mu4e-maildir-shortcuts
+  '( ("/INBOX"               . ?i)
+     ("/[Gmail].Sent Mail"   . ?s)
+     ("/[Gmail].Trash"       . ?t)
+     ("/[Gmail].All Mail"    . ?a)))
+
+(setq-default mu4e-get-mail-command "offlineimap")
+
+(setq-default
+  user-mail-address "cmlaverdiere@gmail.com"
+  user-full-name  "Chris Laverdiere")
+
+(require 'smtpmail)
+(setq-default message-send-mail-function 'smtpmail-send-it
+  smtpmail-stream-type 'starttls
+  smtpmail-default-smtp-server "smtp.gmail.com"
+  smtpmail-smtp-server "smtp.gmail.com"
+  smtpmail-smtp-service 587)
+
+(setq message-kill-buffer-on-exit t)
+
+(require 'evil-mu4e)
 
 
 (use-package magit
