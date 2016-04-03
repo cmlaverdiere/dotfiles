@@ -41,6 +41,7 @@
   evil-leader
   evil-magit
   evil-matchit
+  evil-mu4e
   evil-numbers
   evil-surround
   evil-visualstar
