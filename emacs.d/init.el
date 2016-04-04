@@ -396,8 +396,6 @@
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
-(define-key company-active-map (kbd "C-j") 'company-select-next)
-(define-key company-active-map (kbd "C-k") 'company-select-previous)
 
 (setq-default company-idle-delay nil)
 ;; (setq-default company-echo-delay 0)
@@ -594,7 +592,12 @@
     :config
     (evil-define-key evil-magit-state magit-mode-map "\C-n" 'magit-section-forward)
     (evil-define-key evil-magit-state magit-mode-map "\C-p" 'magit-section-backward)
-    (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward))
+    (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
+    (evil-define-key evil-magit-state magit-mode-map "\C-h" 'windmove-left)
+    (evil-define-key evil-magit-state magit-mode-map "\C-j" 'windmove-down)
+    (evil-define-key evil-magit-state magit-mode-map "\C-k" 'windmove-up)
+    (evil-define-key evil-magit-state magit-mode-map "\C-l" 'windmove-right))
+
 
   (use-package evil-matchit
     :config
@@ -864,8 +867,6 @@
   (setq-default helm-imenu-fuzzy-match t)
   (setq-default helm-recentf-fuzzy-match t)
 
-  (define-key helm-map (kbd "C-j") 'helm-next-line)
-  (define-key helm-map (kbd "C-k") 'helm-previous-line)
   (define-key helm-map (kbd "C-o") 'helm-select-action)
   (define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
 
