@@ -250,6 +250,10 @@
 (setq-default fill-column 79)
 (auto-fill-mode)
 
+;; When all else fails...
+(bind-key* "<escape>" 'keyboard-escape-quit)
+(bind-key* "C-[" 'keyboard-escape-quit)
+
 ;;; Utility functions ;;;
 
 (defun quick-compile-and-run ()
@@ -671,8 +675,7 @@
     (evil-define-key mode map "s" 'ace-jump-mode)
     (evil-define-key mode map "gg" 'evil-goto-first-line)
     (evil-define-key mode map (kbd "C-d") 'evil-scroll-down)
-    (evil-define-key mode map (kbd "C-u") 'evil-scroll-up)
-    (evil-define-key mode map (kbd "C-<SPC>") 'helm-M-x))
+    (evil-define-key mode map (kbd "C-u") 'evil-scroll-up))
 
   (require 'man)
   (bind-essential-evil Man-mode-map 'motion)
@@ -724,10 +727,6 @@
 
   ;; Line completion
   (define-key evil-insert-state-map (kbd "<backtab>") 'evil-complete-next-line)
-
-  ;; Helm M-x from anywhere
-  (define-key evil-normal-state-map (kbd "C-<SPC>") 'helm-M-x)
-  (define-key evil-insert-state-map (kbd "C-<SPC>") 'helm-M-x)
 
   ;; Visual line information
   (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
@@ -878,6 +877,8 @@
 
   (helm-mode 1)
   (helm-projectile-on)
+
+  (bind-key* "C-<SPC>" 'helm-M-x)
 
   (defvar helm-M-x-fuzzy-match t)
   (setq-default helm-ff-skip-boring-files t)
