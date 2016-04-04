@@ -548,7 +548,7 @@
       "d" 'eval-defun
       "D" 'helm-projectile-find-dir
       "e" 'eval-last-sexp
-      "E" 'helm-calcul-expression
+      "E" 'mu4e
       "g" 'magit-status
       "h" help-map
       "G" 'google-this
@@ -568,6 +568,7 @@
       "o" 'helm-occur
       "O" 'projectile-find-other-file
       "P" 'helm-projectile-switch-project
+      "r" 'eval-buffer
       "R" 'revert-buffer
       "q" 'evil-quit
       "Q" 'kill-this-buffer
