@@ -36,7 +36,6 @@
   evil
   evil-anzu
   evil-args
-  evil-escape
   evil-exchange
   evil-leader
   evil-magit
@@ -493,9 +492,6 @@
 
 (use-package evil
   :init
-  ;; When all else fails...
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
   ;; Override the universal argument for scrolling.
   (setq-default evil-want-C-u-scroll t)
 
@@ -529,32 +525,13 @@
     (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
     (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))
 
-  ;; TODO Honestly just remove this.
-  (use-package evil-escape
-    :diminish evil-escape-mode
-    :config
-    (evil-escape-mode)
-
-    (setq-default evil-escape-delay 0.10)
-    (setq-default evil-escape-key-sequence "jk")
-    (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
-
-    (setq-default evil-escape-excluded-major-modes
-      '(magit-mode magit-log-mode magit-cherry-mode
-         magit-diff-mode magit-log-mode magit-log-select-mode
-         magit-process-mode magit-reflog-mode magit-refs-mode
-         magit-revision-mode magit-stash-mode magit-stashes-mode
-         magit-status-mode Man-mode doc-view-mode help-mode
-         compilation-mode org-agenda-mode mu4e-main-mode
-         mu4e-headers-mode mu4e-org-mode mu4e-view-mode)))
-
   (use-package evil-exchange
     :config
     (evil-exchange-install))
 
   (use-package evil-leader
     :config
-    (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode"))
+    (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode" "compilation-mode"))
 
     ;; Global evil leaders.
     (evil-leader/set-leader "<SPC>")
