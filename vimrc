@@ -80,7 +80,6 @@ call plug#end()
 " Critical remaps
 map <Space> <Leader>
 nnoremap Y y$
-inoremap jk <esc>
 
 " Repeat maps
 vnoremap . :normal .<CR>
