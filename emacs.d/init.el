@@ -171,10 +171,10 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Window movement
-(define-key global-map "\C-h" 'windmove-left)
-(define-key global-map "\C-j" 'windmove-down)
-(define-key global-map "\C-k" 'windmove-up)
-(define-key global-map "\C-l" 'windmove-right)
+(bind-key* "C-h" 'windmove-left)
+(bind-key* "C-j" 'windmove-down)
+(bind-key* "C-k" 'windmove-up)
+(bind-key* "C-l" 'windmove-right)
 
 ;; Font settings.
 (set-face-attribute 'default nil
@@ -612,11 +612,7 @@
     :config
     (evil-define-key evil-magit-state magit-mode-map "\C-n" 'magit-section-forward)
     (evil-define-key evil-magit-state magit-mode-map "\C-p" 'magit-section-backward)
-    (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-    (evil-define-key evil-magit-state magit-mode-map "\C-h" 'windmove-left)
-    (evil-define-key evil-magit-state magit-mode-map "\C-j" 'windmove-down)
-    (evil-define-key evil-magit-state magit-mode-map "\C-k" 'windmove-up)
-    (evil-define-key evil-magit-state magit-mode-map "\C-l" 'windmove-right))
+    (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward))
 
   (use-package evil-matchit
     :config
@@ -676,14 +672,7 @@
     (evil-define-key mode map "gg" 'evil-goto-first-line)
     (evil-define-key mode map (kbd "C-d") 'evil-scroll-down)
     (evil-define-key mode map (kbd "C-u") 'evil-scroll-up)
-    (evil-define-key mode map (kbd "C-<SPC>") 'helm-M-x)
-    (bind-window-movements map mode))
-
-  (defun bind-window-movements (map mode)
-    (evil-define-key mode map "\C-h" 'windmove-left)
-    (evil-define-key mode map "\C-j" 'windmove-down)
-    (evil-define-key mode map "\C-k" 'windmove-up)
-    (evil-define-key mode map "\C-l" 'windmove-right))
+    (evil-define-key mode map (kbd "C-<SPC>") 'helm-M-x))
 
   (require 'man)
   (bind-essential-evil Man-mode-map 'motion)
@@ -729,12 +718,6 @@
 
   ;; Remove digraph key (useless, interferes with company)
   (define-key evil-insert-state-map (kbd "C-k") nil)
-
-  ;; Evil window movement.
-  (define-key evil-normal-state-map "\C-h" 'windmove-left)
-  (define-key evil-normal-state-map "\C-j" 'windmove-down)
-  (define-key evil-normal-state-map "\C-k" 'windmove-up)
-  (define-key evil-normal-state-map "\C-l" 'windmove-right)
 
   ;; Can't break my games.
   (add-to-list 'evil-emacs-state-modes 'snake-mode)
@@ -1076,11 +1059,7 @@
   (add-hook 'org-agenda-mode-hook
     (lambda ()
       (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
-      (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
-      (define-key org-agenda-mode-map "\C-h" 'windmove-left)
-      (define-key org-agenda-mode-map "\C-j" 'windmove-down)
-      (define-key org-agenda-mode-map "\C-k" 'windmove-up)
-      (define-key org-agenda-mode-map "\C-l" 'windmove-right)))
+      (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)))
 
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
