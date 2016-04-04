@@ -396,6 +396,8 @@
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
+(bind-key "C-n" 'company-select-next company-active-map)
+(bind-key "C-p" 'company-select-previous company-active-map)
 
 (setq-default company-idle-delay nil)
 ;; (setq-default company-echo-delay 0)
@@ -949,6 +951,15 @@
 (setq org-mu4e-convert-to-html t)
 
 (require 'evil-mu4e)
+
+(dolist (map '(mu4e-headers-mode-map
+                mu4e-main-mode-map
+                mu4e-view-mode-map
+                mu4e-compose-mode-map))
+  (evil-define-key evil-mu4e-state map "\C-h" 'windmove-left)
+  (evil-define-key evil-mu4e-state map "\C-j" 'windmove-down)
+  (evil-define-key evil-mu4e-state map "\C-k" 'windmove-up)
+  (evil-define-key evil-mu4e-state map "\C-l" 'windmove-right))
 
 
 (use-package magit
