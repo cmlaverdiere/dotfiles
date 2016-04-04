@@ -922,6 +922,7 @@
 ;; (setq-default mu4e-update-interval (* 60 30))
 
 (setq-default mu4e-sent-message-behavior 'delete)
+(setq-default auth-source-save-behavior nil)
 
 (setq-default mu4e-maildir-shortcuts
   '( ("/INBOX"               . ?i)
@@ -943,6 +944,9 @@
   smtpmail-smtp-service 587)
 
 (setq message-kill-buffer-on-exit t)
+
+(require 'org-mu4e)
+(setq org-mu4e-convert-to-html t)
 
 (require 'evil-mu4e)
 
