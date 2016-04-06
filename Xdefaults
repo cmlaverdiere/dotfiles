@@ -20,7 +20,7 @@
 *urxvt*url-select.underline: true
 *urxvt*matcher.button: 1
 *urxvt*url-launcher: /usr/bin/chromium
-*urxvt*keysym.M-Escape: perl:keyboard-select:activate
+*urxvt*keysym.Mod4-bracketleft: perl:keyboard-select:activate
 
 ! Enable for transparency.
 ! *urxvt*background: rgba:0000/0000/0000/eeee
