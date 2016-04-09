@@ -113,15 +113,13 @@ nnoremap <Leader>b :b#<CR>
 nnoremap <Leader>cK viWK
 nnoremap <Leader>cd :cd %:p:h<CR>
 nnoremap <Leader>dsB diB]pkdk<CR>
-nnoremap <Leader>ee :winc =<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
-nnoremap <Leader>glK ?gl<CR>llx~K
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e ~/.vim/vimrc<CR>
-nnoremap <Leader>ln :lnext<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
+nnoremap <Leader>O <Plug>(altr-forward)
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
@@ -132,17 +130,13 @@ nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rb :!ruby %<CR>
 nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
-nnoremap <Leader>rot ggVGg?
 nnoremap <Leader>rs :!Rscript %<CR>
 nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
-nnoremap <Leader>sw <Plug>(altr-forward)
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>v :vs<CR>
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>xxd :%!xxd<CR>
-nnoremap <Leader>xxr :%!xxd -r<CR>
 
 xnoremap <Leader>bc :!bc -l<CR>
 xnoremap <Leader>pe :!python <CR>
