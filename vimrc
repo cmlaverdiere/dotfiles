@@ -13,6 +13,9 @@ set hidden
 set ignorecase
 set smartcase
 
+" Clipboard settings
+set clipboard=unnamedplus
+
 " Search settings
 set incsearch
 set hlsearch
@@ -160,6 +163,9 @@ au FileType python setlocal shiftwidth=4 tabstop=4
 
 " Markdown compatibility
 au BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Disable ftplugin-mail maps.
+let no_mail_maps=1
 
 " Add to jumplist for multi j/k jumps.
 nnoremap <silent> k :<C-U>execute 'normal!'
