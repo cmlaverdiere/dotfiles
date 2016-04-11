@@ -141,7 +141,9 @@ nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
+nnoremap <Leader>T :!ctags -R<CR>
 nnoremap <Leader>v :vs<CR>
+nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>w :w<CR>
 
 xnoremap <Leader>bc :!bc -l<CR>
