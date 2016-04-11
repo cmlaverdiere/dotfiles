@@ -166,8 +166,11 @@ au Filetype tex setlocal nofoldenable
 " Python specific indentation.
 au FileType python setlocal shiftwidth=4 tabstop=4
 
-" Markdown compatibility
+" Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Remove trailing whitespace on save.
+autocmd BufWritePre * :call RTW()
 
 " Disable ftplugin-mail maps.
 let no_mail_maps=1
