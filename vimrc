@@ -84,6 +84,8 @@ call plug#end()
 map <Space> <Leader>
 nnoremap Y y$
 inoremap jk <esc>
+nnoremap ' `
+nnoremap ` '
 
 " Repeat maps
 vnoremap . :normal .<CR>
@@ -100,29 +102,30 @@ nnoremap <Up> 5<C-w>-
 nnoremap <Down> 5<C-w>+
 
 " Window movement maps
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+inoremap <C-h> <esc><C-w>h
+inoremap <C-j> <esc><C-w>j
+inoremap <C-k> <esc><C-w>k
+inoremap <C-l> <esc><C-w>l
 
 " Misc maps
 nnoremap <silent> dsa ds}dF\
 inoremap <C-]> {<CR>}<esc>O
 
 " Leader Mappings
-nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
-nnoremap <Leader>b :b#<CR>
-nnoremap <Leader>cK viWK
-nnoremap <Leader>cd :cd %:p:h<CR>
-nnoremap <Leader>dsB diB]pkdk<CR>
+nnoremap <Leader>c :make<CR>
+nnoremap <Leader>d :cd %:p:h<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e ~/.vim/vimrc<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
-nnoremap <Leader>O <Plug>(altr-forward)
+nnoremap <Leader>o <Plug>(altr-forward)
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
