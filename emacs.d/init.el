@@ -157,7 +157,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Blinking cursor
-(blink-cursor-mode t)
+;; (blink-cursor-mode t)
 
 ;; Default browser
 (setq-default browse-url-browser-function 'browse-url-generic)
@@ -277,7 +277,9 @@
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
+;; TODO check frame-parameter instead.
 (defvar transparency-active nil)
+
 (defun transparency-on ()
   "Set to 90% opacity."
   (interactive)
@@ -468,6 +470,7 @@
   (require 'em-term)
   (add-to-list 'eshell-visual-commands "sl")
   (add-to-list 'eshell-visual-commands "git")
+  (add-to-list 'eshell-visual-commands "watch")
 
   ;; Set path to shell path.
   (exec-path-from-shell-initialize)
@@ -542,7 +545,8 @@
          magit-revision-mode magit-stash-mode magit-stashes-mode
          magit-status-mode Man-mode doc-view-mode help-mode
          compilation-mode org-agenda-mode mu4e-main-mode
-         mu4e-headers-mode mu4e-org-mode mu4e-view-mode)))
+         mu4e-headers-mode mu4e-org-mode mu4e-view-mode
+         term-mode)))
 
   (use-package evil-exchange
     :config
@@ -888,6 +892,9 @@
   (setq-default helm-imenu-fuzzy-match t)
   (setq-default helm-recentf-fuzzy-match t)
 
+  (setq helm-external-programs-associations
+    (quote (("html" . "chromium"))))
+
   (define-key helm-map (kbd "C-o") 'helm-select-action)
   (define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
 
@@ -946,7 +953,7 @@
 (setq-default auth-source-save-behavior nil)
 
 (setq-default mu4e-maildir-shortcuts
-  '( ("/INBOX"               . ?i)
+  '(("/INBOX"               . ?i)
      ("/[Gmail].Sent Mail"   . ?s)
      ("/[Gmail].Trash"       . ?t)
      ("/[Gmail].All Mail"    . ?a)))
@@ -1384,6 +1391,7 @@
 ;;  - Add projectile-aware compile / recompile
 ;;  - Evil argdo commands
 ;;  - Try rtags
+;;  - Replace define-key instaces with bind-key
 
 ;; FIXME
 ;;  - Company eshell
