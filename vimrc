@@ -50,7 +50,7 @@ set nonumber
 set laststatus=2
 set scrolloff=3
 set cryptmethod=blowfish2
-set timeoutlen=300
+set timeoutlen=500
 set showcmd
 
 syntax on
