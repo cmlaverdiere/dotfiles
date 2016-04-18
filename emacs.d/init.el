@@ -571,7 +571,7 @@
       "d" 'eval-defun
       "D" 'helm-projectile-find-dir
       "e" 'eval-last-sexp
-      "E" 'mu4e
+      "E" 'mu4e-open-inbox
       "g" 'magit-status
       "h" help-map
       "G" 'google-this
@@ -586,8 +586,8 @@
       "K" 'kill-compilation
       "m" 'helm-man-woman
       "M" 'toggle-transparency
-      "n" 'flycheck-next-error
-      "N" 'flycheck-previous-error
+      "n" 'evil-ex-nohighlight
+      "N" 'flycheck-next-error
       "o" 'helm-occur
       "O" 'projectile-find-other-file
       "P" 'helm-projectile-switch-project
@@ -947,7 +947,8 @@
 (setq-default mu4e-sent-folder "/[Gmail].Sent Mail")
 (setq-default mu4e-trash-folder "/[Gmail].Trash")
 
-;; (setq-default mu4e-update-interval (* 60 30))
+(setq-default mu4e-update-interval (* 60 5))
+(setq mu4e-headers-auto-update t)
 
 (setq-default mu4e-sent-message-behavior 'delete)
 (setq-default auth-source-save-behavior nil)
@@ -958,7 +959,11 @@
      ("/[Gmail].Trash"       . ?t)
      ("/[Gmail].All Mail"    . ?a)))
 
-(setq-default mu4e-get-mail-command "offlineimap")
+(setq-default mu4e-get-mail-command "offlineimap -q -f INBOX")
+
+(defun mu4e-open-inbox ()
+  (interactive)
+  (mu4e~headers-jump-to-maildir "/INBOX"))
 
 (setq-default
   user-mail-address "cmlaverdiere@gmail.com"
