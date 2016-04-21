@@ -171,10 +171,11 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Window movement
-(bind-key* "C-h" 'windmove-left)
-(bind-key* "C-j" 'windmove-down)
-(bind-key* "C-k" 'windmove-up)
-(bind-key* "C-l" 'windmove-right)
+;; TODO figure out the predicate option.
+(bind-key "C-h" 'windmove-left)
+(bind-key "C-j" 'windmove-down)
+(bind-key "C-k" 'windmove-up)
+(bind-key "C-l" 'windmove-right)
 
 ;; Font settings.
 (set-face-attribute 'default nil
@@ -399,8 +400,8 @@
 ;; Rebind moving down company suggestion list.
 (define-key company-active-map (kbd "M-n") 'nil)
 (define-key company-active-map (kbd "M-p") 'nil)
-(bind-key "C-n" 'company-select-next company-active-map)
-(bind-key "C-p" 'company-select-previous company-active-map)
+(bind-key "C-j" 'company-select-next company-active-map)
+(bind-key "C-k" 'company-select-previous company-active-map)
 
 (setq-default company-idle-delay nil)
 ;; (setq-default company-echo-delay 0)
@@ -681,7 +682,15 @@
     (evil-define-key mode map "s" 'ace-jump-mode)
     (evil-define-key mode map "gg" 'evil-goto-first-line)
     (evil-define-key mode map (kbd "C-d") 'evil-scroll-down)
-    (evil-define-key mode map (kbd "C-u") 'evil-scroll-up))
+    (evil-define-key mode map (kbd "C-u") 'evil-scroll-up)
+    (evil-define-key mode map (kbd "C-<SPC>") 'helm-M-x)
+    (bind-window-movements map mode))
+
+  (defun bind-window-movements (map mode)
+    (evil-define-key mode map "\C-h" 'windmove-left)
+    (evil-define-key mode map "\C-j" 'windmove-down)
+    (evil-define-key mode map "\C-k" 'windmove-up)
+    (evil-define-key mode map "\C-l" 'windmove-right))
 
   (require 'man)
   (bind-essential-evil Man-mode-map 'motion)
@@ -703,6 +712,12 @@
   (evil-set-initial-state 'occur-mode 'normal)
   (evil-define-key 'normal occur-mode-map (kbd "RET")
     'occur-mode-goto-occurrence)
+
+  ;; Evil window movement.
+  (define-key evil-normal-state-map "\C-h" 'windmove-left)
+  (define-key evil-normal-state-map "\C-j" 'windmove-down)
+  (define-key evil-normal-state-map "\C-k" 'windmove-up)
+  (define-key evil-normal-state-map "\C-l" 'windmove-right)
 
   ;; Dired maps
   (define-key evil-normal-state-map (kbd "-") 'dired-jump)
@@ -884,7 +899,7 @@
   (helm-mode 1)
   (helm-projectile-on)
 
-  (bind-key* "C-<SPC>" 'helm-M-x)
+  (bind-key "C-<SPC>" 'helm-M-x)
 
   (defvar helm-M-x-fuzzy-match t)
   (setq-default helm-ff-skip-boring-files t)
@@ -895,6 +910,8 @@
   (setq helm-external-programs-associations
     (quote (("html" . "chromium"))))
 
+  (define-key helm-map (kbd "C-j") 'helm-next-line)
+  (define-key helm-map (kbd "C-k") 'helm-previous-line)
   (define-key helm-map (kbd "C-o") 'helm-select-action)
   (define-key helm-map (kbd "C-;") 'helm-toggle-all-marks)
 
@@ -1085,7 +1102,11 @@
   (add-hook 'org-agenda-mode-hook
     (lambda ()
       (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
-      (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)))
+      (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
+      (define-key org-agenda-mode-map "\C-h" 'windmove-left)
+      (define-key org-agenda-mode-map "\C-j" 'windmove-down)
+      (define-key org-agenda-mode-map "\C-k" 'windmove-up)
+      (define-key org-agenda-mode-map "\C-l" 'windmove-right)))
 
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
