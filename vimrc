@@ -44,6 +44,9 @@ set undodir=~/.vimundo
 " Spelling
 setlocal spell
 
+" Completion
+set completeopt-=preview
+
 " Misc
 set gdefault
 set nonumber
