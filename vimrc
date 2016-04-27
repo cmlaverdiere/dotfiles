@@ -50,14 +50,11 @@ set completeopt-=preview
 " Misc
 set gdefault
 set nonumber
-set laststatus=2
+set laststatus=1
 set scrolloff=3
 set cryptmethod=blowfish2
 set timeoutlen=500
 set showcmd
-
-syntax on
-filetype plugin indent on
 
 " Plugins (mostly syntax files and motion extensions)
 runtime macros/matchit.vim
@@ -70,7 +67,7 @@ Plug 'wellle/targets.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
@@ -82,6 +79,9 @@ Plug 'kana/vim-textobj-user'
 Plug 'triglav/vim-visual-increment'
 Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
+
+filetype plugin indent on
+syntax off
 
 " Critical remaps
 map <Space> <Leader>
