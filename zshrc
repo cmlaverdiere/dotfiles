@@ -112,7 +112,7 @@ export SAVEHIST=1000000
 
 # fzf setup.
 alias fzf="fzf -m"
-. /etc/profile.d/fzf.zsh
+# . /usr/share/fzf/key-bindings.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 

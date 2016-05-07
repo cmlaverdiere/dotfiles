@@ -6,6 +6,9 @@ set shell=bash
 set background=dark
 set nocompatible
 
+" History settings
+set history=10000
+
 " Buffer settings
 set hidden
 
@@ -34,6 +37,10 @@ set wildmode=full
 " Scrolling
 set scrolloff=3
 
+" Folds
+set foldmethod=indent
+set nofoldenable
+
 " Backups
 set noswapfile
 set backup
@@ -42,7 +49,8 @@ set undofile
 set undodir=~/.vimundo
 
 " Spelling
-setlocal spell
+autocmd BufNewFile,BufRead *.txt setlocal spell
+autocmd BufNewFile,BufRead *.md setlocal spell
 
 " Completion
 set completeopt-=preview
@@ -53,14 +61,14 @@ set nonumber
 set laststatus=1
 set scrolloff=3
 set cryptmethod=blowfish2
-set timeoutlen=500
+set timeoutlen=1000
 set showcmd
 
 " Plugins (mostly syntax files and motion extensions)
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
-Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
+" Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
