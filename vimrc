@@ -67,9 +67,11 @@ set showcmd
 " Plugins (mostly syntax files and motion extensions)
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
 Plug 'tomtom/tcomment_vim'
@@ -79,6 +81,7 @@ Plug 'PeterRincker/vim-argumentative'
 Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -127,16 +130,21 @@ nnoremap <silent> dsa ds}dF\
 inoremap <C-]> {<CR>}<esc>O
 
 " Leader Mappings
+" nnoremap <silent> <Leader>/ :Ag <CR>
+" nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>c :make<CR>
 nnoremap <Leader>d :cd %:p:h<CR>
+" nnoremap <Leader>f :Files<CR>
+" nnoremap <Leader>F :Files ~/.<CR>
+" nnoremap <Leader>g :Gstatus<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e ~/.vim/vimrc<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
-nnoremap <Leader>o <Plug>(altr-forward)
+" nnoremap <Leader>o :BLines<CR>
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
@@ -170,12 +178,6 @@ fun! RTW()
   call cursor(l, c)
 endfun
 command! RTW call RTW()
-
-" Disable folding in tex documents.
-au Filetype tex setlocal nofoldenable
-
-" Python specific indentation.
-au FileType python setlocal shiftwidth=4 tabstop=4
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
