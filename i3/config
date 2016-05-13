@@ -22,12 +22,14 @@ bindsym $mod+Shift+c kill
 
 # Application shortcuts.
 bindsym $mod+y exec chromium
+bindsym $mod+e exec emacsclient -c -a ""
 bindsym $mod+s exec skype
 bindsym $mod+t exec thunar
 
 # Application classes.
 for_window [class="Thunar"] floating enable
 for_window [class="Skype"] floating enable
+for_window [class="Emacs"] floating enable
 
 # start dmenu (a program launcher)
 bindsym $mod+o exec dmenu_run
@@ -40,6 +42,10 @@ bindsym $mod+l focus right
 bindsym $mod+n workspace next_on_output
 bindsym $mod+p workspace prev_on_output
 bindsym $mod+semicolon focus right
+
+# Rotate workspace on next monitor
+bindsym $mod+period focus output right; workspace next_on_output; focus output left
+bindsym $mod+comma focus output right; workspace prev_on_output; focus output left
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -65,7 +71,7 @@ bindsym $mod+m fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 # bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+f floating toggle
@@ -110,19 +116,10 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
