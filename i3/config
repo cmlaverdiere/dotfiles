@@ -40,11 +40,12 @@ bindsym $mod+9 workspace 9
 bindsym $mod+apostrophe focus mode_toggle
 bindsym $mod+button3 floating toggle
 bindsym $mod+comma focus output right; workspace prev_on_output; focus output left
-bindsym $mod+b exec quickswitch.py -m
+bindsym $mod+b workspace back_and_forth
 bindsym $mod+c split v
 bindsym $mod+d layout toggle split
 bindsym $mod+e exec emacsclient -c -a ""
 bindsym $mod+f exec quickswitch.py
+bindsym $mod+g exec quickswitch.py -m
 bindsym $mod+h focus left
 bindsym $mod+i exec dmenu_run -b -i -l 20
 bindsym $mod+j focus down
@@ -71,11 +72,13 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+c kill
+bindsym $mod+Shift+comma move workspace to output left
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes' 'i3-msg exit'"
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+bindsym $mod+Shift+period move workspace to output right
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x reload
 bindsym $mod+s layout tabbed
@@ -111,6 +114,7 @@ mode "resize" {
         bindsym j resize grow height 5 px or 5 ppt
         bindsym k resize shrink height 5 px or 5 ppt
         bindsym l resize grow width 5 px or 5 ppt
+        bindsym q mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
