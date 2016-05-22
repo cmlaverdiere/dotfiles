@@ -67,8 +67,8 @@ set showcmd
 " Plugins (mostly syntax files and motion extensions)
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -85,8 +85,8 @@ Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
 Plug 'triglav/vim-visual-increment'
 Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
@@ -130,13 +130,13 @@ nnoremap <silent> dsa ds}dF\
 inoremap <C-]> {<CR>}<esc>O
 
 " Leader Mappings
-" nnoremap <silent> <Leader>/ :Ag <CR>
-" nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>/ :Ag <CR>
+nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>c :make<CR>
 nnoremap <Leader>d :cd %:p:h<CR>
-" nnoremap <Leader>f :Files<CR>
-" nnoremap <Leader>F :Files ~/.<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>F :Files ~/.<CR>
 " nnoremap <Leader>g :Gstatus<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
@@ -144,7 +144,7 @@ nnoremap <Leader>i :e ~/.vim/vimrc<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
-" nnoremap <Leader>o :BLines<CR>
+nnoremap <Leader>o :BLines<CR>
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
