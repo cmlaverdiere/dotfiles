@@ -137,7 +137,7 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>c :make<CR>
 nnoremap <Leader>d :cd %:p:h<CR>
 nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>F :Files ~/.<CR>
+nnoremap <Leader>F :Files ~/<CR>
 " nnoremap <Leader>g :Gstatus<CR>
 noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
