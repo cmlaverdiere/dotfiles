@@ -147,6 +147,7 @@ nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>o :BLines<CR>
+nmap <Leader>O <Plug>(altr-forward)
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
