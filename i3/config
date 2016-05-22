@@ -6,6 +6,7 @@
 # nitrogen: wallpaper manager
 # parcellite: unified clipboard
 # xfce4-power-manager: laptop power functions
+# xfce4-screenshooter: screenshots
 #
 # Optional deps:
 # https://github.com/proxypoke/quickswitch-for-i3
@@ -20,6 +21,7 @@ font pango:DejaVu Sans Mono 8
 new_window pixel 1
 hide_edge_borders both
 workspace_auto_back_and_forth yes
+focus_follows_mouse no
 
 
 # --- Maps --- #
@@ -35,23 +37,25 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
+bindsym $mod+apostrophe focus mode_toggle
 bindsym $mod+button3 floating toggle
 bindsym $mod+comma focus output right; workspace prev_on_output; focus output left
+bindsym $mod+b exec quickswitch.py -m
 bindsym $mod+c split v
 bindsym $mod+d layout toggle split
 bindsym $mod+e exec emacsclient -c -a ""
 bindsym $mod+f exec quickswitch.py
 bindsym $mod+h focus left
-bindsym $mod+i exec quickswitch.py -m
+bindsym $mod+i exec dmenu_run -b -i -l 20
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+m fullscreen toggle
 bindsym $mod+minus exec transset-df -a --dec 0.125
 bindsym $mod+n workspace next_on_output
-bindsym $mod+o exec dmenu_run -b -i -l 20
 bindsym $mod+period focus output right; workspace next_on_output; focus output left
 bindsym $mod+plus exec transset-df -a --inc 0.125
+bindsym $mod+o focus output right
 bindsym $mod+p workspace prev_on_output
 bindsym $mod+r mode "resize"
 bindsym $mod+Return exec i3-sensible-terminal
@@ -79,6 +83,7 @@ bindsym $mod+space floating toggle
 bindsym $mod+t exec thunar
 bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
 bindsym $mod+v split h
+bindsym $mod+x exec xfce4-screenshooter
 bindsym $mod+y exec chromium
 
 # Mouse maps
@@ -94,7 +99,9 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 for_window [class="Thunar"] floating enable
 for_window [class="Skype"] floating enable
+for_window [class="mpv"] floating enable
 for_window [title="opengl test demo"] floating enable
+for_window [title="transcribe"] floating enable
 
 
 # --- Modes --- #
