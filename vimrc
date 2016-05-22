@@ -79,6 +79,7 @@ Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
+Plug 'szw/vim-g'
 Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
 " Plug 'tpope/vim-fugitive'
@@ -138,6 +139,7 @@ nnoremap <Leader>d :cd %:p:h<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>F :Files ~/.<CR>
 " nnoremap <Leader>g :Gstatus<CR>
+noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e ~/.vim/vimrc<CR>
