@@ -65,13 +65,14 @@ set timeoutlen=1000
 set showcmd
 
 " Plugins (mostly syntax files and motion extensions)
+" MVPs: kana, tpope
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
-" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
 Plug 'tomtom/tcomment_vim'
@@ -80,9 +81,9 @@ Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'szw/vim-g'
-Plug 'tikhomirov/vim-glsl'
+" Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -134,11 +135,13 @@ inoremap <C-]> {<CR>}<esc>O
 nnoremap <silent> <Leader>/ :Ag <CR>
 nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :make<CR>
+nnoremap <Leader>C :BCommits<CR>
 nnoremap <Leader>d :cd %:p:h<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>F :Files ~/<CR>
-" nnoremap <Leader>g :Gstatus<CR>
+nnoremap <Leader>g :Gstatus<CR>
 noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
