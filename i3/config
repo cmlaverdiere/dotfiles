@@ -88,6 +88,7 @@ bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
 bindsym $mod+v split h
 bindsym $mod+x exec xfce4-screenshooter
 bindsym $mod+y exec chromium
+bindsym $mod+slash exec cr
 
 # Mouse maps
 bindsym button3 floating toggle
