@@ -1,5 +1,6 @@
 " Chris Laverdiere's vimrc
 " Requires: plug.vim
+" Optional: ctags, fzf, git
 
 " Shell compatibility settings.
 set shell=bash
@@ -75,7 +76,6 @@ Plug 'morhetz/gruvbox'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
-Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -83,6 +83,8 @@ Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'szw/vim-g'
 " Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -130,6 +132,7 @@ inoremap <C-l> <esc><C-w>l
 " Misc maps
 nnoremap <silent> dsa ds}dF\
 inoremap <C-]> {<CR>}<esc>O
+imap <c-x><c-g> <plug>(fzf-complete-path)
 
 " Leader Mappings
 nnoremap <silent> <Leader>/ :Ag <CR>
