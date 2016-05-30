@@ -20,6 +20,7 @@ alias ke="killall emacs"
 alias matlab="ssh -X umbc 'matlab'"
 alias python="ipython"
 alias rh="runhaskell"
+alias open="xdg-open"
 alias temp="acpi -t"
 alias tmux="tmux -2"
 
@@ -117,13 +118,13 @@ alias fzf="fzf -m"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 
-fe() {
-  IFS='
-'
-  local declare files=($(fzf-tmux --query="$1" --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-  unset IFS
-}
+# fe() {
+#   IFS='
+# '
+#   local declare files=($(fzf-tmux --query="$1" --select-1 --exit-0))
+#   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+#   unset IFS
+# }
 
 # virtualenv setup (uncomment for speed).
 # export WORKON_HOME=~/.virtualenvs

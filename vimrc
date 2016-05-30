@@ -1,6 +1,6 @@
 " Chris Laverdiere's vimrc
 " Requires: plug.vim
-" Optional: ctags, fzf, git
+" Optional: ctags, fzf, git, cppman, pylint
 
 " Shell compatibility settings.
 set shell=bash
@@ -76,6 +76,7 @@ Plug 'morhetz/gruvbox'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
+Plug 'SirVer/ultisnips'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -87,12 +88,14 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'triglav/vim-visual-increment'
 Plug 'nelstrom/vim-visual-star-search'
+
 call plug#end()
 
 filetype plugin indent on
@@ -133,6 +136,7 @@ inoremap <C-l> <esc><C-w>l
 nnoremap <silent> dsa ds}dF\
 inoremap <C-]> {<CR>}<esc>O
 imap <c-x><c-g> <plug>(fzf-complete-path)
+nnoremap gK :!cppman <C-r><C-w><CR>
 
 " Leader Mappings
 nnoremap <silent> <Leader>/ :Ag <CR>
@@ -169,7 +173,7 @@ nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
-nnoremap <Leader>T :!ctags -R<CR>
+nnoremap <Leader>T :!ctags -R<CR><CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>w :w<CR>
@@ -187,6 +191,10 @@ fun! RTW()
   call cursor(l, c)
 endfun
 command! RTW call RTW()
+
+" Python: use pydoc for man-pages
+au FileType python setlocal keywordprg=pydoc
+au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
