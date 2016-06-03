@@ -7,8 +7,9 @@
 # parcellite: unified clipboard
 # xfce4-power-manager: laptop power functions
 # xfce4-screenshooter: screenshots
+# xwcd: grab cwd of current window (https://github.com/schischi/xcwd)
 #
-# Optional deps:
+# Optional i3 extensions:
 # https://github.com/proxypoke/quickswitch-for-i3
 # > pip install i3-py quickswitch-i3
 
@@ -59,7 +60,7 @@ bindsym $mod+plus exec transset-df -a --inc 0.125
 bindsym $mod+o focus output right
 bindsym $mod+p workspace prev_on_output
 bindsym $mod+r mode "resize"
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt -cd "`xcwd`"
 bindsym $mod+semicolon exec slock
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+1 move container to workspace 1
@@ -81,6 +82,7 @@ bindsym $mod+Shift+l move right
 bindsym $mod+Shift+period move workspace to output right
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x reload
+bindsym $mod+Shift+y exec qutebrowser
 bindsym $mod+s layout tabbed
 bindsym $mod+space floating toggle
 bindsym $mod+t exec thunar
