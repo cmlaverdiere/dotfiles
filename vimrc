@@ -2,6 +2,8 @@
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
 
+" TODO try editorconfig
+
 " Shell compatibility settings.
 set shell=bash
 set background=dark
@@ -77,6 +79,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
 Plug 'SirVer/ultisnips'
+Plug 'mbbill/undotree'
 Plug 'kana/vim-altr'
 Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -174,6 +177,7 @@ nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>T :!ctags -R<CR><CR>
+nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>w :w<CR>
