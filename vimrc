@@ -176,7 +176,7 @@ nnoremap <Leader>sap vip:sort<CR>
 nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
-nnoremap <Leader>T :!ctags -R<CR><CR>
+nnoremap <Leader>T :!ctags -R --exclude=.tox<CR><CR>
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <Leader>V :sp<CR>
