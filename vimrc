@@ -94,7 +94,7 @@ Plug 'tpope/vim-repeat'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'jpalardy/vim-slime', { 'for': 'python' }
+Plug 'jpalardy/vim-slime', { 'for': ['python', 'ruby'] }
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'triglav/vim-visual-increment'

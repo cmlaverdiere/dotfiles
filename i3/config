@@ -7,7 +7,7 @@
 # parcellite: unified clipboard
 # xfce4-power-manager: laptop power functions
 # xfce4-screenshooter: screenshots
-# xwcd: grab cwd of current window (https://github.com/schischi/xcwd)
+# xcwd: grab cwd of current window (https://github.com/schischi/xcwd)
 #
 # Optional i3 extensions:
 # https://github.com/proxypoke/quickswitch-for-i3
@@ -38,7 +38,7 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+apostrophe focus mode_toggle
+bindsym $mod+apostrophe scratchpad show
 bindsym $mod+button3 floating toggle
 bindsym $mod+comma focus output right; workspace prev_on_output; focus output left
 bindsym $mod+b workspace back_and_forth
@@ -46,7 +46,7 @@ bindsym $mod+c split v
 bindsym $mod+d layout toggle split
 bindsym $mod+e exec emacsclient -c -a ""
 bindsym $mod+f exec quickswitch.py
-bindsym $mod+g exec quickswitch.py -m
+bindsym $mod+g exec urxvt -cd "`xcwd`" -e tig
 bindsym $mod+h focus left
 bindsym $mod+i exec dmenu_run -b -i -l 20
 bindsym $mod+j focus down
@@ -75,6 +75,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+c kill
 bindsym $mod+Shift+comma move workspace to output left
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes' 'i3-msg exit'"
+bindsym $mod+Shift+f exec quickswitch.py -m
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -123,6 +124,11 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
+
+# -- Scratchpad --- #
+for_window [title="__scratchpad"] move scratchpad
+exec --no-startup-id urxvt -e vim ~/.__scratchpad
 
 
 # --- i3bar Config --- #
