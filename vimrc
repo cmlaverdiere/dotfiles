@@ -94,6 +94,7 @@ Plug 'tpope/vim-repeat'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'triglav/vim-visual-increment'
@@ -172,8 +173,8 @@ nnoremap <Leader>rb :!ruby %<CR>
 nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
 nnoremap <Leader>rs :!Rscript %<CR>
-nnoremap <Leader>sap vip:sort<CR>
-nnoremap <Leader>scm :!racket -r %<CR>
+" nnoremap <Leader>sap vip:sort<CR>
+" nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>T :!ctags -R --exclude=.tox<CR><CR>
@@ -205,6 +206,17 @@ au BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :call RTW()
+
+" Slime (for REPLs)
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "0"}
+let g:slime_no_mappings = 1
+let g:slime_dont_ask_default = 1
+let g:slime_python_ipython = 1
+xmap <leader>s <Plug>SlimeRegionSend
+nmap <leader>s <Plug>SlimeMotionSend
+nmap <leader>ss <Plug>SlimeLineSend
 
 " Disable ftplugin-mail maps.
 let no_mail_maps=1
