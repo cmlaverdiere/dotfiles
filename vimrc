@@ -94,9 +94,11 @@ Plug 'tpope/vim-repeat'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'jpalardy/vim-slime', { 'for': ['python', 'ruby'] }
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
+Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'triglav/vim-visual-increment'
 Plug 'nelstrom/vim-visual-star-search'
 
