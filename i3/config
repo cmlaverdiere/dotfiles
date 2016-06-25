@@ -127,6 +127,7 @@ mode "resize" {
 
 
 # -- Scratchpad --- #
+
 for_window [title="__scratchpad"] move scratchpad
 exec --no-startup-id urxvt -e vim ~/.__scratchpad
 
