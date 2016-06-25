@@ -1,0 +1,233 @@
+" Chris Laverdiere's vimrc
+" Requires: plug.vim
+" Optional: ctags, fzf, git, cppman, pylint
+
+" TODO try editorconfig
+
+" Shell compatibility settings.
+set shell=bash
+set background=dark
+set nocompatible
+
+" History settings
+set history=10000
+
+" Buffer settings
+set hidden
+
+" Case settings
+set ignorecase
+set smartcase
+
+" Clipboard settings
+set clipboard=unnamedplus
+
+" Search settings
+set incsearch
+set hlsearch
+
+" Tabbing / Indentation
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set autoindent
+set textwidth=79
+set wildmenu
+set wildmode=full
+" set colorcolumn=81
+
+" Scrolling
+set scrolloff=3
+
+" Folds
+set foldmethod=indent
+set nofoldenable
+
+" Backups
+set noswapfile
+set backup
+set backupdir=~/.vimbak
+set undofile
+set undodir=~/.vimundo
+
+" Spelling
+autocmd BufNewFile,BufRead *.txt setlocal spell
+autocmd BufNewFile,BufRead *.md setlocal spell
+
+" Completion
+set completeopt-=preview
+
+" Misc
+set gdefault
+set nonumber
+set laststatus=1
+set scrolloff=3
+set cryptmethod=blowfish2
+set timeoutlen=1000
+set showcmd
+
+" Plugins (mostly syntax files and motion extensions)
+" MVPs: kana, tpope
+runtime macros/matchit.vim
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
+" Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'godlygeek/tabular'
+Plug 'wellle/targets.vim'
+Plug 'SirVer/ultisnips'
+Plug 'mbbill/undotree'
+Plug 'kana/vim-altr'
+Plug 'PeterRincker/vim-argumentative'
+" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
+Plug 'szw/vim-g'
+" Plug 'tikhomirov/vim-glsl'
+Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'jpalardy/vim-slime', { 'for': ['python', 'ruby'] }
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'bps/vim-textobj-python', { 'for': 'python' }
+Plug 'triglav/vim-visual-increment'
+Plug 'nelstrom/vim-visual-star-search'
+
+call plug#end()
+
+filetype plugin indent on
+syntax off
+
+" Critical remaps
+map <Space> <Leader>
+nnoremap Y y$
+inoremap jk <esc>
+nnoremap ' `
+nnoremap ` '
+
+" Repeat maps
+vnoremap . :normal .<CR>
+xnoremap @q :normal @q<CR>
+
+" Spelling maps
+inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
+nnoremap <C-y> [s1z=<c-o>
+
+" Window resize maps
+nnoremap <Left> 5<C-w><
+nnoremap <Right> 5<C-w>>
+nnoremap <Up> 5<C-w>-
+nnoremap <Down> 5<C-w>+
+
+" Window movement maps
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+inoremap <C-h> <esc><C-w>h
+inoremap <C-j> <esc><C-w>j
+inoremap <C-k> <esc><C-w>k
+inoremap <C-l> <esc><C-w>l
+
+" Misc maps
+nnoremap <silent> dsa ds}dF\
+inoremap <C-]> {<CR>}<esc>O
+imap <c-x><c-g> <plug>(fzf-complete-path)
+nnoremap gK :!cppman <C-r><C-w><CR>
+
+" Leader Mappings
+nnoremap <silent> <Leader>/ :Ag <CR>
+nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
+nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>c :make<CR>
+nnoremap <Leader>C :BCommits<CR>
+nnoremap <Leader>d :cd %:p:h<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>F :Files ~/<CR>
+nnoremap <Leader>g :Gstatus<CR>
+noremap <Leader>G :Google<CR>
+nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
+nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
+nnoremap <Leader>i :e ~/.vim/vimrc<CR>
+nnoremap <silent> <Leader>n :nohlsearch<CR>
+nnoremap <Leader>me :au BufWritePost * make<CR>
+nnoremap <Leader>mt :make tests<CR>
+nnoremap <Leader>o :BLines<CR>
+nmap <Leader>O <Plug>(altr-forward)
+nnoremap <Leader>p2 :!python2 %<CR>
+nnoremap <Leader>p3 :!python3 %<CR>
+nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
+nnoremap <Leader>pi :PlugInstall<CR>
+nnoremap <Leader>pl :!perl %<CR>
+nnoremap <Leader>py :!python %<CR>
+nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>rb :!ruby %<CR>
+nnoremap <Leader>rh :!runhaskell %<CR>
+nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
+nnoremap <Leader>rs :!Rscript %<CR>
+" nnoremap <Leader>sap vip:sort<CR>
+" nnoremap <Leader>scm :!racket -r %<CR>
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
+nnoremap <Leader>T :!ctags -R --exclude=.tox<CR><CR>
+nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
+nnoremap <Leader>v :vs<CR>
+nnoremap <Leader>V :sp<CR>
+nnoremap <Leader>w :w<CR>
+
+xnoremap <Leader>bc :!bc -l<CR>
+xnoremap <Leader>pe :!python <CR>
+
+set pastetoggle=<Leader>pt
+
+" Remove trailing whitespace function.
+fun! RTW()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+command! RTW call RTW()
+
+" Python: use pydoc for man-pages
+au FileType python setlocal keywordprg=pydoc
+au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
+
+" Markdown compatibility.
+au BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Remove trailing whitespace on save.
+autocmd BufWritePre * :call RTW()
+
+" Slime (for REPLs)
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "0"}
+let g:slime_no_mappings = 1
+let g:slime_dont_ask_default = 1
+let g:slime_python_ipython = 1
+xmap <leader>s <Plug>SlimeRegionSend
+nmap <leader>s <Plug>SlimeMotionSend
+nmap <leader>ss <Plug>SlimeLineSend
+
+" Disable ftplugin-mail maps.
+let no_mail_maps=1
+
+" Add to jumplist for multi j/k jumps.
+nnoremap <silent> k :<C-U>execute 'normal!'
+      \ (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
+nnoremap <silent> j :<C-U>execute 'normal!'
+      \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
+
+" Color scheme must be loaded at the end.
+colorscheme gruvbox
