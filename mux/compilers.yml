@@ -1,9 +1,0 @@
-# ~/.tmuxinator/compilers.yml
-
-name: compilers
-root: ~/Class/cpl/proj1/
-
-windows:
-  - system: tree
-  - dev: cd src; vim -O parser.yy scanner.l
-  - test: cd tests;
