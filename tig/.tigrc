@@ -1,0 +1,2 @@
+bind status P !git push
+bind status F !git pull
