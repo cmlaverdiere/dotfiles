@@ -1,0 +1,5 @@
+--python-kinds=-i
+--exclude=.tox
+--exclude=bower_components
+--exclude=node_modules
+--exclude=dist
