@@ -90,7 +90,7 @@ Plug 'szw/vim-g'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
@@ -154,7 +154,7 @@ nnoremap <Leader>c :make<CR>
 nnoremap <Leader>C :BCommits<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>F :Files ~/<CR>
-nnoremap <Leader>g :Gstatus<CR>
+" nnoremap <Leader>g :Gstatus<CR>
 noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
