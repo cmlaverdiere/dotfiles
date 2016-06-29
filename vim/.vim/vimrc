@@ -74,6 +74,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'godlygeek/tabular'
@@ -151,7 +152,6 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :make<CR>
 nnoremap <Leader>C :BCommits<CR>
-nnoremap <Leader>d :cd %:p:h<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>F :Files ~/<CR>
 nnoremap <Leader>g :Gstatus<CR>
@@ -200,8 +200,14 @@ endfun
 command! RTW call RTW()
 
 " Python: use pydoc for man-pages
-au FileType python setlocal keywordprg=pydoc
+" au FileType python setlocal keywordprg=pydoc
 au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
+
+" Python jedi (static analysis)
+au Filetype python set omnifunc=jedi#completions
+let g:jedi#auto_initialization = 0
+nnoremap <silent> <buffer> K :call jedi#show_documentation()<CR>
+nnoremap <silent> <buffer> g :call jedi#goto()<CR>
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
