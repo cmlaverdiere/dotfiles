@@ -206,8 +206,8 @@ au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
 " Python jedi (static analysis)
 au Filetype python set omnifunc=jedi#completions
 let g:jedi#auto_initialization = 0
-nnoremap <silent> <buffer> K :call jedi#show_documentation()<CR>
-nnoremap <silent> <buffer> g :call jedi#goto()<CR>
+nnoremap <silent> K :call jedi#show_documentation()<CR>
+nnoremap <silent> g :call jedi#goto()<CR>
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
