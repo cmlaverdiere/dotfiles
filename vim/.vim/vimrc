@@ -78,13 +78,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'godlygeek/tabular'
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'godlygeek/tabular'
 Plug 'wellle/targets.vim'
 Plug 'SirVer/ultisnips'
 Plug 'mbbill/undotree'
 Plug 'kana/vim-altr'
-Plug 'PeterRincker/vim-argumentative'
+" Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'szw/vim-g'
