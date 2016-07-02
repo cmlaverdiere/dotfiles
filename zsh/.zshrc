@@ -62,6 +62,9 @@ alias temp="acpi -t"
 alias tmux="tmux -2"
 alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
 alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
+alias ls="ls --color=auto"
+alias ll="ls -l --color=auto"
+alias la="ls -a --color=auto"
 
 # Aliases (Arch)
 alias pac="\pacman"
@@ -121,7 +124,6 @@ bindkey '^P' cdParent
 
 # fzf setup
 alias fzf="fzf -m"
-# . /usr/share/fzf/key-bindings.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 
