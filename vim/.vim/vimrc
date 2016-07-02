@@ -205,10 +205,10 @@ command! RTW call RTW()
 au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
 " Python jedi (static analysis)
-au Filetype python set omnifunc=jedi#completions
 let g:jedi#auto_initialization = 0
-nnoremap <silent> K :call jedi#show_documentation()<CR>
-nnoremap <silent> g :call jedi#goto()<CR>
+au Filetype python set omnifunc=jedi#completions
+au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
+au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
