@@ -1,18 +1,55 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# Zsh config
+# Optional deps:
+# zsh-syntax-highlighting
+# zsh-history-substring-search
+# autojump
+# fzf
 
-# Set name of the theme to load.
-ZSH_THEME="nanotech"
-
-# Default browser
+# Defaults
 BROWSER="chromium"
+EDITOR='vim'
 
-# Preferred editor for local and remote sessions
-export EDITOR='vim'
+# Completion
+zstyle :compinstall filename '/home/chris/.zshrc'
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+setopt COMPLETE_ALIASES
 
-# Aliases #
+# Misc settings
+bindkey -v
+autoload -Uz colors && colors
 
-# General
+# Directory stack
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME PUSHD_IGNORE_DUPS PUSHD_MINUS
+
+# Prompt
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '^'
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' formats '%c%u %b%f'
+zstyle ':vcs_info:*' enable git
+vcs_info_wrapper() {
+  vcs_info
+  if [ -n "$vcs_info_msg_0_" ]; then
+    echo "${vcs_info_msg_0_}"
+  fi
+}
+PROMPT='%2c [%f '
+RPROMPT='$(vcs_info_wrapper) ] %D{%L:%M} %D{%p}%f'
+autoload -Uz promptinit
+promptinit
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt appendhistory extendedglob
+setopt HIST_IGNORE_DUPS
+
+# Aliases (General)
 alias df="df -h"
 alias du="du -h"
 alias em="emacsclient -c -a \"\""
@@ -23,20 +60,22 @@ alias rh="runhaskell"
 alias open="xdg-open"
 alias temp="acpi -t"
 alias tmux="tmux -2"
+alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
+alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
 
-# Ubuntu
-alias acs="apt-cache search"
-alias aps="apt search"
-alias go="gnome-open"
-alias sagi="sudo apt-get install"
-
-# Arch
+# Aliases (Arch)
 alias pac="\pacman"
 alias pacman="sudo pacman"
 alias pup="sudo pacman -Syu"
 alias pi="sudo pacman -S"
 
-# File aliases
+# Aliases (Ubuntu)
+alias acs="apt-cache search"
+alias aps="apt search"
+alias go="gnome-open"
+alias sagi="sudo apt-get install"
+
+# Aliases (Files)
 alias blog="vim ~/documents/Misc/blog.txt"
 alias books="vim ~/documents/Misc/books.txt"
 alias dreamj="vim ~/documents/Misc/dreams.txt"
@@ -56,82 +95,54 @@ alias vimrc="vim ~/.vim/vimrc"
 alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
 
-# alias for mkdir and cd into it.
+# Functions
 mkcd(){
   mkdir $1
   cd $1
 }
 
-# Quick math operations using python interpreter
-math(){
-  python -c "from math import *; print($*)"
+cdChild() {
+  popd > /dev/null
+  zle reset-prompt
 }
 
-# Marks
-export MARKPATH=$HOME/.marks
-function jump {
-  cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
-}
-function mark {
-  mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
-}
-function unmark {
-  rm -i $MARKPATH/$1
-}
-function marks {
-  ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
+cdParent() {
+  pushd .. > /dev/null
+  zle reset-prompt
 }
 
-# How often oh-my-zsh updates.
-# export UPDATE_ZSH_DAYS=30
-DISABLE_AUTO_UPDATE="true"
-
-# All plugins.
-plugins=(git history vi-mode history-substring-search autojump)
-
-# Autojump
-[[ -s /home/chris/.autojump/etc/profile.d/autojump.sh ]] && source /home/chris/.autojump/etc/profile.d/autojump.sh
-
-# Load oh-my-zsh.
-source $ZSH/oh-my-zsh.sh
-
-# Syntax highlighting.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Ruby path.
-export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
-export GEM_HOME=$(ruby -e 'print Gem.user_dir')
-
-# Rust path.
-export RUST_SRC_PATH=/usr/src/rust/src
+zle -N cdChild
+zle -N cdParent
+bindkey '^N' cdChild
+bindkey '^P' cdParent
 
 # Start X on login.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
-# A sane amount of history.
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-
-# fzf setup.
+# fzf setup
 alias fzf="fzf -m"
 # . /usr/share/fzf/key-bindings.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 
-# fe() {
-#   IFS='
-# '
-#   local declare files=($(fzf-tmux --query="$1" --select-1 --exit-0))
-#   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-#   unset IFS
-# }
+# Autojump setup
+[[ -s /home/chris/.autojump/etc/profile.d/autojump.sh ]] && source /home/chris/.autojump/etc/profile.d/autojump.sh
 
-# virtualenv setup (uncomment for speed).
+# Syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Reverse history substring search
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Rust path
+export RUST_SRC_PATH=/usr/src/rust/src
+
+# Virtualenv setup (uncomment for speed).
 # export WORKON_HOME=~/.virtualenvs
 # export PROJECT_HOME=~/devel/python/projects
 # source /usr/bin/virtualenvwrapper.sh
 
-alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
-alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
-
+# Fix vim colors with gruvbox.
 source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
