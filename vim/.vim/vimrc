@@ -114,6 +114,7 @@ nnoremap Y y$
 inoremap jk <esc>
 nnoremap ' `
 nnoremap ` '
+nnoremap - :Ex<CR>
 
 " Repeat maps
 vnoremap . :normal .<CR>
