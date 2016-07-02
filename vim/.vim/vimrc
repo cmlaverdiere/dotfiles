@@ -56,6 +56,7 @@ autocmd BufNewFile,BufRead *.txt setlocal spell
 autocmd BufNewFile,BufRead *.md setlocal spell
 
 " Completion
+" set completeopt=longest
 set completeopt-=preview
 
 " Misc
@@ -71,6 +72,7 @@ set showcmd
 " MVPs: kana, tpope
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
+Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
@@ -199,6 +201,10 @@ fun! RTW()
   call cursor(l, c)
 endfun
 command! RTW call RTW()
+
+" Clang complete (for c/c++)
+let g:clang_library_path='/usr/lib'
+let g:clang_complete_auto=0
 
 " Python: use pydoc for man-pages
 " au FileType python setlocal keywordprg=pydoc
