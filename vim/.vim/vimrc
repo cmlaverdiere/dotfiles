@@ -148,6 +148,13 @@ inoremap <C-]> {<CR>}<esc>O
 imap <c-x><c-g> <plug>(fzf-complete-path)
 nnoremap gK :!cppman <C-r><C-w><CR>
 
+" Commands
+function! s:EditSameDir(filename)
+    let l:newfile = expand('%:p:h') . '/' . a:filename
+    execute 'edit' l:newfile
+endfunction
+command! -nargs=1 E call s:EditSameDir(<f-args>)
+
 " Leader Mappings
 nnoremap <silent> <Leader>/ :Ag <CR>
 nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
