@@ -72,6 +72,7 @@ set showcmd
 " MVPs: kana, tpope
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -86,7 +87,7 @@ Plug 'mbbill/undotree'
 Plug 'kana/vim-altr'
 " Plug 'PeterRincker/vim-argumentative'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
+" Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'szw/vim-g'
 " Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
