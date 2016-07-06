@@ -224,6 +224,8 @@ au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
 " Python jedi (static analysis)
 let g:jedi#auto_initialization = 0
+let g:jedi#show_call_signatures = 2
+au Filetype python call jedi#configure_call_signatures()
 au Filetype python set omnifunc=jedi#completions
 au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
 au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
