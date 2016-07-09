@@ -3,3 +3,6 @@
 --exclude=bower_components
 --exclude=node_modules
 --exclude=dist
+--c++-kinds=+p
+--fields=+iaS
+--extra=+q
