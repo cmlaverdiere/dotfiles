@@ -46,7 +46,7 @@ bindsym $mod+c split v
 bindsym $mod+d layout toggle split
 bindsym $mod+e exec emacsclient -c -a ""
 bindsym $mod+f exec quickswitch.py
-bindsym $mod+g exec urxvt -cd "`xcwd`" -e tig
+bindsym $mod+g exec urxvt -cd "`xcwd`" -e tig status
 bindsym $mod+h focus left
 bindsym $mod+i exec dmenu_run -b -i -l 20
 bindsym $mod+j focus down
