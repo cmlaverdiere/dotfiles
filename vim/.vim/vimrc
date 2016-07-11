@@ -86,7 +86,7 @@ Plug 'SirVer/ultisnips'
 Plug 'mbbill/undotree'
 Plug 'kana/vim-altr'
 " Plug 'PeterRincker/vim-argumentative'
-" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 " Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'szw/vim-g'
 " Plug 'tikhomirov/vim-glsl'
@@ -109,7 +109,7 @@ Plug 'nelstrom/vim-visual-star-search'
 call plug#end()
 
 filetype plugin indent on
-syntax off
+syntax on
 
 " Critical remaps
 map <Space> <Leader>
