@@ -127,6 +127,10 @@ alias fzf="fzf -m"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 
+# Ruby path. Comment out for speed.
+# export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
+# export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+
 # Autojump setup
 [[ -s /home/chris/.autojump/etc/profile.d/autojump.sh ]] && source /home/chris/.autojump/etc/profile.d/autojump.sh
 
@@ -141,7 +145,7 @@ bindkey '^[[B' history-substring-search-down
 # Rust path
 export RUST_SRC_PATH=/usr/src/rust/src
 
-# Virtualenv setup (uncomment for speed).
+# Virtualenv setup. Comment out for speed.
 # export WORKON_HOME=~/.virtualenvs
 # export PROJECT_HOME=~/devel/python/projects
 # source /usr/bin/virtualenvwrapper.sh
