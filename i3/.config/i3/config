@@ -87,7 +87,7 @@ bindsym $mod+Shift+x reload
 bindsym $mod+Shift+y exec qutebrowser
 bindsym $mod+s layout tabbed
 bindsym $mod+space floating toggle
-bindsym $mod+t exec thunar
+bindsym $mod+t exec urxvt -cd "`xcwd`" -e ranger
 bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
 bindsym $mod+v split h
 bindsym $mod+x exec xkill
