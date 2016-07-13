@@ -73,7 +73,7 @@ set showcmd
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
-Plug 'Chun-Yang/vim-action-ag' | Plug 'rking/ag.vim'
+Plug 'mhinz/vim-grepper'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -213,6 +213,11 @@ command! RTW call RTW()
 
 " FZF
 let g:fzf_command_prefix = 'FZF'
+
+" Vim-grepper
+let g:grepper = {'tools': ['ag'], 'open': 0, 'jump': 1, 'prompt': 0}
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
 
 " Clang complete (for c/c++)
 let g:clang_library_path='/usr/lib'
