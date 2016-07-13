@@ -73,6 +73,7 @@ set showcmd
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
+Plug 'Chun-Yang/vim-action-ag' | Plug 'rking/ag.vim'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -157,14 +158,14 @@ endfunction
 command! -nargs=1 E call s:EditSameDir(<f-args>)
 
 " Leader Mappings
-nnoremap <silent> <Leader>/ :Ag <CR>
-nnoremap <silent> <Leader>. :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>/ :FZFAg <CR>
+nnoremap <silent> <Leader>. :FZFAg <C-R><C-W><CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>b :FZFBuffers<CR>
 nnoremap <Leader>c :make<CR>
 nnoremap <Leader>C :BCommits<CR>
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>F :Files ~/<CR>
+nnoremap <Leader>f :FZFFiles<CR>
+nnoremap <Leader>F :FZFFiles ~/<CR>
 " nnoremap <Leader>g :Gstatus<CR>
 noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
@@ -173,7 +174,7 @@ nnoremap <Leader>i :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
-nnoremap <Leader>o :BLines<CR>
+nnoremap <Leader>o :FZFBLines<CR>
 nmap <Leader>O <Plug>(altr-forward)
 nnoremap <Leader>p2 :!python2 %<CR>
 nnoremap <Leader>p3 :!python3 %<CR>
@@ -209,6 +210,12 @@ fun! RTW()
   call cursor(l, c)
 endfun
 command! RTW call RTW()
+
+" Ag
+let g:ag_qhandler=""
+
+" FZF
+let g:fzf_command_prefix = 'FZF'
 
 " Clang complete (for c/c++)
 let g:clang_library_path='/usr/lib'
