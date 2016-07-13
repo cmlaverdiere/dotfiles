@@ -211,9 +211,6 @@ fun! RTW()
 endfun
 command! RTW call RTW()
 
-" Ag
-let g:ag_qhandler=""
-
 " FZF
 let g:fzf_command_prefix = 'FZF'
 
