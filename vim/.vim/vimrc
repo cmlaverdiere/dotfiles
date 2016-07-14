@@ -52,8 +52,8 @@ set undofile
 set undodir=~/.vimundo
 
 " Spelling
-autocmd BufNewFile,BufRead *.txt setlocal spell
-autocmd BufNewFile,BufRead *.md setlocal spell
+au BufNewFile,BufRead *.txt setlocal spell
+au BufNewFile,BufRead *.md setlocal spell
 
 " Completion
 " set completeopt=longest
@@ -237,10 +237,13 @@ au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
 " Python jedi (static analysis)
 let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 2
-au Filetype python call jedi#configure_call_signatures()
-au Filetype python set omnifunc=jedi#completions
-au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
-au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
+aug jedi_group
+    au!
+    au Filetype python call jedi#configure_call_signatures()
+    au Filetype python set omnifunc=jedi#completions
+    au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
+    au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
+aug END
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md set filetype=markdown
@@ -248,8 +251,11 @@ au BufNewFile,BufReadPost *.md set filetype=markdown
 " Ultisnips
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips/"
 
-" Remove trailing whitespace on save.
-autocmd BufWritePre * :call RTW()
+aug prewrite_group
+    au!
+    " Remove trailing whitespace on save.
+    autocmd BufWritePre * :call RTW()
+aug END
 
 " Slime (for REPLs)
 let g:slime_target = "tmux"
