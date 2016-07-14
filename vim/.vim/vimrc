@@ -218,6 +218,9 @@ let g:clang_complete_macros=1
 let g:clang_make_default_keymappings=0
 au Filetype c,cpp nnoremap <silent> g :call g:ClangGotoDeclaration()<CR>
 
+" Cpp highlighting
+let g:cpp_class_scope_highlight = 1
+
 " Python: use pydoc for man-pages
 " au FileType python setlocal keywordprg=pydoc
 au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
