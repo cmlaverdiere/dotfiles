@@ -86,7 +86,6 @@ Plug 'wellle/targets.vim'
 Plug 'SirVer/ultisnips'
 Plug 'mbbill/undotree'
 Plug 'kana/vim-altr'
-" Plug 'PeterRincker/vim-argumentative'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 " Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
 Plug 'szw/vim-g'
@@ -94,7 +93,6 @@ Plug 'szw/vim-g'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
@@ -166,7 +164,6 @@ nnoremap <Leader>c :make<CR>
 nnoremap <Leader>C :BCommits<CR>
 nnoremap <Leader>f :FZFFiles<CR>
 nnoremap <Leader>F :FZFFiles ~/<CR>
-" nnoremap <Leader>g :Gstatus<CR>
 noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
