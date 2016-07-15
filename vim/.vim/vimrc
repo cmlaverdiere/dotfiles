@@ -18,6 +18,7 @@ set hidden
 " Case settings
 set ignorecase
 set smartcase
+set infercase
 
 " Clipboard settings
 set clipboard=unnamedplus
@@ -51,7 +52,8 @@ set backupdir=~/.vimbak
 set undofile
 set undodir=~/.vimundo
 
-" Spelling
+" Spelling / Dictionary
+set dictionary=/usr/share/dict/cracklib-small
 au BufNewFile,BufRead *.txt setlocal spell
 au BufNewFile,BufRead *.md setlocal spell
 
@@ -182,7 +184,7 @@ nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rb :!ruby %<CR>
 nnoremap <Leader>rh :!runhaskell %<CR>
-nnoremap <Leader>rl :so ~/.vim/vimrc<CR>
+nnoremap <Leader>rl :so $MYVIMRC<CR>
 nnoremap <Leader>rs :!Rscript %<CR>
 " nnoremap <Leader>sap vip:sort<CR>
 " nnoremap <Leader>scm :!racket -r %<CR>
