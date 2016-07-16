@@ -206,9 +206,9 @@ command! RTW call RTW()
 let g:fzf_command_prefix = 'FZF'
 
 " Haskell
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-autocmd FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
-autocmd FileType haskell setlocal errorformat=
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+au FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
+au FileType haskell setlocal errorformat=
                 \%-G,
                 \%-Z\ %#,
                 \%W%f:%l:%c:\ Warning:\ %m,
@@ -261,7 +261,7 @@ let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips/"
 aug prewrite_group
     au!
     " Remove trailing whitespace on save.
-    autocmd BufWritePre * :call RTW()
+    au BufWritePre * :call RTW()
 aug END
 
 " Slime (for REPLs)
