@@ -90,7 +90,8 @@ Plug 'SirVer/ultisnips'
 Plug 'mbbill/undotree'
 Plug 'kana/vim-altr'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-" Plug 'kana/vim-filetype-haskell', { 'for': 'haskell' }
+Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'szw/vim-g'
 " Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
@@ -101,7 +102,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'jpalardy/vim-slime', { 'for': ['python', 'ruby'] }
+Plug 'jpalardy/vim-slime'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
@@ -202,6 +203,19 @@ command! RTW call RTW()
 
 " FZF
 let g:fzf_command_prefix = 'FZF'
+
+" Haskell
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+autocmd FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
+autocmd FileType haskell setlocal errorformat=
+                \%-G,
+                \%-Z\ %#,
+                \%W%f:%l:%c:\ Warning:\ %m,
+                \%E%f:%l:%c:\ %m,
+                \%E%>%f:%l:%c:,
+                \%+C\ \ %#%m,
+                \%W%>%f:%l:%c:,
+                \%+C\ \ %#%tarning:\ %m,
 
 " Vim-grepper
 let g:grepper = {'tools': ['ag'], 'open': 0, 'jump': 1, 'prompt': 0}
