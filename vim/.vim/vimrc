@@ -73,41 +73,42 @@ set showcmd
 " MVPs: kana, tpope
 runtime macros/matchit.vim
 call plug#begin('~/.vim/plugged')
-Plug 'junegunn/vim-plug'
-Plug 'mhinz/vim-grepper'
+
+" Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
+" Plug 'godlygeek/tabular'
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'tikhomirov/vim-glsl'
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
+Plug 'SirVer/ultisnips'
+Plug 'bps/vim-textobj-python', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'honza/vim-snippets'
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
+Plug 'jpalardy/vim-slime'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'milkypostman/vim-togglelist'
-" Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
-" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-" Plug 'godlygeek/tabular'
-Plug 'wellle/targets.vim'
-Plug 'SirVer/ultisnips'
-Plug 'mbbill/undotree'
+Plug 'junegunn/vim-plug'
 Plug 'kana/vim-altr'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-user'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-grepper'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'milkypostman/vim-togglelist'
+Plug 'morhetz/gruvbox'
+Plug 'nelstrom/vim-visual-star-search'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'szw/vim-g'
-" Plug 'tikhomirov/vim-glsl'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'jpalardy/vim-slime'
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire'
-Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'triglav/vim-visual-increment'
-Plug 'nelstrom/vim-visual-star-search'
+Plug 'wellle/targets.vim'
 
 call plug#end()
 
