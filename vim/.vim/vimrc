@@ -79,6 +79,7 @@ Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
