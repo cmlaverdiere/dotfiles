@@ -81,6 +81,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'milkypostman/vim-togglelist'
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Plug 'godlygeek/tabular'
@@ -170,6 +171,7 @@ noremap <Leader>G :Google<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e $MYVIMRC<CR>
+nnoremap <script> <silent> <leader>l :call ToggleQuickfixList()<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>o :FZFBLines<CR>
@@ -205,6 +207,9 @@ let g:fzf_command_prefix = 'FZF'
 let g:grepper = {'tools': ['ag'], 'open': 0, 'jump': 1, 'prompt': 0}
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
+
+" Toggle list
+let g:toggle_list_no_mappings = 1
 
 " Clang complete (for c/c++)
 let g:clang_library_path='/usr/lib'
