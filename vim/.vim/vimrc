@@ -36,7 +36,6 @@ set autoindent
 set textwidth=79
 set wildmenu
 set wildmode=full
-" set colorcolumn=81
 
 " Scrolling
 set scrolloff=3
@@ -171,23 +170,14 @@ nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>i :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>n :nohlsearch<CR>
-nnoremap <Leader>me :au BufWritePost * make<CR>
 nnoremap <Leader>mt :make tests<CR>
 nnoremap <Leader>o :FZFBLines<CR>
 nmap <Leader>O <Plug>(altr-forward)
-nnoremap <Leader>p2 :!python2 %<CR>
-nnoremap <Leader>p3 :!python3 %<CR>
 nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
 nnoremap <Leader>pi :PlugInstall<CR>
-nnoremap <Leader>pl :!perl %<CR>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
-nnoremap <Leader>rb :!ruby %<CR>
-nnoremap <Leader>rh :!runhaskell %<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
-nnoremap <Leader>rs :!Rscript %<CR>
-" nnoremap <Leader>sap vip:sort<CR>
-" nnoremap <Leader>scm :!racket -r %<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>T :!ctags -R<CR><CR>
@@ -195,9 +185,6 @@ nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>w :w<CR>
-
-xnoremap <Leader>bc :!bc -l<CR>
-xnoremap <Leader>pe :!python <CR>
 
 set pastetoggle=<Leader>pt
 
@@ -231,7 +218,7 @@ let g:cpp_class_scope_highlight = 1
 
 " Python: use pydoc for man-pages
 " au FileType python setlocal keywordprg=pydoc
-au FileType python set makeprg=pylint\ -r\ n\ -f\ parseable\ %
+au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
 " Python jedi (static analysis)
 let g:jedi#auto_initialization = 0
@@ -239,13 +226,13 @@ let g:jedi#show_call_signatures = 2
 aug jedi_group
     au!
     au Filetype python call jedi#configure_call_signatures()
-    au Filetype python set omnifunc=jedi#completions
+    au Filetype python setlocal omnifunc=jedi#completions
     au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
     au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
 aug END
 
 " Markdown compatibility.
-au BufNewFile,BufReadPost *.md set filetype=markdown
+au BufNewFile,BufReadPost *.md setlocal filetype=markdown
 
 " Ultisnips
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips/"
