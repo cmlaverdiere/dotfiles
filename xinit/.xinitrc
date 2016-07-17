@@ -32,7 +32,9 @@ parcellite &
 # i3 startup
 # sleep 2 && xrandr --output HDMI1 --auto --left-of LVDS1
 sleep 2 && xrandr --output LVDS1 --pos 1920x600 --output HDMI1 --mode 1920x1200 --pos 0x0
-# compton &
+compton &
 nitrogen --restore
+# xrandr --setprovideroffloadsink "TURKS @ pci:0000:01:00.0" Intel
 xfce4-power-manager
 exec i3
+

@@ -98,8 +98,12 @@ alias vimrc="vim ~/.vim/vimrc"
 alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
 
+gpu() {
+    DRI_PRIME=1 $@
+}
+
 # Functions
-mkcd(){
+mkcd() {
   mkdir $1
   cd $1
 }
