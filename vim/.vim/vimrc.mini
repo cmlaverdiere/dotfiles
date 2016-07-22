@@ -1,0 +1,90 @@
+" Chris Laverdiere's mini vimrc
+
+" Essentials
+set nocompatible
+set history=10000
+set hidden
+set ignorecase
+set smartcase
+set infercase
+set incsearch
+set hlsearch
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set autoindent
+set textwidth=79
+set wildmenu
+set wildmode=full
+set scrolloff=3
+set foldmethod=indent
+set nofoldenable
+set noswapfile
+set backup
+set backupdir=~/.vimbak
+set undofile
+set undodir=~/.vimundo
+set completeopt-=preview
+set gdefault
+set nonumber
+set laststatus=1
+set scrolloff=3
+set cryptmethod=blowfish2
+set timeoutlen=1000
+set showcmd
+
+" Filetype settings
+filetype plugin indent on
+syntax on
+
+" Critical remaps
+map <Space> <Leader>
+nnoremap Y y$
+inoremap jk <esc>
+nnoremap ' `
+nnoremap ` '
+nnoremap - :Ex<CR>
+
+" Repeat maps
+vnoremap . :normal .<CR>
+xnoremap @q :normal @q<CR>
+
+" Spelling maps
+inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
+nnoremap <C-y> [s1z=<c-o>
+
+" Window resize maps
+nnoremap <Left> 5<C-w><
+nnoremap <Right> 5<C-w>>
+nnoremap <Up> 5<C-w>-
+nnoremap <Down> 5<C-w>+
+
+" Window movement maps
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+inoremap <C-h> <esc><C-w>h
+inoremap <C-j> <esc><C-w>j
+inoremap <C-k> <esc><C-w>k
+inoremap <C-l> <esc><C-w>l
+
+" Misc maps
+nnoremap <silent> dsa ds}dF\
+inoremap <C-]> {<CR>}<esc>O
+
+" Leader Mappings
+nnoremap <Leader>c :make<CR>
+nnoremap <Leader>i :e $MYVIMRC<CR>
+nnoremap <silent> <Leader>n :nohlsearch<CR>
+nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>v :vs<CR>
+nnoremap <Leader>V :sp<CR>
+nnoremap <Leader>w :w<CR>
+
+" Add to jumplist for multi j/k jumps.
+nnoremap <silent> k :<C-U>execute 'normal!'
+      \ (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
+nnoremap <silent> j :<C-U>execute 'normal!'
+      \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
