@@ -65,6 +65,7 @@ alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
 alias ls="ls --color=auto"
 alias ll="ls -l --color=auto"
 alias la="ls -a --color=auto"
+alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
 
 # Aliases (Arch)
 alias pac="\pacman"
