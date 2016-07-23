@@ -6,7 +6,7 @@
 (require 'package)
 (setq package-archives '(
   ("melpa" . "https://melpa.milkbox.net/packages/")
-  ("gnu" . "https://elpa.gnu.org/packages/")
+  ("gnu"   . "https://elpa.gnu.org/packages/")
 ))
 
 (setq package-enable-at-startup nil)
@@ -41,7 +41,6 @@
   evil-leader
   evil-magit
   evil-matchit
-  evil-mu4e
   evil-numbers
   evil-surround
   evil-visualstar
@@ -123,7 +122,7 @@
 
 ;; Frame settings
 (add-to-list 'default-frame-alist '(height . 24))
-(add-to-list 'default-frame-alist '(width . 80))
+(add-to-list 'default-frame-alist '(width  . 80))
 
 ;; Backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -545,8 +544,7 @@
          magit-process-mode magit-reflog-mode magit-refs-mode
          magit-revision-mode magit-stash-mode magit-stashes-mode
          magit-status-mode Man-mode doc-view-mode help-mode
-         compilation-mode org-agenda-mode mu4e-main-mode
-         mu4e-headers-mode mu4e-org-mode mu4e-view-mode
+         compilation-mode org-agenda-mode
          term-mode)))
 
   (use-package evil-exchange
@@ -572,7 +570,6 @@
       "d" 'eval-defun
       "D" 'helm-projectile-find-dir
       "e" 'eval-last-sexp
-      "E" 'mu4e-open-inbox
       "g" 'magit-status
       "h" help-map
       "G" 'google-this
@@ -952,62 +949,6 @@
     '(add-to-list 'company-backends 'company-irony))
 
   (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))
-
-
-;;; Mu4e ;;;
-
-;; Deps: mu, gnutls, offlineimap
-(require 'mu4e)
-
-(setq-default mu4e-maildir "~/mail")
-(setq-default mu4e-drafts-folder "/[Gmail].Drafts")
-(setq-default mu4e-sent-folder "/[Gmail].Sent Mail")
-(setq-default mu4e-trash-folder "/[Gmail].Trash")
-
-(setq-default mu4e-update-interval (* 60 5))
-(setq mu4e-headers-auto-update t)
-
-(setq-default mu4e-sent-message-behavior 'delete)
-(setq-default auth-source-save-behavior nil)
-
-(setq-default mu4e-maildir-shortcuts
-  '(("/INBOX"               . ?i)
-     ("/[Gmail].Sent Mail"   . ?s)
-     ("/[Gmail].Trash"       . ?t)
-     ("/[Gmail].All Mail"    . ?a)))
-
-(setq-default mu4e-get-mail-command "offlineimap -q -f INBOX")
-
-(defun mu4e-open-inbox ()
-  (interactive)
-  (mu4e~headers-jump-to-maildir "/INBOX"))
-
-(setq-default
-  user-mail-address "cmlaverdiere@gmail.com"
-  user-full-name  "Chris Laverdiere")
-
-(require 'smtpmail)
-(setq-default message-send-mail-function 'smtpmail-send-it
-  smtpmail-stream-type 'starttls
-  smtpmail-default-smtp-server "smtp.gmail.com"
-  smtpmail-smtp-server "smtp.gmail.com"
-  smtpmail-smtp-service 587)
-
-(setq message-kill-buffer-on-exit t)
-
-(require 'org-mu4e)
-(setq org-mu4e-convert-to-html t)
-
-(require 'evil-mu4e)
-
-(dolist (map '(mu4e-headers-mode-map
-                mu4e-main-mode-map
-                mu4e-view-mode-map
-                mu4e-compose-mode-map))
-  (evil-define-key evil-mu4e-state map "\C-h" 'windmove-left)
-  (evil-define-key evil-mu4e-state map "\C-j" 'windmove-down)
-  (evil-define-key evil-mu4e-state map "\C-k" 'windmove-up)
-  (evil-define-key evil-mu4e-state map "\C-l" 'windmove-right))
 
 
 (use-package magit
