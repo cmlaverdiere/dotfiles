@@ -53,10 +53,10 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+m fullscreen toggle
-bindsym $mod+minus exec transset-df -a --dec 0.125
+bindsym $mod+minus exec transset-df -a --dec 0.05
 bindsym $mod+n workspace next_on_output
 bindsym $mod+period focus output right; workspace next_on_output; focus output left
-bindsym $mod+plus exec transset-df -a --inc 0.125
+bindsym $mod+plus exec transset-df -a --inc 0.05
 bindsym $mod+o focus output right
 bindsym $mod+p workspace prev_on_output
 bindsym $mod+r mode "resize"
