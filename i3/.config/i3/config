@@ -23,6 +23,7 @@ new_window pixel 1
 hide_edge_borders both
 workspace_auto_back_and_forth yes
 focus_follows_mouse no
+gaps inner 15
 
 
 # --- Maps --- #
@@ -38,30 +39,9 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+apostrophe scratchpad show
-bindsym $mod+button3 floating toggle
-bindsym $mod+comma focus output right; workspace prev_on_output; focus output left
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+c split v
-bindsym $mod+d layout toggle split
-bindsym $mod+e exec emacsclient -c -a ""
-bindsym $mod+f exec quickswitch.py
-bindsym $mod+g exec urxvt -cd "`xcwd`" -e tig status
-bindsym $mod+h focus left
-bindsym $mod+i exec dmenu_run -b -i -l 20
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-bindsym $mod+m fullscreen toggle
-bindsym $mod+minus exec transset-df -a --dec 0.05
-bindsym $mod+n workspace next_on_output
-bindsym $mod+period focus output right; workspace next_on_output; focus output left
-bindsym $mod+plus exec transset-df -a --inc 0.05
-bindsym $mod+o focus output right
-bindsym $mod+p workspace prev_on_output
-bindsym $mod+r mode "resize"
+bindsym $mod+Left gaps inner all minus 5
 bindsym $mod+Return exec urxvt -cd "`xcwd`"
-bindsym $mod+semicolon exec slock
+bindsym $mod+Right gaps inner all plus 5
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -85,7 +65,31 @@ bindsym $mod+Shift+period move workspace to output right
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x reload
 bindsym $mod+Shift+y exec qutebrowser
+bindsym $mod+apostrophe scratchpad show
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+button3 floating toggle
+bindsym $mod+c split v
+bindsym $mod+comma focus output right; workspace prev_on_output; focus output left
+bindsym $mod+d layout toggle split
+bindsym $mod+e exec emacsclient -c -a ""
+bindsym $mod+f exec quickswitch.py
+bindsym $mod+g exec urxvt -cd "`xcwd`" -e tig status
+bindsym $mod+h focus left
+bindsym $mod+i exec dmenu_run -b -i -l 20
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+m fullscreen toggle
+bindsym $mod+minus exec transset-df -a --dec 0.05
+bindsym $mod+n workspace next_on_output
+bindsym $mod+o focus output right
+bindsym $mod+p workspace prev_on_output
+bindsym $mod+period focus output right; workspace next_on_output; focus output left
+bindsym $mod+plus exec transset-df -a --inc 0.05
+bindsym $mod+r mode "resize"
 bindsym $mod+s layout tabbed
+bindsym $mod+semicolon exec slock
+bindsym $mod+slash exec cr
 bindsym $mod+space floating toggle
 bindsym $mod+t exec urxvt -cd "`xcwd`" -e ranger
 bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
@@ -93,7 +97,6 @@ bindsym $mod+v split h
 bindsym $mod+x exec xkill
 bindsym $mod+y exec chromium
 bindsym $mod+z exec xfce4-screenshooter
-bindsym $mod+slash exec cr
 
 # Mouse maps
 bindsym button3 floating toggle
