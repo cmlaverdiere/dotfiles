@@ -39,9 +39,10 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+Left gaps inner all minus 5
+bindsym $mod+Down gaps outer current minus 5
+bindsym $mod+Left gaps inner current minus 5
 bindsym $mod+Return exec urxvt -cd "`xcwd`"
-bindsym $mod+Right gaps inner all plus 5
+bindsym $mod+Right gaps inner current plus 5
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -65,6 +66,7 @@ bindsym $mod+Shift+period move workspace to output right
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x reload
 bindsym $mod+Shift+y exec qutebrowser
+bindsym $mod+Up gaps outer current plus 5
 bindsym $mod+apostrophe scratchpad show
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+button3 floating toggle
