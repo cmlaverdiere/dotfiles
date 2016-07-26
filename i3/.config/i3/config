@@ -121,13 +121,13 @@ for_window [title="transcribe"] floating enable
 # --- Modes --- #
 
 mode "resize" {
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
-        bindsym q mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+    bindsym q mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 
@@ -140,7 +140,25 @@ exec --no-startup-id urxvt -e vim ~/.__scratchpad
 # --- i3bar Config --- #
 
 bar {
-        mode hide
-        status_command i3status
-        font pango:DejaVu Sans Mono 10
+    mode hide
+    status_command i3status
+    font pango:DejaVu Sans Mono 10
+
+    colors {
+        separator #928374
+        background #282828
+        statusline #ebdbb2
+        focused_workspace #689d6a #689d6a #282828
+        active_workspace #1d2021 #1d2021 #928374
+        inactive_workspace #32302f #32302f #928374
+        urgent_workspace #cc241d #cc241d #ebdbb2
+    }
 }
+
+
+# --- Colors --- #
+
+client.focused #689d6a #689d6a #282828 #282828
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
+client.unfocused #32302f #32302f #928374 #282828
+client.urgent #cc241d #cc241d #ebdbb2 #282828
