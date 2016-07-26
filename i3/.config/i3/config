@@ -88,14 +88,15 @@ bindsym $mod+o focus output right
 bindsym $mod+p workspace prev_on_output
 bindsym $mod+period focus output right; workspace next_on_output; focus output left
 bindsym $mod+plus exec transset-df -a --inc 0.05
-bindsym $mod+r mode "resize"
+bindsym $mod+r exec urxvt -cd "`xcwd`" -e ranger
 bindsym $mod+s layout tabbed
 bindsym $mod+semicolon exec slock
 bindsym $mod+slash exec cr
 bindsym $mod+space floating toggle
-bindsym $mod+t exec urxvt -cd "`xcwd`" -e ranger
+bindsym $mod+t exec thunar "`xcwd`"
 bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
 bindsym $mod+v split h
+bindsym $mod+w mode "resize"
 bindsym $mod+x exec xkill
 bindsym $mod+y exec chromium
 bindsym $mod+z exec xfce4-screenshooter
