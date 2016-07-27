@@ -100,6 +100,7 @@ bindsym $mod+w mode "resize"
 bindsym $mod+x exec xkill
 bindsym $mod+y exec chromium
 bindsym $mod+z exec xfce4-screenshooter
+bindsym $mod+Tab move workspace to output right
 
 # Mouse maps
 bindsym button3 floating toggle
