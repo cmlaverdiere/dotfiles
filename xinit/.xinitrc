@@ -23,6 +23,9 @@ unclutter &
 # Clipboard management
 parcellite &
 
+# Dropbox syncing
+dropbox &
+
 # Caps lock as escape when pressed
 # xcape -e 'Control_L=Escape'
 
