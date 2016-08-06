@@ -93,6 +93,7 @@ Plug 'junegunn/vim-plug'
 Plug 'kana/vim-altr'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
+Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'michaeljsmith/vim-indent-object'
@@ -263,6 +264,11 @@ aug prewrite_group
     " Remove trailing whitespace on save.
     au BufWritePre * :call RTW()
 aug END
+
+" Ledger
+let g:ledger_align_at = 40
+au Filetype ledger nnoremap <leader>c :make -f % balance<CR>
+au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
 " Slime (for REPLs)
 let g:slime_target = "tmux"
