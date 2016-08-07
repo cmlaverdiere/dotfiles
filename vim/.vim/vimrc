@@ -132,6 +132,9 @@ xnoremap @q :normal @q<CR>
 inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <C-y> [s1z=<c-o>
 
+" Mouse scrolling
+set mouse=a
+
 " Window resize maps
 nnoremap <Left> 5<C-w><
 nnoremap <Right> 5<C-w>>

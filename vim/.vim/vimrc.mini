@@ -1,38 +1,39 @@
 " Chris Laverdiere's mini vimrc
 
 " Essentials
-set nocompatible
-set history=10000
-set hidden
-set ignorecase
-set smartcase
-set infercase
-set incsearch
-set hlsearch
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set smarttab
 set autoindent
-set textwidth=79
-set wildmenu
-set wildmode=full
-set scrolloff=3
-set foldmethod=indent
-set nofoldenable
-set noswapfile
 set backup
 set backupdir=~/.vimbak
-set undofile
-set undodir=~/.vimundo
 set completeopt-=preview
-set gdefault
-set nonumber
-set laststatus=1
-set scrolloff=3
 set cryptmethod=blowfish2
-set timeoutlen=1000
+set expandtab
+set foldmethod=indent
+set gdefault
+set hidden
+set history=10000
+set hlsearch
+set ignorecase
+set incsearch
+set infercase
+set laststatus=1
+set mouse=a
+set nocompatible
+set nofoldenable
+set nonumber
+set noswapfile
+set scrolloff=3
+set scrolloff=3
+set shiftwidth=4
 set showcmd
+set smartcase
+set smarttab
+set tabstop=4
+set textwidth=79
+set timeoutlen=1000
+set undodir=~/.vimundo
+set undofile
+set wildmenu
+set wildmode=full
 
 " Filetype settings
 filetype plugin indent on
