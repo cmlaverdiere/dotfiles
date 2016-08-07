@@ -267,7 +267,8 @@ aug END
 
 " Ledger
 let g:ledger_align_at = 40
-au Filetype ledger nnoremap <leader>c :make -f % balance<CR>
+au Filetype ledger nnoremap <buffer> <leader>c :setlocal makeprg=ledger \
+            \| make -f % balance<CR>
 au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
 " Slime (for REPLs)

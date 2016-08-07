@@ -66,6 +66,7 @@ alias ls="ls --color=auto"
 alias ll="ls -l --color=auto"
 alias la="ls -a --color=auto"
 alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
+alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
 
 # Aliases (Arch)
