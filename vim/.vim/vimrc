@@ -93,6 +93,7 @@ Plug 'junegunn/vim-plug'
 Plug 'kana/vim-altr'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
+Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'michaeljsmith/vim-indent-object'
@@ -130,6 +131,9 @@ xnoremap @q :normal @q<CR>
 " Spelling maps
 inoremap <C-y> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <C-y> [s1z=<c-o>
+
+" Mouse scrolling
+set mouse=a
 
 " Window resize maps
 nnoremap <Left> 5<C-w><
@@ -263,6 +267,12 @@ aug prewrite_group
     " Remove trailing whitespace on save.
     au BufWritePre * :call RTW()
 aug END
+
+" Ledger
+let g:ledger_align_at = 40
+au Filetype ledger nnoremap <buffer> <leader>c :setlocal makeprg=ledger \
+            \| make -f % balance<CR>
+au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
 " Slime (for REPLs)
 let g:slime_target = "tmux"
