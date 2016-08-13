@@ -8,6 +8,7 @@
 # Defaults
 BROWSER="chromium"
 EDITOR='vim'
+LEDGER_FILE='~/finance/ledger.ldg'
 
 # Completion
 zstyle :compinstall filename '/home/chris/.zshrc'
@@ -90,7 +91,6 @@ alias fishrc="vim ~/.config/fish/config.fish"
 alias fit="vim ~/fitness/fit.log"
 alias ideas="vim ~/documents/Misc/ideas.txt"
 alias i3rc="vim ~/.config/i3/config"
-alias fin="ledger -f ~/finance/ledger.ldg"
 alias goals="vim ~/documents/Misc/goals.txt"
 alias led="vim ~/finance/ledger.ldg"
 alias links="vim ~/documents/Misc/links.txt"
