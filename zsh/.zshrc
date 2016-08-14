@@ -12,10 +12,14 @@ LEDGER_FILE='~/finance/ledger.ldg'
 
 # Completion
 zstyle :compinstall filename '/home/chris/.zshrc'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+setopt completeinword
+setopt COMPLETE_ALIASES
+setopt extendedglob
+unsetopt CASE_GLOB
 autoload -Uz compinit
 compinit
-zstyle ':completion:*' menu select
-setopt COMPLETE_ALIASES
 
 # Misc settings
 bindkey -v
