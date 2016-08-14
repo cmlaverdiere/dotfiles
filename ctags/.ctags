@@ -2,7 +2,9 @@
 --exclude=.tox
 --exclude=bower_components
 --exclude=node_modules
+--exclude=site-packages
 --exclude=dist
+--exclude=*sphinx*
 --c++-kinds=+p
 --fields=+iaS
 --extra=+q

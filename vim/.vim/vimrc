@@ -210,6 +210,7 @@ command! RTW call RTW()
 let g:fzf_command_prefix = 'FZF'
 
 " Haskell
+au FileType haskell nnoremap <buffer> <Leader>T :!hasktags .<CR><CR>
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 au FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
 au FileType haskell setlocal errorformat=
