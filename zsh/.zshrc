@@ -129,6 +129,17 @@ zle -N cdParent
 bindkey '^N' cdChild
 bindkey '^P' cdParent
 
+# Handle updates to the window title.
+if [[ $TERM == 'rxvt-unicode-256color' ]]; then
+    function precmd {
+        print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
+    }
+
+    function preexec {
+        printf "\033]0;%s\a" "$1"
+    }
+fi
+
 # Start X on login.
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
