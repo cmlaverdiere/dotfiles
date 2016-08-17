@@ -51,6 +51,10 @@ set backupdir=~/.vimbak
 set undofile
 set undodir=~/.vimundo
 
+" Man pages
+set keywordprg=:Man
+let g:ft_man_open_mode = 'vert'
+
 " Spelling / Dictionary
 set dictionary=/usr/share/dict/cracklib-small
 au BufNewFile,BufRead *.txt setlocal spell
@@ -72,6 +76,7 @@ set showcmd
 " Plugins (mostly syntax files and motion extensions)
 " MVPs: kana, tpope
 runtime macros/matchit.vim
+runtime ftplugin/man.vim
 call plug#begin('~/.vim/plugged')
 
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
