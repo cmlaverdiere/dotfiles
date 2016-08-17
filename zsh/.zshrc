@@ -157,7 +157,7 @@ bindkey '^O' fzf-cd-widget
 # export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
 # Autojump setup
-[[ -s /home/chris/.autojump/etc/profile.d/autojump.sh ]] && source /home/chris/.autojump/etc/profile.d/autojump.sh
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
