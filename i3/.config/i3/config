@@ -123,10 +123,10 @@ for_window [title="transcribe"] floating enable
 # --- Modes --- #
 
 mode "resize" {
-    bindsym h resize shrink width 5 px or 5 ppt
-    bindsym j resize grow height 5 px or 5 ppt
-    bindsym k resize shrink height 5 px or 5 ppt
-    bindsym l resize grow width 5 px or 5 ppt
+    bindsym h resize shrink width 3 px or 3 ppt
+    bindsym j resize grow height 3 px or 3 ppt
+    bindsym k resize shrink height 3 px or 3 ppt
+    bindsym l resize grow width 3 px or 3 ppt
     bindsym q mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
