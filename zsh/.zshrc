@@ -6,9 +6,10 @@
 # fzf
 
 # Defaults
-BROWSER="chromium"
-EDITOR='vim'
-LEDGER_FILE='~/finance/ledger.ldg'
+export BROWSER="chromium"
+export EDITOR='vim'
+export LEDGER_FILE='~/finance/ledger.ldg'
+export TERMINAL='urxvt'
 
 # Completion
 zstyle :compinstall filename '/home/chris/.zshrc'
