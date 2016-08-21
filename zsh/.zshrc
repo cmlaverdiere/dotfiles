@@ -9,6 +9,7 @@
 export BROWSER="chromium"
 export EDITOR='vim'
 export LEDGER_FILE='~/finance/ledger.ldg'
+export FIT_FILE='~/fitness/fit.log'
 export TERMINAL='urxvt'
 
 # Completion
@@ -25,6 +26,7 @@ compinit
 # Misc settings
 bindkey -v
 autoload -Uz colors && colors
+setopt interactivecomments
 
 # Directory stack
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME PUSHD_IGNORE_DUPS PUSHD_MINUS
@@ -93,12 +95,13 @@ alias books="vim ~/documents/Misc/books.txt"
 alias dreamj="vim ~/documents/Misc/dreams.txt"
 alias emrc="vim ~/.emacs.d/init.el"
 alias fishrc="vim ~/.config/fish/config.fish"
-alias fit="vim ~/fitness/fit.log"
+alias fit="python ~/devel/python/fit/fit.py"
+alias fitf="vim $FIT_FILE"
 alias ideas="vim ~/documents/Misc/ideas.txt"
 alias i3rc="vim ~/.config/i3/config"
-alias fin="vim ~/finance/ledger.ldg"
+alias ledf="vim $LEDGER_FILE"
 alias goals="vim ~/documents/Misc/goals.txt"
-alias led="ledger -f $LEDGER_FILE"
+alias led="ledger"
 alias links="vim ~/documents/Misc/links.txt"
 alias rss="vim ~/documents/Misc/rss.txt"
 alias robots="vim ~/documents/Misc/robots.txt"
