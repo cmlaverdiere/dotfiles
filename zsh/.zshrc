@@ -175,6 +175,7 @@ bindkey '^[[B' history-substring-search-down
 
 # Rust path
 export RUST_SRC_PATH=/usr/src/rust/src
+export PATH=/home/chris/.cargo/bin:$PATH
 
 # Virtualenv setup. Comment out for speed.
 # export WORKON_HOME=~/.virtualenvs
