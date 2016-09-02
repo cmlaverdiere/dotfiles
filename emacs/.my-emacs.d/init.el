@@ -1051,7 +1051,7 @@
 
   (evil-leader/set-key-for-mode 'org-mode
     "A" 'org-agenda
-    "D" 'org-archive-subtree
+    "D" 'org-archive-done
     "P" 'org-export-latex-no-preamble
     "r" 'org-latex-export-to-pdf
     ">" 'org-metaright

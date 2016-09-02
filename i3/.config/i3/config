@@ -91,7 +91,8 @@ bindsym $mod+plus exec transset-df -a --inc 0.05
 bindsym $mod+r exec urxvt -cd "`xcwd`" -e ranger
 bindsym $mod+s layout tabbed
 bindsym $mod+semicolon exec slock
-bindsym $mod+slash exec cr
+bindsym $mod+slash exec cr r
+bindsym $mod+Shift+slash exec cr t
 bindsym $mod+space floating toggle
 bindsym $mod+t exec thunar "`xcwd`"
 bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'

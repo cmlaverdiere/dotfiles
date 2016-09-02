@@ -242,7 +242,8 @@ let g:clang_complete_auto=0
 let g:clang_user_options = '-std=c++11'
 let g:clang_complete_macros=1
 let g:clang_make_default_keymappings=0
-au Filetype c,cpp nnoremap <silent> g :call g:ClangGotoDeclaration()<CR>
+au Filetype c,cpp nnoremap <silent> <buffer> g
+    \ :call g:ClangGotoDeclaration()<CR>
 
 " Cpp highlighting
 let g:cpp_class_scope_highlight = 1
@@ -251,15 +252,17 @@ let g:cpp_class_scope_highlight = 1
 " au FileType python setlocal keywordprg=pydoc
 au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
-" Python jedi (static analysis)
+" Python jedi
 let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 2
 aug jedi_group
     au!
     au Filetype python call jedi#configure_call_signatures()
     au Filetype python setlocal omnifunc=jedi#completions
-    au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
-    au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
+    au Filetype python nnoremap <silent> <buffer> K
+        \ :call jedi#show_documentation()<CR>
+    au Filetype python nnoremap <silent> <buffer> g
+        \ :call jedi#goto()<CR>
 aug END
 
 " Markdown compatibility.
