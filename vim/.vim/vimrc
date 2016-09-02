@@ -81,8 +81,9 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 " Plug 'godlygeek/tabular'
-" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Plug 'tikhomirov/vim-glsl'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
@@ -242,7 +243,8 @@ let g:clang_complete_auto=0
 let g:clang_user_options = '-std=c++11'
 let g:clang_complete_macros=1
 let g:clang_make_default_keymappings=0
-au Filetype c,cpp nnoremap <silent> g :call g:ClangGotoDeclaration()<CR>
+au Filetype c,cpp nnoremap <silent> <buffer> g
+    \ :call g:ClangGotoDeclaration()<CR>
 
 " Cpp highlighting
 let g:cpp_class_scope_highlight = 1
@@ -251,15 +253,30 @@ let g:cpp_class_scope_highlight = 1
 " au FileType python setlocal keywordprg=pydoc
 au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
-" Python jedi (static analysis)
+" Python jedi
 let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 2
 aug jedi_group
     au!
     au Filetype python call jedi#configure_call_signatures()
     au Filetype python setlocal omnifunc=jedi#completions
-    au Filetype python nnoremap <silent> K :call jedi#show_documentation()<CR>
-    au Filetype python nnoremap <silent> g :call jedi#goto()<CR>
+    au Filetype python nnoremap <silent> <buffer> K
+        \ :call jedi#show_documentation()<CR>
+    au Filetype python nnoremap <silent> <buffer> g
+        \ :call jedi#goto()<CR>
+aug END
+
+" Rust racer
+let g:racer_no_default_keymappings = 1
+aug rust_group
+    au!
+    au Filetype rust compiler rustc
+    au Filetype rust nnoremap <silent><buffer> <Plug>RacerGoToDefinitionDrect
+        \ :call <SID>RacerGoToDefinition()<CR>
+    au Filetype rust nnoremap <silent><buffer> <Plug>RacerShowDocumentation
+        \ :call <SID>RacerShowDocumentation()<CR>
+    au Filetype rust nmap <buffer> g <Plug>RacerGoToDefinitionDrect
+    au Filetype rust nmap <buffer> K <Plug>RacerShowDocumentation
 aug END
 
 " Markdown compatibility.

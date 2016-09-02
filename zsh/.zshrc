@@ -30,6 +30,7 @@ compinit
 bindkey -v
 autoload -Uz colors && colors
 setopt interactivecomments
+tabs 4
 
 # Directory stack
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME PUSHD_IGNORE_DUPS PUSHD_MINUS
@@ -181,6 +182,7 @@ bindkey '^[[B' history-substring-search-down
 
 # Rust path
 export RUST_SRC_PATH=/usr/src/rust/src
+export PATH=/home/chris/.cargo/bin:$PATH
 
 # Virtualenv setup. Comment out for speed.
 # export WORKON_HOME=~/.virtualenvs
