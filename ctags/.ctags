@@ -5,6 +5,7 @@
 --exclude=site-packages
 --exclude=dist
 --exclude=*sphinx*
+--exclude=SDR_Requirements
 --c++-kinds=+p
 --fields=+iaS
 --extra=+q
