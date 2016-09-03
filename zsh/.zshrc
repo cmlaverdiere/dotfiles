@@ -12,6 +12,9 @@ export LEDGER_FILE='~/finance/ledger.ldg'
 export FIT_FILE='~/fitness/fit.log'
 export TERMINAL='urxvt'
 
+# Init vars
+ENABLE_GIT_STATUS=false
+
 # Completion
 zstyle :compinstall filename '/home/chris/.zshrc'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
@@ -47,7 +50,11 @@ vcs_info_wrapper() {
   fi
 }
 PROMPT='%2c [%f '
-RPROMPT='$(vcs_info_wrapper) ] %D{%L:%M} %D{%p}%f'
+if [[ "$ENABLE_GIT_STATUS" == true ]]; then
+    RPROMPT='$(vcs_info_wrapper) ] %D{%L:%M} %D{%p}%f'
+else
+    RPROMPT=' ] %D{%L:%M} %D{%p}%f'
+fi
 autoload -Uz promptinit
 promptinit
 
