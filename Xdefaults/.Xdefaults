@@ -1,6 +1,7 @@
 ! Requires perl extensions (urxvt-perls)
 
 *urxvt*scrollBar: false
+*urxvt*saveLines: 65535
 
 ! Choice of font
 *urxvt*.font: xft:Source\ Code\ Pro:Medium:size=10
