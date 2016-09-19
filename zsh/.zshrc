@@ -85,6 +85,11 @@ alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
 alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
 
+wbeam() {
+    find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
+        $(echo $1 | cut -f 1 -d '.').pdf"
+}
+
 # Aliases (Arch)
 alias pac="\pacman"
 alias pacman="sudo pacman"
@@ -108,6 +113,7 @@ alias fitf="vim $FIT_FILE"
 alias ideas="vim ~/documents/Misc/ideas.txt"
 alias i3rc="vim ~/.config/i3/config"
 alias ledf="vim $LEDGER_FILE"
+alias learn="vim ~/documents/Misc/learn.txt"
 alias goals="vim ~/documents/Misc/goals.txt"
 alias led="ledger"
 alias links="vim ~/documents/Misc/links.txt"

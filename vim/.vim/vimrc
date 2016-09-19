@@ -194,6 +194,7 @@ nnoremap <Leader>pi :PlugInstall<CR>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
+nnoremap <Leader>ta vip!pandoc -t markdown<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>T :!ctags -R<CR><CR>
