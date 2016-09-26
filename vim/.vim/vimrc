@@ -117,6 +117,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'triglav/vim-visual-increment'
 Plug 'wellle/targets.vim'
+Plug 'nelstrom/vim-markdown-folding'
 
 call plug#end()
 
@@ -283,6 +284,7 @@ aug END
 
 " Markdown compatibility.
 au BufNewFile,BufReadPost *.md setlocal filetype=markdown
+au Filetype markdown setlocal commentstring=[//]:\ #\ (%s)
 
 " Ultisnips
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips/"
