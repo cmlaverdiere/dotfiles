@@ -72,6 +72,8 @@ set scrolloff=3
 set cryptmethod=blowfish2
 set timeoutlen=1000
 set showcmd
+set formatoptions+=jn
+set nojoinspaces
 
 " Plugins (mostly syntax files and motion extensions)
 " MVPs: kana, tpope
