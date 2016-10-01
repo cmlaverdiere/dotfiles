@@ -103,7 +103,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-night
+   dotspacemacs-themes '(gruvbox
+                         sanityinc-tomorrow-night
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
@@ -115,9 +116,9 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Roboto Mono"
                                :size 13
-                               :weight normal
+                               :weight medium
                                :width normal
                                :powerline-scale 1.3)
    ;; The leader key
@@ -259,8 +260,42 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
+  (setq-default vc-follow-symlinks t)
+
   ;; Cleaner mode-line style.
   (setq powerline-default-separator 'slant)
+
+  (defvar org-log-done t)
+
+  ;; Do not prompt for babel code execution
+  (setq-default org-confirm-babel-evaluate nil)
+
+  ;; Correct fonts for code blocks.
+  (setq-default org-src-fontify-natively t)
+
+  ;; Disable deadline warning in agenda
+  (setq-default org-agenda-skip-deadline-prewarning-if-scheduled t)
+
+  ;; Don't show DONE tasks in the agenda view.
+  (setq-default org-agenda-skip-scheduled-if-done t)
+
+  ;; Use am/pm in agenda view.
+  (setq-default org-agenda-timegrid-use-ampm t)
+
+  ;; Only show repeating events daily.
+  (setq-default org-agenda-repeating-timestamp-show-all nil)
+
+  ;; Properly indent src blocks.
+  (setq org-src-tab-acts-natively t)
+
+  (setq org-agenda-files '("~/org/tracking"))
+  (setq org-default-notes-file "~/org/notes.org")
+
+  ;; Capture templates
+  (defvar org-capture-templates
+    '(("d" "Dreams" entry
+       (file+headline "~/org/dream.org" "Dreams")
+       "*** %t\n")))
 
   (defun org-archive-done ()
     "Removes all DONE entries and places them into an archive file."
@@ -276,25 +311,32 @@ layers configuration. You are free to put any user code."
     "D" 'org-archive-done
     "r" 'org-latex-export-to-pdf)
 
+  (defun refresh-org-agenda-view ()
+    (if (and (eq major-mode 'org-mode)
+             (get-buffer-window "*Org Agenda*"))
+        (progn
+          (other-window 1)
+          (org-agenda-redo t)
+          (other-window -1))))
+  
+  (add-hook 'after-save-hook 'refresh-org-agenda-view)
+
   ;; Quick quit.
   (spacemacs/set-leader-keys "q SPC" 'evil-quit)
 
-  ;; Default evil-escape
-  ;; TODO disable evil-escape
+  ;; Evil escape mode
+  (setq-default evil-escape-delay 0.10)
   (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-inhibit-functions '(evil-visual-state-p))
+  (setq-default evil-escape-excluded-major-modes '(magit-mode magit-log-mode
+                magit-cherry-mode magit-diff-mode magit-log-mode
+                magit-log-select-mode magit-process-mode magit-reflog-mode
+                magit-refs-mode magit-revision-mode magit-stash-mode
+                magit-stashes-mode magit-status-mode Man-mode doc-view-mode
+                help-mode compilation-mode org-agenda-mode term-mode))
 
   (vi-tilde-fringe-mode nil)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
-
-  ;; Start global golden-ratio.
-  (spacemacs/toggle-golden-ratio-on)
-
-  ;; Slightly tweak the tomorrow-night theme.
-  (set-face-attribute 'fringe nil :background (face-background 'default))
-  (set-face-attribute 'mode-line nil :background (face-background 'default))
-  (set-face-attribute 'mode-line-inactive nil :background (face-background 'default)))
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+  )
