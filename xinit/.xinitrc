@@ -36,8 +36,8 @@ dropbox &
 # sleep 2 && xrandr --output HDMI1 --auto --left-of LVDS1
 sleep 2 && xrandr --output LVDS1 --pos 1920x600 --output HDMI1 --mode 1920x1200 --pos 0x0
 # compton --no-fading-openclose &
-compton --inactive-opacity 0.95 --active-opacity 0.95 &
-# compton &
+# compton --inactive-opacity 0.95 --active-opacity 0.95 &
+compton &
 nitrogen --restore
 # xrandr --setprovideroffloadsink "TURKS @ pci:0000:01:00.0" Intel
 xfce4-power-manager
