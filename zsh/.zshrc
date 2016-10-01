@@ -147,6 +147,14 @@ cdParent() {
   zle reset-prompt
 }
 
+reload_kbd() {
+    setxkbmap -option ctrl:rctrl
+    setxkbmap -option ctrl:swapcaps
+    setxkbmap -option ctrl:nocaps
+    xset r rate 175 50
+    xset m 3/2 0
+}
+
 zle -N cdChild
 zle -N cdParent
 bindkey '^N' cdChild
