@@ -307,16 +307,6 @@ layers configuration. You are free to put any user code."
     "D" 'org-archive-done
     "r" 'org-latex-export-to-pdf)
 
-  (defun refresh-org-agenda-view ()
-    (if (and (eq major-mode 'org-mode)
-             (get-buffer-window "*Org Agenda*"))
-        (progn
-          (other-window 1)
-          (org-agenda-redo t)
-          (other-window -1))))
-
-  (add-hook 'after-save-hook 'refresh-org-agenda-view)
-
   ;; Quick quit.
   (spacemacs/set-leader-keys "q SPC" 'evil-quit)
 
