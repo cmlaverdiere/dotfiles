@@ -269,9 +269,6 @@ layers configuration. You are free to put any user code."
   ;; Do not prompt for babel code execution
   (setq-default org-confirm-babel-evaluate nil)
 
-  ;; Correct fonts for code blocks.
-  (setq-default org-src-fontify-natively t)
-
   ;; Disable deadline warning in agenda
   (setq-default org-agenda-skip-deadline-prewarning-if-scheduled t)
 
