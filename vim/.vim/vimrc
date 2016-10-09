@@ -88,7 +88,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
-Plug 'glts/vim-textobj-comment'
+" Plug 'glts/vim-textobj-comment'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
