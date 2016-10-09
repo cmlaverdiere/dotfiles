@@ -29,6 +29,7 @@ values."
      emacs-lisp
      git
      haskell
+     ivy
      latex
      markdown
      org
@@ -50,7 +51,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-bullets)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -119,8 +120,7 @@ values."
    dotspacemacs-default-font '("Roboto Mono"
                                :size 13
                                :weight medium
-                               :width normal
-                               :powerline-scale 1.3)
+                               :width normal)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -285,8 +285,31 @@ layers configuration. You are free to put any user code."
   ;; Properly indent src blocks.
   (setq org-src-tab-acts-natively t)
 
+  (setq org-enable-reveal-js-support t)
+
   (setq org-agenda-files '("~/org/tracking"))
   (setq org-default-notes-file "~/org/notes.org")
+
+  (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
+  (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
+  (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
+  (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
+
+  (define-key evil-insert-state-map (kbd "C-h") #'evil-window-left)
+  (define-key evil-insert-state-map (kbd "C-j") #'evil-window-down)
+  (define-key evil-insert-state-map (kbd "C-k") #'evil-window-up)
+  (define-key evil-insert-state-map (kbd "C-l") #'evil-window-right)
+  (define-key evil-motion-state-map (kbd "C-h") #'evil-window-left)
+  (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
+  (define-key evil-motion-state-map (kbd "C-k") #'evil-window-up)
+  (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
+
+  (spacemacs/set-leader-keys "o" (lookup-key spacemacs-default-map "w"))
+
+  (spacemacs/set-leader-keys "q" 'evil-quit)
+  (spacemacs/set-leader-keys "v" 'split-window-right)
+  (spacemacs/set-leader-keys "V" 'split-window-below)
+  (spacemacs/set-leader-keys "w" 'evil-write)
 
   ;; Capture templates
   (defvar org-capture-templates
@@ -308,9 +331,6 @@ layers configuration. You are free to put any user code."
     "D" 'org-archive-done
     "r" 'org-latex-export-to-pdf)
 
-  ;; Quick quit.
-  (spacemacs/set-leader-keys "q SPC" 'evil-quit)
-
   ;; Evil escape mode
   (setq-default evil-escape-delay 0.10)
   (setq-default evil-escape-key-sequence "jk")
@@ -322,8 +342,23 @@ layers configuration. You are free to put any user code."
                 magit-stashes-mode magit-status-mode Man-mode doc-view-mode
                 help-mode compilation-mode org-agenda-mode term-mode))
 
-  (vi-tilde-fringe-mode nil)
+  (spacemacs/toggle-vi-tilde-fringe-off)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
   )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (ox-reveal zonokai-theme zenburn-theme zen-and-art-theme yapfify xterm-color ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toml-mode toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacemacs-theme spaceline spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle shell-pop seti-theme reverse-theme restart-emacs request rainbow-delimiters railscasts-theme racer quelpa pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox orgit organic-green-theme org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow macrostep lush-theme lorem-ipsum live-py-mode linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ivy-hydra ir-black-theme intero inkpot-theme info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme help-fns+ helm-make hc-zenburn-theme haskell-snippets gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md geiser gandalf-theme flyspell-correct-ivy flycheck-rust flycheck-pos-tip flycheck-haskell flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme disaster diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-statistics company-ghci company-ghc company-cabal company-c-headers company-auctex company-anaconda column-enforce-mode colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmm-mode cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme cargo busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
