@@ -294,14 +294,18 @@ layers configuration. You are free to put any user code."
   (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
   (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
 
-  (define-key evil-insert-state-map (kbd "C-h") #'evil-window-left)
-  (define-key evil-insert-state-map (kbd "C-j") #'evil-window-down)
-  (define-key evil-insert-state-map (kbd "C-k") #'evil-window-up)
-  (define-key evil-insert-state-map (kbd "C-l") #'evil-window-right)
-  (define-key evil-motion-state-map (kbd "C-h") #'evil-window-left)
-  (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
-  (define-key evil-motion-state-map (kbd "C-k") #'evil-window-up)
-  (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
+  (define-key global-map (kbd "C-h") 'windmove-left)
+  (define-key global-map (kbd "C-j") 'windmove-down)
+  (define-key global-map (kbd "C-k") 'windmove-up)
+  (define-key global-map (kbd "C-l") 'windmove-right)
+
+  (dolist (keymap (list evil-insert-state-map
+                        evil-motion-state-map
+                        evil-evilified-state-map))
+    (define-key keymap (kbd "C-h") #'evil-window-left)
+    (define-key keymap (kbd "C-j") #'evil-window-down)
+    (define-key keymap (kbd "C-k") #'evil-window-up)
+    (define-key keymap (kbd "C-l") #'evil-window-right))
 
   (spacemacs/set-leader-keys "Q" (lookup-key spacemacs-default-map "q"))
   (spacemacs/set-leader-keys "W" (lookup-key spacemacs-default-map "w"))
