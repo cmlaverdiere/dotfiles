@@ -155,6 +155,8 @@
     (define-key keymap (kbd "C-l") #'evil-window-right))
 
   (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
+  (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
+  (setq-default company-idle-delay nil)
 
   ;; Capture templates
   (defvar org-capture-templates
