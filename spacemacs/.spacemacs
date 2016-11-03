@@ -32,7 +32,12 @@
      vinegar
      )
    dotspacemacs-additional-packages '(key-chord)
-   dotspacemacs-excluded-packages '(org-bullets evil-escape)
+   dotspacemacs-excluded-packages '(
+                                    org-bullets
+                                    evil-escape
+                                    smartparens
+                                    highlight-parentheses
+                                    )
    dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
@@ -46,7 +51,8 @@
    dotspacemacs-startup-lists '(recents projects)
    dotspacemacs-startup-recent-list-size 5
    dotspacemacs-scratch-mode 'text-mode
-   dotspacemacs-themes '(gruvbox
+   dotspacemacs-themes '(
+                         gruvbox
                          sanityinc-tomorrow-night
                          spacemacs-dark
                          spacemacs-light
@@ -54,7 +60,8 @@
                          solarized-dark
                          leuven
                          monokai
-                         zenburn)
+                         zenburn
+                         )
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Source Code Pro"
                                :size 13
