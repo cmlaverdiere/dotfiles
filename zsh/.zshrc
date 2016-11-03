@@ -68,8 +68,9 @@ setopt HIST_IGNORE_DUPS
 # Aliases (General)
 alias df="df -h"
 alias du="du -h"
+alias psa="ps aux | grep $1"
 alias em="emacsclient -c -a \"\""
-alias ke="killall emacs"
+alias ke="killall -s 9 emacs"
 alias make="make -j9"
 alias matlab="ssh -X umbc 'matlab'"
 alias python="ipython"

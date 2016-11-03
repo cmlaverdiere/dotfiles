@@ -3,7 +3,9 @@
 \#*
 .#*
 tags
+TAGS
 *.mks
 scratch
 .cache
 *.elc
+.pylintrc
