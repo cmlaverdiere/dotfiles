@@ -204,17 +204,23 @@
   (key-chord-mode 1)
 
   (setq create-lockfiles nil)
+  (setq-default evil-ex-substitute-global t)
 
   ;; Add time to the mode-line.
   (display-time-mode 1)
 
   (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
 
+  (spacemacs/toggle-auto-fill-mode-on)
+
   (google-this-mode)
   (spacemacs/set-leader-keys "gg" 'google-this-mode-submap)
 
   (spacemacs/set-leader-keys "fl"
     (lambda () (interactive) (fzf-directory "~/")))
+
+  (spacemacs/set-leader-keys "cc"
+    (lambda () (interactive) (helm-make-projectile 9)))
 
   ;; TODO remove this (and package) when merged into ipython-notebook layer
   ;; https://github.com/syl20bnr/spacemacs/pull/4914
