@@ -95,7 +95,7 @@ bindsym $mod+slash exec cr r
 bindsym $mod+Shift+slash exec cr t
 bindsym $mod+space floating toggle
 bindsym $mod+t exec thunar "`xcwd`"
-bindsym $mod+Shift+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
+bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
 bindsym $mod+v split h
 bindsym $mod+w mode "resize"
 bindsym $mod+x exec xkill
