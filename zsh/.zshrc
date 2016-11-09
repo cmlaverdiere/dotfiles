@@ -185,6 +185,8 @@ bindkey '^O' fzf-cd-widget
 # export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
 # export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
+export PATH=$PATH:/home/chris/.local/bin
+
 # Autojump setup
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
