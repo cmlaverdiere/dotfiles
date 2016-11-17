@@ -4,6 +4,9 @@
 .#*
 tags
 TAGS
+GPATH
+GRTAGS
+GTAGS
 *.mks
 scratch
 .cache
