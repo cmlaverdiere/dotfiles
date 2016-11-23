@@ -16,12 +16,12 @@
      emacs-lisp
      finance
      git
-     gtags
      (haskell :variables
               haskell-completion-backend 'intero
               haskell-enable-hindent-style "fundamental")
 
      html
+     ivy
      javascript
      latex
      markdown
