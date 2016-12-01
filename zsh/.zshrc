@@ -207,5 +207,8 @@ export PATH=/home/chris/.cargo/bin:$PATH
 # export PROJECT_HOME=~/devel/python/projects
 # source /usr/bin/virtualenvwrapper.sh
 
+export PATH=$PATH:/opt/android-sdk/tools/
+export PATH=$PATH:/opt/android-sdk/build-tools/25.0.0
+
 # Fix vim colors with gruvbox.
 source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
