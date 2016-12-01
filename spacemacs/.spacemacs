@@ -206,6 +206,7 @@
   (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
 
   (spacemacs/set-leader-keys "sap" 'projectile-ag)
+  (setq tags-revert-without-query 1)
 
   ;; Visual repeat command
   (define-key evil-visual-state-map (kbd ".")
