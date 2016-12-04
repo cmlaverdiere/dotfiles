@@ -208,6 +208,7 @@
 
   (spacemacs/set-leader-keys "sap" 'projectile-ag)
   (setq tags-revert-without-query 1)
+  (setq tags-add-tables nil)
 
   ;; Visual repeat command
   (define-key evil-visual-state-map (kbd ".")
