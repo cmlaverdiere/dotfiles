@@ -135,6 +135,10 @@
 (defun dotspacemacs/user-config ()
   (setq-default vc-follow-symlinks t)
 
+  (setq-default make-backup-files t)
+  (setq-default vc-make-backup-files t)
+  (setq-default backup-directory-alist '(("." . "~/.emacsbak")))
+
   (setq powerline-default-separator 'slant)
 
   ;; TODO move to dir-locals if this breaks anything.
