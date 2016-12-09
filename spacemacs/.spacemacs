@@ -137,6 +137,9 @@
 
   (setq powerline-default-separator 'slant)
 
+  ;; TODO move to dir-locals if this breaks anything.
+  (add-to-list 'python-shell-extra-pythonpaths "/home/chris/sd/ScreamingDumbo/ControlSystem")
+
   (defvar org-log-done t)
 
   ;; Do not prompt for babel code execution
@@ -189,6 +192,7 @@
   (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
   (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
   (setq-default company-idle-delay nil)
+  (setq-default company-minimum-prefix-length 0)
 
   ;; Visual line information
   (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
@@ -268,6 +272,7 @@
      ("y" ivy-insert-action "yank")))
 
   (define-key ivy-minibuffer-map (kbd "C-o") 'ivy-dispatching-done)
+  (setq-default ivy-initial-inputs-alist nil)
 
   (defun repl-activate ()
     (interactive)
