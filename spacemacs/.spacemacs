@@ -133,45 +133,130 @@
 ;; Scan through old init.el and find what should be transferred.
 ;; Learn how to configure modes for layers.
 (defun dotspacemacs/user-config ()
-  (setq-default vc-follow-symlinks t)
+  (setq-default
+   backup-directory-alist '(("." . "~/.emacsbak"))
+   c-basic-offset 4
+   create-lockfiles nil
+   custom-file "~/.emacs.d/private/custom.el"
+   evil-ex-substitute-global t
+   evil-extra-operator-eval-modes-alist '((python-mode python-shell-send-region))
+   evil-lookup-func (lambda () (interactive) (man (current-word)))
+   key-chord-two-keys-delay 0.1
+   make-backup-files t
+   neo-theme 'nerd
+   powerline-default-separator 'slant
+   tags-add-tables nil
+   tags-revert-without-query 1
+   vc-follow-symlinks t
+   vc-make-backup-files t
+   )
 
-  (setq-default make-backup-files t)
-  (setq-default vc-make-backup-files t)
-  (setq-default backup-directory-alist '(("." . "~/.emacsbak")))
+  (spacemacs|use-package-add-hook org
+    :post-config
+    (defvar org-log-done t)
 
-  (setq powerline-default-separator 'slant)
+    (setq-default
+     org-agenda-files '("~/org/tracking")
+     org-agenda-repeating-timestamp-show-all nil
+     org-agenda-skip-deadline-prewarning-if-scheduled t
+     org-agenda-skip-scheduled-if-done t
+     org-agenda-timegrid-use-ampm t
+     org-confirm-babel-evaluate nil
+     org-default-notes-file "~/org/notes.org"
+     ;; org-enable-reveal-js-support t
+     org-src-tab-acts-natively t
+     )
 
-  (defvar org-log-done t)
+    (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
+    (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
+    (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
+    (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
 
-  ;; Do not prompt for babel code execution
-  (setq-default org-confirm-babel-evaluate nil)
+    (defvar org-capture-templates
+      '(("d" "Dreams" entry
+         (file+headline "~/org/dream.org" "Dreams")
+         "*** %t\n")))
 
-  ;; Disable deadline warning in agenda
-  (setq-default org-agenda-skip-deadline-prewarning-if-scheduled t)
+    (defun org-archive-done ()
+      "Removes all DONE entries and places them into an archive file."
+      (interactive)
+      (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
-  ;; Don't show DONE tasks in the agenda view.
-  (setq-default org-agenda-skip-scheduled-if-done t)
+    ;; TODO remove this (and package) when merged into ipython-notebook layer
+    ;; https://github.com/syl20bnr/spacemacs/pull/4914
+    (with-eval-after-load 'org
+      (org-babel-do-load-languages
+       'org-babel-load-languages '((ipython . t))))
 
-  ;; Use am/pm in agenda view.
-  (setq-default org-agenda-timegrid-use-ampm t)
+    ;; Org leaders.
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      "D" 'org-archive-done
+      "r" 'org-latex-export-to-pdf))
 
-  ;; Only show repeating events daily.
-  (setq-default org-agenda-repeating-timestamp-show-all nil)
+  (spacemacs|use-package-add-hook company
+    :post-config
+    (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
+    (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
+    (setq-default company-idle-delay nil
+                  company-minimum-prefix-length 0))
 
-  ;; Properly indent src blocks.
-  (setq-default org-src-tab-acts-natively t)
+  (spacemacs|use-package-add-hook ivy
+    :post-config
+    (defun ivy-insert-action (x)
+      (with-ivy-window
+        (insert x)))
 
-  ;; (setq org-enable-reveal-js-support t)
+    (ivy-set-actions
+     t
+     '(("i" ivy-insert-action "insert")
+       ("y" ivy-insert-action "yank")))
 
-  (setq org-agenda-files '("~/org/tracking"))
-  (setq org-default-notes-file "~/org/notes.org")
+    (setq-default ivy-initial-inputs-alist nil)
+    (define-key ivy-minibuffer-map (kbd "C-o") 'ivy-dispatching-done))
 
-  (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
-  (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
-  (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
-  (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
+  (spacemacs|use-package-add-hook racket
+    :post-config
+    (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
+    )
 
-  (setq-default neo-theme 'nerd)
+  ;; Autoadd curly brackets.
+  (defun auto-add-curly ()
+    (interactive)
+    (insert "{")
+    (newline-and-indent)
+    (insert "}")
+    (evil-shift-left-line 1)
+    (evil-open-above 0))
+
+  (defun repl-activate ()
+    (interactive)
+    (rename-buffer "*custom-repl*"))
+
+  (defun send-region-repl (beg end)
+    (let ((text (buffer-substring beg end)))
+      (if (not (get-buffer "*custom-repl*"))
+          (message "No repl buffer active!")
+        (comint-send-string "*custom-repl*" (concat text "\n")))))
+
+  ;; TODO make custom repl-mode, register with evil-send.
+  (evil-define-operator evil-send-to-repl (beg end)
+    "Send text to a comint repl process."
+    :move-point nil
+    :repeat t
+    (send-region-repl beg end))
+
+  (spacemacs/set-leader-keys
+    "Q" (lookup-key spacemacs-default-map "q")
+    "V" 'split-window-below
+    "br" 'rename-buffer
+    "cc" (lambda () (interactive) (helm-make-projectile 9))
+    "fl" (lambda () (interactive) (fzf-directory "~/"))
+    "gg" 'google-this-mode-submap
+    "q" 'evil-quit
+    "ra" 'repl-activate
+    "sap" 'projectile-ag
+    "v" 'split-window-right
+    )
 
   (define-key global-map (kbd "C-h") 'windmove-left)
   (define-key global-map (kbd "C-j") 'windmove-down)
@@ -190,139 +275,27 @@
     (define-key keymap (kbd "C-k") #'evil-window-up)
     (define-key keymap (kbd "C-l") #'evil-window-right))
 
-  (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
-  (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
-  (setq-default company-idle-delay nil)
-  (setq-default company-minimum-prefix-length 0)
-
-  ;; Visual line information
   (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
-
   (define-key evil-insert-state-map (kbd "C-y") 'hippie-expand)
-
-  ;; Autoadd curly brackets.
-  (defun auto-add-curly ()
-    (interactive)
-    (insert "{")
-    (newline-and-indent)
-    (insert "}")
-    (evil-shift-left-line 1)
-    (evil-open-above 0))
-
   (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
-
-  (spacemacs/set-leader-keys "sap" 'projectile-ag)
-  (setq tags-revert-without-query 1)
-  (setq tags-add-tables nil)
-
-  ;; Visual repeat command
   (define-key evil-visual-state-map (kbd ".")
     (lambda () (interactive) (execute-kbd-macro ":norm .")))
 
-  ;; Capture templates
-  (defvar org-capture-templates
-    '(("d" "Dreams" entry
-       (file+headline "~/org/dream.org" "Dreams")
-       "*** %t\n")))
+  ;; (define-key evil-normal-state-map "gs" 'evil-send-to-repl)
+  (define-key evil-motion-state-map "gs" 'evil-operator-eval)
 
-  (defun org-archive-done ()
-    "Removes all DONE entries and places them into an archive file."
-    (interactive)
-    (org-map-entries 'org-archive-subtree "/DONE" 'file))
-
-  ;; Org leaders.
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "D" 'org-archive-done
-    "r" 'org-latex-export-to-pdf)
-
-  (setq key-chord-two-keys-delay 0.1)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
-  (key-chord-mode 1)
-
-  (setq create-lockfiles nil)
-  (setq-default evil-ex-substitute-global t)
-
-  (setq-default c-basic-offset 4)
-
-  ;; Use man for man pages instead of woman.
-  (setq evil-lookup-func
-        (lambda ()
-          (interactive)
-          (man (current-word))))
-
-  ;; Add time to the mode-line.
-  (display-time-mode 1)
-
-  (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
-
   (add-hook 'text-mode-hook 'spacemacs/toggle-auto-fill-mode-on)
   (add-hook 'prog-mode-hook 'spacemacs/toggle-auto-fill-mode-on)
 
   (google-this-mode)
-  (spacemacs/set-leader-keys "gg" 'google-this-mode-submap)
   (spacemacs|diminish google-this-mode)
-  (spacemacs|diminish ggtags-mode)
-
-  (defun ivy-insert-action (x)
-    (with-ivy-window
-      (insert x)))
-
-  (ivy-set-actions
-   t
-   '(("i" ivy-insert-action "insert")
-     ("y" ivy-insert-action "yank")))
-
-  (define-key ivy-minibuffer-map (kbd "C-o") 'ivy-dispatching-done)
-  (setq-default ivy-initial-inputs-alist nil)
-
-  (defun repl-activate ()
-    (interactive)
-    (rename-buffer "*custom-repl*"))
-
-  (defun send-region-repl (beg end)
-    (let ((text (buffer-substring beg end)))
-      (if (not (get-buffer "*custom-repl*"))
-          (message "No repl buffer active!")
-        (comint-send-string "*custom-repl*" (concat text "\n")))))
-
-  ;; Make sure repeatable
-  ;; TODO make custom repl-mode, register with evil-send.
-  (evil-define-operator evil-send-to-repl (beg end)
-    "Send text to a comint repl process."
-    :move-point nil
-    :repeat t
-    (send-region-repl beg end))
-
-  (spacemacs/set-leader-keys "br" 'rename-buffer)
-  (spacemacs/set-leader-keys "ra" 'repl-activate)
-  ;; (define-key evil-normal-state-map "gs" 'evil-send-to-repl)
-
-  (define-key evil-motion-state-map "gs" 'evil-operator-eval)
-  (setq evil-extra-operator-eval-modes-alist
-        '((python-mode python-shell-send-region)))
-
-  (spacemacs/set-leader-keys "fl"
-    (lambda () (interactive) (fzf-directory "~/")))
-
-  (spacemacs/set-leader-keys "cc"
-    (lambda () (interactive) (helm-make-projectile 9)))
 
   (add-to-list 'auto-mode-alist '("\\.obj\\'" . wavefront-obj-mode))
   (add-to-list 'auto-mode-alist '("\\.mtl\\'" . wavefront-obj-mode))
 
-  ;; TODO remove this (and package) when merged into ipython-notebook layer
-  ;; https://github.com/syl20bnr/spacemacs/pull/4914
-  (with-eval-after-load 'org
-    (org-babel-do-load-languages
-     'org-babel-load-languages '((ipython . t))))
-
-  ;; TODO add check for this.
-  (spacemacs/set-leader-keys "Q" (lookup-key spacemacs-default-map "q"))
-
-  (spacemacs/set-leader-keys "q" 'evil-quit)
-  (spacemacs/set-leader-keys "v" 'split-window-right)
-  (spacemacs/set-leader-keys "V" 'split-window-below)
-
-  (setq custom-file "~/.emacs.d/private/custom.el")
   (load custom-file 'noerror)
+
+  (key-chord-mode 1)
+  (display-time-mode 1)
   )
