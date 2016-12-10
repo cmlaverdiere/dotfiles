@@ -175,36 +175,35 @@ endfunction
 command! -nargs=1 E call s:EditSameDir(<f-args>)
 
 " Leader Mappings
-nnoremap <silent> <Leader>/ :FZFAg <CR>
-nnoremap <silent> <Leader>. :FZFAg <C-R><C-W><CR>
-nnoremap <Leader>asc ggVG:Tab /;<CR>
-nnoremap <Leader>b :FZFBuffers<CR>
-nnoremap <Leader>c :make<CR>
+nmap <Leader>O <Plug>(altr-forward)
 nnoremap <Leader>C :BCommits<CR>
-nnoremap <Leader>f :FZFFiles<CR>
-nnoremap <Leader>F :FZFFiles ~/<CR>
-noremap <Leader>G :Google<CR>
+nnoremap <Leader>T :!ctags -R<CR><CR>
+nnoremap <Leader>V :sp<CR>
+nnoremap <Leader>asc ggVG:Tab /;<CR>
+nnoremap <Leader>bb :FZFBuffers<CR>
+nnoremap <Leader>c :make<CR>
+nnoremap <Leader>fed :e $MYVIMRC<CR>
+nnoremap <Leader>fl :FZFFiles ~/<CR>
+nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
-nnoremap <Leader>i :e $MYVIMRC<CR>
-nnoremap <script> <silent> <leader>l :call ToggleQuickfixList()<CR>
-nnoremap <silent> <Leader>n :nohlsearch<CR>
 nnoremap <Leader>mt :make tests<CR>
-nnoremap <Leader>o :FZFBLines<CR>
-nmap <Leader>O <Plug>(altr-forward)
-nnoremap <Leader>pfc <Leader>pt"*p<Leader>pt
+nnoremap <Leader>pf :FZFFiles<CR>
 nnoremap <Leader>pi :PlugInstall<CR>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
+nnoremap <Leader>ss :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
-nnoremap <Leader>T :!ctags -R<CR><CR>
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
-nnoremap <Leader>V :sp<CR>
-nnoremap <Leader>w :w<CR>
+nnoremap <script> <silent> <leader>l :call ToggleQuickfixList()<CR>
+nnoremap <silent> <Leader>. :FZFAg <C-R><C-W><CR>
+nnoremap <silent> <Leader>/ :FZFAg <CR>
+nnoremap <silent> <Leader>sc :nohlsearch<CR>
+noremap <Leader>G :Google<CR>
 
 set pastetoggle=<Leader>pt
 
