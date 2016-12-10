@@ -299,7 +299,6 @@
 
   (load custom-file 'noerror)
 
-  (global-font-lock-mode 0)
   (key-chord-mode 1)
   (display-time-mode 1)
   )
