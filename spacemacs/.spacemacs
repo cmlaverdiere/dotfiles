@@ -86,7 +86,7 @@
                          zenburn
                          )
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Roboto Mono"
                                :size 13
                                :weight medium
                                :width normal)
