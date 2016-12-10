@@ -151,73 +151,76 @@
    vc-make-backup-files t
    )
 
-  (spacemacs|use-package-add-hook org
-    :post-config
-    (defvar org-log-done t)
+  ;; (spacemacs|use-package-add-hook org
+  ;;   :post-config
+  (defvar org-log-done t)
 
-    (setq-default
-     org-agenda-files '("~/org/tracking")
-     org-agenda-repeating-timestamp-show-all nil
-     org-agenda-skip-deadline-prewarning-if-scheduled t
-     org-agenda-skip-scheduled-if-done t
-     org-agenda-timegrid-use-ampm t
-     org-confirm-babel-evaluate nil
-     org-default-notes-file "~/org/notes.org"
-     ;; org-enable-reveal-js-support t
-     org-src-tab-acts-natively t
-     )
+  (setq-default
+   org-agenda-files '("~/org/tracking")
+   org-agenda-repeating-timestamp-show-all nil
+   org-agenda-skip-deadline-prewarning-if-scheduled t
+   org-agenda-skip-scheduled-if-done t
+   org-agenda-timegrid-use-ampm t
+   org-confirm-babel-evaluate nil
+   org-default-notes-file "~/org/notes.org"
+   ;; org-enable-reveal-js-support t
+   org-src-tab-acts-natively t
+   )
 
-    (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
-    (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
-    (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
-    (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
+  (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
+  (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
+  (evil-define-key 'normal org-mode-map (kbd "<up>") 'org-metaup)
+  (evil-define-key 'normal org-mode-map (kbd "<down>") 'org-metadown)
 
-    (defvar org-capture-templates
-      '(("d" "Dreams" entry
-         (file+headline "~/org/dream.org" "Dreams")
-         "*** %t\n")))
+  (defvar org-capture-templates
+    '(("d" "Dreams" entry
+       (file+headline "~/org/dream.org" "Dreams")
+       "*** %t\n")))
 
-    (defun org-archive-done ()
-      "Removes all DONE entries and places them into an archive file."
-      (interactive)
-      (org-map-entries 'org-archive-subtree "/DONE" 'file))
+  (defun org-archive-done ()
+    "Removes all DONE entries and places them into an archive file."
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
-    ;; TODO remove this (and package) when merged into ipython-notebook layer
-    ;; https://github.com/syl20bnr/spacemacs/pull/4914
-    (with-eval-after-load 'org
-      (org-babel-do-load-languages
-       'org-babel-load-languages '((ipython . t))))
+  ;; TODO remove this (and package) when merged into ipython-notebook layer
+  ;; https://github.com/syl20bnr/spacemacs/pull/4914
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages '((ipython . t))))
 
-    ;; Org leaders.
-    (spacemacs/set-leader-keys-for-major-mode 'org-mode
-      "D" 'org-archive-done
-      "r" 'org-latex-export-to-pdf))
+  ;; Org leaders.
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "D" 'org-archive-done
+    "r" 'org-latex-export-to-pdf)
+    ;; )
 
-  (spacemacs|use-package-add-hook company
-    :post-config
-    (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
-    (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
-    (setq-default company-idle-delay nil
-                  company-minimum-prefix-length 0))
+  ;; (spacemacs|use-package-add-hook company
+  ;;   :post-config
+  (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
+  (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
+  (setq-default company-idle-delay nil
+                company-minimum-prefix-length 0)
+  ;; )
 
-  (spacemacs|use-package-add-hook ivy
-    :post-config
-    (defun ivy-insert-action (x)
-      (with-ivy-window
-        (insert x)))
+  ;; (spacemacs|use-package-add-hook ivy
+  ;;   :post-config
+  (defun ivy-insert-action (x)
+    (with-ivy-window
+      (insert x)))
 
-    (ivy-set-actions
-     t
-     '(("i" ivy-insert-action "insert")
-       ("y" ivy-insert-action "yank")))
+  (ivy-set-actions
+   t
+   '(("i" ivy-insert-action "insert")
+     ("y" ivy-insert-action "yank")))
 
-    (setq-default ivy-initial-inputs-alist nil)
-    (define-key ivy-minibuffer-map (kbd "C-o") 'ivy-dispatching-done))
+  (setq-default ivy-initial-inputs-alist nil)
+  (define-key ivy-minibuffer-map (kbd "C-o") 'ivy-dispatching-done)
+  ;; )
 
-  (spacemacs|use-package-add-hook racket
-    :post-config
-    (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
-    )
+  ;; (spacemacs|use-package-add-hook racket
+  ;; :post-config
+  (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
+  ;; )
 
   ;; Autoadd curly brackets.
   (defun auto-add-curly ()
