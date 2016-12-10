@@ -11,3 +11,4 @@ GTAGS
 scratch
 .cache
 *.elc
+.projectile

@@ -12,7 +12,7 @@
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      clojure
-     (colors :variables colors-enable-nyan-cat-progress-bar t)
+     (colors :variables colors-enable-nyan-cat-progress-bar nil)
      emacs-lisp
      finance
      git
@@ -296,6 +296,7 @@
 
   (load custom-file 'noerror)
 
+  (global-font-lock-mode 0)
   (key-chord-mode 1)
   (display-time-mode 1)
   )
