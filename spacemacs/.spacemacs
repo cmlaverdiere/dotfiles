@@ -74,7 +74,6 @@
    dotspacemacs-scratch-mode 'text-mode
    dotspacemacs-themes '(
                          gruvbox
-                         gruvbox
                          phoenix-dark-mono
                          sanityinc-tomorrow-night
                          spacemacs-dark
@@ -86,10 +85,15 @@
                          zenburn
                          )
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Roboto Mono"
+   dotspacemacs-default-font '(("Roboto Mono"
                                :size 13
                                :weight medium
                                :width normal)
+
+                               ("Source Code Pro"
+                               :size 13
+                               :weight medium
+                               :width normal))
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-leader-key "M-m"
    dotspacemacs-major-mode-leader-key ","
@@ -197,6 +201,7 @@
 
   ;; (spacemacs|use-package-add-hook company
   ;;   :post-config
+  (spacemacs|disable-company eshell-mode)
   (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
   (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
   (setq-default company-idle-delay nil
