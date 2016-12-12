@@ -200,6 +200,7 @@
 
   ;; (spacemacs|use-package-add-hook company
   ;;   :post-config
+  (spacemacs|disable-company eshell-mode)
   (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
   (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
   (setq-default company-idle-delay nil
