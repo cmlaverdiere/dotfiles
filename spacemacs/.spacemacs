@@ -136,6 +136,7 @@
   (setq-default
    backup-directory-alist '(("." . "~/.emacsbak"))
    c-basic-offset 4
+   compilation-scroll-output t
    create-lockfiles nil
    custom-file "~/.emacs.d/private/custom.el"
    evil-ex-substitute-global t
