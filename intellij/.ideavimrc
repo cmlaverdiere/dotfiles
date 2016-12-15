@@ -1,0 +1,3 @@
+imap jk <esc>
+set clipboard+=unnamed
+
