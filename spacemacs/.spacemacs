@@ -99,6 +99,7 @@
    dotspacemacs-major-mode-leader-key ","
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
    dotspacemacs-distinguish-gui-tab t
+   dotspacemacs-large-file-size 50
    dotspacemacs-command-key "SPC"
    dotspacemacs-remap-Y-to-y$ t
    dotspacemacs-default-layout-name "Default"
@@ -162,6 +163,7 @@
 
   (setq-default
    org-agenda-files '("~/org/tracking")
+   org-agenda-span 3
    org-agenda-repeating-timestamp-show-all nil
    org-agenda-skip-deadline-prewarning-if-scheduled t
    org-agenda-skip-scheduled-if-done t

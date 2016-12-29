@@ -37,7 +37,7 @@ Xft.antialias: 1
 Xft.dpi: 96
 Xft.rgba: rgb
 
-! Emacs.FontBackend: xft
+Emacs.FontBackend: xft
 ! Emacs.font: Source Code Pro:pixelsize=10
 
 ! Color scheme: Solarized
