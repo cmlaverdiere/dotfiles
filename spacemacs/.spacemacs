@@ -6,6 +6,7 @@
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
    '(
+     csv
      (auto-completion :variables
                       auto-completion-enable-sort-by-usage t)
      (c-c++ :variables
@@ -154,6 +155,11 @@
    tags-revert-without-query 1
    vc-follow-symlinks t
    vc-make-backup-files t
+   web-mode-enable-auto-pairing nil
+   web-mode-enable-auto-closing nil
+   web-mode-enable-auto-indentation nil
+   web-mode-enable-auto-opening nil
+   web-mode-enable-auto-quoting nil
    )
 
   ;; (spacemacs|use-package-add-hook org
