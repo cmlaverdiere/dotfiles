@@ -160,6 +160,9 @@
    yas-snippet-dirs '("~/.emacs.d/private/snippets")
    )
 
+  ;; TODO temp fix ipython warning
+  (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
+
   ;; (spacemacs|use-package-add-hook org
   ;;   :post-config
   (defvar org-log-done t)
