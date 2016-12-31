@@ -155,6 +155,9 @@
    tags-revert-without-query 1
    vc-follow-symlinks t
    vc-make-backup-files t
+   hippie-expand-try-functions-list (delete 'yas-hippie-try-expand
+                                            hippie-expand-try-functions-list)
+   yas-snippet-dirs '("~/.emacs.d/private/snippets")
    )
 
   ;; (spacemacs|use-package-add-hook org
@@ -287,7 +290,7 @@
     (define-key keymap (kbd "C-l") #'evil-window-right))
 
   (define-key evil-visual-state-map (kbd "g C-g") 'count-words-region)
-  (define-key evil-insert-state-map (kbd "C-y") 'hippie-expand)
+  (define-key evil-insert-state-map (kbd "C-y") 'yas-expand)
   (define-key evil-insert-state-map (kbd "C-]") 'auto-add-curly)
   (define-key evil-visual-state-map (kbd ".")
     (lambda () (interactive) (execute-kbd-macro ":norm .")))
