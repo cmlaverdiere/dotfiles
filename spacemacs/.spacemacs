@@ -280,6 +280,7 @@
   (define-key global-map (kbd "C-k") 'windmove-up)
   (define-key global-map (kbd "C-l") 'windmove-right)
 
+
   ;; TODO fix in ipython / other comint repls (also org).
   (dolist (keymap (list
                    ;; evil-insert-state-map
@@ -287,6 +288,11 @@
                    evil-normal-state-map
                    evil-evilified-state-map-original
                    evil-evilified-state-map))
+    (define-key keymap (kbd "<down>") 'enlarge-window)
+    (define-key keymap (kbd "<up>") 'shrink-window)
+    (define-key keymap (kbd "<right>") 'enlarge-window-horizontally)
+    (define-key keymap (kbd "<left>") 'shrink-window-horizontally)
+
     (define-key keymap (kbd "C-h") #'evil-window-left)
     (define-key keymap (kbd "C-j") #'evil-window-down)
     (define-key keymap (kbd "C-k") #'evil-window-up)
