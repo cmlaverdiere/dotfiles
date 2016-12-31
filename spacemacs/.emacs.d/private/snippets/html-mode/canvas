@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: canvas
+# key: canvas
+# binding: direct-keybinding
+# --
+<canvas>
+  $1
+</canvas>
