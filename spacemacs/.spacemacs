@@ -161,7 +161,8 @@
    )
 
   ;; TODO temp fix ipython warning
-  (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython")
+  (with-eval-after-load 'python
+    (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython"))
 
   ;; (spacemacs|use-package-add-hook org
   ;;   :post-config
@@ -280,7 +281,6 @@
   (define-key global-map (kbd "C-k") 'windmove-up)
   (define-key global-map (kbd "C-l") 'windmove-right)
 
-
   ;; TODO fix in ipython / other comint repls (also org).
   (dolist (keymap (list
                    ;; evil-insert-state-map
@@ -308,8 +308,11 @@
   (define-key evil-motion-state-map "gs" 'evil-operator-eval)
 
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
-  (add-hook 'text-mode-hook 'spacemacs/toggle-auto-fill-mode-on)
-  (add-hook 'prog-mode-hook 'spacemacs/toggle-auto-fill-mode-on)
+
+  (spacemacs/toggle-highlight-long-lines-globally-on)
+
+  (dolist (mode (list 'text-mode-hook 'prog-mode-hook))
+    (add-hook mode 'spacemacs/toggle-auto-fill-mode-on))
 
   (google-this-mode)
   (spacemacs|diminish google-this-mode)
@@ -317,8 +320,8 @@
   (add-to-list 'auto-mode-alist '("\\.obj\\'" . wavefront-obj-mode))
   (add-to-list 'auto-mode-alist '("\\.mtl\\'" . wavefront-obj-mode))
 
-  (load custom-file 'noerror)
-
   (key-chord-mode 1)
   (display-time-mode 1)
+
+  (load custom-file 'noerror)
   )
