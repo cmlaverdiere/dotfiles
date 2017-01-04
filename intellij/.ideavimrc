@@ -1,3 +1,25 @@
-imap jk <esc>
 set clipboard+=unnamed
+set hlsearch
+set incsearch
+set ignorecase
+set gdefault
+set nojoinspaces
+set smartcase
+set infercase
 
+map <Space> <Leader>
+nnoremap Y y$
+inoremap jk <esc>
+nnoremap ' `
+nnoremap ` '
+nnoremap <Leader>fs :w<CR>
+nnoremap <Leader>q :q!<CR>
+
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+inoremap <C-h> <esc><C-w>h
+inoremap <C-j> <esc><C-w>j
+inoremap <C-k> <esc><C-w>k
+inoremap <C-l> <esc><C-w>l

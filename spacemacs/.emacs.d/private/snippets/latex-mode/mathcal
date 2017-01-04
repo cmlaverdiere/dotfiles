@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: mathcal
+# key: cal
+# binding: direct-keybinding
+# --
+\mathcal{$1}

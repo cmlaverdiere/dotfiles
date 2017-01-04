@@ -208,8 +208,12 @@ export PATH=/home/chris/.cargo/bin:$PATH
 # export PROJECT_HOME=~/devel/python/projects
 # source /usr/bin/virtualenvwrapper.sh
 
-export PATH=$PATH:/opt/android-sdk/tools/
-export PATH=$PATH:/opt/android-sdk/build-tools/25.0.0
+export PATH=$PATH:~/android/tools/
+export PATH=$PATH:~/android/build-tools/25.0.0
 
 # Fix vim colors with gruvbox.
 source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+
+adb-find() {
+    adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format - | grep -i $1
+}

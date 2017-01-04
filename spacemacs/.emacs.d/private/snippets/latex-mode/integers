@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: integers
+# key: Z
+# binding: direct-keybinding
+# --
+\mathbb{Z}

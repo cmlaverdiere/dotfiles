@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: err
+# key: err
+# binding: direct-keybinding
+# --
+
+std::cerr << $1 << std::endl;

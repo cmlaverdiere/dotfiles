@@ -15,3 +15,4 @@ scratch
 build
 bin
 __pycache__
+*.dblite
