@@ -157,7 +157,6 @@
    tags-revert-without-query 1
    vc-follow-symlinks t
    vc-make-backup-files t
-<<<<<<< HEAD
    web-mode-enable-auto-pairing nil
    web-mode-enable-auto-closing nil
    web-mode-enable-auto-indentation nil
