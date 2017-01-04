@@ -323,6 +323,7 @@
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
   (spacemacs/toggle-highlight-long-lines-globally-on)
+  (spacemacs/toggle-centered-point-globally-on)
 
   (dolist (mode (list 'text-mode-hook 'prog-mode-hook))
     (add-hook mode 'spacemacs/toggle-auto-fill-mode-on))
