@@ -214,6 +214,6 @@ export PATH=$PATH:~/android/build-tools/25.0.0
 # Fix vim colors with gruvbox.
 source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
-adb-find() {
-    adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format - | grep -i $1
+adb-dump() {
+    adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
 }
