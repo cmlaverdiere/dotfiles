@@ -133,18 +133,15 @@
    ))
 
 (defun dotspacemacs/user-init ()
-  (setq-default evil-want-C-i-jump t))
+  (setq-default evil-want-C-i-jump t
+                custom-file "~/.emacs.d/private/custom.el"))
 
-;; TODO
-;; Scan through old init.el and find what should be transferred.
-;; Learn how to configure modes for layers.
 (defun dotspacemacs/user-config ()
   (setq-default
    backup-directory-alist '(("." . "~/.emacsbak"))
    c-basic-offset 4
    compilation-scroll-output t
    create-lockfiles nil
-   custom-file "~/.emacs.d/private/custom.el"
    evil-ex-substitute-global t
    evil-extra-operator-eval-modes-alist '((python-mode python-shell-send-region))
    evil-lookup-func (lambda () (interactive) (man (current-word)))
