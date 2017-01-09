@@ -34,7 +34,7 @@
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     (spell-checking :variables spell-checking-enable-by-default nil)
+     spell-checking
      shaders
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
@@ -162,8 +162,6 @@
    web-mode-enable-auto-indentation nil
    web-mode-enable-auto-opening nil
    web-mode-enable-auto-quoting nil
-   hippie-expand-try-functions-list (delete 'yas-hippie-try-expand
-                                            hippie-expand-try-functions-list)
    ;; hippie-expand-try-functions-list (delete 'yas-hippie-try-expand
    ;;                                          hippie-expand-try-functions-list)
    yas-snippet-dirs '("~/.emacs.d/private/snippets")
