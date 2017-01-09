@@ -270,6 +270,10 @@
     :repeat t
     (send-region-repl beg end))
 
+  (defun open-urxvt-cwd ()
+    (interactive)
+    (shell-command (format "urxvt -cd %s" default-directory)))
+
   (spacemacs/set-leader-keys
     "Q" (lookup-key spacemacs-default-map "q")
     "V" 'split-window-below
@@ -281,6 +285,7 @@
     "ra" 'repl-activate
     "sap" 'projectile-ag
     "v" 'split-window-right
+    "RET" 'open-urxvt-cwd
     )
 
   (define-key global-map (kbd "C-h") 'windmove-left)
