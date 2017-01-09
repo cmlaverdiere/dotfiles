@@ -108,6 +108,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'szw/vim-g'
@@ -323,4 +324,5 @@ nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
 " Color scheme must be loaded at the end.
-colorscheme gruvbox
+set background=light
+colorscheme solarized
