@@ -272,7 +272,8 @@
 
   (defun open-urxvt-cwd ()
     (interactive)
-    (shell-command (format "urxvt -cd %s" default-directory)))
+    (call-process-shell-command
+     (format "urxvt -cd %s" default-directory) nil 0))
 
   (spacemacs/set-leader-keys
     "Q" (lookup-key spacemacs-default-map "q")
