@@ -244,6 +244,8 @@
   (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
   ;; )
 
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+
   ;; Autoadd curly brackets.
   (defun auto-add-curly ()
     (interactive)
