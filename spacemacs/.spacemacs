@@ -217,8 +217,8 @@
   (spacemacs|disable-company eshell-mode)
   (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
   (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
-  (setq-default company-idle-delay nil
-                company-minimum-prefix-length 0)
+  ;; (setq-default company-idle-delay nil
+  ;;               company-minimum-prefix-length 0)
   ;; )
 
   ;; (spacemacs|use-package-add-hook ivy
