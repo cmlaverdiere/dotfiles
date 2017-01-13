@@ -159,8 +159,6 @@
    web-mode-enable-auto-indentation nil
    web-mode-enable-auto-opening nil
    web-mode-enable-auto-quoting nil
-   hippie-expand-try-functions-list (delete 'yas-hippie-try-expand
-                                            hippie-expand-try-functions-list)
    ;; hippie-expand-try-functions-list (delete 'yas-hippie-try-expand
    ;;                                          hippie-expand-try-functions-list)
    yas-snippet-dirs '("~/.emacs.d/private/snippets")
@@ -219,8 +217,8 @@
   (spacemacs|disable-company eshell-mode)
   (define-key evil-insert-state-map (kbd "C-x C-o") 'company-complete)
   (define-key evil-insert-state-map (kbd "C-x C-l") 'evil-complete-previous-line)
-  (setq-default company-idle-delay nil
-                company-minimum-prefix-length 0)
+  ;; (setq-default company-idle-delay nil
+  ;;               company-minimum-prefix-length 0)
   ;; )
 
   ;; (spacemacs|use-package-add-hook ivy
@@ -245,6 +243,8 @@
   ;; :post-config
   (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
   ;; )
+
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
 
   ;; Autoadd curly brackets.
   (defun auto-add-curly ()
@@ -272,6 +272,11 @@
     :repeat t
     (send-region-repl beg end))
 
+  (defun open-urxvt-cwd ()
+    (interactive)
+    (call-process-shell-command
+     (format "urxvt -cd %s" default-directory) nil 0))
+
   (spacemacs/set-leader-keys
     "Q" (lookup-key spacemacs-default-map "q")
     "V" 'split-window-below
@@ -283,6 +288,7 @@
     "ra" 'repl-activate
     "sap" 'projectile-ag
     "v" 'split-window-right
+    "RET" 'open-urxvt-cwd
     )
 
   (define-key global-map (kbd "C-h") 'windmove-left)
