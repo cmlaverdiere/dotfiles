@@ -185,7 +185,7 @@
    org-default-notes-file "~/org/notes.org"
    ;; org-enable-reveal-js-support t
    org-src-tab-acts-natively t
-   )
+   org-agenda-prefix-format '((agenda  . " - ")))
 
   (evil-define-key 'normal org-mode-map (kbd "<left>") 'org-shiftmetaleft)
   (evil-define-key 'normal org-mode-map (kbd "<right>") 'org-shiftmetaright)
