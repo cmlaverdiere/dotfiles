@@ -291,6 +291,9 @@
     "RET" 'open-urxvt-cwd
     )
 
+  (define-key evil-outer-text-objects-map "e" 'evil-inner-buffer)
+  (define-key evil-inner-text-objects-map "e" 'evil-inner-buffer)
+
   (define-key global-map (kbd "C-h") 'windmove-left)
   (define-key global-map (kbd "C-j") 'windmove-down)
   (define-key global-map (kbd "C-k") 'windmove-up)
