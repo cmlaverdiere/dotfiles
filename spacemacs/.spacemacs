@@ -74,8 +74,8 @@
    dotspacemacs-startup-recent-list-size 5
    dotspacemacs-scratch-mode 'text-mode
    dotspacemacs-themes '(
-                         solarized-light
                          gruvbox
+                         solarized-light
                          phoenix-dark-mono
                          sanityinc-tomorrow-night
                          spacemacs-dark
