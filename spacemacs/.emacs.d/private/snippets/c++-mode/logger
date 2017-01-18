@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: logger
+# key: lg
+# --
+logger->$1("$2");
