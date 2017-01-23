@@ -167,8 +167,18 @@
    )
 
   ;; TODO temp fix ipython warning
+  ;; TODO move some out of python eval
+  (define-key evil-insert-state-map (kbd "C-k") nil)
   (with-eval-after-load 'python
+    (dolist (key (list "C-k" "C-j" "C-l"))
+      (define-key inferior-python-mode-map (kbd key) nil)
+      (evil-define-key 'insert term-raw-map (kbd key) nil)
+      (evil-define-key 'insert eshell-mode-map (kbd key) nil)
+      (evil-define-key 'evilified dired-mode-map (kbd key) nil)
+      (evil-define-key 'insert comint-mode-map (kbd key) nil)
+      (evil-define-key 'normal comint-mode-map (kbd key) nil))
     (add-to-list 'python-shell-completion-native-disabled-interpreters "ipython"))
+
 
   ;; (spacemacs|use-package-add-hook org
   ;;   :post-config
