@@ -133,6 +133,8 @@
    ))
 
 (defun dotspacemacs/user-init ()
+  (load-file "~/elisp/dash.el")
+  (load-file "~/elisp/autothemer.el")
   (setq-default evil-want-C-i-jump t
                 custom-file "~/.emacs.d/private/custom.el"))
 
