@@ -36,6 +36,7 @@
             shell-default-position 'bottom)
      (spell-checking :variables spell-checking-enable-by-default nil)
      shaders
+     sql
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      themes-megapack
@@ -173,7 +174,7 @@
     (dolist (key (list "C-k" "C-j" "C-l"))
       (define-key inferior-python-mode-map (kbd key) nil)
       (evil-define-key 'insert term-raw-map (kbd key) nil)
-      (evil-define-key 'insert eshell-mode-map (kbd key) nil)
+      ; (evil-define-key 'insert eshell-mode-map (kbd key) nil)
       (evil-define-key 'evilified dired-mode-map (kbd key) nil)
       (evil-define-key 'insert comint-mode-map (kbd key) nil)
       (evil-define-key 'normal comint-mode-map (kbd key) nil))
