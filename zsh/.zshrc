@@ -77,7 +77,6 @@ alias make="make -j9"
 alias matlab="ssh -X umbc 'matlab'"
 # alias python="ipython"
 alias rh="runhaskell"
-alias open="xdg-open"
 alias temp="acpi -t"
 alias tmux="tmux -2"
 alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
@@ -90,6 +89,10 @@ alias playlist="album -o '%(playlist_index)s - %(title)s.%(ext)s'"
 alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
 alias vsh="vagrant ssh"
+
+open() {
+    xdg-open $1 &; disown
+}
 
 wbeam() {
     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
