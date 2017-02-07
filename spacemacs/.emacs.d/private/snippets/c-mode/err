@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: err
-# key: err
-# binding: direct-keybinding
-# --
-fprintf(stderr, "$1");

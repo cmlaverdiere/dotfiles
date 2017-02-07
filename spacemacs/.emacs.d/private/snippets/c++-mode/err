@@ -3,5 +3,4 @@
 # key: err
 # binding: direct-keybinding
 # --
-
-std::cerr << $1 << std::endl;
+fprintf(stderr, "$1");
