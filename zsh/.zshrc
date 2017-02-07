@@ -89,6 +89,7 @@ alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
 alias playlist="album -o '%(playlist_index)s - %(title)s.%(ext)s'"
 alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
+alias vsh="vagrant ssh"
 
 wbeam() {
     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \

@@ -17,3 +17,4 @@ bin
 __pycache__
 *.dblite
 *.sqlite
+.dir-locals.el
