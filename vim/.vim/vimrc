@@ -109,7 +109,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
-" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'szw/vim-g'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
@@ -124,7 +124,7 @@ Plug 'nelstrom/vim-markdown-folding'
 call plug#end()
 
 filetype plugin indent on
-syntax off
+syntax on
 
 " Critical remaps
 map <Space> <Leader>
