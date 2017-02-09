@@ -234,7 +234,7 @@ au FileType haskell setlocal errorformat=
                 \%+C\ \ %#%tarning:\ %m,
 
 " Vim-grepper
-let g:grepper = {'tools': ['ag'], 'open': 0, 'jump': 1, 'prompt': 0}
+let g:grepper = {'tools': ['rg', 'ag'], 'open': 0, 'jump': 0, 'prompt': 0}
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
@@ -309,9 +309,9 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "0"}
 let g:slime_no_mappings = 1
 let g:slime_dont_ask_default = 1
 let g:slime_python_ipython = 1
-xmap gs <Plug>SlimeRegionSend
-nmap gs <Plug>SlimeMotionSend
-nmap gss <Plug>SlimeLineSend
+xmap <leader>s <Plug>SlimeRegionSend
+nmap <leader>s <Plug>SlimeMotionSend
+nmap <leader>ss <Plug>SlimeLineSend
 
 " Disable ftplugin-mail maps.
 let no_mail_maps=1
