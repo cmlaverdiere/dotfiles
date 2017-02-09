@@ -95,11 +95,11 @@ elif [ "$TERM" != "linux" ] && [ "$TERM" != "vt100" ] && [ "$TERM" != "vt220" ];
   printf "\033]4;230;rgb:f9/f5/d7\033\\"
 
   printf "\033]4;229;rgb:fb/f1/c7\033\\"
-  # printf "\033]4;223;rgb:eb/db/b2\033\\"
+  printf "\033]4;223;rgb:eb/db/b2\033\\"
   # printf "\033]4;223;rgb:bd/ae/93\033\\"
   # printf "\033]4;223;rgb:bf/a8/73\033\\"
   # printf "\033]4;223;rgb:c9/ab/91\033\\"
-  printf "\033]4;223;rgb:d4/b3/96\033\\"
+  # printf "\033]4;223;rgb:d4/b3/96\033\\"
   printf "\033]4;250;rgb:d5/c4/a1\033\\"
   printf "\033]4;248;rgb:bd/ae/93\033\\"
   printf "\033]4;246;rgb:a8/99/84\033\\"
