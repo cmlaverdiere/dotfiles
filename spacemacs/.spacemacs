@@ -15,6 +15,7 @@
      clojure
      (colors :variables colors-enable-nyan-cat-progress-bar nil)
      emacs-lisp
+     extra-langs
      finance
      git
      (haskell :variables
