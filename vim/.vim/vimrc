@@ -197,14 +197,14 @@ nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
 nnoremap <Leader>sap :Grepper -query ""<left>
 xnoremap <Leader>S :sort<CR>
-nnoremap <Leader>ss :FZFBLines<CR>
+nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <script> <silent> <leader>el :call ToggleQuickfixList()<CR>
-nnoremap <silent> <Leader>* :FZFAg <C-R><C-W><CR>
+nnoremap <silent> <Leader>. :FZFAg <C-R><C-W><CR>
 nnoremap <silent> <Leader>/ :FZFAg <CR>
 nnoremap <silent> <Leader>sc :nohlsearch<CR>
 noremap <Leader>G :Google<CR>
