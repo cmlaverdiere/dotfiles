@@ -83,7 +83,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 " Plug 'godlygeek/tabular'
-" Plug 'tikhomirov/vim-glsl'
+Plug 'tikhomirov/vim-glsl'
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
@@ -244,6 +244,10 @@ xmap gs <plug>(GrepperOperator)
 
 " Toggle list
 let g:toggle_list_no_mappings = 1
+
+" Clang-format
+au Filetype c,cpp nnoremap <leader>= mmggvG:!clang-format<CR>'m
+au Filetype c,cpp xnoremap <leader>= :!clang-format<CR>
 
 " Clang complete (for c/c++)
 let g:clang_library_path='/usr/lib'
