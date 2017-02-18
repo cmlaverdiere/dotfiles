@@ -68,6 +68,7 @@ setopt appendhistory extendedglob
 setopt HIST_IGNORE_DUPS
 
 # Aliases (General)
+alias db="coredumpctl gdb"
 alias df="df -h"
 alias du="du -h"
 alias psa="ps aux | grep $1"
