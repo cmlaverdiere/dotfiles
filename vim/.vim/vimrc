@@ -278,6 +278,9 @@ aug jedi_group
         \ :call jedi#goto()<CR>
 aug END
 
+au Filetype python nnoremap <leader>= mmggvG:!yapf<CR>'m
+au Filetype python xnoremap <leader>= :!yapf<CR>
+
 " Rust racer
 let g:racer_no_default_keymappings = 1
 aug rust_group
