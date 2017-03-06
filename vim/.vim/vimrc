@@ -255,6 +255,11 @@ let g:clang_complete_auto=0
 let g:clang_user_options = '-std=c++11'
 let g:clang_complete_macros=1
 let g:clang_make_default_keymappings=0
+if !empty(glob("./build/compile_commands.json"))
+    let g:clang_use_library=1
+    let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
+    let g:clang_compilation_database = "./build"
+endif
 au Filetype c,cpp nnoremap <silent> <buffer> g
     \ :call g:ClangGotoDeclaration()<CR>
 
