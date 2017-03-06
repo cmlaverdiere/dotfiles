@@ -195,7 +195,7 @@ xnoremap <Leader>pr "ay :norm gvgs<CR> \| :cfdo :%s/<c-r>a//ce<left><left><left>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
-nnoremap <Leader>sap :Grepper -query ""<left>
+nnoremap <Leader>sp :Grepper -query ""<left>
 xnoremap <Leader>S :sort<CR>
 nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
