@@ -259,6 +259,7 @@ if !empty(glob("./build/compile_commands.json"))
     let g:clang_use_library=1
     let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
     let g:clang_compilation_database = "./build"
+    set makeprg=make\ -C\ build
 endif
 au Filetype c,cpp nnoremap <silent> <buffer> g
     \ :call g:ClangGotoDeclaration()<CR>
