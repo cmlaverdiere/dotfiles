@@ -204,8 +204,8 @@ nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <script> <silent> <leader>el :call ToggleQuickfixList()<CR>
-nnoremap <silent> <Leader>. :FZFAg <C-R><C-W><CR>
-nnoremap <silent> <Leader>/ :FZFAg <CR>
+nnoremap <silent> <Leader>. :FZFRg <C-R><C-W><CR>
+nnoremap <silent> <Leader>/ :FZFRg <CR>
 nnoremap <silent> <Leader>sc :nohlsearch<CR>
 noremap <Leader>G :Google<CR>
 
@@ -222,6 +222,12 @@ command! RTW call RTW()
 
 " FZF
 let g:fzf_command_prefix = 'FZF'
+command! -bang -nargs=* FZFRg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " Haskell
 au FileType haskell nnoremap <buffer> <Leader>T :!hasktags .<CR><CR>
