@@ -12,7 +12,7 @@
     ds = diff --stat
     dst = diff --staged
     pm = push origin master
-    st = status
+    st = status -s
 
 [core]
     editor = vim
