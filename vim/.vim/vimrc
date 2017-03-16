@@ -82,13 +82,11 @@ runtime ftplugin/man.vim
 call plug#begin('~/.vim/plugged')
 
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
-" Plug 'godlygeek/tabular'
 Plug 'tikhomirov/vim-glsl'
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
-" Plug 'glts/vim-textobj-comment'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
@@ -110,7 +108,6 @@ Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
-Plug 'szw/vim-g'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -204,8 +201,8 @@ nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
 nnoremap <script> <silent> <leader>el :call ToggleQuickfixList()<CR>
-nnoremap <silent> <Leader>. :FZFAg <C-R><C-W><CR>
-nnoremap <silent> <Leader>/ :FZFAg <CR>
+nnoremap <silent> <Leader>. :FZFRg <C-R><C-W><CR>
+nnoremap <silent> <Leader>/ :FZFRg <CR>
 nnoremap <silent> <Leader>sc :nohlsearch<CR>
 noremap <Leader>G :Google<CR>
 
@@ -222,6 +219,12 @@ command! RTW call RTW()
 
 " FZF
 let g:fzf_command_prefix = 'FZF'
+command! -bang -nargs=* FZFRg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " Haskell
 au FileType haskell nnoremap <buffer> <Leader>T :!hasktags .<CR><CR>
@@ -259,9 +262,11 @@ if !empty(glob("./build/compile_commands.json"))
     let g:clang_use_library=1
     let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
     let g:clang_compilation_database = "./build"
+    set makeprg=make\ -C\ build
 elseif !empty(glob("./compile_commands.json"))
     let g:clang_use_library=1
     let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
+    set makeprg=make\ -C\ build
 endif
 au Filetype c,cpp nnoremap <silent> <buffer> g
     \ :call g:ClangGotoDeclaration()<CR>
