@@ -8,3 +8,4 @@ dist
 CMakeFiles
 static/css
 static/js
+*.log

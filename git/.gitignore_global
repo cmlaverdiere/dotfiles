@@ -18,3 +18,4 @@ __pycache__
 *.dblite
 *.sqlite
 .dir-locals.el
+compile_commands.json
