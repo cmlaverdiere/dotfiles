@@ -183,15 +183,18 @@ nnoremap <Leader>c :make -j9<CR>
 nnoremap <Leader>fed :e $MYVIMRC<CR>
 nnoremap <Leader>fl :FZFFiles ~/<CR>
 nnoremap <Leader>fs :w<CR>
+nnoremap <Leader>gb :!git blame %<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>mt :make -j9 tests<CR>
 nnoremap <Leader>pf :FZFFiles<CR>
+nnoremap <Leader>pg :FZFTags<CR>
 nnoremap <Leader>pi :PlugInstall<CR>
 xnoremap <Leader>pr "ay :norm gvgs<CR> \| :cfdo :%s/<c-r>a//ce<left><left><left>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
+nnoremap <Leader>sh :.w !bash<CR>
 nnoremap <Leader>sp :Grepper -query ""<left>
 xnoremap <Leader>S :sort<CR>
 nnoremap <Leader>o :FZFBLines<CR>

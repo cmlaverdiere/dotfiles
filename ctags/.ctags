@@ -1,4 +1,5 @@
 --python-kinds=-i
+--exclude=build
 --exclude=.tox
 --exclude=bower_components
 --exclude=node_modules
