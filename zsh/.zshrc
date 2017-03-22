@@ -188,6 +188,7 @@ fi
 alias fzf="fzf -m"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
+export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Ruby path. Comment out for speed.
 # export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
