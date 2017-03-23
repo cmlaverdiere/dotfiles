@@ -117,6 +117,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'triglav/vim-visual-increment'
 Plug 'wellle/targets.vim'
 Plug 'nelstrom/vim-markdown-folding'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -200,6 +201,7 @@ xnoremap <Leader>S :sort<CR>
 nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
 nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>ts :ALEToggle<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
@@ -219,6 +221,13 @@ fun! RTW()
   call cursor(l, c)
 endfun
 command! RTW call RTW()
+
+" ALE
+let g:ale_enabled = 0
+let g:ale_set_quickfix = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
 
 " FZF
 let g:fzf_command_prefix = 'FZF'
