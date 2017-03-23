@@ -107,7 +107,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
-" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -286,7 +286,7 @@ let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures = 2
 aug jedi_group
     au!
-    au Filetype python call jedi#configure_call_signatures()
+    " au Filetype python call jedi#configure_call_signatures()
     au Filetype python setlocal omnifunc=jedi#completions
     au Filetype python nnoremap <silent> <buffer> K
         \ :call jedi#show_documentation()<CR>
