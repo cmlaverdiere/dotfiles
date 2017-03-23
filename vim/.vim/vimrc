@@ -223,6 +223,7 @@ endfun
 command! RTW call RTW()
 
 " ALE
+" TODO find how to use compile_commands.json for this. Submit issue asking.
 let g:ale_enabled = 0
 let g:ale_set_quickfix = 1
 let g:ale_lint_on_text_changed = 0
@@ -273,11 +274,7 @@ let g:clang_make_default_keymappings=0
 if !empty(glob("./build/compile_commands.json"))
     let g:clang_use_library=1
     let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
-    let g:clang_compilation_database = "./build"
-    set makeprg=make\ -C\ build
-elseif !empty(glob("./compile_commands.json"))
-    let g:clang_use_library=1
-    let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
+    call system("cp ./build/compile_commands.json .")
     set makeprg=make\ -C\ build
 endif
 au Filetype c,cpp nnoremap <silent> <buffer> g
