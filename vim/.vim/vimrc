@@ -275,7 +275,11 @@ let g:clang_make_default_keymappings=0
 if !empty(glob("./build/compile_commands.json"))
     let g:clang_use_library=1
     let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
-    call system("cp ./build/compile_commands.json .")
+    let g:clang_compilation_database = "./build"
+    " let g:ale_linters = {
+    " \   'cpp': ['clangtidy']
+    " \}
+    " let g:ale_cpp_clangtidy_options = "-p ./build -checks=*"
     set makeprg=make\ -C\ build
 endif
 au Filetype c,cpp nnoremap <silent> <buffer> g
