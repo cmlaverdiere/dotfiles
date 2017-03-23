@@ -74,6 +74,7 @@ set timeoutlen=1000
 set showcmd
 set formatoptions+=jn
 set nojoinspaces
+set nomodeline
 
 " Plugins (mostly syntax files and motion extensions)
 " MVPs: kana, tpope
