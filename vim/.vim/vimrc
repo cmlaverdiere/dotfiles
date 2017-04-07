@@ -100,6 +100,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-plug'
 Plug 'kana/vim-altr'
 Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-function', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-textobj-user'
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 Plug 'mbbill/undotree'
