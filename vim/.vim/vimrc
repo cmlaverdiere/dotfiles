@@ -98,6 +98,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-plug'
 Plug 'kana/vim-altr'
 Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-function', { 'for': ['c', 'cpp'] }
 Plug 'kana/vim-textobj-user'
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 Plug 'mbbill/undotree'
@@ -271,10 +272,10 @@ let g:clang_complete_auto=0
 let g:clang_user_options = '-std=c++11'
 let g:clang_complete_macros=1
 let g:clang_make_default_keymappings=0
-if !empty(glob("./build/compile_commands.json"))
+if !empty(glob('./build/compile_commands.json'))
     let g:clang_use_library=1
-    let g:clang_auto_user_options = "compile_commands.json, .clang_complete, path"
-    let g:clang_compilation_database = "./build"
+    let g:clang_auto_user_options = 'compile_commands.json, .clang_complete, path'
+    let g:clang_compilation_database = './build'
     " let g:ale_linters = {
     " \   'cpp': ['clangtidy']
     " \}
@@ -325,7 +326,7 @@ au BufNewFile,BufReadPost *.md setlocal filetype=markdown
 au Filetype markdown setlocal commentstring=[//]:\ #\ (%s)
 
 " Ultisnips
-let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips/"
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips/'
 
 aug prewrite_group
     au!
@@ -340,9 +341,9 @@ au Filetype ledger nnoremap <buffer> <leader>c :setlocal makeprg=ledger \
 au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
 " Slime (for REPLs)
-let g:slime_target = "tmux"
-let g:slime_paste_file = "$HOME/.slime_paste"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "0"}
+let g:slime_target = 'tmux'
+let g:slime_paste_file = '$HOME/.slime_paste'
+let g:slime_default_config = {'socket_name': 'default', 'target_pane': '0'}
 let g:slime_no_mappings = 1
 let g:slime_dont_ask_default = 1
 let g:slime_python_ipython = 1
