@@ -84,8 +84,8 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'tikhomirov/vim-glsl'
-" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-" Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
@@ -314,12 +314,8 @@ let g:racer_no_default_keymappings = 1
 aug rust_group
     au!
     au Filetype rust compiler rustc
-    au Filetype rust nnoremap <silent><buffer> <Plug>RacerGoToDefinitionDrect
-        \ :call <SID>RacerGoToDefinition()<CR>
-    au Filetype rust nnoremap <silent><buffer> <Plug>RacerShowDocumentation
-        \ :call <SID>RacerShowDocumentation()<CR>
-    au Filetype rust nmap <buffer> g <Plug>RacerGoToDefinitionDrect
-    au Filetype rust nmap <buffer> K <Plug>RacerShowDocumentation
+    au Filetype rust nmap <buffer> g <Plug>(rust-def)
+    au Filetype rust nmap <buffer> K <Plug>(rust-doc)
 aug END
 
 " Markdown compatibility.
