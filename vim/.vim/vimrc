@@ -316,6 +316,9 @@ aug rust_group
     au Filetype rust compiler rustc
     au Filetype rust nmap <buffer> g <Plug>(rust-def)
     au Filetype rust nmap <buffer> K <Plug>(rust-doc)
+    au Filetype rust nnoremap <buffer> <leader>= mmggvG:!rustfmt<CR>'m
+    au Filetype rust xnoremap <buffer> <leader>= :!rustfmt<CR>
+    au Filetype rust let g:ale_rust_cargo_use_check=1
 aug END
 
 " Markdown compatibility.
