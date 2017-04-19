@@ -32,6 +32,7 @@ compinit
 bindkey -v
 autoload -Uz colors && colors
 setopt interactivecomments
+setopt INC_APPEND_HISTORY
 tabs 4
 
 # Directory stack
