@@ -176,6 +176,7 @@ command! -nargs=1 E call s:EditSameDir(<f-args>)
 
 " Leader Mappings
 nmap <Leader>ga <Plug>(altr-forward)
+nnoremap <Leader>aes :s/\(\w\)/\U\1 <CR>:nohl<CR>
 nnoremap <Leader>C :BCommits<CR>
 nnoremap <Leader>T :!ctags -R<CR><CR>
 nnoremap <Leader>V :sp<CR>
