@@ -30,8 +30,10 @@ compinit
 
 # Misc settings
 bindkey -v
+bindkey -M viins 'jk' vi-cmd-mode
 autoload -Uz colors && colors
 setopt interactivecomments
+setopt INC_APPEND_HISTORY
 tabs 4
 
 # Directory stack
