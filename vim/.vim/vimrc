@@ -2,8 +2,6 @@
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
 
-" TODO try editorconfig
-
 " Shell compatibility settings.
 set shell=bash
 set background=dark
@@ -120,6 +118,7 @@ Plug 'triglav/vim-visual-increment'
 Plug 'wellle/targets.vim'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
