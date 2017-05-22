@@ -22,20 +22,20 @@
     compactionHeuristic = true
 
 [pager]
-	log = diff-highlight | less
+    log = diff-highlight | less
     show = diff-highlight | less
     diff = diff-highlight | less
 
 [push]
-    default = simple
+    default = current
 
 [interactive]
-	diffFilter = diff-highlight
+    diffFilter = diff-highlight
 
 [merge]
-	tool = vimdiff
-	conflictstyle = diff3
-	prompt = false
+    tool = vimdiff
+    conflictstyle = diff3
+    prompt = false
 
 [mergetool]
-	keepBackup = false
+    keepBackup = false
