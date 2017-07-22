@@ -107,7 +107,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -190,6 +190,7 @@ nnoremap <Leader>fmt :g/.*/norm gqqo<CR>:nohl<CR>gg
 nnoremap <Leader>gb :!git blame %<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
+nnoremap <Leader>h :FZFHistory:<CR>
 nnoremap <Leader>mt :make -j9 tests<CR>
 nnoremap <Leader>pf :FZFFiles<CR>
 nnoremap <Leader>pg :FZFTags<CR>
