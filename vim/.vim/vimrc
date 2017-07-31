@@ -311,6 +311,7 @@ aug END
 
 au Filetype python nnoremap <buffer> <leader>= mmggvG:!yapf<CR>'m
 au Filetype python xnoremap <buffer> <leader>= :!yapf<CR>
+au Filetype python nnoremap <buffer> <leader>db mmOimport ipdb; ipdb.set_trace()'m
 
 " Rust racer
 let g:racer_no_default_keymappings = 1
