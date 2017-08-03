@@ -192,6 +192,7 @@ alias fzf="fzf -m"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_OPTS='--color=16'
 
 # Ruby path. Comment out for speed.
 # export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
@@ -225,7 +226,7 @@ export PATH=$PATH:~/android/build-tools/25.0.0
 export PYTHONPATH=$PYTHONPATH:.
 
 # Fix vim colors with gruvbox.
-source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+# source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 adb-dump() {
     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -

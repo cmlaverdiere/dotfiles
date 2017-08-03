@@ -105,7 +105,7 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'tommcdo/vim-lion'
@@ -119,6 +119,8 @@ Plug 'wellle/targets.vim'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'hdima/python-syntax'
 
 call plug#end()
 
@@ -371,6 +373,21 @@ nnoremap <silent> k :<C-U>execute 'normal!'
 nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
+let python_highlight_all = 1
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'python': {
+  \       'highlight_builtins' : 1
+  \     },
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins' : 1
+  \     }
+  \   }
+  \ }
+
 " Color scheme must be loaded at the end.
-set background=dark
-colorscheme gruvbox
+set background=light
+colorscheme PaperColor
