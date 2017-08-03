@@ -167,7 +167,7 @@ bar {
         background #005F87
         statusline #FFFFFF
         separator  #FF9955
-        focused_workspace  	#00AAD4 #00AAD4 #F9F9F9
+        focused_workspace  	#ff9955 #ff9955 #F9F9F9
         inactive_workspace  #F9F9F9 #F9F9F9 #000000
         urgent_workspace    #272727 #272727 #00AAD4
     }
@@ -184,6 +184,7 @@ bar {
 
 # Papercolor
 client.background #111111
-client.focused #222222 #222222 #00AAD4 #DDDDDD #005F87
-client.focused_inactive #666666 #666666 #F9F9F9 #111111 #444444
+client.focused #ff9955 #005f87 #F9F9F9 #111111 #444444
+client.focused_inactive #dddddd #dddddd #666666 #DDDDDD #005F87
+client.unfocused #dddddd #dddddd #666666 #DDDDDD #005F87
 client.urgent #4A4A4A #4A4A4A #FDFDFD #FDFDFD #4A4A4A
