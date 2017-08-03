@@ -16,43 +16,43 @@
 
 # --- Settings --- #
 
-set $mod Mod4
-floating_modifier Mod1
+set $mod Mod1
+floating_modifier Mod4
 font pango:DejaVu Sans Mono 8
 new_window pixel 1
 hide_edge_borders both
 workspace_auto_back_and_forth yes
 focus_follows_mouse no
-gaps inner 15
+# gaps inner 6
 
 
 # --- Maps --- #
 
 # Modmaps
 bindsym $mod+0 exec transset-df -a
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+Down gaps outer current minus 5
-bindsym $mod+Left gaps inner current minus 5
+bindsym $mod+1 workspace 1:www
+bindsym $mod+2 workspace 2:dev
+bindsym $mod+3 workspace 3:sc
+bindsym $mod+4 workspace 4:tc
+bindsym $mod+5 workspace 5:proj3
+bindsym $mod+6 workspace 6:misc1
+bindsym $mod+7 workspace 7:misc2
+bindsym $mod+8 workspace 8:misc3
+bindsym $mod+9 workspace 9:music
+# bindsym $mod+Down gaps outer current minus 5
+# bindsym $mod+Left gaps inner current minus 5
 bindsym $mod+Return exec urxvt -cd "`xcwd`"
-bindsym $mod+Right gaps inner current plus 5
+# bindsym $mod+Right gaps inner current plus 5
 bindsym $mod+Shift+0 move container to workspace 10
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+1 move container to workspace 1:www
+bindsym $mod+Shift+2 move container to workspace 2:dev
+bindsym $mod+Shift+3 move container to workspace 3:sc
+bindsym $mod+Shift+4 move container to workspace 4:tc
+bindsym $mod+Shift+5 move container to workspace 5:proj3
+bindsym $mod+Shift+6 move container to workspace 6:misc1
+bindsym $mod+Shift+7 move container to workspace 7:misc2
+bindsym $mod+Shift+8 move container to workspace 8:misc3
+bindsym $mod+Shift+9 move container to workspace 9:music
 bindsym $mod+Shift+c kill
 bindsym $mod+Shift+comma move workspace to output left
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes' 'i3-msg exit'"
@@ -65,8 +65,7 @@ bindsym $mod+Shift+p focus parent
 bindsym $mod+Shift+period move workspace to output right
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x reload
-bindsym $mod+Shift+y exec qutebrowser
-bindsym $mod+Up gaps outer current plus 5
+# bindsym $mod+Up gaps outer current plus 5
 bindsym $mod+apostrophe scratchpad show
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+button3 floating toggle
@@ -90,18 +89,19 @@ bindsym $mod+period focus output right; workspace next_on_output; focus output l
 bindsym $mod+plus exec transset-df -a --inc 0.05
 bindsym $mod+r exec urxvt -cd "`xcwd`" -e ranger
 bindsym $mod+s layout tabbed
-bindsym $mod+semicolon exec slock
+bindsym $mod+semicolon workspace back_and_forth
 bindsym $mod+slash exec cr r
-bindsym $mod+Shift+slash exec cr t
 bindsym $mod+space floating toggle
 bindsym $mod+t exec thunar "`xcwd`"
 bindsym $mod+u exec urxvt -hold -e sh -c 'sudo pacman -Syu && echo Done!'
 bindsym $mod+v split h
 bindsym $mod+w mode "resize"
 bindsym $mod+x exec xkill
+bindsym $mod+Shift+y exec chromium --incognito
 bindsym $mod+y exec chromium
 bindsym $mod+z exec xfce4-screenshooter
 bindsym $mod+Tab move workspace to output right
+# bindsym $mod+slash exec ssh sd 'cr'
 
 # Mouse maps
 bindsym button3 floating toggle
@@ -114,21 +114,22 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 # --- Application classes --- #
 
-for_window [class="Pidgin"] floating enable
 for_window [class="Thunar"] floating enable
+for_window [class="Fosphor test"] floating enable
 for_window [class="Skype"] floating enable
 for_window [class="mpv"] floating enable
 for_window [title="Opengl Demo"] floating enable
 for_window [title="transcribe"] floating enable
+for_window [title="QEMU"] floating enable
 
 
 # --- Modes --- #
 
 mode "resize" {
-    bindsym h resize shrink width 1 px or 1 ppt
-    bindsym j resize grow height 1 px or 1 ppt
-    bindsym k resize shrink height 1 px or 1 ppt
-    bindsym l resize grow width 1 px or 1 ppt
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
     bindsym q mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -145,24 +146,44 @@ exec --no-startup-id urxvt -e vim ~/.__scratchpad
 
 bar {
     mode hide
+    modifier $mod
     status_command i3status
     font pango:DejaVu Sans Mono 10
+    strip_workspace_numbers yes
 
+    # Gruvbox
+    # colors {
+    #     separator #928374
+    #     background #282828
+    #     statusline #ebdbb2
+    #     focused_workspace #689d6a #689d6a #282828
+    #     active_workspace #1d2021 #1d2021 #928374
+    #     inactive_workspace #32302f #32302f #928374
+    #     urgent_workspace #cc241d #cc241d #ebdbb2
+    # }
+
+    # PaperColor
     colors {
-        separator #928374
-        background #282828
-        statusline #ebdbb2
-        focused_workspace #689d6a #689d6a #282828
-        active_workspace #1d2021 #1d2021 #928374
-        inactive_workspace #32302f #32302f #928374
-        urgent_workspace #cc241d #cc241d #ebdbb2
+        background #005F87
+        statusline #FFFFFF
+        separator  #FF9955
+        focused_workspace  	#00AAD4 #00AAD4 #F9F9F9
+        inactive_workspace  #F9F9F9 #F9F9F9 #000000
+        urgent_workspace    #272727 #272727 #00AAD4
     }
 }
 
 
 # --- Colors --- #
 
-client.focused #689d6a #689d6a #282828 #282828
-client.focused_inactive #1d2021 #1d2021 #928374 #282828
-client.unfocused #32302f #32302f #928374 #282828
-client.urgent #cc241d #cc241d #ebdbb2 #282828
+# Gruvbox
+# client.focused #689d6a #689d6a #282828 #282828
+# client.focused_inactive #1d2021 #1d2021 #928374 #282828
+# client.unfocused #32302f #32302f #928374 #282828
+# client.urgent #cc241d #cc241d #ebdbb2 #282828
+
+# Papercolor
+client.background #111111
+client.focused #222222 #222222 #00AAD4 #DDDDDD #005F87
+client.focused_inactive #666666 #666666 #F9F9F9 #111111 #444444
+client.urgent #4A4A4A #4A4A4A #FDFDFD #FDFDFD #4A4A4A
