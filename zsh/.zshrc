@@ -11,8 +11,9 @@ export EDITOR='vim'
 export LEDGER_FILE='~/finance/ledger.ldg'
 export FIT_FILE='~/fitness/fit.log'
 export TERMINAL='urxvt'
-export CC=/usr/bin/clang
-export CXX=/usr/bin/clang++
+export musicxmlPath=/usr/bin/musescore
+# export CC=/usr/bin/clang
+# export CXX=/usr/bin/clang++
 
 # Init vars
 ENABLE_GIT_STATUS=false
