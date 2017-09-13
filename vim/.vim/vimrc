@@ -120,7 +120,7 @@ Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'hdima/python-syntax'
+Plug 'vim-python/python-syntax'
 
 call plug#end()
 
@@ -254,15 +254,15 @@ command! -bang -nargs=* FZFRg
 au FileType haskell nnoremap <buffer> <Leader>T :!hasktags .<CR><CR>
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 au FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
-au FileType haskell setlocal errorformat=
-                \%-G,
-                \%-Z\ %#,
-                \%W%f:%l:%c:\ Warning:\ %m,
-                \%E%f:%l:%c:\ %m,
-                \%E%>%f:%l:%c:,
-                \%+C\ \ %#%m,
-                \%W%>%f:%l:%c:,
-                \%+C\ \ %#%tarning:\ %m,
+" au FileType haskell setlocal errorformat=
+"                 \%-G,
+"                 \%-Z\ %#,
+"                 \%W%f:%l:%c:\ Warning:\ %m,
+"                 \%E%f:%l:%c:\ %m,
+"                 \%E%>%f:%l:%c:,
+"                 \%+C\ \ %#%m,
+"                 \%W%>%f:%l:%c:,
+"                 \%+C\ \ %#%tarning:\ %m,
 
 " Vim-grepper
 let g:grepper = {'tools': ['rg', 'ag'], 'open': 0, 'jump': 0, 'prompt': 0}
@@ -373,6 +373,7 @@ nnoremap <silent> k :<C-U>execute 'normal!'
 nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
 
+let python_highlight_space_errors = 0
 let python_highlight_all = 1
 let g:PaperColor_Theme_Options = {
   \   'language': {
