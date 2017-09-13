@@ -11,6 +11,7 @@
     co = checkout
     ds = diff --stat
     dst = diff --staged
+    me = log --author="Laverdiere"
     pm = push origin master
     st = status -s
 
