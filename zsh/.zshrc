@@ -113,7 +113,6 @@ alias pi="sudo pacman -S"
 # Aliases (Ubuntu)
 alias acs="apt-cache search"
 alias aps="apt search"
-alias go="gnome-open"
 alias sagi="sudo apt-get install"
 
 # Aliases (Files)
