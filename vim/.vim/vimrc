@@ -328,6 +328,12 @@ aug rust_group
     au Filetype rust let g:ale_rust_cargo_use_check=1
 aug END
 
+" Go
+aug go_group
+    au Filetype go nnoremap <buffer> <leader>= mmggvG:!gofmt<CR>'m
+    au Filetype go xnoremap <buffer> <leader>= !gofmt<CR>
+aug END
+
 " Javascript
 aug js_group
     au Filetype javascript,json nnoremap <buffer> <leader>= mmggvG:!js-beautify<CR>'m
