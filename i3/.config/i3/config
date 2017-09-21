@@ -177,14 +177,14 @@ bar {
 # --- Colors --- #
 
 # Gruvbox
-# client.focused #689d6a #689d6a #282828 #282828
-# client.focused_inactive #1d2021 #1d2021 #928374 #282828
-# client.unfocused #32302f #32302f #928374 #282828
-# client.urgent #cc241d #cc241d #ebdbb2 #282828
+client.focused #689d6a #689d6a #282828 #282828
+client.focused_inactive #1d2021 #1d2021 #928374 #282828
+client.unfocused #32302f #32302f #928374 #282828
+client.urgent #cc241d #cc241d #ebdbb2 #282828
 
 # Papercolor
-client.background #111111
-client.focused #ff9955 #005f87 #F9F9F9 #111111 #444444
-client.focused_inactive #dddddd #dddddd #666666 #DDDDDD #005F87
-client.unfocused #cccccc #cccccc #666666 #cccccc #005F87
-client.urgent #4A4A4A #4A4A4A #FDFDFD #FDFDFD #4A4A4A
+# client.background #111111
+# client.focused #ff9955 #005f87 #F9F9F9 #111111 #444444
+# client.focused_inactive #dddddd #dddddd #666666 #DDDDDD #005F87
+# client.unfocused #cccccc #cccccc #666666 #cccccc #005F87
+# client.urgent #4A4A4A #4A4A4A #FDFDFD #FDFDFD #4A4A4A
