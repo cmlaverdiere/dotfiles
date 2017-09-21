@@ -82,6 +82,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'tikhomirov/vim-glsl'
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
@@ -328,7 +329,10 @@ aug END
 
 " Go
 aug go_group
-    au Filetype go nnoremap <buffer> <leader>= mmggvG:!gofmt<CR>'m
+    let g:go_fmt_autosave = 0
+    au Filetype go nnoremap <buffer> <leader>= :GoFmt<CR>
+    au Filetype go nmap <buffer> K <Plug>(go-doc-split)
+    au Filetype go nmap <buffer> g <Plug>(go-def)
     au Filetype go xnoremap <buffer> <leader>= !gofmt<CR>
 aug END
 
