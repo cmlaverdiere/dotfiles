@@ -226,7 +226,7 @@ export PATH=$PATH:~/android/build-tools/25.0.0
 export PYTHONPATH=$PYTHONPATH:.
 
 # Fix vim colors with gruvbox.
-# source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 # The shitshow
 export npm_config_prefix=~/.node_modules

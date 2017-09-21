@@ -152,25 +152,25 @@ bar {
     strip_workspace_numbers yes
 
     # Gruvbox
-    # colors {
-    #     separator #928374
-    #     background #282828
-    #     statusline #ebdbb2
-    #     focused_workspace #689d6a #689d6a #282828
-    #     active_workspace #1d2021 #1d2021 #928374
-    #     inactive_workspace #32302f #32302f #928374
-    #     urgent_workspace #cc241d #cc241d #ebdbb2
-    # }
+    colors {
+        separator #928374
+        background #282828
+        statusline #ebdbb2
+        focused_workspace #689d6a #689d6a #282828
+        active_workspace #1d2021 #1d2021 #928374
+        inactive_workspace #32302f #32302f #928374
+        urgent_workspace #cc241d #cc241d #ebdbb2
+    }
 
     # PaperColor
-    colors {
-        background #005F87
-        statusline #FFFFFF
-        separator  #FF9955
-        focused_workspace  	#ff9955 #ff9955 #F9F9F9
-        inactive_workspace  #F9F9F9 #F9F9F9 #000000
-        urgent_workspace    #272727 #272727 #00AAD4
-    }
+    # colors {
+    #     background #005F87
+    #     statusline #FFFFFF
+    #     separator  #FF9955
+    #     focused_workspace  	#ff9955 #ff9955 #F9F9F9
+    #     inactive_workspace  #F9F9F9 #F9F9F9 #000000
+    #     urgent_workspace    #272727 #272727 #00AAD4
+    # }
 }
 
 

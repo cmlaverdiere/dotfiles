@@ -111,6 +111,26 @@ Xft.rgba: rgb
 /* *color7:  #a89984 */
 /* *color15: #ebdbb2 */
 
+! gruvbox light
+*background: #fbf1c7
+*foreground: #3c3836
+*color0:  #fdf4c1
+*color8:  #928374
+*color1:  #cc241d
+*color9:  #9d0006
+*color2:  #98971a
+*color10: #79740e
+*color3:  #d79921
+*color11: #b57614
+*color4:  #458588
+*color12: #076678
+*color5:  #b16286
+*color13: #8f3f71
+*color6:  #689d6a
+*color14: #427b58
+*color7:  #7c6f64
+*color15: #3c3836
+
 ! Color scheme: gotham
 ! *.foreground:   #98d1ce
 ! *.background:   #0a0f14
@@ -157,29 +177,21 @@ Xft.rgba: rgb
 /* *color15:               #fdf6e3 */
 
 ! PaperColor Theme
-URxvt.foreground: #4D4D4C
-URxvt.background: #EEEEEE
-! black
-URxvt.color0: #EDEDED
-URxvt.color8: #969694
-! red
-URxvt.color1: #D7005F
-URxvt.color9: #D7005F
-! green
-URxvt.color2: #718C00
-URxvt.color10: #718C00
-! yellow / orange
-URxvt.color3: #D75F00
-URxvt.color11: #D75F00
-! blue
-URxvt.color4: #4271AE
-URxvt.color12: #4271AE
-! magenta
-URxvt.color5: #8959A8
-URxvt.color13: #8959A8
-! cyan
-URxvt.color6: #3E999F
-URxvt.color14: #3E999F
-! white
-URxvt.color7: #4D4D4C
-URxvt.color15: #F5F5F5
+/* URxvt.foreground: #4D4D4C */
+/* URxvt.background: #EEEEEE */
+/* URxvt.color0: #EDEDED */
+/* URxvt.color8: #969694 */
+/* URxvt.color1: #D7005F */
+/* URxvt.color9: #D7005F */
+/* URxvt.color2: #718C00 */
+/* URxvt.color10: #718C00 */
+/* URxvt.color3: #D75F00 */
+/* URxvt.color11: #D75F00 */
+/* URxvt.color4: #4271AE */
+/* URxvt.color12: #4271AE */
+/* URxvt.color5: #8959A8 */
+/* URxvt.color13: #8959A8 */
+/* URxvt.color6: #3E999F */
+/* URxvt.color14: #3E999F */
+/* URxvt.color7: #4D4D4C */
+/* URxvt.color15: #F5F5F5 */
