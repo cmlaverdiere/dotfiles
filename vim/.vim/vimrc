@@ -330,7 +330,9 @@ aug END
 " Go
 aug go_group
     let g:go_fmt_autosave = 0
+    let g:go_def_mapping_enabled = 0
     au Filetype go nnoremap <buffer> <leader>= :GoFmt<CR>
+    au Filetype go nmap <buffer> <leader>i :GoImports<CR>
     au Filetype go nmap <buffer> K <Plug>(go-doc-split)
     au Filetype go nmap <buffer> g <Plug>(go-def)
     au Filetype go xnoremap <buffer> <leader>= !gofmt<CR>
