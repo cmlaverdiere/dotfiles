@@ -230,6 +230,10 @@ source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 export npm_config_prefix=~/.node_modules
 export PATH="$HOME/.node_modules/bin:$PATH"
 
+# Go path
+export GOPATH=$HOME/go
+export PATH="$HOME/go/bin:$PATH"
+
 adb-dump() {
     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
 }
