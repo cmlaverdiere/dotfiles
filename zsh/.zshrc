@@ -232,6 +232,7 @@ export PATH="$HOME/.node_modules/bin:$PATH"
 
 # Go path
 export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 export PATH="$HOME/go/bin:$PATH"
 
 adb-dump() {
