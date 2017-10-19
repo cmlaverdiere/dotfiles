@@ -108,7 +108,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
-" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -120,8 +119,8 @@ Plug 'wellle/targets.vim'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-python/python-syntax'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
