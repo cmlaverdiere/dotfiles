@@ -1,6 +1,8 @@
 " Chris Laverdiere's vimrc
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
+" TODO ale fixers
+" TODO editorconfig
 
 " Shell compatibility settings.
 set shell=bash
