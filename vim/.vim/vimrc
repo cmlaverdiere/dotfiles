@@ -346,8 +346,8 @@ aug END
 
 " Javascript
 aug js_group
-    au Filetype javascript,json nnoremap <buffer> <leader>= mmggvG:!js-beautify<CR>'m
-    au Filetype javascript,json xnoremap <buffer> <leader>= :!js-beautify<CR>
+    au Filetype javascript,json nnoremap <buffer> <leader>= mmggvG:!prettier<CR>'m
+    au Filetype javascript,json xnoremap <buffer> <leader>= :!prettier<CR>
 aug END
 
 " Markdown compatibility.
