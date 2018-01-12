@@ -122,7 +122,6 @@ Plug 'wellle/targets.vim'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'vim-python/python-syntax'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
