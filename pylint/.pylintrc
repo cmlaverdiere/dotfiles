@@ -2,4 +2,4 @@
 disable=R,C,F0401,W0511,W0102,W0603,E1136
 
 [TYPECHECK]
-generated-members=pb_*,zmq
+generated-members=pb_*,zmq,msg
