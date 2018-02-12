@@ -111,6 +111,7 @@ Plug 'milkypostman/vim-togglelist'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -191,7 +192,8 @@ nnoremap <Leader>fed :e $MYVIMRC<CR>
 nnoremap <Leader>fl :FZFFiles ~/<CR>
 nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fmt :g/.*/norm gqqo<CR>:nohl<CR>gg
-nnoremap <Leader>gb :!git blame %<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>h :FZFHistory:<CR>
