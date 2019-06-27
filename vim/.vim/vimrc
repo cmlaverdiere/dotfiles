@@ -74,7 +74,6 @@ set timeoutlen=1000
 set showcmd
 set formatoptions+=jn
 set nojoinspaces
-set nomodeline
 
 " Plugins (mostly syntax files and motion extensions)
 " MVPs: kana, tpope
@@ -94,6 +93,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -194,6 +194,7 @@ nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fmt :g/.*/norm gqqo<CR>:nohl<CR>gg
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>h :FZFHistory:<CR>
@@ -244,6 +245,10 @@ let g:ale_linters = {
 \   'cpp': ['clangtidy'],
 \   'python': ['pylint']
 \}
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 
 " FZF
 let g:fzf_command_prefix = 'FZF'
@@ -316,12 +321,13 @@ aug jedi_group
         \ :call jedi#goto()<CR>
 aug END
 
-au Filetype python nnoremap <buffer> <leader>= mmggvG:!yapf<CR>'m
+au Filetype python nnoremap <buffer> <leader>= mmggvG:!black - -q 2>/dev/null<CR>'m
 au Filetype python xnoremap <buffer> <leader>= :!yapf<CR>
 au Filetype python nnoremap <buffer> <leader>db mmOimport ipdb; ipdb.set_trace()'m
 
 " Rust racer
 let g:racer_no_default_keymappings = 1
+let g:racer_cmd = "/Users/thrash/.cargo/bin/racer"
 aug rust_group
     au!
     au Filetype rust compiler rustc
@@ -329,7 +335,7 @@ aug rust_group
     au Filetype rust nmap <buffer> K <Plug>(rust-doc)
     au Filetype rust nnoremap <buffer> <leader>= mmggvG:!rustfmt<CR>'m
     au Filetype rust xnoremap <buffer> <leader>= :!rustfmt<CR>
-    au Filetype rust let g:ale_rust_cargo_use_check=1
+    au Filetype rust let g:ale_rust_cargo_use_clippy=1
 aug END
 
 " Go
@@ -394,3 +400,11 @@ nnoremap <silent> j :<C-U>execute 'normal!'
 " Color scheme must be loaded at the end.
 set background=dark
 colorscheme gruvbox
+
+" Local config for mac
+if exists('python_highlight_all')
+    unlet python_highlight_all
+endif
+if exists('python_space_error_highlight')
+    unlet python_space_error_highlight
+endif

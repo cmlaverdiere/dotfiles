@@ -10,7 +10,7 @@ export BROWSER="chromium"
 export EDITOR='vim'
 export LEDGER_FILE='~/finance/ledger.ldg'
 export FIT_FILE='~/fitness/fit.log'
-export TERMINAL='urxvt'
+# export TERMINAL='urxvt'
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 
@@ -184,7 +184,7 @@ if [[ $TERM == 'rxvt-unicode-256color' ]]; then
 fi
 
 # Start X on login.
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 
 # fzf setup
 alias fzf="fzf -m"
@@ -210,16 +210,16 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Rust path
-export RUST_SRC_PATH=/usr/src/rust/src
-export PATH=/home/chris/.cargo/bin:$PATH
+# export RUST_SRC_PATH=/usr/src/rust/src
+# export PATH=/home/chris/.cargo/bin:$PATH
 
 # Virtualenv setup. Comment out for speed.
 # export WORKON_HOME=~/.virtualenvs
 # export PROJECT_HOME=~/devel/python/projects
 # source /usr/bin/virtualenvwrapper.sh
 
-export PATH=$PATH:~/android/tools/
-export PATH=$PATH:~/android/build-tools/25.0.0
+# export PATH=$PATH:~/android/tools/
+# export PATH=$PATH:~/android/build-tools/25.0.0
 
 export PYTHONPATH=$PYTHONPATH:.
 
@@ -227,13 +227,13 @@ export PYTHONPATH=$PYTHONPATH:.
 source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 # The shitshow
-export npm_config_prefix=~/.node_modules
-export PATH="$HOME/.node_modules/bin:$PATH"
+# export npm_config_prefix=~/.node_modules
+# export PATH="$HOME/.node_modules/bin:$PATH"
 
 # Go path
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH="$HOME/go/bin:$PATH"
+# export GOPATH=$HOME/go
+# export GOBIN=$GOPATH/bin
+# export PATH="$HOME/go/bin:$PATH"
 
 adb-dump() {
     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
