@@ -124,6 +124,7 @@ Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
