@@ -21,7 +21,7 @@ set smartcase
 set infercase
 
 " Clipboard settings
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 " Search settings
 set incsearch
