@@ -34,7 +34,6 @@ bindkey -M viins 'jk' vi-cmd-mode
 autoload -Uz colors && colors
 setopt interactivecomments
 setopt INC_APPEND_HISTORY
-tabs 4
 
 # Directory stack
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME PUSHD_IGNORE_DUPS PUSHD_MINUS
@@ -81,12 +80,11 @@ alias matlab="ssh -X umbc 'matlab'"
 # alias python="ipython"
 alias rh="runhaskell"
 alias temp="acpi -t"
-alias tmux="tmux -2"
 alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
 alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
-alias ls="ls --color=auto"
-alias ll="ls -l --color=auto"
-alias la="ls -a --color=auto"
+alias ls="ls"
+alias ll="ls -l"
+alias la="ls -a"
 alias ipy="ipython"
 alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
 alias playlist="album -o '%(playlist_index)s - %(title)s.%(ext)s'"
@@ -94,13 +92,13 @@ alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
 alias vsh="vagrant ssh"
 
-open() {
-    xdg-open $1 &; disown
-}
-
 wbeam() {
     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
         $(echo $1 | cut -f 1 -d '.').pdf"
+}
+
+ytdl() {
+    youtube-dl "$1"
 }
 
 # Aliases (Arch)
@@ -196,22 +194,24 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 # export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
 # export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
-export PATH=$PATH:/home/chris/.local/bin
+# export PATH=$PATH:/home/chris/.local/bin
 
 # Autojump setup
-[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+# [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # Syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Reverse history substring search
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+# source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # Rust path
+export PATH=/home/thrash/.cargo/bin:$PATH
 # export RUST_SRC_PATH=/usr/src/rust/src
-# export PATH=/home/chris/.cargo/bin:$PATH
 
 # Virtualenv setup. Comment out for speed.
 # export WORKON_HOME=~/.virtualenvs
@@ -226,6 +226,9 @@ export PYTHONPATH=$PYTHONPATH:.
 # Fix vim colors with gruvbox.
 source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
 # The shitshow
 # export npm_config_prefix=~/.node_modules
 # export PATH="$HOME/.node_modules/bin:$PATH"
@@ -238,3 +241,6 @@ source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 adb-dump() {
     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
 }
+
+export PATH="$PATH:/usr/local/opt/git/share/git-core/contrib/diff-highlight"
+export PATH="/usr/local/sbin:$PATH"

@@ -1,7 +1,6 @@
 " Chris Laverdiere's vimrc
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
-" TODO ale fixers
 " TODO editorconfig
 
 " Shell compatibility settings.
@@ -36,6 +35,8 @@ set autoindent
 set textwidth=79
 set wildmenu
 set wildmode=full
+set backspace=indent,eol,start
+
 
 " Scrolling
 set scrolloff=3
@@ -87,13 +88,13 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'hdima/python-syntax', { 'for': 'python' }
+" Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
 Plug 'jpalardy/vim-slime'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -125,6 +126,7 @@ Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
@@ -213,6 +215,7 @@ xnoremap <Leader>S :sort<CR>
 nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
 nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>toc :VimwikiTOC<CR>
 nnoremap <Leader>ts :ALEToggle<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
@@ -242,9 +245,15 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
+let g:ale_python_black_options = "--line-length 80"
 let g:ale_linters = {
 \   'cpp': ['clangtidy'],
 \   'python': ['pylint']
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier'],
+\   'python': ['black'],
 \}
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
@@ -322,8 +331,7 @@ aug jedi_group
         \ :call jedi#goto()<CR>
 aug END
 
-au Filetype python nnoremap <buffer> <leader>= mmggvG:!black - -q 2>/dev/null<CR>'m
-au Filetype python xnoremap <buffer> <leader>= :!yapf<CR>
+au Filetype python nnoremap <buffer> <leader>= :ALEFix<CR>
 au Filetype python nnoremap <buffer> <leader>db mmOimport ipdb; ipdb.set_trace()'m
 
 " Rust racer
@@ -355,8 +363,9 @@ aug END
 
 " Javascript
 aug js_group
-    au Filetype javascript,json nnoremap <buffer> <leader>= mmggvG:!prettier<CR>'m
-    au Filetype javascript,json xnoremap <buffer> <leader>= :!prettier<CR>
+    au Filetype javascript,json nnoremap <buffer> <leader>= :ALEFix<CR>
+    " au Filetype javascript,json nnoremap <buffer> <leader>= mmggvG:!prettier<CR>'m
+    " au Filetype javascript,json xnoremap <buffer> <leader>= :!prettier<CR>
 aug END
 
 " Markdown compatibility.
@@ -378,6 +387,9 @@ au Filetype ledger nnoremap <buffer> <leader>c :setlocal makeprg=ledger \
             \| make -f % balance<CR>
 au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/wiki/'}]
+
 " Slime (for REPLs)
 let g:slime_target = 'tmux'
 let g:slime_paste_file = '$HOME/.slime_paste'
@@ -397,6 +409,12 @@ nnoremap <silent> k :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'k'<CR>
 nnoremap <silent> j :<C-U>execute 'normal!'
       \ (v:count > 1 ? "m'" . v:count : '') . 'j'<CR>
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" Polyglot
+let g:polyglot_disabled = ['python']
 
 " Color scheme must be loaded at the end.
 set background=dark
