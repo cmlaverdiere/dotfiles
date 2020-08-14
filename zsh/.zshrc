@@ -82,15 +82,17 @@ alias rh="runhaskell"
 alias temp="acpi -t"
 alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
 alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
-alias ls="ls"
-alias ll="ls -l"
-alias la="ls -a"
+alias ls="exa"
+alias ll="exa -l"
+alias la="exa -a"
 alias ipy="ipython"
 alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
 alias playlist="album -o '%(playlist_index)s - %(title)s.%(ext)s'"
 alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
 alias vsh="vagrant ssh"
+alias gf="git-fuzzy"
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
 wbeam() {
     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
@@ -208,9 +210,11 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey '^K' history-substring-search-up
+bindkey '^J' history-substring-search-down
 
 # Rust path
-export PATH=/home/thrash/.cargo/bin:$PATH
+export PATH=/Users/thrash/.cargo/bin:$PATH
 # export RUST_SRC_PATH=/usr/src/rust/src
 
 # Virtualenv setup. Comment out for speed.
@@ -244,3 +248,5 @@ adb-dump() {
 
 export PATH="$PATH:/usr/local/opt/git/share/git-core/contrib/diff-highlight"
 export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$PATH:/Users/thrash/.gitbin/git-fuzzy/bin"

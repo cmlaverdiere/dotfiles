@@ -128,6 +128,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'junegunn/vim-easy-align'
 
+
 call plug#end()
 
 filetype plugin indent on
@@ -197,6 +198,7 @@ nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fmt :g/.*/norm gqqo<CR>:nohl<CR>gg
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
@@ -220,6 +222,7 @@ nnoremap <Leader>ts :ALEToggle<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
+nnoremap <leader>= :ALEFix<CR>
 nnoremap <script> <silent> <leader>el :call ToggleQuickfixList()<CR>
 nnoremap <silent> <Leader>. :FZFRg <C-R><C-W><CR>
 nnoremap <silent> <Leader>/ :FZFRg <CR>
@@ -253,7 +256,10 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
+\   'html': ['prettier'],
+\   'jinja2': ['prettier'],
 \   'python': ['black'],
+\   'rust': ['rustfmt'],
 \}
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
@@ -342,8 +348,7 @@ aug rust_group
     au Filetype rust compiler rustc
     au Filetype rust nmap <buffer> g <Plug>(rust-def)
     au Filetype rust nmap <buffer> K <Plug>(rust-doc)
-    au Filetype rust nnoremap <buffer> <leader>= mmggvG:!rustfmt<CR>'m
-    au Filetype rust xnoremap <buffer> <leader>= :!rustfmt<CR>
+    au Filetype rust nnoremap <buffer> <leader>= :ALEFix<CR>
     au Filetype rust let g:ale_rust_cargo_use_clippy=1
 aug END
 
@@ -420,6 +425,10 @@ let g:polyglot_disabled = ['python']
 set background=dark
 colorscheme gruvbox
 
+" if (has("termguicolors"))
+"   set termguicolors
+" endif
+
 " Local config for mac
 if exists('python_highlight_all')
     unlet python_highlight_all
@@ -427,3 +436,4 @@ endif
 if exists('python_space_error_highlight')
     unlet python_space_error_highlight
 endif
+
