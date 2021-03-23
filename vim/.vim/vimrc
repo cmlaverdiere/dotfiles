@@ -57,7 +57,7 @@ set keywordprg=:Man
 let g:ft_man_open_mode = 'vert'
 
 " Spelling / Dictionary
-set dictionary=/usr/share/dict/cracklib-small
+set dictionary=/usr/share/dict/words
 au BufNewFile,BufRead *.txt setlocal spell
 au BufNewFile,BufRead *.md setlocal spell
 
@@ -76,6 +76,9 @@ set showcmd
 set formatoptions+=jn
 set nojoinspaces
 
+" Polyglot
+let g:polyglot_disabled = ['python']
+
 " Plugins (mostly syntax files and motion extensions)
 " MVPs: kana, tpope
 runtime macros/matchit.vim
@@ -88,7 +91,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
@@ -213,6 +216,7 @@ nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
 nnoremap <Leader>sh :.w !bash<CR>
 nnoremap <Leader>sp :Grepper -query ""<left>
+nnoremap <Leader>S :sort<CR>
 xnoremap <Leader>S :sort<CR>
 nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
@@ -248,16 +252,16 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
-let g:ale_python_black_options = "--line-length 80"
+let g:ale_python_black_options = "--line-length 80 -S"
+" TODO Get html linter working.
 let g:ale_linters = {
 \   'cpp': ['clangtidy'],
 \   'python': ['pylint']
 \}
+" TODO Get html fixer working.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
-\   'html': ['prettier'],
-\   'jinja2': ['prettier'],
 \   'python': ['black'],
 \   'rust': ['rustfmt'],
 \}
@@ -369,8 +373,6 @@ aug END
 " Javascript
 aug js_group
     au Filetype javascript,json nnoremap <buffer> <leader>= :ALEFix<CR>
-    " au Filetype javascript,json nnoremap <buffer> <leader>= mmggvG:!prettier<CR>'m
-    " au Filetype javascript,json xnoremap <buffer> <leader>= :!prettier<CR>
 aug END
 
 " Markdown compatibility.
@@ -393,18 +395,23 @@ au Filetype ledger nnoremap <buffer> <leader>c :setlocal makeprg=ledger \
 au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
 " Vimwiki
-let g:vimwiki_list = [{'path': '~/wiki/'}]
+let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}]
+aug wiki_group
+    au Filetype vimwiki set nowrap
+aug END
 
 " Slime (for REPLs)
 let g:slime_target = 'tmux'
 let g:slime_paste_file = '$HOME/.slime_paste'
-let g:slime_default_config = {'socket_name': 'default', 'target_pane': '0'}
+let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{down-of}'}
 let g:slime_no_mappings = 1
 let g:slime_dont_ask_default = 1
 let g:slime_python_ipython = 1
 xmap <leader>s <Plug>SlimeRegionSend
 nmap <leader>s <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
+nmap <leader>sl <Plug>SlimeConfig<CR>
 
 " Disable ftplugin-mail maps.
 let no_mail_maps=1
@@ -417,9 +424,6 @@ nnoremap <silent> j :<C-U>execute 'normal!'
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-" Polyglot
-let g:polyglot_disabled = ['python']
 
 " Color scheme must be loaded at the end.
 set background=dark
