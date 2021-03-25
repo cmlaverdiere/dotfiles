@@ -96,6 +96,8 @@ alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias dc='docker-compose'
 alias de='docker exec -it $DE_CONT'
 alias tp='echo $TMUX_PANE'
+alias t='todo.sh'
+alias te='vim ~/Documents/todo/todo.txt'
 
 wbeam() {
     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \

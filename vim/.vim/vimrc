@@ -130,6 +130,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'junegunn/vim-easy-align'
+Plug 'freitass/todo.txt-vim'
 
 
 call plug#end()
@@ -196,6 +197,7 @@ nnoremap <Leader>bb :FZFBuffers<CR>
 nnoremap <Leader>bd :bd<CR>
 nnoremap <Leader>c :make -j9<CR>
 nnoremap <Leader>fed :e $MYVIMRC<CR>
+nnoremap <Leader>fet :e ~/Documents/todo/todo.txt<CR>
 nnoremap <Leader>fl :FZFFiles ~/<CR>
 nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fmt :g/.*/norm gqqo<CR>:nohl<CR>gg
