@@ -205,10 +205,10 @@ nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
-nnoremap <Leader>h :FZFHistory:<CR>
 nnoremap <Leader>mt :make -j9 tests<CR>
 nnoremap <Leader>pf :FZFFiles<CR>
 nnoremap <Leader>pg :FZFTags<CR>
+nnoremap <Leader>pr :FZFHistory<CR>
 nnoremap <Leader>pi :PlugInstall<CR>
 xnoremap <Leader>pr "ay :norm gvgs<CR> \| :cfdo :%s/<c-r>a//ce<left><left><left>
 nnoremap <Leader>py :!python %<CR>
@@ -274,7 +274,7 @@ highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 let g:fzf_command_prefix = 'FZF'
 command! -bang -nargs=* FZFRg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   'rg --follow --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
