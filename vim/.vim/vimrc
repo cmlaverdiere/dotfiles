@@ -1,7 +1,12 @@
 " Chris Laverdiere's vimrc
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
+
 " TODO editorconfig
+" TODO neovim, treesitter
+" TODO lsp integration
+" TODO alacritty
+" TODO https://www.sitepen.com/blog/an-even-more-modern-terminal-based-development-environment
 
 " Shell compatibility settings.
 set shell=bash
@@ -50,7 +55,11 @@ set noswapfile
 set backup
 set backupdir=~/.vimbak
 set undofile
-set undodir=~/.vimundo
+if has('nvim')
+    set undodir=~/.nvimundo
+else
+    set undodir=~/.vimundo
+endif
 
 " Man pages
 set keywordprg=:Man
@@ -70,14 +79,16 @@ set gdefault
 set nonumber
 set laststatus=1
 set scrolloff=3
-set cryptmethod=blowfish2
+if !has('nvim')
+    set cryptmethod=blowfish2
+endif
 set timeoutlen=1000
 set showcmd
 set formatoptions+=jn
 set nojoinspaces
 
 " Polyglot
-let g:polyglot_disabled = ['python']
+" let g:polyglot_disabled = ['python']
 
 " Plugins (mostly syntax files and motion extensions)
 " MVPs: kana, tpope
@@ -93,9 +104,8 @@ Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 " Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell' }
@@ -131,7 +141,13 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'junegunn/vim-easy-align'
 Plug 'freitass/todo.txt-vim'
-
+Plug 'ghifarit53/tokyonight-vim'
+if has('nvim')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neovim/nvim-lspconfig'
+else
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+endif
 
 call plug#end()
 
@@ -196,6 +212,7 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>bb :FZFBuffers<CR>
 nnoremap <Leader>bd :bd<CR>
 nnoremap <Leader>c :make -j9<CR>
+nnoremap <Leader>ea :EnableAutoread<CR>
 nnoremap <Leader>fed :e $MYVIMRC<CR>
 nnoremap <Leader>fet :e ~/Documents/todo/todo.txt<CR>
 nnoremap <Leader>fl :FZFFiles ~/<CR>
@@ -216,6 +233,7 @@ xnoremap <Leader>pr "ay :norm gvgs<CR> \| :cfdo :%s/<c-r>a//ce<left><left><left>
 nnoremap <Leader>py :!python %<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
+nnoremap <Leader>se :UltiSnipsEdit<CR>
 nnoremap <Leader>sh :.w !bash<CR>
 nnoremap <Leader>sp :Grepper -query ""<left>
 nnoremap <Leader>S :sort<CR>
@@ -246,6 +264,13 @@ fun! RTW()
 endfun
 command! RTW call RTW()
 
+fun! EnableAutoread()
+    set autoread
+    set shortmess+=Ot
+    set cmdheight=2
+endfun
+command! EnableAutoread call EnableAutoread()
+
 " ALE
 " TODO find how to use compile_commands.json for this. Submit issue asking.
 let g:ale_enabled = 0
@@ -254,7 +279,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
-let g:ale_python_black_options = "--line-length 80 -S"
+let g:ale_python_black_options = "--line-length 80"
 " TODO Get html linter working.
 let g:ale_linters = {
 \   'cpp': ['clangtidy'],
@@ -331,17 +356,19 @@ let g:cpp_class_scope_highlight = 1
 au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
 
 " Python jedi
-let g:jedi#auto_initialization = 0
-let g:jedi#show_call_signatures = 0
-aug jedi_group
-    au!
-    " au Filetype python call jedi#configure_call_signatures()
-    au Filetype python setlocal omnifunc=jedi#completions
-    au Filetype python nnoremap <silent> <buffer> K
-        \ :call jedi#show_documentation()<CR>
-    au Filetype python nnoremap <silent> <buffer> g
-        \ :call jedi#goto()<CR>
-aug END
+if !has('nvim')
+    let g:jedi#auto_initialization = 0
+    let g:jedi#show_call_signatures = 0
+    aug jedi_group
+        au!
+        " au Filetype python call jedi#configure_call_signatures()
+        au Filetype python setlocal omnifunc=jedi#completions
+        au Filetype python nnoremap <silent> <buffer> K
+            \ :call jedi#show_documentation()<CR>
+        au Filetype python nnoremap <silent> <buffer> g
+            \ :call jedi#goto()<CR>
+    aug END
+endif
 
 au Filetype python nnoremap <buffer> <leader>= :ALEFix<CR>
 au Filetype python nnoremap <buffer> <leader>db mmOimport ipdb; ipdb.set_trace()'m
@@ -427,13 +454,16 @@ nnoremap <silent> j :<C-U>execute 'normal!'
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" Color scheme must be loaded at the end.
-set background=dark
-colorscheme gruvbox
+if (has("termguicolors"))
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
+" Color scheme must be loaded at the end.
+let g:tokyonight_style = 'night'
+set background=dark
+colorscheme tokyonight
 
 " Local config for mac
 if exists('python_highlight_all')
@@ -442,4 +472,7 @@ endif
 if exists('python_space_error_highlight')
     unlet python_space_error_highlight
 endif
+
+" Commands that must be run after everything
+set noautoread
 
