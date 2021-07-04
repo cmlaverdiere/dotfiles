@@ -98,6 +98,7 @@ alias de='docker exec -it $DE_CONT'
 alias tp='echo $TMUX_PANE'
 alias t='todo.sh'
 alias te='vim ~/Documents/todo/todo.txt'
+alias gcd='git cm -m $(date +%m-%d-%Y)'
 
 wbeam() {
     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
@@ -196,9 +197,9 @@ alias fzf="fzf -m"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 bindkey '^O' fzf-cd-widget
 export FZF_DEFAULT_COMMAND='fd --follow --type f'
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
- --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+#  --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+#  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
 
 # Ruby path. Comment out for speed.
 # export PATH=/home/chris/.gem/ruby/2.3.0/bin:$PATH
@@ -236,7 +237,7 @@ export PATH=/Users/thrash/.cargo/bin:$PATH
 export PYTHONPATH=$PYTHONPATH:.
 
 # Fix vim colors with gruvbox.
-source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+# source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
@@ -248,7 +249,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 # Go path
 # export GOPATH=$HOME/go
 # export GOBIN=$GOPATH/bin
-# export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 adb-dump() {
     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
