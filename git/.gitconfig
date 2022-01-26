@@ -13,6 +13,9 @@
     dst = diff --staged
     pm = push origin master
     st = status -s
+    set-upstream = !git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)
+    sw = "!f() { git branch --format='%(refname:short)' | fzf --query=\"$1\" --select-1 | xargs git switch; }; f"
+    please = push --force-with-lease
 
 [core]
     editor = vim
@@ -39,3 +42,9 @@
 
 [mergetool]
     keepBackup = false
+[hub]
+    protocol = https
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+

@@ -2,11 +2,13 @@
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
 
+" TODO Fix markdown highlighting, indent
 " TODO editorconfig
 " TODO neovim, treesitter
 " TODO lsp integration
 " TODO alacritty
 " TODO https://www.sitepen.com/blog/an-even-more-modern-terminal-based-development-environment
+" TODO NVIM schema https://github.com/b0o/SchemaStore.nvim
 
 " Shell compatibility settings.
 set shell=bash
@@ -25,7 +27,7 @@ set smartcase
 set infercase
 
 " Clipboard settings
-" set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Search settings
 set incsearch
@@ -41,7 +43,7 @@ set textwidth=79
 set wildmenu
 set wildmode=full
 set backspace=indent,eol,start
-
+set viminfo=!,'2000,<50,s10,h
 
 " Scrolling
 set scrolloff=3
@@ -134,7 +136,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-sleuth'
 Plug 'triglav/vim-visual-increment'
 Plug 'wellle/targets.vim'
-Plug 'nelstrom/vim-markdown-folding'
+" Plug 'nelstrom/vim-markdown-folding'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
@@ -142,6 +144,10 @@ Plug 'vimwiki/vimwiki'
 Plug 'junegunn/vim-easy-align'
 Plug 'freitass/todo.txt-vim'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'preservim/nerdtree'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'dkarter/bullets.vim'
 if has('nvim')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'neovim/nvim-lspconfig'
@@ -212,20 +218,25 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>bb :FZFBuffers<CR>
 nnoremap <Leader>bd :bd<CR>
 nnoremap <Leader>c :make -j9<CR>
+nnoremap <Leader>d2 :windo diffthis<CR>
+nnoremap <Leader>do :diffoff<CR>
 nnoremap <Leader>ea :EnableAutoread<CR>
 nnoremap <Leader>fed :e $MYVIMRC<CR>
 nnoremap <Leader>fet :e ~/Documents/todo/todo.txt<CR>
 nnoremap <Leader>fl :FZFFiles ~/<CR>
+nnoremap <leader>fb :NERDTreeFocus<CR>
 nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fmt :g/.*/norm gqqo<CR>:nohl<CR>gg
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gl :Glog<CR>
-nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gb :Git blame<CR>
+nnoremap <Leader>gd :Gdiff HEAD<CR>
+nnoremap <Leader>gl :Git log<CR>
+nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>mt :make -j9 tests<CR>
-nnoremap <Leader>pf :FZFFiles<CR>
+nnoremap <Leader>pc :set paste<CR>p:set nopaste<CR>
+nnoremap <Leader>pf :FZFGFiles<CR>
 nnoremap <Leader>pg :FZFTags<CR>
 nnoremap <Leader>pr :FZFHistory<CR>
 nnoremap <Leader>pi :PlugInstall<CR>
@@ -235,6 +246,7 @@ nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>rl :so $MYVIMRC<CR>
 nnoremap <Leader>se :UltiSnipsEdit<CR>
 nnoremap <Leader>sh :.w !bash<CR>
+nnoremap <Leader>sn :FZFSnippets<CR>
 nnoremap <Leader>sp :Grepper -query ""<left>
 nnoremap <Leader>S :sort<CR>
 xnoremap <Leader>S :sort<CR>
@@ -242,14 +254,16 @@ nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>toc :VimwikiTOC<CR>
+nnoremap <Leader><F13> <Plug>VimwikiRemoveHeaderLevel
 nnoremap <Leader>ts :ALEToggle<CR>
 nnoremap <Leader>tr :%s/\s*$//g<CR><C-o>zz
 nnoremap <Leader>u :UndotreeToggle<CR>:UndotreeFocus<CR>
 nnoremap <Leader>v :vs<CR>
-nnoremap <leader>= :ALEFix<CR>
+nnoremap <Leader>= :ALEFix<CR>
 nnoremap <script> <silent> <leader>el :call ToggleQuickfixList()<CR>
 nnoremap <silent> <Leader>. :FZFRg <C-R><C-W><CR>
 nnoremap <silent> <Leader>/ :FZFRg <CR>
+nnoremap <silent> <Leader>: :FZFCommands<CR>
 nnoremap <silent> <Leader>sc :nohlsearch<CR>
 noremap <Leader>G :Google<CR>
 
@@ -279,18 +293,26 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
-let g:ale_python_black_options = "--line-length 80"
+let g:ale_python_black_options = "--line-length 120 -t py27"
+let g:ale_python_black_executable = "~/venv3/bin/black"
 " TODO Get html linter working.
 let g:ale_linters = {
 \   'cpp': ['clangtidy'],
-\   'python': ['pylint']
+\   'python': ['pylint', 'flake8'],
+\   'yaml': ['yamllint']
 \}
 " TODO Get html fixer working.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
-\   'python': ['black'],
+\   'html': ['prettier'],
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
+\   'json': ['jq'],
+\   'python': ['black', 'isort'],
 \   'rust': ['rustfmt'],
+\   'sql': ['pgformatter'],
+\   'sh': ['shfmt'],
 \}
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
@@ -328,6 +350,13 @@ xmap gs <plug>(GrepperOperator)
 " Toggle list
 let g:toggle_list_no_mappings = 1
 
+" Bullets
+let g:bullets_enable_in_empty_buffers = 0
+" let g:bullets_delete_last_bullet_if_empty = 0
+" let g:bullets_line_spacing = 2
+let g:bullets_pad_right = 0
+let g:bullets_outline_levels = ['ROM', 'ABC', 'num', 'abc', 'rom', 'std-', 'std-', 'std-']
+
 " Clang-format
 au Filetype c,cpp nnoremap <buffer> <leader>= mmggvG:!clang-format<CR>'m
 au Filetype c,cpp xnoremap <buffer> <leader>= :!clang-format<CR>
@@ -354,6 +383,7 @@ let g:cpp_class_scope_highlight = 1
 " Python: use pydoc for man-pages
 " au FileType python setlocal keywordprg=pydoc
 au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
+au FileType python setlocal textwidth=120
 
 " Python jedi
 if !has('nvim')
@@ -367,11 +397,14 @@ if !has('nvim')
             \ :call jedi#show_documentation()<CR>
         au Filetype python nnoremap <silent> <buffer> g
             \ :call jedi#goto()<CR>
+        au Filetype python nnoremap <silent> <buffer> <leader>fu
+            \ :call jedi#usages()<CR>
+        au Filetype python nnoremap <silent> <buffer> <leader>rf
+            \ :call jedi#rename()<CR>
     aug END
 endif
 
-au Filetype python nnoremap <buffer> <leader>= :ALEFix<CR>
-au Filetype python nnoremap <buffer> <leader>db mmOimport ipdb; ipdb.set_trace()'m
+au Filetype python nnoremap <buffer> <leader>db mmOimport pdb; pdb.set_trace()'m
 
 " Rust racer
 let g:racer_no_default_keymappings = 1
@@ -381,7 +414,6 @@ aug rust_group
     au Filetype rust compiler rustc
     au Filetype rust nmap <buffer> g <Plug>(rust-def)
     au Filetype rust nmap <buffer> K <Plug>(rust-doc)
-    au Filetype rust nnoremap <buffer> <leader>= :ALEFix<CR>
     au Filetype rust let g:ale_rust_cargo_use_clippy=1
 aug END
 
@@ -399,17 +431,18 @@ aug go_group
     au Filetype go xnoremap <buffer> <leader>= !gofmt<CR>
 aug END
 
-" Javascript
-aug js_group
-    au Filetype javascript,json nnoremap <buffer> <leader>= :ALEFix<CR>
-aug END
-
 " Markdown compatibility.
-au BufNewFile,BufReadPost *.md setlocal filetype=markdown
-au Filetype markdown setlocal commentstring=[//]:\ #\ (%s)
+let g:vim_markdown_auto_insert_bullets = 0
+" au BufNewFile,BufReadPost *.md setlocal filetype=markdown
+au BufNewFile,BufReadPost *.md setlocal filetype=vimwiki
+" au Filetype markdown setlocal commentstring=[//]:\ #\ (%s)
+au Filetype markdown setlocal nospell
 
 " Ultisnips
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips/'
+
+" Nerdtree
+let g:NERDTreeHijackNetrw = 0
 
 aug prewrite_group
     au!
@@ -424,10 +457,11 @@ au Filetype ledger nnoremap <buffer> <leader>c :setlocal makeprg=ledger \
 au Filetype ledger vnoremap <buffer> = :LedgerAlign<CR>
 
 " Vimwiki
-let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}]
+" let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [{'path': '~/docs/', 'syntax': 'markdown', 'ext': 'md'}]
 aug wiki_group
     au Filetype vimwiki set nowrap
+    au Filetype vimwiki set spell
 aug END
 
 " Slime (for REPLs)
@@ -460,11 +494,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Color scheme must be loaded at the end.
-let g:tokyonight_style = 'night'
-set background=dark
-colorscheme tokyonight
-
 " Local config for mac
 if exists('python_highlight_all')
     unlet python_highlight_all
@@ -472,6 +501,19 @@ endif
 if exists('python_space_error_highlight')
     unlet python_space_error_highlight
 endif
+if exists('python_highlight_space_errors')
+    unlet python_highlight_space_errors
+endif
+
+" Freed <C-l> in Netrw
+nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
+
+let $BAT_THEME='gruvbox-dark'
+
+" Color scheme must be loaded at the end.
+" let g:tokyonight_style = 'night'
+set background=dark
+colorscheme gruvbox
 
 " Commands that must be run after everything
 set noautoread

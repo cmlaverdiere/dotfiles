@@ -9,10 +9,10 @@
 export BROWSER="chromium"
 export EDITOR='vim'
 export LEDGER_FILE='~/finance/ledger.ldg'
-export FIT_FILE='~/fitness/fit.log'
+# export FIT_FILE='~/fitness/fit.log'
 # export TERMINAL='urxvt'
-export CC=/usr/bin/clang
-export CXX=/usr/bin/clang++
+# export CC=/usr/bin/clang
+# export CXX=/usr/bin/clang++
 
 # Init vars
 ENABLE_GIT_STATUS=false
@@ -69,85 +69,86 @@ setopt appendhistory extendedglob
 setopt HIST_IGNORE_DUPS
 
 # Aliases (General)
-alias db="coredumpctl gdb"
+# alias db="coredumpctl gdb"
 alias df="df -h"
 alias du="du -h"
 alias psa="ps aux | grep $1"
-alias em="emacsclient -c -a \"\""
-alias ke="killall -s 9 emacs"
+# alias em="emacsclient -c -a \"\""
+# alias ke="killall -s 9 emacs"
 alias make="make -j9"
-alias matlab="ssh -X umbc 'matlab'"
+# alias matlab="ssh -X umbc 'matlab'"
 # alias python="ipython"
-alias rh="runhaskell"
-alias temp="acpi -t"
-alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
-alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
+# alias rh="runhaskell"
+# alias temp="acpi -t"
+# alias en_sm="rm ~/.emacs.d && ln -s ~/.spacemacs.d ~/.emacs.d"
+# alias en_me="rm ~/.emacs.d && ln -s ~/.my-emacs.d ~/.emacs.d"
 alias ls="exa"
 alias ll="exa -l"
 alias la="exa -a"
 alias ipy="ipython"
-alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
-alias playlist="album -o '%(playlist_index)s - %(title)s.%(ext)s'"
-alias vi='vim -u ~/.vim/vimrc.mini'
+# alias album="youtube-dl -x --embed-thumbnail --add-metadata -f 140"
+# alias playlist="album -o '%(playlist_index)s - %(title)s.%(ext)s'"
+# alias vi='vim -u ~/.vim/vimrc.mini'
 alias vidir="EDITOR=vim vidir"
 alias vsh="vagrant ssh"
 alias gf="git-fuzzy"
-alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+# alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias dc='docker-compose'
 alias de='docker exec -it $DE_CONT'
 alias tp='echo $TMUX_PANE'
 alias t='todo.sh'
 alias te='vim ~/Documents/todo/todo.txt'
 alias gcd='git cm -m $(date +%m-%d-%Y)'
+alias nf='terminal-notifier -title "👋" -message "Task complete - Exit status: $?"'
 
-wbeam() {
-    find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
-        $(echo $1 | cut -f 1 -d '.').pdf"
-}
+# wbeam() {
+#     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \
+#         $(echo $1 | cut -f 1 -d '.').pdf"
+# }
 
 ytdl() {
     youtube-dl "$1"
 }
 
 # Aliases (Arch)
-alias pac="\pacman"
-alias pacman="sudo pacman"
-alias pup="sudo pacman -Syu"
-alias pi="sudo pacman -S"
+# alias pac="\pacman"
+# alias pacman="sudo pacman"
+# alias pup="sudo pacman -Syu"
+# alias pi="sudo pacman -S"
 
 # Aliases (Ubuntu)
-alias acs="apt-cache search"
-alias aps="apt search"
-alias sagi="sudo apt-get install"
+# alias acs="apt-cache search"
+# alias aps="apt search"
+# alias sagi="sudo apt-get install"
 
 # Aliases (Files)
-alias blog="vim ~/documents/Misc/blog.txt"
-alias books="vim ~/documents/Misc/books.txt"
-alias dreamj="vim ~/documents/Misc/dreams.txt"
-alias emrc="vim ~/.emacs.d/init.el"
-alias fishrc="vim ~/.config/fish/config.fish"
-alias fit="python ~/devel/python/fit/fit.py"
-alias fitf="vim $FIT_FILE"
-alias ideas="vim ~/documents/Misc/ideas.txt"
-alias i3rc="vim ~/.config/i3/config"
-alias ledf="vim $LEDGER_FILE"
-alias learn="vim ~/documents/Misc/learn.txt"
-alias goals="vim ~/documents/Misc/goals.txt"
-alias led="ledger"
-alias links="vim ~/documents/Misc/links.txt"
-alias rss="vim ~/documents/Misc/rss.txt"
-alias robots="vim ~/documents/Misc/robots.txt"
-alias shop="vim ~/lists/shop.txt"
-alias shows="vim ~/documents/Misc/shows.txt"
-alias stask="vim ~/org/school.org"
-alias wanted="vim ~/documents/Misc/wanted.txt"
+# alias blog="vim ~/documents/Misc/blog.txt"
+# alias books="vim ~/documents/Misc/books.txt"
+# alias dreamj="vim ~/documents/Misc/dreams.txt"
+# alias emrc="vim ~/.emacs.d/init.el"
+# alias fishrc="vim ~/.config/fish/config.fish"
+# alias fit="python ~/devel/python/fit/fit.py"
+# alias fitf="vim $FIT_FILE"
+# alias ideas="vim ~/documents/Misc/ideas.txt"
+# alias i3rc="vim ~/.config/i3/config"
+# alias ledf="vim $LEDGER_FILE"
+# alias learn="vim ~/documents/Misc/learn.txt"
+# alias goals="vim ~/documents/Misc/goals.txt"
+# alias led="ledger"
+# alias links="vim ~/documents/Misc/links.txt"
+# alias rss="vim ~/documents/Misc/rss.txt"
+# alias robots="vim ~/documents/Misc/robots.txt"
+# alias shop="vim ~/lists/shop.txt"
+# alias shows="vim ~/documents/Misc/shows.txt"
+# alias stask="vim ~/org/school.org"
+# alias wanted="vim ~/documents/Misc/wanted.txt"
 alias vimrc="vim ~/.vim/vimrc"
 alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias zshrc="vim ~/.zshrc"
 
-gpu() {
-    DRI_PRIME=1 $@
-}
+# gpu() {
+#     DRI_PRIME=1 $@
+# }
 
 # Functions
 mkcd() {
@@ -165,13 +166,13 @@ cdParent() {
   zle reset-prompt
 }
 
-reload_kbd() {
-    setxkbmap -option ctrl:rctrl
-    setxkbmap -option ctrl:swapcaps
-    setxkbmap -option ctrl:nocaps
-    xset r rate 175 50
-    xset m 3/2 0
-}
+# reload_kbd() {
+#     setxkbmap -option ctrl:rctrl
+#     setxkbmap -option ctrl:swapcaps
+#     setxkbmap -option ctrl:nocaps
+#     xset r rate 175 50
+#     xset m 3/2 0
+# }
 
 zle -N cdChild
 zle -N cdParent
@@ -179,15 +180,15 @@ bindkey '^N' cdChild
 bindkey '^P' cdParent
 
 # Handle updates to the window title.
-if [[ $TERM == 'rxvt-unicode-256color' ]]; then
-    function precmd {
-        print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
-    }
+# if [[ $TERM == 'rxvt-unicode-256color' ]]; then
+#     function precmd {
+#         print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
+#     }
 
-    function preexec {
-        printf "\033]0;%s\a" "$1"
-    }
-fi
+#     function preexec {
+#         printf "\033]0;%s\a" "$1"
+#     }
+# fi
 
 # Start X on login.
 # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
@@ -223,7 +224,7 @@ bindkey '^K' history-substring-search-up
 bindkey '^J' history-substring-search-down
 
 # Rust path
-export PATH=/Users/thrash/.cargo/bin:$PATH
+# export PATH=/Users/thrash/.cargo/bin:$PATH
 # export RUST_SRC_PATH=/usr/src/rust/src
 
 # Virtualenv setup. Comment out for speed.
@@ -237,7 +238,7 @@ export PATH=/Users/thrash/.cargo/bin:$PATH
 export PYTHONPATH=$PYTHONPATH:.
 
 # Fix vim colors with gruvbox.
-# source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
@@ -249,13 +250,18 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 # Go path
 # export GOPATH=$HOME/go
 # export GOBIN=$GOPATH/bin
-export PATH="$HOME/go/bin:$PATH"
+# export PATH="$HOME/go/bin:$PATH"
 
-adb-dump() {
-    adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
-}
+# adb-dump() {
+#     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
+# }
 
 export PATH="$PATH:/usr/local/opt/git/share/git-core/contrib/diff-highlight"
-export PATH="/usr/local/sbin:$PATH"
+# export PATH="/usr/local/sbin:$PATH"
 
-export PATH="$PATH:/Users/thrash/.gitbin/git-fuzzy/bin"
+# export PATH="$PATH:/Users/thrash/.gitbin/git-fuzzy/bin"
+
+export BAT_THEME=gruvbox-dark
+
+export DIRENV_LOG_FORMAT=
+eval "$(direnv hook zsh)"
