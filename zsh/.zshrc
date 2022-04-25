@@ -7,7 +7,7 @@
 
 # Defaults
 export BROWSER="chromium"
-export EDITOR='vim'
+export EDITOR='nvim'
 export LEDGER_FILE='~/finance/ledger.ldg'
 # export FIT_FILE='~/fitness/fit.log'
 # export TERMINAL='urxvt'
@@ -238,7 +238,7 @@ bindkey '^J' history-substring-search-down
 export PYTHONPATH=$PYTHONPATH:.
 
 # Fix vim colors with gruvbox.
-source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+# source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"

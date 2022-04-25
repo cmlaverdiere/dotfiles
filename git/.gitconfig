@@ -20,6 +20,7 @@
 [core]
     editor = vim
     excludesfile = ~/.gitignore_global
+    hooksPath = /usr/local/dd/global_hooks
 
 [diff]
     compactionHeuristic = true
