@@ -2,9 +2,7 @@
 " Requires: plug.vim
 " Optional: ctags, fzf, git, cppman, pylint
 
-" TODO Fix markdown highlighting, indent
 " TODO editorconfig
-" TODO neovim, treesitter
 " TODO lsp integration
 " TODO alacritty
 " TODO https://www.sitepen.com/blog/an-even-more-modern-terminal-based-development-environment
@@ -106,6 +104,7 @@ Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
+Plug 'julian/vim-textobj-variable-segment'
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 " Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
@@ -124,7 +123,6 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'milkypostman/vim-togglelist'
-Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-fugitive'
@@ -143,16 +141,28 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'junegunn/vim-easy-align'
 Plug 'freitass/todo.txt-vim'
-Plug 'ghifarit53/tokyonight-vim'
 Plug 'tommcdo/vim-exchange'
-Plug 'preservim/nerdtree'
 " Plug 'plasticboy/vim-markdown'
 " Plug 'dkarter/bullets.vim'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'preservim/nerdtree'
 if has('nvim')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/playground'
     Plug 'neovim/nvim-lspconfig'
+    Plug 'ellisonleao/gruvbox.nvim'
+    Plug 'b0o/SchemaStore.nvim'
+    Plug 'luukvbaal/stabilize.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'sindrets/diffview.nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'kyazdani42/nvim-tree.lua'
+    Plug 'ruifm/gitlinker.nvim'
+    Plug 'rktjmp/lush.nvim'
+    Plug 'mcchrish/zenbones.nvim'
+    " Plug 'nvim-neorg/neorg'
 else
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    Plug 'morhetz/gruvbox'
 endif
 
 call plug#end()
@@ -221,7 +231,7 @@ nnoremap <Leader>c :make -j9<CR>
 nnoremap <Leader>d2 :windo diffthis<CR>
 nnoremap <Leader>do :diffoff<CR>
 nnoremap <Leader>ea :EnableAutoread<CR>
-nnoremap <Leader>fed :e $MYVIMRC<CR>
+nnoremap <Leader>fed :e ~/.vim/vimrc<CR>
 nnoremap <Leader>fet :e ~/Documents/todo/todo.txt<CR>
 nnoremap <Leader>fl :FZFFiles ~/<CR>
 nnoremap <leader>fb :NERDTreeFocus<CR>
@@ -231,13 +241,14 @@ nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>gd :Gdiff HEAD<CR>
 nnoremap <Leader>gl :Git log<CR>
 nnoremap <Leader>gp :Git push<CR>
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gcc :!gcc -g -std=c99 % -o %< && ./%<<CR>
 nnoremap <Leader>gpp :!g++ -g -std=c++11 % -o %< && ./%<<CR>
 nnoremap <Leader>mt :make -j9 tests<CR>
 nnoremap <Leader>pc :set paste<CR>p:set nopaste<CR>
 nnoremap <Leader>pf :FZFGFiles<CR>
-nnoremap <Leader>pg :FZFTags<CR>
+nnoremap <Leader>pg :FZFFiles<CR>
+nnoremap <Leader>pt :FZFTags<CR>
 nnoremap <Leader>pr :FZFHistory<CR>
 nnoremap <Leader>pi :PlugInstall<CR>
 xnoremap <Leader>pr "ay :norm gvgs<CR> \| :cfdo :%s/<c-r>a//ce<left><left><left>
@@ -252,6 +263,7 @@ nnoremap <Leader>S :sort<CR>
 xnoremap <Leader>S :sort<CR>
 nnoremap <Leader>o :FZFBLines<CR>
 nnoremap <Leader>ta vip!pandoc -t markdown<CR>
+nnoremap <Leader>tc :tabclose<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>toc :VimwikiTOC<CR>
 nnoremap <Leader><F13> <Plug>VimwikiRemoveHeaderLevel
@@ -294,7 +306,7 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
 let g:ale_python_black_options = "--line-length 120 -t py27"
-let g:ale_python_black_executable = "~/venv3/bin/black"
+let g:ale_python_black_executable = "/Users/chris.laverdiere/venv3/bin/black"
 " TODO Get html linter working.
 let g:ale_linters = {
 \   'cpp': ['clangtidy'],
@@ -386,23 +398,21 @@ au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
 au FileType python setlocal textwidth=120
 
 " Python jedi
-if !has('nvim')
-    let g:jedi#auto_initialization = 0
-    let g:jedi#show_call_signatures = 0
-    aug jedi_group
-        au!
-        " au Filetype python call jedi#configure_call_signatures()
-        au Filetype python setlocal omnifunc=jedi#completions
-        au Filetype python nnoremap <silent> <buffer> K
-            \ :call jedi#show_documentation()<CR>
-        au Filetype python nnoremap <silent> <buffer> g
-            \ :call jedi#goto()<CR>
-        au Filetype python nnoremap <silent> <buffer> <leader>fu
-            \ :call jedi#usages()<CR>
-        au Filetype python nnoremap <silent> <buffer> <leader>rf
-            \ :call jedi#rename()<CR>
-    aug END
-endif
+let g:jedi#auto_initialization = 0
+let g:jedi#show_call_signatures = 0
+aug jedi_group
+    au!
+    " au Filetype python call jedi#configure_call_signatures()
+    au Filetype python setlocal omnifunc=jedi#completions
+    au Filetype python nnoremap <silent> <buffer> K
+        \ :call jedi#show_documentation()<CR>
+    au Filetype python nnoremap <silent> <buffer> g
+        \ :call jedi#goto()<CR>
+    au Filetype python nnoremap <silent> <buffer> <leader>fu
+        \ :call jedi#usages()<CR>
+    au Filetype python nnoremap <silent> <buffer> <leader>rf
+        \ :call jedi#rename()<CR>
+aug END
 
 au Filetype python nnoremap <buffer> <leader>db mmOimport pdb; pdb.set_trace()'m
 
@@ -508,12 +518,19 @@ endif
 " Freed <C-l> in Netrw
 nmap <leader><leader><leader><leader><leader><leader>l <Plug>NetrwRefresh
 
+" Hurl ft
+au BufRead,BufNewFile *.hurl set filetype=http
+
+" Disable csv mode
+au BufRead,BufNewFile *.csv set filetype=txt
+
 let $BAT_THEME='gruvbox-dark'
 
-" Color scheme must be loaded at the end.
-" let g:tokyonight_style = 'night'
 set background=dark
-colorscheme gruvbox
+
+" colorscheme gruvbox
+autocmd ColorScheme zenwritten lua require "customize_zenbones"
+colorscheme zenwritten
 
 " Commands that must be run after everything
 set noautoread
