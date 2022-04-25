@@ -4,20 +4,55 @@ source ~/.vim/vimrc
 
 set guicursor=i:block
 
+let g:vimsyn_embed= 'l'
+
+nnoremap <Leader>fei :e $MYVIMRC<CR>
+nnoremap <Leader>gh :DiffviewFileHistory<CR>
+nnoremap - :NvimTreeFindFileToggle<CR>zz
+
 lua <<EOF
 
--- Treesitter config
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
   indent = {
-    enable = true
+    enable = true,
+    disable = { "python" },
+  },
+  playground = {
+    enable = true,
   },
 }
 
+require("nvim-tree").setup{
+  disable_netrw = false,
+  hijack_netrw = false,
+  view = {
+    height = 15,
+    side = 'bottom',
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
+      window_picker = {
+        enable = false,
+      }
+    }
+  }
+}
+
+require("stabilize").setup()
+require("diffview").setup()
+require"gitlinker".setup()
+-- require("neorg").setup{
+--     load = {
+--         ["core.defaults"] = {}
+--     }
+-- }
+
 -- LSP config
-require'lspconfig'.pyright.setup{}
+-- require'lspconfig'.pyright.setup{}
 
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
@@ -43,9 +78,21 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
+require('lspconfig').jsonls.setup {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+    },
+  },
+}
+
+local servers = {
+  -- "pyright",
+  "jsonls",
+}
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
