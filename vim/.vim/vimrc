@@ -160,7 +160,8 @@ if has('nvim')
     Plug 'ruifm/gitlinker.nvim'
     Plug 'rktjmp/lush.nvim'
     Plug 'mcchrish/zenbones.nvim'
-    " Plug 'nvim-neorg/neorg'
+    Plug 'folke/trouble.nvim'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
 else
     Plug 'morhetz/gruvbox'
 endif
@@ -227,7 +228,7 @@ nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>bb :FZFBuffers<CR>
 nnoremap <Leader>bd :bd<CR>
-nnoremap <Leader>c :make -j9<CR>
+" nnoremap <Leader>c :make -j9<CR>
 nnoremap <Leader>d2 :windo diffthis<CR>
 nnoremap <Leader>do :diffoff<CR>
 nnoremap <Leader>ea :EnableAutoread<CR>
@@ -275,9 +276,12 @@ nnoremap <Leader>= :ALEFix<CR>
 nnoremap <script> <silent> <leader>el :call ToggleQuickfixList()<CR>
 nnoremap <silent> <Leader>. :FZFRg <C-R><C-W><CR>
 nnoremap <silent> <Leader>/ :FZFRg <CR>
+nnoremap <silent> <Leader>? :FilteredFZFRg<CR>
 nnoremap <silent> <Leader>: :FZFCommands<CR>
 nnoremap <silent> <Leader>sc :nohlsearch<CR>
 noremap <Leader>G :Google<CR>
+" nnoremap <silent> g
+"     \ :ALEGoToDefinition<CR>
 
 set pastetoggle=<Leader>pt
 
@@ -307,12 +311,13 @@ let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
 let g:ale_python_black_options = "--line-length 120 -t py27"
 let g:ale_python_black_executable = "/Users/chris.laverdiere/venv3/bin/black"
+" let g:ale_typescript_tsserver_use_global=1
 " TODO Get html linter working.
 let g:ale_linters = {
 \   'cpp': ['clangtidy'],
-\   'python': ['pylint', 'flake8'],
-\   'yaml': ['yamllint']
+\   'yaml': ['yamllint'],
 \}
+" \   'python': ['pylint', 'flake8'],
 " TODO Get html fixer working.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -339,6 +344,16 @@ command! -bang -nargs=* FZFRg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+function! FilteredFZFRg(fullscreen)
+  let filepaths = input('File pattern: ', "", "file")
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case --with-filename -e ''%s'' ' . filepaths . ' || true'
+  let initial_command = printf(command_fmt, '')
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+command! -nargs=* -complete=file -bang FilteredFZFRg call FilteredFZFRg(<bang>0)
 
 " Haskell
 au FileType haskell nnoremap <buffer> <Leader>T :!hasktags .<CR><CR>

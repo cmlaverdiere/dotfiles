@@ -100,6 +100,7 @@ alias t='todo.sh'
 alias te='vim ~/Documents/todo/todo.txt'
 alias gcd='git cm -m $(date +%m-%d-%Y)'
 alias nf='terminal-notifier -title "👋" -message "Task complete - Exit status: $?"'
+alias vimdiff="nvim -d"
 
 # wbeam() {
 #     find $1 | entr sh -c "pandoc -t beamer --latex-engine=xelatex $1 -o \

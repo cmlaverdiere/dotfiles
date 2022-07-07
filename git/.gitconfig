@@ -18,7 +18,7 @@
     please = push --force-with-lease
 
 [core]
-    editor = vim
+    editor = nvim
     excludesfile = ~/.gitignore_global
     hooksPath = /usr/local/dd/global_hooks
 

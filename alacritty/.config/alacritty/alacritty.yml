@@ -28,6 +28,11 @@ font:
 draw_bold_text_with_bright_colors: true
 window.dynamic_title: true
 live_config_reload: true
+mouse:
+  hints:
+    launcher:
+      program: open
+    mods: Command
 colors:
   primary:
     foreground: '#BBBBBB'
@@ -53,6 +58,8 @@ colors:
     magenta: '#CF86C1'
     cyan:    '#65B8C1'
     white:   '#8E8E8E'
+key_bindings:
+- { key: Key6,        mods: Control, chars: "\x1e"                     }
 # # Specifying a `duration` of `0` will disable the visual bell.
 # bell:
 #   animation: EaseOutExpo
@@ -66,8 +73,3 @@ colors:
 #   # When set to `true`, selected text will be copied to the primary clipboard.
 #   save_to_clipboard: true
 # # Enable clickable URLs
-# mouse:
-#   url:
-#     launcher:
-#       program: open
-#     modifiers: Command
