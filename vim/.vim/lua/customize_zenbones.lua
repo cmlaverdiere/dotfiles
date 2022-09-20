@@ -13,7 +13,7 @@ local sky = lush.hsluv(204, 61, 64)
 -- Create some specs
 local specs = lush.parse(function()
 	return {
-		String { base.String, fg = water },
+		String { base.String, fg = leaf },
 	}
 end)
 

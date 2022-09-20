@@ -73,7 +73,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'g', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', 'fr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>fr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>ft', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
   -- buf_set_keymap("n", "<space>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   buf_set_keymap('n', 'gtd', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>rf', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -86,6 +87,7 @@ local servers = {
   "jsonls",
   "tsserver",
   "pyright",
+  "gopls",
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -98,6 +100,10 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+require'lspconfig'.gopls.setup{
+  on_attach = on_attach
+}
 
 require'lspconfig'.pyright.setup{
   on_attach = on_attach,
