@@ -8,6 +8,7 @@
     br = branch
     ce = config -e
     cm = commit
+    cmn = commit --no-verify
     co = checkout
     ds = diff --stat
     dst = diff --staged
@@ -20,32 +21,50 @@
 [core]
     editor = nvim
     excludesfile = ~/.gitignore_global
+    pager = diff-so-fancy | less --tabs=4 -RFX
     hooksPath = /usr/local/dd/global_hooks
 
 [diff]
     compactionHeuristic = true
 
-[pager]
-    log = diff-highlight | less
-    show = diff-highlight | less
-    diff = diff-highlight | less
-
 [push]
     default = current
 
 [interactive]
-    diffFilter = diff-highlight
+    diffFilter = diff-so-fancy --patch
 
 [merge]
-    tool = vimdiff
-    conflictstyle = diff3
+    tool = nvim
     prompt = false
+
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 
 [mergetool]
     keepBackup = false
+
 [hub]
     protocol = https
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
+[color]
+    ui = true
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+
+[color "diff"]
+    meta = 11
+    frag = magenta bold
+    func = 146 bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[rebase]
+	autoStash = true

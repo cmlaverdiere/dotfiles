@@ -99,7 +99,7 @@ alias tp='echo $TMUX_PANE'
 alias t='todo.sh'
 alias te='vim ~/Documents/todo/todo.txt'
 alias gcd='git cm -m $(date +%m-%d-%Y)'
-alias nf='terminal-notifier -title "👋" -message "Task complete - Exit status: $?"'
+alias nf='terminal-notifier -title "👋" -message "Task complete - Exit status: $?"; curl -d "Task complete" ntfy.sh/cmlaverdiere_msgs'
 alias vimdiff="nvim -d"
 
 # wbeam() {
@@ -211,14 +211,15 @@ export FZF_DEFAULT_COMMAND='fd --follow --type f'
 
 # Autojump setup
 # [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f $(brew --prefix)/etc/profile.d/autojump.sh ] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # Syntax highlighting
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Reverse history substring search
 # source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^K' history-substring-search-up
@@ -241,8 +242,8 @@ export PYTHONPATH=$PYTHONPATH:.
 # Fix vim colors with gruvbox.
 # source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# export PATH="/usr/local/bin:$PATH"
+# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 # The shitshow
 # export npm_config_prefix=~/.node_modules
@@ -257,7 +258,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 #     adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | xmllint --format -
 # }
 
-export PATH="$PATH:/usr/local/opt/git/share/git-core/contrib/diff-highlight"
+# export PATH="$PATH:/usr/local/opt/git/share/git-core/contrib/diff-highlight"
 # export PATH="/usr/local/sbin:$PATH"
 
 # export PATH="$PATH:/Users/thrash/.gitbin/git-fuzzy/bin"

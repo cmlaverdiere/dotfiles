@@ -15,11 +15,16 @@ vim.cmd([[
   nnoremap - :NvimTreeFindFileToggle<CR>zz
   nnoremap <Leader>lt :LspStop<CR>
   nnoremap <Leader>ls :LspStart<CR>
+  nnoremap <Leader>ch :Chat
+  vnoremap <Leader>ch :Chat
 ]])
 
 require("trouble").setup {
   auto_jump = {}
 }
+
+-- Last I checked this plugin was pretty broken, unfortunate.
+-- require("chatgpt").setup({})
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -38,8 +43,7 @@ require("nvim-tree").setup{
   disable_netrw = false,
   hijack_netrw = false,
   view = {
-    height = 15,
-    side = 'bottom',
+    width = 50,
     mappings = {
       list = {
         { key = "<C-k>", action = "" }
@@ -48,7 +52,7 @@ require("nvim-tree").setup{
   },
   actions = {
     open_file = {
-      quit_on_open = true,
+      quit_on_open = false,
       window_picker = {
         enable = false,
       }
@@ -81,6 +85,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- TODO Fix for python
+  -- vim.keymap.set('n', '<space>=', function() vim.lsp.buf.format { async = true } end, opts)
 end
 
 local servers = {
