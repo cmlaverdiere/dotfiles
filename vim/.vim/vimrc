@@ -232,6 +232,7 @@ nnoremap <Leader>asc ggVG:Tab /;<CR>
 nnoremap <Leader>bb :FZFBuffers<CR>
 nnoremap <Leader>bd :bd<CR>
 " nnoremap <Leader>c :make -j9<CR>
+nnoremap <Leader>ct :!com2ann %<CR>:e<CR>
 nnoremap <Leader>d2 :windo diffthis<CR>
 nnoremap <Leader>do :diffoff<CR>
 nnoremap <Leader>ea :EnableAutoread<CR>
@@ -512,6 +513,24 @@ nmap <leader>s <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 nmap <leader>sl <Plug>SlimeConfig<CR>
 
+" Vim-slime key mappings
+function! SlimeConfig(direction)
+  if a:direction == 'h'
+    let g:slime_default_config.target_pane = "{left-of}"
+  elseif a:direction == 'j'
+    let g:slime_default_config.target_pane = "{down-of}"
+  elseif a:direction == 'k'
+    let g:slime_default_config.target_pane = "{up-of}"
+  elseif a:direction == 'l'
+    let g:slime_default_config.target_pane = "{right-of}"
+  endif
+endfunction
+
+nnoremap <silent> <Leader>lh :call SlimeConfig('h')<CR>
+nnoremap <silent> <Leader>lj :call SlimeConfig('j')<CR>
+nnoremap <silent> <Leader>lk :call SlimeConfig('k')<CR>
+nnoremap <silent> <Leader>ll :call SlimeConfig('l')<CR>
+
 " Disable ftplugin-mail maps.
 let no_mail_maps=1
 
@@ -550,6 +569,12 @@ au BufRead,BufNewFile *.hurl set filetype=http
 " Disable csv mode
 au BufRead,BufNewFile *.csv set filetype=txt
 
+" Consul-config repo json override
+augroup MyRepoAutocmds
+    autocmd!
+    autocmd BufRead,BufNewFile ~/go/src/github.com/DataDog/consul-config/** set filetype=json
+augroup END
+
 let $BAT_THEME='gruvbox-dark'
 
 set background=dark
@@ -562,3 +587,5 @@ colorscheme zenwritten
 set noautoread
 
 set nospell
+
+

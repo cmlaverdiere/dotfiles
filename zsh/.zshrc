@@ -263,6 +263,8 @@ export PYTHONPATH=$PYTHONPATH:.
 
 # export PATH="$PATH:/Users/thrash/.gitbin/git-fuzzy/bin"
 
+
+
 export BAT_THEME=gruvbox-dark
 
 export DIRENV_LOG_FORMAT=

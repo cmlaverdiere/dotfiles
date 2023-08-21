@@ -94,6 +94,7 @@ local servers = {
   "tsserver",
   "pyright",
   "gopls",
+  "rust_analyzer",
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -122,14 +123,19 @@ require'lspconfig'.pyright.setup{
   }
 }
 
-require('lspconfig').jsonls.setup {
-  on_attach = on_attach,
-  settings = {
-    json = {
-      schemas = require('schemastore').json.schemas(),
-    },
-  },
-}
+-- require'lspconfig'.tsserver.setup{
+--     on_attach = on_attach,
+--     cmd = {"node", "--max-old-space-size=12288", "/opt/homebrew/bin/typescript-language-server", "--tsserver-path", "/Users/chris.laverdiere/go/src/github.com/DataDog/web-ui/tsconfig.json", "--stdio"},
+-- }
+
+-- require('lspconfig').jsonls.setup {
+--   on_attach = on_attach,
+--   settings = {
+--     json = {
+--       schemas = require('schemastore').json.schemas(),
+--     },
+--   },
+-- }
 
 require'lspconfig'.sumneko_lua.setup {
   on_attach = on_attach,
