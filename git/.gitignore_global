@@ -1,3 +1,5 @@
+*gpt_dump*
+widb*
 *.o
 *~
 \#*
@@ -22,3 +24,5 @@ compile_commands.json
 *.pyc
 go.mod
 go.sum
+metrics_apiv2_pb
+metrics_origin_pb

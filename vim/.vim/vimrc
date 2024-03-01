@@ -95,8 +95,8 @@ call plug#begin('~/.vim/plugged')
 " Plug 'beyondmarc/opengl.vim', { 'for': ['c', 'cpp'] }
 Plug 'tikhomirov/vim-glsl'
 " Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
 Plug 'SirVer/ultisnips'
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
@@ -140,8 +140,9 @@ Plug 'freitass/todo.txt-vim'
 Plug 'tommcdo/vim-exchange'
 " Plug 'plasticboy/vim-markdown'
 " Plug 'dkarter/bullets.vim'
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+" Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'preservim/nerdtree'
+Plug 'dhruvasagar/vim-table-mode'
 if has('nvim')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
@@ -162,6 +163,9 @@ if has('nvim')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'jackMort/ChatGPT.nvim'
     Plug 'dpayne/CodeGPT.nvim'
+    " Plug 'github/copilot.vim'
+    Plug 'zbirenbaum/copilot.lua'
+    Plug 'gbprod/yanky.nvim'
 else
     Plug 'morhetz/gruvbox'
 endif
@@ -225,7 +229,7 @@ command! -nargs=1 E call s:EditSameDir(<f-args>)
 " Leader Mappings
 nmap <Leader>ga <Plug>(altr-forward)
 nnoremap <Leader>aes :s/\(\w\)/\U\1 <CR>:nohl<CR>
-nnoremap <Leader>C :BCommits<CR>
+nnoremap <Leader>C :FZFBCommits<CR>
 nnoremap <Leader>T :!ctags -R<CR><CR>
 nnoremap <Leader>V :sp<CR>
 nnoremap <Leader>asc ggVG:Tab /;<CR>
@@ -316,8 +320,8 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 let g:ale_python_pylint_use_global = 1
-let g:ale_python_black_options = "--line-length 120 -t py27"
-let g:ale_python_black_executable = "/Users/chris.laverdiere/venv3/bin/black"
+" let g:ale_python_black_options = "--line-length 120 -t py27"
+" let g:ale_python_black_executable = "/Users/chris.laverdiere/venv3/bin/black"
 " let g:ale_typescript_tsserver_use_global=1
 " TODO Get html linter working.
 let g:ale_linters = {
@@ -425,48 +429,49 @@ au FileType python setlocal makeprg=pylint\ -r\ n\ -f\ parseable\ %
 au FileType python setlocal textwidth=120
 
 " Python jedi
-let g:jedi#auto_initialization = 0
-let g:jedi#show_call_signatures = 0
-aug jedi_group
-    au!
-    " au Filetype python call jedi#configure_call_signatures()
-    au Filetype python setlocal omnifunc=jedi#completions
-    au Filetype python nnoremap <silent> <buffer> K
-        \ :call jedi#show_documentation()<CR>
-    au Filetype python nnoremap <silent> <buffer> g
-        \ :call jedi#goto()<CR>
-    au Filetype python nnoremap <silent> <buffer> <leader>fu
-        \ :call jedi#usages()<CR>
-    au Filetype python nnoremap <silent> <buffer> <leader>rf
-        \ :call jedi#rename()<CR>
-aug END
+" let g:jedi#auto_initialization = 0
+" let g:jedi#show_call_signatures = 0
+" aug jedi_group
+"     au!
+"     " au Filetype python call jedi#configure_call_signatures()
+"     au Filetype python setlocal omnifunc=jedi#completions
+"     au Filetype python nnoremap <silent> <buffer> K
+"         \ :call jedi#show_documentation()<CR>
+"     au Filetype python nnoremap <silent> <buffer> g
+"         \ :call jedi#goto()<CR>
+"     au Filetype python nnoremap <silent> <buffer> <leader>fu
+"         \ :call jedi#usages()<CR>
+"     au Filetype python nnoremap <silent> <buffer> <leader>rf
+"         \ :call jedi#rename()<CR>
+" aug END
 
 au Filetype python nnoremap <buffer> <leader>db mmOimport pdb; pdb.set_trace()'m
 
 " Rust racer
-let g:racer_no_default_keymappings = 1
-let g:racer_cmd = "/Users/thrash/.cargo/bin/racer"
-aug rust_group
-    au!
-    au Filetype rust compiler rustc
-    au Filetype rust nmap <buffer> g <Plug>(rust-def)
-    au Filetype rust nmap <buffer> K <Plug>(rust-doc)
-    au Filetype rust let g:ale_rust_cargo_use_clippy=1
-aug END
+" let g:racer_no_default_keymappings = 1
+" let g:racer_cmd = "/Users/thrash/.cargo/bin/racer"
+" aug rust_group
+"     au!
+"     au Filetype rust compiler rustc
+"     au Filetype rust nmap <buffer> g <Plug>(rust-def)
+"     au Filetype rust nmap <buffer> K <Plug>(rust-doc)
+"     au Filetype rust let g:ale_rust_cargo_use_clippy=1
+" aug END
 
 " Go
-" aug go_group
-"     let g:go_fmt_autosave = 0
-"     let g:go_def_mapping_enabled = 0
-"     let g:go_highlight_space_tab_error = 0
-"     let g:go_highlight_trailing_whitespace_error = 0
-"     let g:go_highlight_array_whitespace_error = 0
-"     au Filetype go nnoremap <buffer> <leader>= :GoFmt<CR>
-"     au Filetype go nmap <buffer> <leader>i :GoImports<CR>
-"     au Filetype go nmap <buffer> K <Plug>(go-doc-split)
-"     au Filetype go nmap <buffer> g <Plug>(go-def)
-"     au Filetype go xnoremap <buffer> <leader>= !gofmt<CR>
-" aug END
+aug go_group
+    " let g:go_fmt_autosave = 0
+    " let g:go_def_mapping_enabled = 0
+    " let g:go_highlight_space_tab_error = 0
+    " let g:go_highlight_trailing_whitespace_error = 0
+    " let g:go_highlight_array_whitespace_error = 0
+    " au Filetype go nnoremap <buffer> <leader>= :GoFmt<CR>
+    " au Filetype go nmap <buffer> <leader>i :GoImports<CR>
+    " au Filetype go nmap <buffer> K <Plug>(go-doc-split)
+    " au Filetype go nmap <buffer> g <Plug>(go-def)
+    " au Filetype go xnoremap <buffer> <leader>= !gofmt<CR>
+    set tabstop=4
+aug END
 
 " Markdown compatibility.
 let g:vim_markdown_auto_insert_bullets = 0
@@ -503,7 +508,7 @@ aug END
 
 " Slime (for REPLs)
 let g:slime_target = 'tmux'
-let g:slime_paste_file = '$HOME/.slime_paste'
+" let g:slime_paste_file = '$HOME/.slime_paste'
 let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{down-of}'}
 let g:slime_no_mappings = 1
 let g:slime_dont_ask_default = 1
@@ -582,6 +587,9 @@ set background=dark
 " colorscheme gruvbox
 autocmd ColorScheme zenwritten lua require "customize_zenbones"
 colorscheme zenwritten
+
+" vim-table-mode
+let g:table_mode_corner = '|'
 
 " Commands that must be run after everything
 set noautoread

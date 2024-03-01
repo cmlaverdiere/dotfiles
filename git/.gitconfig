@@ -6,6 +6,7 @@
 [alias]
     aa = add -A
     br = branch
+    brd = for-each-ref --sort='authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
     ce = config -e
     cm = commit
     cmn = commit --no-verify
@@ -36,6 +37,7 @@
 [merge]
     tool = nvim
     prompt = false
+    commit = no
 
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"

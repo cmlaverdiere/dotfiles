@@ -10,18 +10,53 @@ vim.cmd([[
   let g:vimsyn_embed= 'l'
 
   nnoremap <Leader>fei :e ~/.config/nvim/init.lua<CR>
-  nnoremap <silent> <Leader>gh :DiffviewFileHistory<CR>
+  nnoremap <silent> <Leader>gh :DiffviewFileHistory %<CR>
   nnoremap <silent> <Leader>tr :TroubleToggle document_diagnostics<CR>
   nnoremap - :NvimTreeFindFileToggle<CR>zz
   nnoremap <Leader>lt :LspStop<CR>
   nnoremap <Leader>ls :LspStart<CR>
   nnoremap <Leader>ch :Chat
   vnoremap <Leader>ch :Chat
+  nnoremap <Leader>cp :Copilot<CR>
+  vnoremap <Leader>cp :Copilot<CR>
+  nnoremap <silent> <Leader>yh :lua YankHistoryWithFZF()<CR>
 ]])
 
 require("trouble").setup {
   auto_jump = {}
 }
+
+require("copilot").setup({
+  suggestion = {
+    auto_trigger = true,
+    keymap = {
+      accept = "<C-Y>",
+    },
+  },
+  panel = {
+    auto_refresh = true,
+  },
+})
+
+require("yanky").setup({
+  ring = {
+    history_length = 1000,
+  },
+  system_clipboard = {
+    sync_with_ring = true,
+  },
+})
+
+function YankHistoryWithFZF()
+  local yank_history = require('yanky.history').all()
+  local yank_texts = vim.tbl_map(function(entry) return entry.regcontents end, yank_history)
+  vim.fn['fzf#run'](vim.fn['fzf#wrap']({
+    source = yank_texts,
+    sink = function(selected_text)
+      vim.fn.setreg('+', selected_text)
+    end
+  }))
+end
 
 -- Last I checked this plugin was pretty broken, unfortunate.
 -- require("chatgpt").setup({})
@@ -44,11 +79,6 @@ require("nvim-tree").setup{
   hijack_netrw = false,
   view = {
     width = 50,
-    mappings = {
-      list = {
-        { key = "<C-k>", action = "" }
-      }
-    }
   },
   actions = {
     open_file = {
@@ -85,9 +115,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
   -- TODO Fix for python
-  -- vim.keymap.set('n', '<space>=', function() vim.lsp.buf.format { async = true } end, opts)
+  if vim.bo.filetype ~= 'python' then
+    vim.keymap.set('n', '<space>=', function() vim.lsp.buf.format { async = true } end, opts)
+  end
 end
+
 
 local servers = {
   "jsonls",
@@ -108,6 +142,10 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+require'lspconfig'.rust_analyzer.setup{
+  on_attach = on_attach
+}
+
 require'lspconfig'.gopls.setup{
   on_attach = on_attach
 }
@@ -123,9 +161,30 @@ require'lspconfig'.pyright.setup{
   }
 }
 
--- require'lspconfig'.tsserver.setup{
---     on_attach = on_attach,
---     cmd = {"node", "--max-old-space-size=12288", "/opt/homebrew/bin/typescript-language-server", "--tsserver-path", "/Users/chris.laverdiere/go/src/github.com/DataDog/web-ui/tsconfig.json", "--stdio"},
+require'lspconfig'.tsserver.setup {
+    on_attach = on_attach,
+    init_options = {
+        maxTsServerMemory = 12288
+    }
+}
+
+-- Potentially faster
+-- https://github.com/yioneko/nvim-vtsls
+-- https://github.com/folke/neoconf.nvim to apply vscode settings to vtsls (import styles and tscode max memory config)
+-- https://github.com/akinsho/toggleterm.nvim with following autocmd configuration for unit test running
+-- require'lspconfig'.vtsls.setup {
+--     settings = {
+--         typescript = {
+--             tsserver = {
+--                 maxTsServerMemory = 12288,
+--                 watchOptions = {
+--                     excludeDirectories = {"**/node_modules", "**/.yarn"},
+--                     excludeFiles =  {".pnp.cjs"}
+--                 }
+--             },
+--             tsdk = "/Users/chris.laverdiere/dd/web-ui/.yarn/sdks/typescript/lib"
+--         }
+--     }
 -- }
 
 -- require('lspconfig').jsonls.setup {
@@ -137,29 +196,30 @@ require'lspconfig'.pyright.setup{
 --   },
 -- }
 
-require'lspconfig'.sumneko_lua.setup {
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+-- TODO Move to lua_ls
+-- require'lspconfig'.sumneko_lua.setup {
+--   on_attach = on_attach,
+--   settings = {
+--     Lua = {
+--       runtime = {
+--         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--         version = 'LuaJIT',
+--       },
+--       diagnostics = {
+--         -- Get the language server to recognize the `vim` global
+--         globals = {'vim'},
+--       },
+--       workspace = {
+--         -- Make the server aware of Neovim runtime files
+--         library = vim.api.nvim_get_runtime_file("", true),
+--       },
+--       -- Do not send telemetry data containing a randomized but unique identifier
+--       telemetry = {
+--         enable = false,
+--       },
+--     },
+--   },
+-- }
 
 -- require("null-ls").setup({
 --     debug = true,

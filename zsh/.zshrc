@@ -99,7 +99,7 @@ alias tp='echo $TMUX_PANE'
 alias t='todo.sh'
 alias te='vim ~/Documents/todo/todo.txt'
 alias gcd='git cm -m $(date +%m-%d-%Y)'
-alias nf='terminal-notifier -title "👋" -message "Task complete - Exit status: $?"; curl -d "Task complete" ntfy.sh/cmlaverdiere_msgs'
+alias nf='terminal-notifier -title "👋" -message "Task complete - Exit status: $?"; curl -d "Task complete" ntfy.sh/cmlaverdiere_new'
 alias vimdiff="nvim -d"
 
 # wbeam() {
@@ -215,6 +215,7 @@ export FZF_DEFAULT_COMMAND='fd --follow --type f'
 
 # Syntax highlighting
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Reverse history substring search
 # source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -262,8 +263,7 @@ export PYTHONPATH=$PYTHONPATH:.
 # export PATH="/usr/local/sbin:$PATH"
 
 # export PATH="$PATH:/Users/thrash/.gitbin/git-fuzzy/bin"
-
-
+# export PATH="$PATH:$HOME/.config/emacs/bin"
 
 export BAT_THEME=gruvbox-dark
 
